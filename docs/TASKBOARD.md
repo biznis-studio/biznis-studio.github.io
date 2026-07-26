@@ -230,6 +230,18 @@
 - [ ] Affiliate links / newsletter platform (both need their own account,
       deferred behind proving out Gumroad first)
 
+## Done (iteration 16) — full quality audit across all 10 live pages
+- [x] Systematically checked title/subtitle/schema/CTA on every single
+      live page instead of only spot-checking the newest ones
+- [x] Found and fixed a real bug: the download button read "Download
+      swipe_file" - the raw internal format string, underscore visible -
+      on both new swipe_file products. Added `DOWNLOAD_LABEL_BY_FORMAT` so
+      button text is always real words ("scripts", "prompts"), not a
+      format identifier.
+- [x] Rebuilt and re-verified all 10 pages; confirmed the calculator's
+      lack of a download button is correct by design (the tool itself is
+      the deliverable), not a missed case
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

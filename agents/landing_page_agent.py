@@ -46,6 +46,15 @@ DOWNLOADS_DIR = SITE_DIR / "downloads"
 # not discover/index the site at all for a long time.
 GOOGLE_SITE_VERIFICATION = os.environ.get("GOOGLE_SITE_VERIFICATION", "")
 
+# Human-readable download-button labels - fmt.replace("_", " ") alone would
+# still read as internal jargon for some formats ("swipe file" isn't a term
+# most visitors recognize; found this after "Download swipe_file" - with
+# the underscore visible - shipped to production).
+DOWNLOAD_LABEL_BY_FORMAT = {
+    "swipe_file": "scripts",
+    "prompt_pack": "prompts",
+}
+
 PAGE_CSS = """
   :root { color-scheme: light dark; }
   body { font-family: -apple-system, system-ui, sans-serif; max-width: 720px;
@@ -163,8 +172,9 @@ def build_page(product: dict) -> Optional[dict]:
             else:  # checklist, prompt_pack, template - fine as their native file
                 download_name = src_path.name
                 shutil.copyfile(src_path, DOWNLOADS_DIR / download_name)
+            label = DOWNLOAD_LABEL_BY_FORMAT.get(fmt, fmt.replace("_", " "))
             cta = (f'<a class="button" href="../downloads/{html.escape(download_name)}" '
-                   f'download>Download {html.escape(fmt)}</a>')
+                   f'download>Download {html.escape(label)}</a>')
 
         body_html = (f"<h1>{html.escape(title)}</h1>\n{intro_html}\n"
                      f'<div class="card">{body}</div>\n{cta}')
