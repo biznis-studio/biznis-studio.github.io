@@ -34,8 +34,17 @@
       same thing as consumer-content market saturation — logged in
       ROADMAP.md rather than presented as solved
 
+## Done (iteration 4)
+- [x] Niche Clustering Agent (`agents/niche_agent.py`): union-find over
+      keywords that co-occurred in the same underlying signal
+- [x] Verified the clustering + DB-insertion logic is correct with a
+      synthetic co-occurring pair on a scratch DB copy
+- [x] Confirmed 0 niches on the real run is an honest data-sparsity result
+      (single-word keywords, ~230 signals/run), not a bug — documented in
+      ROADMAP.md rather than papered over
+
 ## In progress / next
-- [ ] Niche clustering (populate `niches` / `niche_keywords`)
+- [ ] Decide: push repo to GitHub + enable the scheduled Action (needs your go-ahead)
 
 ## Backlog (see ROADMAP.md for detail and ordering rationale)
 - [ ] LLM-assisted ideation (Ollama or OpenRouter — needs your decision)

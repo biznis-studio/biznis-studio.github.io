@@ -12,10 +12,18 @@ Re-evaluate this ordering every iteration — see TASKBOARD.md.
    a 25%-weighted opportunity component. See known limitations below - this
    works well for developer-tool-shaped ideas, poorly for generic single
    words.
-2. **Niche clustering** — currently `niches`/`niche_keywords` are unused.
-   Group related keywords (e.g. via simple co-occurrence or, once available,
-   embeddings from a local model) so product ideas target a *cluster* of
-   validated demand, not one isolated keyword.
+2. ~~**Niche clustering**~~ — done: `agents/niche_agent.py` links keywords
+   extracted from the *same* underlying signal (same HN title, same SE
+   question) via union-find; connected components of size 2+ become a
+   niche. Verified the mechanism works correctly with a synthetic
+   co-occurring pair, but it found **zero real niches on the first run** -
+   with ~230 signals/run and most surviving keywords being single,
+   lexically distinct words (checklist, invoice, spreadsheet...), no two
+   currently ever share the same sentence. This is an honest data-sparsity
+   result, not a bug - expect real niches to emerge as run history
+   accumulates, and revisit with embedding-based semantic clustering (see
+   #4) since that could group "invoice" + "spreadsheet" + "template" as
+   related even without any shared substring.
 3. ~~**Content/Template Agent**~~ — done: `agents/content_agent.py` authors
    calculator/checklist/template/prompt_pack ideas as real, usable files;
    ebook/sop ship as outline skeletons (`status='draft'`) since they need

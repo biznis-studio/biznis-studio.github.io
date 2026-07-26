@@ -167,6 +167,31 @@ def upsert_keywords(candidates: dict[str, dict], run_id: int, min_occurrences: i
     return keyword_ids
 
 
+def terms_per_signal(run_id: int, allowed_terms: set) -> list[list[str]]:
+    """For each signal row in the run, return the subset of its extracted
+    terms that are in `allowed_terms` (typically: terms that survived into
+    the `keywords` table). Two terms extracted from the same signal row
+    "co-occurred" - e.g. both appeared in the same Hacker News title, or
+    are the same Wikipedia article - which is the raw material the Niche
+    Agent uses to cluster related keywords."""
+    conn = get_connection()
+    rows = conn.execute(
+        "SELECT source, term FROM signals_raw WHERE run_id = ?", (run_id,),
+    ).fetchall()
+    conn.close()
+
+    groups = []
+    for row in rows:
+        if row["source"] in ATOMIC_SOURCES:
+            terms = [normalize_atomic(row["term"])]
+        else:
+            terms = significant_ngrams(row["term"])
+        kept = [t for t in terms if t in allowed_terms]
+        if kept:
+            groups.append(kept)
+    return groups
+
+
 def run(run_id: int) -> list[int]:
     init_db()
     candidates = extract_candidates(run_id)

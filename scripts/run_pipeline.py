@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Orchestrator: runs one full iteration of the discovery + creation loop -
 
-    Market Research -> Keyword Discovery -> Demand Scoring (pass 1)
-        -> Competition Analysis -> Demand Scoring (pass 2, re-blend)
-        -> Product Ideas -> Content Generation
+    Market Research -> Keyword Discovery -> Niche Clustering
+        -> Demand Scoring (pass 1) -> Competition Analysis
+        -> Demand Scoring (pass 2, re-blend) -> Product Ideas
+        -> Content Generation
 
 and exports a JSON + CSV report to data/exports/. This is the single
 entrypoint used both locally and by the GitHub Actions schedule.
@@ -17,7 +18,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from agents import (competitor_agent, content_agent, demand_scoring_agent,
-                     keyword_agent, market_research_agent, product_agent)
+                     keyword_agent, market_research_agent, niche_agent, product_agent)
 from agents.common import now_iso
 from core.db import get_connection
 
@@ -76,6 +77,7 @@ def export_report(run_id: int) -> Path:
 def main() -> int:
     run_id = market_research_agent.run()
     keyword_agent.run(run_id)
+    niche_agent.run(run_id)
     demand_scoring_agent.score_run(run_id)
     competitor_agent.run(run_id)
     demand_scoring_agent.apply_competition(run_id)

@@ -27,14 +27,16 @@ Output:
 ## The loop (current implementation)
 
 ```
-Market Research → Keyword Discovery → Demand Scoring (1) → Competition Analysis
-      → Demand Scoring (2, re-blend) → Product Ideas → Content Generation
+Market Research → Keyword Discovery → Niche Clustering → Demand Scoring (1)
+      → Competition Analysis → Demand Scoring (2, re-blend) → Product Ideas
+      → Content Generation
 ```
 
 | Stage | Agent | File |
 |---|---|---|
 | Market research + trend detection | Market Research Agent | [agents/market_research_agent.py](agents/market_research_agent.py) |
 | Keyword discovery | Keyword Agent | [agents/keyword_agent.py](agents/keyword_agent.py) |
+| Niche clustering (co-occurrence) | Niche Agent | [agents/niche_agent.py](agents/niche_agent.py) |
 | Demand scoring (2 passes) | Demand Scoring Agent | [agents/demand_scoring_agent.py](agents/demand_scoring_agent.py) |
 | Competition analysis (top-20 shortlist) | Competitor Agent | [agents/competitor_agent.py](agents/competitor_agent.py) |
 | Product ideation | Product Agent | [agents/product_agent.py](agents/product_agent.py) |

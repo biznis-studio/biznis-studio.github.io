@@ -1,6 +1,6 @@
 {
   "run_id": 1,
-  "generated_at": "2026-07-26T16:13:00.069360+00:00",
+  "generated_at": "2026-07-26T16:25:52.730536+00:00",
   "run_status": "success",
   "signals_by_source": {
     "github": 30,
@@ -271,7 +271,7 @@
       "id": 9,
       "title": "The Practical Guide to There Way",
       "format": "ebook",
-      "demand_score": 0.3211111111111111,
+      "demand_score": 0.3227777777777778,
       "rationale": "No specific format pattern matched; a short practical guide is the safe general-purpose format.",
       "status": "built",
       "product_file_path": "data/exports/products/0009-the-practical-guide-to-there-way.md",

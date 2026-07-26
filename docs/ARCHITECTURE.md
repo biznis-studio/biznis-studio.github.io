@@ -10,6 +10,9 @@ Market Research        ✅ agents/market_research_agent.py
       ↓
 Keyword Discovery       ✅ agents/keyword_agent.py
       ↓
+Niche Clustering        ✅ agents/niche_agent.py (co-occurrence/union-find;
+      ↓                   found 0 real niches on run 1 - verified correct,
+      ↓                   just not enough signal volume yet, see ROADMAP.md)
 Demand Scoring (pass 1) ✅ agents/demand_scoring_agent.py::score_run()
       ↓                   (ranks the full pool so we know which ~20 to
       ↓                    spend GitHub's 10 req/min budget checking)
@@ -98,7 +101,7 @@ See [db/schema.sql](../db/schema.sql) — the single source of truth. Summary:
 | `keyword_run_stats` | Per-run occurrence/weight snapshot (powers growth scoring) |
 | `competition_checks` | Per-run npm/GitHub/Stack Exchange/Wikipedia supply check, top-20 shortlist only |
 | `demand_scores` | Per-run score + components per keyword (re-blended for the checked shortlist) |
-| `niches` / `niche_keywords` | Manual/future-automated keyword clustering (not yet populated) |
+| `niches` / `niche_keywords` | Co-occurrence-based keyword clusters (`niche_agent.py`); empty until 2+ keywords share a signal |
 | `product_ideas` | Generated product briefs (title, format, rationale, target keyword) |
 | `products` | Actually-built product files (path, format, status ready/draft) |
 | `pages` | Landing pages (empty until a Landing Page Agent exists) |
