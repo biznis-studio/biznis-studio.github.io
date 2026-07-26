@@ -77,10 +77,17 @@ Re-evaluate this ordering every iteration — see TASKBOARD.md.
 
 ## Explicitly deferred / needs a human decision
 
-- **Monetization integrations** (affiliate links, Gumroad/Lemonsqueezy for
-  digital downloads, newsletter platform) — these involve creating accounts
-  and agreeing to third-party terms, which this system will flag for you
-  rather than do autonomously.
+- **Monetization: Gumroad chosen, awaiting the user's account + first listing**
+  (decided 2026-07-26). The mechanism is built: `products.monetization_url`
+  (nullable) - when set, `landing_page_agent.py` replaces the free download
+  link with a "Get it on Gumroad" CTA and stops copying that file into
+  `site/downloads/` (no point undermining a paid listing by also giving it
+  away next to it). Tested end-to-end with a placeholder URL, then
+  reverted - real integration is waiting on the user to (1) create a free
+  Gumroad account, (2) list a product, (3) give the resulting URL. This
+  system does not create payment/seller accounts on anyone's behalf.
+  Affiliate links and a newsletter platform remain deferred behind this
+  same account-creation constraint - revisit once Gumroad is proven out.
 - ~~**GitHub remote**~~ — done 2026-07-26: pushed to
   https://github.com/fwwk4pb868-afk/biznis (public), scheduled Action
   verified working end-to-end (manual run succeeded, bot commit landed).

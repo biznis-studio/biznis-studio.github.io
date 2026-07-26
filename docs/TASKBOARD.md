@@ -100,15 +100,34 @@
       9 existing product_ideas rows that had the old text
 - [x] Built + SEO-enhanced the new page, verified in-browser
 
+## Done (iteration 9) — monetization infrastructure
+- [x] User decided: Gumroad first (over affiliate links / newsletter), to
+      generate actual profit rather than keep building free-only infra
+- [x] Added `products.monetization_url` (nullable, via DB migration).
+      `landing_page_agent.py`: when set, the CTA becomes "Get it on
+      Gumroad" and the file stops being copied into `site/downloads/` -
+      no point undermining a paid listing with a free copy next to it
+- [x] Fixed `blurb_for()` to say "Paid" instead of always "Free" once a
+      product is monetized - would've been a false claim otherwise
+- [x] Tested the whole mechanism end-to-end with a placeholder Gumroad URL,
+      confirmed the CTA/meta-description swap correctly, then reverted to
+      the free state (no real listing exists yet)
+- [ ] **Waiting on the user**: create a free Gumroad account, list one
+      product, send the resulting URL - this system does not create
+      payment/seller accounts on anyone's behalf
+
 ## In progress / next
+- [ ] Wire in the real Gumroad URL once received, rebuild that page, verify, ship
 - [ ] Decide: set up Cloudflare Web Analytics (needs your account) so
       Analytics Agent has real traffic data to read
 
 ## Backlog (see ROADMAP.md for detail and ordering rationale)
-- [ ] Analytics Agent (blocked on the above)
+- [ ] Analytics Agent (blocked on Cloudflare account decision above)
 - [ ] Conversion analysis + feedback loop back into demand scoring
 - [ ] Write real prose for the remaining draft ebooks (productivity,
       xlsx, appium, gantt chart - see `products` table for status='draft')
+- [ ] Affiliate links / newsletter platform (both need their own account,
+      deferred behind proving out Gumroad first)
 
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)

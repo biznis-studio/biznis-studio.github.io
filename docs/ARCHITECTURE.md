@@ -117,7 +117,7 @@ See [db/schema.sql](../db/schema.sql) — the single source of truth. Summary:
 | `demand_scores` | Per-run score + components per keyword (re-blended for the checked shortlist) |
 | `niches` / `niche_keywords` | Co-occurrence-based keyword clusters (`niche_agent.py`); empty until 2+ keywords share a signal |
 | `product_ideas` | Generated product briefs (title, format, rationale, target keyword) |
-| `products` | Actually-built product files (path, format, status ready/draft) |
+| `products` | Actually-built product files (path, format, status ready/draft); `monetization_url` set once a product is listed for sale |
 | `pages` | Landing pages for "ready" products (`landing_page_agent.py`); `status` stays 'draft' until deployed; `seo_enhanced` flags whether `seo_agent.py` already processed it |
 | `analytics_events` | Traffic/conversion events (empty until publishing exists) |
 
@@ -161,3 +161,10 @@ See [db/schema.sql](../db/schema.sql) — the single source of truth. Summary:
   as a second job in `pipeline.yml`, rather than GitHub Pages' classic
   branch-based source, since `site/` lives in a subdirectory of the repo
   (classic Pages only supports `/` or `/docs`).
+- **Monetization is a nullable URL, not a payment integration.**
+  `products.monetization_url` is the entire mechanism: unset means "free
+  download," set means "link to that URL instead, and stop giving the file
+  away for free next to it." No payment processing, checkout flow, or
+  API keys live in this codebase - Gumroad (or whatever's chosen) handles
+  all of that on its own platform, since this system doesn't create
+  payment/seller accounts on the user's behalf.

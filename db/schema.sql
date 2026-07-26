@@ -114,6 +114,7 @@ CREATE TABLE IF NOT EXISTS products (
     format TEXT NOT NULL,
     file_path TEXT,
     status TEXT NOT NULL DEFAULT 'draft', -- draft | ready | published
+    monetization_url TEXT, -- set once a product is listed for sale (e.g. Gumroad); NULL = free download
     created_at TEXT NOT NULL,
     published_at TEXT
 );

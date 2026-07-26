@@ -20,6 +20,7 @@ def get_connection() -> sqlite3.Connection:
 # need an explicit ALTER TABLE to pick up new columns.
 MIGRATIONS = [
     ("pages", "seo_enhanced", "INTEGER NOT NULL DEFAULT 0"),
+    ("products", "monetization_url", "TEXT"),
 ]
 
 

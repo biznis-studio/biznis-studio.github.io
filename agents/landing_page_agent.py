@@ -13,9 +13,12 @@ Per-format rendering:
     paragraphs, hr) into the page body, plus a download link to the raw file.
   - template (CSV): rendered as an HTML preview table, plus a download link.
 
-No SEO markup (schema.org, sitemap, meta robots) yet - that's the next
-agent in the roadmap. `pages.status` stays 'draft' until an actual
-Publishing agent deploys `site/` somewhere.
+If `products.monetization_url` is set (e.g. a Gumroad listing - set
+manually once the user creates one, this system doesn't create payment
+accounts on anyone's behalf), the download link is replaced with a link to
+that listing and the file is *not* also copied into site/downloads/ - no
+point undermining a paid listing by giving the same file away for free
+next to it.
 """
 import csv
 import html
@@ -154,8 +157,9 @@ def inject_intro_into_calculator(html_text: str, intro_html: str, meta_descripti
     return html_text
 
 
-def blurb_for(term: str, format_: str, rationale: str) -> str:
-    return f"Free {format_.replace('_', ' ')} for \"{term}\", generated from real demand signals: {rationale}"
+def blurb_for(term: str, format_: str, rationale: str, monetized: bool) -> str:
+    lead = "Paid" if monetized else "Free"
+    return f"{lead} {format_.replace('_', ' ')} for \"{term}\", generated from real demand signals: {rationale}"
 
 
 def build_page(product: dict) -> Optional[dict]:
@@ -163,12 +167,13 @@ def build_page(product: dict) -> Optional[dict]:
     fmt = product["format"]
     term = product["term"]
     rationale = product["rationale"] or ""
+    monetization_url = product.get("monetization_url")
     src_path = ROOT / product["file_path"]
     if not src_path.exists():
         return None
 
     slug = slugify(title)
-    meta_description = blurb_for(term, fmt, rationale)[:160]
+    meta_description = blurb_for(term, fmt, rationale, bool(monetization_url))[:160]
     intro_html = f'<p class="subtitle">{html.escape(rationale)}</p>'
 
     PAGES_DIR.mkdir(parents=True, exist_ok=True)
@@ -183,14 +188,21 @@ def build_page(product: dict) -> Optional[dict]:
         raw = src_path.read_text()
         if fmt == "template":
             body = csv_to_html_table(raw)
-        else:  # checklist, prompt_pack
+        else:  # checklist, prompt_pack, ebook, sop
             body = markdown_lite_to_html(raw)
-        download_name = src_path.name
-        shutil.copyfile(src_path, DOWNLOADS_DIR / download_name)
+
+        if monetization_url:
+            # Paid listing: don't also give the file away for free alongside it.
+            cta = (f'<a class="button" href="{html.escape(monetization_url)}" '
+                   f'target="_blank" rel="noopener">Get it on Gumroad</a>')
+        else:
+            download_name = src_path.name
+            shutil.copyfile(src_path, DOWNLOADS_DIR / download_name)
+            cta = (f'<a class="button" href="../downloads/{html.escape(download_name)}" '
+                   f'download>Download {html.escape(fmt)}</a>')
+
         body_html = (f"<h1>{html.escape(title)}</h1>\n{intro_html}\n"
-                     f'<div class="card">{body}</div>\n'
-                     f'<a class="button" href="../downloads/{html.escape(download_name)}" '
-                     f'download>Download {html.escape(fmt)}</a>')
+                     f'<div class="card">{body}</div>\n{cta}')
         page_path = PAGES_DIR / f"{slug}.html"
         page_path.write_text(page_shell(title, meta_description, body_html))
 
@@ -224,7 +236,7 @@ def run(run_id: Optional[int] = None) -> list[int]:
     cur = conn.cursor()
 
     query = """SELECT p.id AS product_id, p.title, p.format, p.file_path,
-                      pi.rationale, k.term
+                      p.monetization_url, pi.rationale, k.term
                FROM products p
                JOIN product_ideas pi ON pi.id = p.idea_id
                JOIN keywords k ON k.id = pi.target_keyword_id
