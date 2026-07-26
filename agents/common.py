@@ -53,18 +53,19 @@ GENERIC_SUBJECT_BY_FORMAT = {
     "sop": "getting started",
 }
 
-# term.title() mangles acronyms ("xlsx" -> "Xlsx" instead of "XLSX").
-# Small, explicit override list rather than general acronym detection.
+# term.title() mangles acronyms ("xlsx" -> "Xlsx" instead of "XLSX"). Small,
+# explicit override list rather than general acronym detection - applied
+# per-word so it also fixes multi-word terms like "eu digital seller
+# compliance" -> "EU Digital..." not just single-word terms.
 ACRONYM_OVERRIDES = {
     "xlsx": "XLSX", "csv": "CSV", "pdf": "PDF", "seo": "SEO", "ai": "AI",
     "api": "API", "sql": "SQL", "css": "CSS", "html": "HTML", "url": "URL",
-    "json": "JSON",
+    "json": "JSON", "eu": "EU", "vat": "VAT", "kyc": "KYC", "gdpr": "GDPR",
 }
 
 
 def display_term(term: str) -> str:
-    override = ACRONYM_OVERRIDES.get(term.strip().lower())
-    return override if override else term.title()
+    return " ".join(ACRONYM_OVERRIDES.get(w.lower(), w.title()) for w in term.split())
 
 
 def marketing_blurb(term: str, format_: str, monetized: bool = False) -> str:
@@ -91,47 +92,91 @@ def markdown_lite_to_html(md_text: str) -> str:
     produces: #/## headings, "- [ ] " checklist items, "- " list items,
     "> " blockquotes, "---" rules, and plain paragraphs. Shared by
     landing_page_agent.py (web pages) and scripts/export_pdf.py (PDF
-    downloads) so both never drift into two different parsers."""
+    downloads) so both never drift into two different parsers.
+
+    Every block type here is hand-wrapped across multiple physical lines
+    in the source (for readable line lengths), so this has to merge wrapped
+    lines back into one logical block before emitting a tag - line-by-line
+    classification alone would (and once did) break a wrapped list item
+    into a <li> plus a stray sibling <p>, and a wrapped blockquote into
+    several separate <blockquote> tags instead of one."""
     lines = md_text.splitlines()
-    out = []
+    out: list[str] = []
     in_list = False
+    buffer_type: Optional[str] = None  # 'p' | 'li' | 'li_checked' | 'blockquote'
+    buffer_text: list[str] = []
+
+    def close_list():
+        nonlocal in_list
+        if in_list:
+            out.append("</ul>")
+            in_list = False
+
+    def flush():
+        nonlocal buffer_type, buffer_text
+        if buffer_text:
+            text = html.escape(" ".join(buffer_text).strip())
+            if buffer_type == "li":
+                out.append(f"<li>{text}</li>")
+            elif buffer_type == "li_checked":
+                out.append(f"<li>☐ {text}</li>")
+            elif buffer_type == "blockquote":
+                close_list()
+                out.append(f"<blockquote>{text}</blockquote>")
+            else:  # 'p'
+                close_list()
+                out.append(f"<p>{text}</p>")
+        buffer_text = []
+        buffer_type = None
+
     for line in lines:
         stripped = line.strip()
         if not stripped:
-            if in_list:
-                out.append("</ul>")
-                in_list = False
+            flush()
             continue
         if stripped == "---":
+            flush()
+            close_list()
             continue
         if stripped.startswith("### "):
+            flush()
+            close_list()
             out.append(f"<h3>{html.escape(stripped[4:])}</h3>")
         elif stripped.startswith("## "):
+            flush()
+            close_list()
             out.append(f"<h2>{html.escape(stripped[3:])}</h2>")
         elif stripped.startswith("# "):
+            flush()
+            close_list()
             out.append(f"<h1>{html.escape(stripped[2:])}</h1>")
         elif stripped.startswith("- [ ] "):
+            flush()
             if not in_list:
                 out.append("<ul>")
                 in_list = True
-            out.append(f"<li>☐ {html.escape(stripped[6:])}</li>")
+            buffer_type, buffer_text = "li_checked", [stripped[6:]]
         elif stripped.startswith("- "):
+            flush()
             if not in_list:
                 out.append("<ul>")
                 in_list = True
-            out.append(f"<li>{html.escape(stripped[2:])}</li>")
+            buffer_type, buffer_text = "li", [stripped[2:]]
         elif stripped.startswith("> "):
-            if in_list:
-                out.append("</ul>")
-                in_list = False
-            out.append(f"<blockquote>{html.escape(stripped[2:])}</blockquote>")
+            if buffer_type == "blockquote":
+                buffer_text.append(stripped[2:])  # same quote, wrapped across lines
+            else:
+                flush()
+                buffer_type, buffer_text = "blockquote", [stripped[2:]]
         else:
-            if in_list:
-                out.append("</ul>")
-                in_list = False
-            out.append(f"<p>{html.escape(stripped)}</p>")
-    if in_list:
-        out.append("</ul>")
+            # Continuation of whatever block is open (li/blockquote/p), or
+            # the start of a new paragraph if nothing is open.
+            if buffer_type is None:
+                buffer_type = "p"
+            buffer_text.append(stripped)
+
+    flush()
+    close_list()
     return "\n".join(out)
 
 

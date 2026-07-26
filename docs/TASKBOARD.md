@@ -160,15 +160,50 @@
       is outside what this system should decide, pointed to an "Individual"
       option and financnasprava.sk / an accountant for certainty
 
+## Done (iteration 13) — replaced robotic copy with real marketing copy
+- [x] Every live page's subtitle/meta description was showing
+      `product_ideas.rationale` verbatim - an internal audit note, not
+      marketing copy ("Keyword implies users want to compute something
+      quickly online."). Added `agents.common.marketing_blurb()`: honest,
+      format-specific, visitor-facing copy. `rationale` stays DB-only.
+- [x] Fixed two more real bugs surfaced by this: keyword-equals-format-name
+      echo ("A clear, repeatable checklist for Checklist") and acronym
+      mangling ("Xlsx" instead of "XLSX")
+
+## Done (iteration 14) — real market research, one original product, one critical bug fix
+- [x] User pushback: stop writing more generic keyword-driven ebooks: "be
+      original, do real research." Ran actual web research (not the
+      internal keyword-scraping pipeline) on what digital products
+      genuinely sell in 2026 - finding: hyper-specific audience+problem
+      intersections outsell broad generic guides, which is exactly what
+      our "Practical Guide to X" ebooks are *not*.
+- [x] Built one genuinely original product from that research + this
+      project's own lived experience: "EU Digital Seller Compliance
+      Checklist" - the business-status/VAT/KYC confusion the user hit
+      firsthand this session, generalized into an honest, appropriately-
+      hedged orientation checklist (explicitly not tax/legal advice).
+      Registered as a manually-curated product_idea (`source:
+      manual_research`, not auto-scored) rather than faking a demand signal.
+- [x] Found and fixed a real, previously-invisible rendering bug while
+      reviewing that page: `markdown_lite_to_html()` classified every
+      *physical* line independently, so a word-wrapped bullet point broke
+      into a `<li>` plus a stray sibling `<p>`, and a wrapped blockquote
+      split into several separate `<blockquote>` tags. This affected every
+      previously-published page with a multi-line bullet or quote (i.e.
+      almost all of them) - rewrote the renderer to merge wrapped lines
+      into one logical block before emitting a tag, then rebuilt every page
+      (and every ebook PDF, which shares the same renderer).
+
 ## In progress / next
 - [ ] Decide: set up Cloudflare Web Analytics (needs your account) so
       Analytics Agent has real traffic data to read
+- [ ] Google Search Console verification (paused mid-setup per user's request)
 
 ## Backlog (see ROADMAP.md for detail and ordering rationale)
 - [ ] Analytics Agent (blocked on Cloudflare account decision above)
 - [ ] Conversion analysis + feedback loop back into demand scoring
-- [ ] Write real prose for the remaining draft ebooks (productivity,
-      xlsx, appium, gantt chart - see `products` table for status='draft')
+- [ ] More products from real research (hyper-specific audience+problem
+      intersections), not more generic single-keyword ebooks
 - [ ] Affiliate links / newsletter platform (both need their own account,
       deferred behind proving out Gumroad first)
 

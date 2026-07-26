@@ -182,3 +182,26 @@ See [db/schema.sql](../db/schema.sql) — the single source of truth. Summary:
   whole daily pipeline run; CI explicitly installs Chrome via
   `browser-actions/setup-chrome` rather than trusting the runner image's
   ambient contents.
+- **Visitor-facing copy is never `product_ideas.rationale` verbatim.**
+  Found 2026-07-26 that every single live page's subtitle read like an
+  internal audit log ("Keyword implies users want to compute something
+  quickly online.") because `landing_page_agent.py` displayed `rationale`
+  directly. `agents.common.marketing_blurb()` now generates real,
+  format-specific copy instead; `rationale` stays in the DB purely as an
+  audit trail of why the agent picked an idea, never shown to a visitor.
+- **`markdown_lite_to_html()` merges wrapped lines into one logical block
+  before emitting a tag.** The original version classified each physical
+  line independently, so a bullet or blockquote wrapped across multiple
+  lines in the source (done for readable line lengths) broke into a `<li>`
+  plus a stray sibling `<p>`, or several separate `<blockquote>` tags. This
+  silently affected nearly every previously-published page. Fixed by
+  buffering each block's text across lines and only flushing it to a tag
+  once a blank line or a new block marker appears.
+- **Not every product idea has to come from the automated keyword
+  pipeline.** `product_ideas.target_keyword_id` is nullable and
+  `keywords.sources_json` accepts a `"manual_research"` tag for exactly
+  this: a genuinely researched, hyper-specific idea (see
+  "EU Digital Seller Compliance Checklist") registered the same way an
+  auto-discovered one would be, just without pretending a scraped signal
+  drove it. `demand_score`/`latest_score` stay NULL for these - there's
+  nothing to fake a number for.

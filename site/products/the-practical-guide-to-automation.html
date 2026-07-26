@@ -31,106 +31,33 @@
 <h1>The Practical Guide to Automation</h1>
 <p class="subtitle">A focused guide to Automation you can read in about 15 minutes and put to use today.</p>
 <div class="card"><h1>The Practical Guide to Automation</h1>
-<p>Automation means getting a computer to do a repetitive task for you instead</p>
-<p>of doing it by hand every time. That&#x27;s the whole idea. Everything else in</p>
-<p>this guide is just detail on how to do that well instead of badly.</p>
+<p>Automation means getting a computer to do a repetitive task for you instead of doing it by hand every time. That&#x27;s the whole idea. Everything else in this guide is just detail on how to do that well instead of badly.</p>
 <h2>Why automation matters right now</h2>
-<p>Most people don&#x27;t automate because they&#x27;re lazy - they automate because</p>
-<p>manual, repetitive work is where mistakes creep in, and because the ten</p>
-<p>minutes you spend on a task today is the same ten minutes you&#x27;ll spend on</p>
-<p>it again tomorrow, and the day after that. Automating a task once means</p>
-<p>paying that cost a single time instead of forever.</p>
-<p>The barrier to doing this has dropped a lot. You used to need a developer</p>
-<p>on staff to connect two pieces of software together. Now there are free or</p>
-<p>cheap no-code tools that do most of that connecting for you, and general-</p>
-<p>purpose AI assistants can write a working script for a well-defined task in</p>
-<p>minutes. The skill that matters now isn&#x27;t &quot;can I write code&quot; - it&#x27;s &quot;can I</p>
-<p>describe exactly what should happen, in what order, and what should count</p>
-<p>as success or failure.&quot;</p>
+<p>Most people don&#x27;t automate because they&#x27;re lazy - they automate because manual, repetitive work is where mistakes creep in, and because the ten minutes you spend on a task today is the same ten minutes you&#x27;ll spend on it again tomorrow, and the day after that. Automating a task once means paying that cost a single time instead of forever.</p>
+<p>The barrier to doing this has dropped a lot. You used to need a developer on staff to connect two pieces of software together. Now there are free or cheap no-code tools that do most of that connecting for you, and general- purpose AI assistants can write a working script for a well-defined task in minutes. The skill that matters now isn&#x27;t &quot;can I write code&quot; - it&#x27;s &quot;can I describe exactly what should happen, in what order, and what should count as success or failure.&quot;</p>
 <h2>The 3 most common approaches</h2>
 <ul>
-<li>Built-in features. Before reaching for any external tool, check whether</li>
+<li>Built-in features. Before reaching for any external tool, check whether the software you already use can do this natively - rules and filters in your email client, recurring events in your calendar, scheduled reports in your accounting software. This is the cheapest and most reliable option because there&#x27;s nothing extra to maintain.</li>
+<li>No-code automation platforms. Tools like Zapier, Make, or n8n (n8n is open-source and self-hostable, which matters if you care about data staying under your control) let you connect two or more apps with a trigger-then-action rule: &quot;when X happens in app A, do Y in app B.&quot; No programming required, and most have a free tier for low-volume personal use.</li>
+<li>Scripts and code. For anything the no-code tools can&#x27;t reach, or anything that needs real logic (conditions, loops, error handling), a short script is the right tool. You don&#x27;t need to be a professional developer to write one - a general-purpose AI assistant can write a first working version for you if you can describe the task precisely, and simple scripts are usually short enough to read and sanity-check even if you didn&#x27;t write them yourself.</li>
 </ul>
-<p>the software you already use can do this natively - rules and filters in</p>
-<p>your email client, recurring events in your calendar, scheduled reports</p>
-<p>in your accounting software. This is the cheapest and most reliable</p>
-<p>option because there&#x27;s nothing extra to maintain.</p>
-<ul>
-<li>No-code automation platforms. Tools like Zapier, Make, or n8n (n8n is</li>
-</ul>
-<p>open-source and self-hostable, which matters if you care about data</p>
-<p>staying under your control) let you connect two or more apps with a</p>
-<p>trigger-then-action rule: &quot;when X happens in app A, do Y in app B.&quot; No</p>
-<p>programming required, and most have a free tier for low-volume personal</p>
-<p>use.</p>
-<ul>
-<li>Scripts and code. For anything the no-code tools can&#x27;t reach, or</li>
-</ul>
-<p>anything that needs real logic (conditions, loops, error handling), a</p>
-<p>short script is the right tool. You don&#x27;t need to be a professional</p>
-<p>developer to write one - a general-purpose AI assistant can write a</p>
-<p>first working version for you if you can describe the task precisely,</p>
-<p>and simple scripts are usually short enough to read and sanity-check</p>
-<p>even if you didn&#x27;t write them yourself.</p>
 <h2>A step-by-step walkthrough of the simplest correct approach</h2>
 <ul>
-<li>Write down the trigger and the outcome in one sentence: &quot;when a new</li>
+<li>Write down the trigger and the outcome in one sentence: &quot;when a new order comes in, add a row to my tracking spreadsheet.&quot; If you can&#x27;t state it this simply, the task probably isn&#x27;t ready to automate yet - simplify it first.</li>
+<li>Do it manually one more time, but pay attention. Write down every small decision you make along the way. Those small decisions are exactly the logic your automation will need to replicate.</li>
+<li>Build the smallest version that handles the common case only. Don&#x27;t try to handle every edge case up front - get the 80% case working end to end first.</li>
+<li>Test it against 2-3 real examples you already know the correct answer for, not just one. A single successful test can hide a mistake that only shows up on the second or third input.</li>
+<li>Let it run alongside the manual process for a short trial period before fully trusting it. Compare the automated output to what you&#x27;d have done by hand.</li>
+<li>Once you trust it, retire the manual process - but keep a note of how it works, so it&#x27;s not a mystery to you (or whoever inherits it) a year from now.</li>
 </ul>
-<p>order comes in, add a row to my tracking spreadsheet.&quot; If you can&#x27;t</p>
-<p>state it this simply, the task probably isn&#x27;t ready to automate yet -</p>
-<p>simplify it first.</p>
-<ul>
-<li>Do it manually one more time, but pay attention. Write down every small</li>
-</ul>
-<p>decision you make along the way. Those small decisions are exactly the</p>
-<p>logic your automation will need to replicate.</p>
-<ul>
-<li>Build the smallest version that handles the common case only. Don&#x27;t try</li>
-</ul>
-<p>to handle every edge case up front - get the 80% case working end to</p>
-<p>end first.</p>
-<ul>
-<li>Test it against 2-3 real examples you already know the correct answer</li>
-</ul>
-<p>for, not just one. A single successful test can hide a mistake that only</p>
-<p>shows up on the second or third input.</p>
-<ul>
-<li>Let it run alongside the manual process for a short trial period before</li>
-</ul>
-<p>fully trusting it. Compare the automated output to what you&#x27;d have done</p>
-<p>by hand.</p>
-<ul>
-<li>Once you trust it, retire the manual process - but keep a note of how it</li>
-</ul>
-<p>works, so it&#x27;s not a mystery to you (or whoever inherits it) a year from</p>
-<p>now.</p>
 <h2>Common mistakes and how to spot them early</h2>
 <ul>
-<li>Automating a task before it&#x27;s stable. If the process itself still</li>
+<li>Automating a task before it&#x27;s stable. If the process itself still changes every few weeks, you&#x27;ll spend more time updating the automation than you saved. Automate things that have settled into a routine.</li>
+<li>No error handling at all. The first time the automation hits something unexpected - a missing field, a duplicate entry, a service being temporarily down - it should fail loudly and visibly, not silently do the wrong thing. A silent failure is far more expensive than an obvious one.</li>
+<li>Treating automation as &quot;set and forget.&quot; Software the automation depends on changes over time (an app updates its interface, an API changes its format). Revisit anything you&#x27;ve automated every few months to confirm it&#x27;s still doing what you think it&#x27;s doing.</li>
+<li>Over-automating. Not everything that&#x27;s repetitive is worth automating - if something happens twice a year and takes five minutes, the setup cost of automating it will likely never pay for itself.</li>
 </ul>
-<p>changes every few weeks, you&#x27;ll spend more time updating the automation</p>
-<p>than you saved. Automate things that have settled into a routine.</p>
-<ul>
-<li>No error handling at all. The first time the automation hits something</li>
-</ul>
-<p>unexpected - a missing field, a duplicate entry, a service being</p>
-<p>temporarily down - it should fail loudly and visibly, not silently do</p>
-<p>the wrong thing. A silent failure is far more expensive than an obvious</p>
-<p>one.</p>
-<ul>
-<li>Treating automation as &quot;set and forget.&quot; Software the automation</li>
-</ul>
-<p>depends on changes over time (an app updates its interface, an API</p>
-<p>changes its format). Revisit anything you&#x27;ve automated every few months</p>
-<p>to confirm it&#x27;s still doing what you think it&#x27;s doing.</p>
-<ul>
-<li>Over-automating. Not everything that&#x27;s repetitive is worth automating -</li>
-</ul>
-<p>if something happens twice a year and takes five minutes, the setup cost</p>
-<p>of automating it will likely never pay for itself.</p>
-<blockquote>A rule of thumb: automate the boring, frequent, well-defined tasks</blockquote>
-<blockquote>first. Leave anything rare, ambiguous, or high-stakes for a human to</blockquote>
-<blockquote>keep doing by hand until it&#x27;s genuinely well understood.</blockquote>
+<blockquote>A rule of thumb: automate the boring, frequent, well-defined tasks first. Leave anything rare, ambiguous, or high-stakes for a human to keep doing by hand until it&#x27;s genuinely well understood.</blockquote>
 <h2>A short checklist summarizing the above</h2>
 <ul>
 <li>Confirm the task is repetitive, stable, and well-defined</li>
@@ -144,21 +71,10 @@
 </ul>
 <h2>Where to go deeper</h2>
 <ul>
-<li>Zapier, Make, and n8n all publish free getting-started guides on their</li>
-</ul>
-<p>own sites and are the most widely used no-code automation platforms</p>
-<p>today - a good place to see what&#x27;s possible without writing code.</p>
-<ul>
-<li>If you want to learn the scripting side, Python&#x27;s official tutorial</li>
-</ul>
-<p>(docs.python.org) is free and is the most common language used for this</p>
-<p>kind of small, practical automation.</p>
-<ul>
-<li>For anything involving your own computer&#x27;s files and folders, your</li>
-</ul>
-<p>operating system&#x27;s own built-in automation tools are worth learning</p>
-<p>first (Shortcuts on macOS/iOS, Task Scheduler on Windows) since they</p>
-<p>need no extra software at all.</p></div>
+<li>Zapier, Make, and n8n all publish free getting-started guides on their own sites and are the most widely used no-code automation platforms today - a good place to see what&#x27;s possible without writing code.</li>
+<li>If you want to learn the scripting side, Python&#x27;s official tutorial (docs.python.org) is free and is the most common language used for this kind of small, practical automation.</li>
+<li>For anything involving your own computer&#x27;s files and folders, your operating system&#x27;s own built-in automation tools are worth learning first (Shortcuts on macOS/iOS, Task Scheduler on Windows) since they need no extra software at all.</li>
+</ul></div>
 <a class="button" href="https://jozefrusnak.gumroad.com/l/pcdkn" target="_blank" rel="noopener">Get it on Gumroad</a>
 <div class="card"><h2>More free tools</h2><ul><li><a href="the-practical-guide-to-xlsx.html">The Practical Guide to XLSX</a></li>
 <li><a href="checklist-pdf-notion.html">Checklist (PDF + Notion)</a></li>
