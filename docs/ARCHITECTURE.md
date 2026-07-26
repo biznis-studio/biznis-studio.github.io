@@ -205,3 +205,13 @@ See [db/schema.sql](../db/schema.sql) — the single source of truth. Summary:
   auto-discovered one would be, just without pretending a scraped signal
   drove it. `demand_score`/`latest_score` stay NULL for these - there's
   nothing to fake a number for.
+- **`swipe_file` is a real format, not a repurposed one.** Ready-to-send
+  scripts (a "swipe file" in copywriting terms) needed their own format
+  string rather than being force-fit into `prompt_pack` (which implies AI
+  prompts specifically) or `template` (which implies a spreadsheet).
+  `content_agent.py` doesn't generate this format automatically yet - so
+  far it's only used for manually-researched products (see "Freelance
+  Scope Creep Defense Kit", "Resume Gap & Job Title Explainer Scripts") -
+  but `landing_page_agent.py`'s renderer, `marketing_blurb()`, and
+  `seo_agent.py`'s FAQ/schema all already support it the same as any
+  other Markdown-based format.

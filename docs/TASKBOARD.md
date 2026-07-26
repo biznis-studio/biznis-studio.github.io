@@ -194,6 +194,31 @@
       into one logical block before emitting a tag, then rebuilt every page
       (and every ebook PDF, which shares the same renderer).
 
+## Done (iteration 15) — diversified beyond ebooks, 3 more research-driven products
+- [x] User: "don't focus only on ebooks, expand into other digital product
+      types, pick based on demand, be original." Mined our own real
+      signals_raw data (HN/Stack Exchange, not Wikipedia noise) for
+      recurring, specific, well-defined pain points instead of generic
+      single-keyword topics.
+- [x] Found two genuinely recurring, validated signals: "My boss keeps
+      changing the requirements" (Stack Exchange) and two separate
+      questions about explaining resume gaps / inaccurate job titles.
+      Cross-checked against 2026 market research on what non-ebook formats
+      actually sell (templates, tested scripts - "swipe files" - over
+      generic advice).
+- [x] Shipped 3 new products, all free for now (ready to monetize once
+      Stripe is sorted): **Freelance Scope Creep Defense Kit** (new
+      `swipe_file` format - 7 ready-to-send scripts), **Change Request Log
+      Template** (CSV, pairs with the kit above), **Resume Gap & Job Title
+      Explainer Scripts** (`swipe_file`, written carefully to encourage
+      honest self-description, never fabricating a title or gap reason)
+- [x] Added `swipe_file` as a first-class format: marketing copy, generic-
+      subject fallback, and FAQ entries alongside the existing formats
+- [x] Verified all 3 pages render correctly, including that the
+      previous session's blockquote/list-merging bug fix holds up under
+      genuinely multi-script content (7 separate scripts, each one
+      correctly merged into a single `<blockquote>`)
+
 ## In progress / next
 - [ ] Decide: set up Cloudflare Web Analytics (needs your account) so
       Analytics Agent has real traffic data to read
@@ -202,8 +227,6 @@
 ## Backlog (see ROADMAP.md for detail and ordering rationale)
 - [ ] Analytics Agent (blocked on Cloudflare account decision above)
 - [ ] Conversion analysis + feedback loop back into demand scoring
-- [ ] More products from real research (hyper-specific audience+problem
-      intersections), not more generic single-keyword ebooks
 - [ ] Affiliate links / newsletter platform (both need their own account,
       deferred behind proving out Gumroad first)
 

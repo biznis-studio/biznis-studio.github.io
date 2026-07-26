@@ -68,6 +68,13 @@ FAQS_BY_FORMAT = {
         ("Can I modify the prompts?",
          "Yes - they're a starting point to adapt to your exact situation."),
     ],
+    "swipe_file": [
+        ("Is this free?", "Yes, no signup required."),
+        ("What format is it in?",
+         "Plain Markdown - copy the text straight into an email, Slack message, or document."),
+        ("Do I need to use the exact wording?",
+         "No - these are starting points. Adjust the tone and details to match your own situation."),
+    ],
 }
 
 

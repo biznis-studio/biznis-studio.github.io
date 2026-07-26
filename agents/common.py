@@ -35,6 +35,7 @@ MARKETING_BLURBS = {
     "checklist": "A clear, repeatable checklist for {term} - know exactly what to do next, in the right order.",
     "template": "Skip the blank page. A ready-to-use {term} template with the right structure already in place.",
     "prompt_pack": "Ready-to-paste AI prompts for {term} - works with ChatGPT, Claude, or Gemini.",
+    "swipe_file": "Ready-to-send scripts for {term} - copy, adjust the details, send.",
 }
 MARKETING_BLURB_EBOOK_FREE = "A fast, practical guide to {term} - no fluff, just what actually works."
 MARKETING_BLURB_EBOOK_PAID = "A focused guide to {term} you can read in about 15 minutes and put to use today."
@@ -49,6 +50,7 @@ GENERIC_SUBJECT_BY_FORMAT = {
     "checklist": "your next project",
     "template": "your work",
     "prompt_pack": "everyday tasks",
+    "swipe_file": "that conversation",
     "ebook": "getting started",
     "sop": "getting started",
 }
