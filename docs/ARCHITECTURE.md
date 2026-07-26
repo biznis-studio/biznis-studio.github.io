@@ -11,8 +11,9 @@ Market Research        ✅ agents/market_research_agent.py
 Keyword Discovery       ✅ agents/keyword_agent.py
       ↓
 Niche Clustering        ✅ agents/niche_agent.py (co-occurrence/union-find;
-      ↓                   found 0 real niches on run 1 - verified correct,
-      ↓                   just not enough signal volume yet, see ROADMAP.md)
+      ↓                   found 0 real niches on runs 1-6, then 1 genuine
+      ↓                   one on run 7 - a real Stack Exchange question
+      ↓                   about a CodeIgniter bug, narrow but correct)
 Demand Scoring (pass 1) ✅ agents/demand_scoring_agent.py::score_run()
       ↓                   (ranks the full pool so we know which ~20 to
       ↓                    spend GitHub's 10 req/min budget checking)
@@ -168,3 +169,16 @@ See [db/schema.sql](../db/schema.sql) — the single source of truth. Summary:
   API keys live in this codebase - Gumroad (or whatever's chosen) handles
   all of that on its own platform, since this system doesn't create
   payment/seller accounts on the user's behalf.
+- **Ebook/sop downloads are PDF, not raw Markdown.** Discovered 2026-07-26
+  that Gumroad's file picker won't even accept `.md` as an upload type -
+  and a raw Markdown file was never a great look for a standalone document
+  anyway (checklist/prompt_pack stay Markdown on purpose, since their own
+  copy tells the reader to paste it into Notion/a PDF/plain text - they're
+  meant to be reused, not read as-is). `agents/pdf_export.py` renders
+  through the same `markdown_lite_to_html()` used for the web page, then
+  shells out to headless Chrome's `--print-to-pdf` (no PDF library is
+  installed, and Chrome is already present). `landing_page_agent.py` wraps
+  each PDF export in a try/except so one broken export can't take down the
+  whole daily pipeline run; CI explicitly installs Chrome via
+  `browser-actions/setup-chrome` rather than trusting the runner image's
+  ambient contents.

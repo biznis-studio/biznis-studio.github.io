@@ -31,7 +31,8 @@ from typing import Optional
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from agents.common import now_iso, slugify
+from agents.common import markdown_lite_to_html, now_iso, slugify
+from agents.pdf_export import export as export_pdf
 from core.db import get_connection, init_db
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -73,53 +74,6 @@ def page_shell(title: str, meta_description: str, body_html: str) -> str:
 </body>
 </html>
 """
-
-
-def markdown_lite_to_html(md_text: str) -> str:
-    """Minimal renderer for the specific Markdown subset content_agent.py
-    produces: #/## headings, "- [ ] " checklist items, "- " list items,
-    "> " blockquotes, "---" rules, and plain paragraphs."""
-    lines = md_text.splitlines()
-    out = []
-    in_list = False
-    for line in lines:
-        stripped = line.strip()
-        if not stripped:
-            if in_list:
-                out.append("</ul>")
-                in_list = False
-            continue
-        if stripped == "---":
-            continue
-        if stripped.startswith("### "):
-            out.append(f"<h3>{html.escape(stripped[4:])}</h3>")
-        elif stripped.startswith("## "):
-            out.append(f"<h2>{html.escape(stripped[3:])}</h2>")
-        elif stripped.startswith("# "):
-            out.append(f"<h1>{html.escape(stripped[2:])}</h1>")
-        elif stripped.startswith("- [ ] "):
-            if not in_list:
-                out.append("<ul>")
-                in_list = True
-            out.append(f"<li>☐ {html.escape(stripped[6:])}</li>")
-        elif stripped.startswith("- "):
-            if not in_list:
-                out.append("<ul>")
-                in_list = True
-            out.append(f"<li>{html.escape(stripped[2:])}</li>")
-        elif stripped.startswith("> "):
-            if in_list:
-                out.append("</ul>")
-                in_list = False
-            out.append(f"<blockquote>{html.escape(stripped[2:])}</blockquote>")
-        else:
-            if in_list:
-                out.append("</ul>")
-                in_list = False
-            out.append(f"<p>{html.escape(stripped)}</p>")
-    if in_list:
-        out.append("</ul>")
-    return "\n".join(out)
 
 
 def csv_to_html_table(csv_text: str, max_rows: int = 10) -> str:
@@ -196,8 +150,15 @@ def build_page(product: dict) -> Optional[dict]:
             cta = (f'<a class="button" href="{html.escape(monetization_url)}" '
                    f'target="_blank" rel="noopener">Get it on Gumroad</a>')
         else:
-            download_name = src_path.name
-            shutil.copyfile(src_path, DOWNLOADS_DIR / download_name)
+            if fmt in ("ebook", "sop"):
+                # A raw .md isn't a great deliverable for a standalone
+                # document (and some marketplaces won't even accept it as
+                # an upload type) - a proper PDF is the better artifact.
+                download_name = src_path.stem + ".pdf"
+                export_pdf(src_path, DOWNLOADS_DIR / download_name)
+            else:  # checklist, prompt_pack, template - fine as their native file
+                download_name = src_path.name
+                shutil.copyfile(src_path, DOWNLOADS_DIR / download_name)
             cta = (f'<a class="button" href="../downloads/{html.escape(download_name)}" '
                    f'download>Download {html.escape(fmt)}</a>')
 
@@ -247,7 +208,11 @@ def run(run_id: Optional[int] = None) -> list[int]:
     ts = now_iso()
     new_page_ids = []
     for row in to_build:
-        result = build_page(dict(row))
+        try:
+            result = build_page(dict(row))
+        except Exception as exc:  # e.g. Chrome missing for a PDF export - don't take the whole run down
+            print(f"[landing_page_agent] failed to build page for product_id={row['product_id']}: {exc}")
+            continue
         if not result:
             continue
         cur.execute(

@@ -116,6 +116,24 @@
       product, send the resulting URL - this system does not create
       payment/seller accounts on anyone's behalf
 
+## Done (iteration 10) — PDF export
+- [x] Found Gumroad's file picker won't accept `.md` uploads; built
+      `agents/pdf_export.py` (shared by `landing_page_agent.py` and the new
+      `scripts/export_pdf.py` CLI) rendering through the same Markdown-lite
+      parser as the web page, then headless Chrome's `--print-to-pdf`
+- [x] Refactored `markdown_lite_to_html` into `agents/common.py` so
+      `landing_page_agent.py` and `pdf_export.py` could both use it without
+      a circular import
+- [x] ebook/sop downloads now serve a proper typeset PDF instead of raw
+      `.md`; checklist/prompt_pack/template stay in their native format on
+      purpose (their own copy tells the reader to paste/open them elsewhere)
+- [x] Made this resilient for CI: wrapped each page build in try/except so
+      one broken PDF export can't crash the whole daily run, and added
+      `browser-actions/setup-chrome` to `pipeline.yml` rather than trusting
+      the Ubuntu runner's ambient Chrome install
+- [x] Generated `data/exports/products/0003-the-practical-guide-to-automation.pdf`
+      for the user to upload to Gumroad directly
+
 ## In progress / next
 - [ ] Wire in the real Gumroad URL once received, rebuild that page, verify, ship
 - [ ] Decide: set up Cloudflare Web Analytics (needs your account) so

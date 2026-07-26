@@ -6,6 +6,7 @@ REST) strictly within their published rate limits and terms of use. No
 scraping of pages that forbid it, no bypassing of auth walls, no synthetic
 traffic.
 """
+import html
 import re
 import time
 import warnings
@@ -27,6 +28,55 @@ def now_iso() -> str:
 
 def slugify(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
+
+
+def markdown_lite_to_html(md_text: str) -> str:
+    """Minimal renderer for the specific Markdown subset content_agent.py
+    produces: #/## headings, "- [ ] " checklist items, "- " list items,
+    "> " blockquotes, "---" rules, and plain paragraphs. Shared by
+    landing_page_agent.py (web pages) and scripts/export_pdf.py (PDF
+    downloads) so both never drift into two different parsers."""
+    lines = md_text.splitlines()
+    out = []
+    in_list = False
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            if in_list:
+                out.append("</ul>")
+                in_list = False
+            continue
+        if stripped == "---":
+            continue
+        if stripped.startswith("### "):
+            out.append(f"<h3>{html.escape(stripped[4:])}</h3>")
+        elif stripped.startswith("## "):
+            out.append(f"<h2>{html.escape(stripped[3:])}</h2>")
+        elif stripped.startswith("# "):
+            out.append(f"<h1>{html.escape(stripped[2:])}</h1>")
+        elif stripped.startswith("- [ ] "):
+            if not in_list:
+                out.append("<ul>")
+                in_list = True
+            out.append(f"<li>☐ {html.escape(stripped[6:])}</li>")
+        elif stripped.startswith("- "):
+            if not in_list:
+                out.append("<ul>")
+                in_list = True
+            out.append(f"<li>{html.escape(stripped[2:])}</li>")
+        elif stripped.startswith("> "):
+            if in_list:
+                out.append("</ul>")
+                in_list = False
+            out.append(f"<blockquote>{html.escape(stripped[2:])}</blockquote>")
+        else:
+            if in_list:
+                out.append("</ul>")
+                in_list = False
+            out.append(f"<p>{html.escape(stripped)}</p>")
+    if in_list:
+        out.append("</ul>")
+    return "\n".join(out)
 
 
 def http_get(url: str, params: Optional[dict] = None, retries: int = 2,

@@ -25,7 +25,13 @@ jobs:
 
       - run: pip install -r requirements.txt
 
+      - name: Ensure Chrome is available (used to export ebook/sop PDFs)
+        uses: browser-actions/setup-chrome@v1
+        id: setup-chrome
+
       - run: python3 scripts/run_pipeline.py
+        env:
+          CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
 
       - name: Commit updated database, reports and site
         run: |
