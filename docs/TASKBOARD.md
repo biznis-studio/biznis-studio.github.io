@@ -134,8 +134,16 @@
 - [x] Generated `data/exports/products/0003-the-practical-guide-to-automation.pdf`
       for the user to upload to Gumroad directly
 
+## Done (iteration 11) — first monetized product live 🎉
+- [x] User created the Gumroad account and listed "The Practical Guide to
+      Automation" (pay-what-you-want): https://jozefrusnak.gumroad.com/l/pcdkn
+- [x] Set `products.monetization_url`, rebuilt the page - CTA now reads
+      "Get it on Gumroad", meta description correctly says "Paid" not
+      "Free", and the PDF is no longer also given away in `site/downloads/`
+- [x] Verified in-browser: no duplicate JSON-LD, correct copy, link points
+      to the real listing
+
 ## In progress / next
-- [ ] Wire in the real Gumroad URL once received, rebuild that page, verify, ship
 - [ ] Decide: set up Cloudflare Web Analytics (needs your account) so
       Analytics Agent has real traffic data to read
 
