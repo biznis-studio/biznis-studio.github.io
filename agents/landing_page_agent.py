@@ -155,7 +155,7 @@ def build_page(product: dict) -> Optional[dict]:
                 # document (and some marketplaces won't even accept it as
                 # an upload type) - a proper PDF is the better artifact.
                 download_name = src_path.stem + ".pdf"
-                export_pdf(src_path, DOWNLOADS_DIR / download_name)
+                export_pdf(src_path, DOWNLOADS_DIR / download_name, title=title)
             else:  # checklist, prompt_pack, template - fine as their native file
                 download_name = src_path.name
                 shutil.copyfile(src_path, DOWNLOADS_DIR / download_name)

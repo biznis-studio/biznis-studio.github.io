@@ -143,6 +143,23 @@
 - [x] Verified in-browser: no duplicate JSON-LD, correct copy, link points
       to the real listing
 
+## Done (iteration 12) — second real ebook while Stripe/KYC is pending
+- [x] Wrote "The Practical Guide to Working with XLSX Files" (~1300 words),
+      promoted `products.id=1` to `status='ready'` - free-to-download for
+      now, ready to monetize the moment the user's Gumroad payout is set up
+- [x] Found and fixed a real bug in my own draft: a bullet point ("Ignoring
+      multiple sheets") was missing its "- " marker and had silently merged
+      into the previous list item's paragraph - caught by reading the
+      rendered page, not just the source Markdown
+- [x] Fixed title casing ("XLSX" not "Xlsx") in both the DB and the PDF -
+      added an optional `title` param to `pdf_export.export()` so it can
+      use the real product title instead of deriving one from the filename
+- [x] User was asked for a government ID by Stripe (standard KYC for
+      payouts) and then asked to classify as company/sole trader/non-profit
+      - flagged that Slovak law on when personal sales require a "živnosť"
+      is outside what this system should decide, pointed to an "Individual"
+      option and financnasprava.sk / an accountant for certainty
+
 ## In progress / next
 - [ ] Decide: set up Cloudflare Web Analytics (needs your account) so
       Analytics Agent has real traffic data to read

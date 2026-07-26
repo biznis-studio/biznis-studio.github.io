@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Practical Guide to XLSX</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Free ebook for &quot;xlsx&quot;, generated from real demand signals: General-purpose topic; a short practical guide covers it best.">
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, system-ui, sans-serif; max-width: 720px;
+         margin: 0 auto; padding: 2rem 1.25rem 4rem; color: #1a1a1a; background: #ffffff; }
+  h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
+  .subtitle { color: #555; margin-top: 0; }
+  .card { background: #f6f6f6; border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+  a.button { display: inline-block; background: #1a1a1a; color: #fff; padding: 0.6rem 1.2rem;
+             border-radius: 6px; text-decoration: none; font-weight: 600; }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: 0.5rem; text-align: left; font-size: 0.9rem; }
+  th { background: #f0f0f0; }
+  blockquote { background: #f6f6f6; border-left: 3px solid #999; margin: 0.75rem 0;
+               padding: 0.5rem 1rem; }
+  footer { margin-top: 2.5rem; font-size: 0.8rem; color: #888; }
+</style>
+<meta property="og:title" content="The Practical Guide to XLSX">
+<meta property="og:description" content="Free ebook for &quot;xlsx&quot;, generated from real demand signals: General-purpose topic; a short practical guide covers it best.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://fwwk4pb868-afk.github.io/biznis/products/the-practical-guide-to-xlsx.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "name": "The Practical Guide to XLSX", "description": "Free ebook for \"xlsx\", generated from real demand signals: General-purpose topic; a short practical guide covers it best.", "url": "https://fwwk4pb868-afk.github.io/biznis/products/the-practical-guide-to-xlsx.html", "@type": "CreativeWork"}</script>
+</head>
+<body>
+<h1>The Practical Guide to XLSX</h1>
+<p class="subtitle">General-purpose topic; a short practical guide covers it best.</p>
+<div class="card"><h1>The Practical Guide to Working with XLSX Files</h1>
+<p>XLSX is the file format behind Microsoft Excel spreadsheets - and, whether</p>
+<p>you write code or not, there&#x27;s a good chance you&#x27;ve had to open, edit, or</p>
+<p>generate one. This guide covers the practical side: what the format</p>
+<p>actually is, the most common ways people work with it, and the mistakes</p>
+<p>that cause the most wasted time.</p>
+<h2>Why XLSX matters right now</h2>
+<p>XLSX has become the default way businesses exchange structured data - far</p>
+<p>beyond just &quot;spreadsheets you type numbers into.&quot; Invoices, reports,</p>
+<p>inventory exports, and data handed between departments or companies</p>
+<p>routinely show up as .xlsx files, because almost every tool on almost</p>
+<p>every computer can open one. That ubiquity is exactly why so many people</p>
+<p>end up needing to read, generate, or transform them programmatically, not</p>
+<p>just click around in them by hand.</p>
+<p>Underneath the familiar spreadsheet grid, an .xlsx file is actually a zip</p>
+<p>archive full of XML files - which is worth knowing, because it explains</p>
+<p>both why the format is so flexible (it can hold formatting, formulas,</p>
+<p>charts, multiple sheets) and why it can go wrong in ways a plain text file</p>
+<p>never would - a corrupted zip entry, a formula that only breaks in one</p>
+<p>specific spreadsheet program, or a &quot;simple&quot; file that&#x27;s secretly several</p>
+<p>megabytes of unused formatting.</p>
+<h2>The 3 most common ways people work with XLSX</h2>
+<ul>
+<li>Spreadsheet applications. Excel, Google Sheets, and LibreOffice Calc</li>
+</ul>
+<p>cover the vast majority of everyday XLSX work - opening, editing,</p>
+<p>formatting, basic formulas and charts. If a human is going to read or</p>
+<p>edit the file directly, this is almost always the right tool, and the</p>
+<p>free options (Google Sheets, LibreOffice) handle .xlsx just fine for</p>
+<p>most everyday use.</p>
+<ul>
+<li>Conversion to CSV. If you only need the raw data - not formulas,</li>
+</ul>
+<p>formatting, or multiple sheets - exporting to CSV first is often the</p>
+<p>simplest path, especially before feeding data into another tool or</p>
+<p>script. CSV is plain text, so it opens correctly everywhere and never</p>
+<p>has the &quot;which version of Excel made this&quot; compatibility questions XLSX</p>
+<p>sometimes does.</p>
+<ul>
+<li>Code libraries. When a computer needs to read or generate the file</li>
+</ul>
+<p>without a human opening it - a script that produces a weekly report, an</p>
+<p>app that lets users export their data - a library built for the job is</p>
+<p>the right tool: openpyxl or pandas in Python, or the very widely used</p>
+<p>&quot;xlsx&quot;/SheetJS package in JavaScript. These read and write the real</p>
+<p>structure of the file (sheets, cells, formatting) without needing Excel</p>
+<p>installed at all.</p>
+<h2>A step-by-step walkthrough of the simplest correct approach</h2>
+<ul>
+<li>Decide who (or what) is the actual consumer of the file. A human</li>
+</ul>
+<p>reading it in Excel needs different handling than a script parsing it</p>
+<p>automatically - decide this first, since it drives every choice after.</p>
+<ul>
+<li>If a human is reading it: keep the structure simple. One clear header</li>
+</ul>
+<p>row, consistent data types down each column, and a sheet name that</p>
+<p>actually describes what&#x27;s in it. Complex formatting looks nice but is</p>
+<p>the first thing that breaks when the file changes hands.</p>
+<ul>
+<li>If a script is reading it: check the header row matches exactly what</li>
+</ul>
+<p>the script expects (spelling, casing, column order) before trusting the</p>
+<p>rest of the data - mismatched headers are the single most common cause</p>
+<p>of &quot;the import silently used the wrong column.&quot;</p>
+<ul>
+<li>Before sharing or automating anything, open the file once yourself and</li>
+</ul>
+<p>scroll to the actual last row of data. Hidden blank rows, leftover</p>
+<p>formatting from deleted rows, and stray data far below the visible</p>
+<p>table are extremely common and will confuse anything that reads the</p>
+<p>file automatically.</p>
+<ul>
+<li>If you&#x27;re generating the file with code, test opening the actual output</li>
+</ul>
+<p>in a real spreadsheet application before shipping it - a file that</p>
+<p>&quot;looks right&quot; in your script&#x27;s own summary can still fail to open</p>
+<p>correctly for someone else.</p>
+<h2>Common mistakes and how to spot them early</h2>
+<ul>
+<li>Trusting the file extension. A file named .xlsx isn&#x27;t guaranteed to be</li>
+</ul>
+<p>a valid one - files get renamed, exported incorrectly, or corrupted in</p>
+<p>transit. If something reading the file throws a format error, check</p>
+<p>whether it actually is a valid XLSX before debugging anything else.</p>
+<ul>
+<li>Hardcoding column positions instead of column names. &quot;Column C&quot; breaks</li>
+</ul>
+<p>the moment someone inserts a new column upstream. Referring to columns</p>
+<p>by their header name is more work up front and far more durable.</p>
+<ul>
+<li>Ignoring multiple sheets. A file that looks like it has one table can</li>
+</ul>
+<p>quietly have several sheets - a script that only reads &quot;the first sheet&quot;</p>
+<p>can silently miss data that lives on a second or third tab.</p>
+<ul>
+<li>Confusing formulas with values. A cell can display a calculated number</li>
+</ul>
+<p>while the underlying file stores the formula, not the result - if</p>
+<p>you&#x27;re extracting data programmatically without opening the file in a</p>
+<p>real spreadsheet app first, make sure your tool is reading calculated</p>
+<p>values, not raw formula text, if that&#x27;s what you actually need.</p>
+<blockquote>If you only remember one thing: know whether you need the data or the</blockquote>
+<blockquote>spreadsheet. Data usually wants CSV. A shareable, human-editable</blockquote>
+<blockquote>document usually wants to stay XLSX.</blockquote>
+<h2>A short checklist summarizing the above</h2>
+<ul>
+<li>Decide up front whether a human or a script is the real consumer</li>
+<li>Keep header rows simple, consistent, and exactly matching what any</li>
+</ul>
+<p>script expects</p>
+<ul>
+<li>Scroll to the true last row before sharing or automating anything</li>
+<li>Reference columns by name, not position, wherever you can</li>
+<li>Check for multiple sheets before assuming there&#x27;s only one table</li>
+<li>Confirm whether you need calculated values or the underlying formulas</li>
+<li>Test-open any file you generate with code before sharing it further</li>
+</ul>
+<h2>Where to go deeper</h2>
+<ul>
+<li>Google Sheets and LibreOffice Calc both handle .xlsx for free and are</li>
+</ul>
+<p>good defaults if you don&#x27;t already have Excel.</p>
+<ul>
+<li>For working with XLSX in code, Python&#x27;s openpyxl and pandas libraries,</li>
+</ul>
+<p>and JavaScript&#x27;s SheetJS (&quot;xlsx&quot; on npm), are the most widely used and</p>
+<p>both have free, official documentation with runnable examples.</p>
+<ul>
+<li>If you&#x27;re unsure whether you need XLSX or CSV for a given task, the</li>
+</ul>
+<p>short version is: CSV for raw data exchange, XLSX for anything a human</p>
+<p>needs to open, format, or calculate in directly.</p></div>
+<a class="button" href="../downloads/0001-the-practical-guide-to-xlsx.pdf" download>Download ebook</a>
+<div class="card"><h2>More free tools</h2><ul><li><a href="checklist-pdf-notion.html">Checklist (PDF + Notion)</a></li>
+<li><a href="spreadsheet-pack.html">Spreadsheet Pack</a></li>
+<li><a href="free-online-calculator.html">Free Online Calculator</a></li></ul></div>
+<footer>Generated by the Biznis pipeline. <a href="../index.html">Back to all products</a></footer>
+</body>
+</html>

@@ -13,6 +13,7 @@ import re
 import subprocess
 import tempfile
 from pathlib import Path
+from typing import Optional
 
 from agents.common import markdown_lite_to_html
 
@@ -67,8 +68,8 @@ def render_html(md_text: str, title: str) -> str:
 """
 
 
-def export(md_path: Path, out_path: Path) -> None:
-    title = title_from_stem(md_path.stem)
+def export(md_path: Path, out_path: Path, title: Optional[str] = None) -> None:
+    title = title or title_from_stem(md_path.stem)
     html_text = render_html(md_path.read_text(), title)
 
     with tempfile.NamedTemporaryFile(mode="w", suffix=".html", delete=False) as f:
