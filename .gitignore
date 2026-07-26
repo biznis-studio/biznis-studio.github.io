@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+.env
+.env.*
+!.env.example
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+.DS_Store
+node_modules/
+dist/
+build/
+.pytest_cache/

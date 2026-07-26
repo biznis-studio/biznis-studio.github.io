@@ -1,0 +1,13 @@
+title,format,demand_score,rationale,product_file_path,product_status
+Checklist (PDF + Notion),checklist,0.5711111111111111,"Checklist-shaped intent: users want a repeatable step list, not prose.",data/exports/products/0001-checklist-pdf-notion.md,ready
+The Practical Guide to Automation,ebook,0.5622222222222223,No specific format pattern matched; a short practical guide is the safe general-purpose format.,data/exports/products/0002-the-practical-guide-to-automation.md,draft
+Free Online Calculator,calculator,0.5533333333333333,Keyword implies users want to compute something quickly online.,data/exports/products/0003-free-online-calculator.html,ready
+Spreadsheet Pack,template,0.5444444444444445,Keyword implies a reusable document/spreadsheet is the natural deliverable.,data/exports/products/0004-spreadsheet-pack.csv,ready
+The Practical Guide to Xlsx,ebook,0.5177777777777778,No specific format pattern matched; a short practical guide is the safe general-purpose format.,data/exports/products/0005-the-practical-guide-to-xlsx.md,draft
+Invoice Pack,template,0.508888888888889,Keyword implies a reusable document/spreadsheet is the natural deliverable.,data/exports/products/0006-invoice-pack.csv,ready
+The Practical Guide to Appium,ebook,0.44666666666666666,No specific format pattern matched; a short practical guide is the safe general-purpose format.,data/exports/products/0007-the-practical-guide-to-appium.md,draft
+The Practical Guide to Productivity,ebook,0.3666666666666667,No specific format pattern matched; a short practical guide is the safe general-purpose format.,data/exports/products/0008-the-practical-guide-to-productivity.md,draft
+The Practical Guide to There Way,ebook,0.32333333333333336,No specific format pattern matched; a short practical guide is the safe general-purpose format.,data/exports/products/0009-the-practical-guide-to-there-way.md,draft
+The Practical Guide to Gantt Chart,ebook,0.31961904761904764,No specific format pattern matched; a short practical guide is the safe general-purpose format.,data/exports/products/0010-the-practical-guide-to-gantt-chart.md,draft
+The Practical Guide to Detox,ebook,0.31333333333333335,No specific format pattern matched; a short practical guide is the safe general-purpose format.,data/exports/products/0011-the-practical-guide-to-detox.md,draft
+The Practical Guide to Seolytics,ebook,0.26,No specific format pattern matched; a short practical guide is the safe general-purpose format.,data/exports/products/0012-the-practical-guide-to-seolytics.md,draft

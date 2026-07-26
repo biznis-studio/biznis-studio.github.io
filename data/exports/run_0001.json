@@ -1,0 +1,311 @@
+{
+  "run_id": 1,
+  "generated_at": "2026-07-26T16:02:45.920601+00:00",
+  "run_status": "success",
+  "signals_by_source": {
+    "github": 30,
+    "hackernews": 50,
+    "npm_downloads": 45,
+    "stackexchange": 60,
+    "wikipedia_pageviews": 47
+  },
+  "top_keywords": [
+    {
+      "term": "checklist",
+      "score": 0.5711111111111111,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "automation",
+      "score": 0.5622222222222223,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "odyssey",
+      "score": 0.554468085106383,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "calculator",
+      "score": 0.5533333333333333,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "spreadsheet",
+      "score": 0.5444444444444445,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "chatgpt",
+      "score": 0.5374468085106383,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "@editorjs/checklist",
+      "score": 0.5355555555555556,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "react-spreadsheet",
+      "score": 0.5266666666666667,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "xlsx",
+      "score": 0.5177777777777778,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": ".xyz",
+      "score": 0.5119148936170214,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "invoice",
+      "score": 0.508888888888889,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "ebenezer",
+      "score": 0.49489361702127665,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "mjml-invoice",
+      "score": 0.49111111111111116,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@e965/xlsx",
+      "score": 0.4822222222222222,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "sms-segments-calculator",
+      "score": 0.4733333333333334,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "automation-events",
+      "score": 0.46444444444444444,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "obsession",
+      "score": 0.46085106382978724,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "@accounter/green-invoice-graphql",
+      "score": 0.4555555555555556,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "appium",
+      "score": 0.44666666666666666,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@ai-sdk/google",
+      "score": 0.4377777777777778,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@ai-sdk/gateway",
+      "score": 0.4288888888888889,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "ec-sri-invoice-signer",
+      "score": 0.42000000000000004,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@ai-sdk/react",
+      "score": 0.4111111111111111,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@firebase/ai",
+      "score": 0.40222222222222226,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "media-engine",
+      "score": 0.3933333333333333,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    }
+  ],
+  "product_ideas": [
+    {
+      "id": 1,
+      "title": "Checklist (PDF + Notion)",
+      "format": "checklist",
+      "demand_score": 0.5711111111111111,
+      "rationale": "Checklist-shaped intent: users want a repeatable step list, not prose.",
+      "status": "built",
+      "product_file_path": "data/exports/products/0001-checklist-pdf-notion.md",
+      "product_status": "ready"
+    },
+    {
+      "id": 2,
+      "title": "The Practical Guide to Automation",
+      "format": "ebook",
+      "demand_score": 0.5622222222222223,
+      "rationale": "No specific format pattern matched; a short practical guide is the safe general-purpose format.",
+      "status": "built",
+      "product_file_path": "data/exports/products/0002-the-practical-guide-to-automation.md",
+      "product_status": "draft"
+    },
+    {
+      "id": 3,
+      "title": "Free Online Calculator",
+      "format": "calculator",
+      "demand_score": 0.5533333333333333,
+      "rationale": "Keyword implies users want to compute something quickly online.",
+      "status": "built",
+      "product_file_path": "data/exports/products/0003-free-online-calculator.html",
+      "product_status": "ready"
+    },
+    {
+      "id": 4,
+      "title": "Spreadsheet Pack",
+      "format": "template",
+      "demand_score": 0.5444444444444445,
+      "rationale": "Keyword implies a reusable document/spreadsheet is the natural deliverable.",
+      "status": "built",
+      "product_file_path": "data/exports/products/0004-spreadsheet-pack.csv",
+      "product_status": "ready"
+    },
+    {
+      "id": 5,
+      "title": "The Practical Guide to Xlsx",
+      "format": "ebook",
+      "demand_score": 0.5177777777777778,
+      "rationale": "No specific format pattern matched; a short practical guide is the safe general-purpose format.",
+      "status": "built",
+      "product_file_path": "data/exports/products/0005-the-practical-guide-to-xlsx.md",
+      "product_status": "draft"
+    },
+    {
+      "id": 6,
+      "title": "Invoice Pack",
+      "format": "template",
+      "demand_score": 0.508888888888889,
+      "rationale": "Keyword implies a reusable document/spreadsheet is the natural deliverable.",
+      "status": "built",
+      "product_file_path": "data/exports/products/0006-invoice-pack.csv",
+      "product_status": "ready"
+    },
+    {
+      "id": 7,
+      "title": "The Practical Guide to Appium",
+      "format": "ebook",
+      "demand_score": 0.44666666666666666,
+      "rationale": "No specific format pattern matched; a short practical guide is the safe general-purpose format.",
+      "status": "built",
+      "product_file_path": "data/exports/products/0007-the-practical-guide-to-appium.md",
+      "product_status": "draft"
+    },
+    {
+      "id": 8,
+      "title": "The Practical Guide to Productivity",
+      "format": "ebook",
+      "demand_score": 0.3666666666666667,
+      "rationale": "No specific format pattern matched; a short practical guide is the safe general-purpose format.",
+      "status": "built",
+      "product_file_path": "data/exports/products/0008-the-practical-guide-to-productivity.md",
+      "product_status": "draft"
+    },
+    {
+      "id": 9,
+      "title": "The Practical Guide to There Way",
+      "format": "ebook",
+      "demand_score": 0.32333333333333336,
+      "rationale": "No specific format pattern matched; a short practical guide is the safe general-purpose format.",
+      "status": "built",
+      "product_file_path": "data/exports/products/0009-the-practical-guide-to-there-way.md",
+      "product_status": "draft"
+    },
+    {
+      "id": 10,
+      "title": "The Practical Guide to Gantt Chart",
+      "format": "ebook",
+      "demand_score": 0.31961904761904764,
+      "rationale": "No specific format pattern matched; a short practical guide is the safe general-purpose format.",
+      "status": "built",
+      "product_file_path": "data/exports/products/0010-the-practical-guide-to-gantt-chart.md",
+      "product_status": "draft"
+    },
+    {
+      "id": 11,
+      "title": "The Practical Guide to Detox",
+      "format": "ebook",
+      "demand_score": 0.31333333333333335,
+      "rationale": "No specific format pattern matched; a short practical guide is the safe general-purpose format.",
+      "status": "built",
+      "product_file_path": "data/exports/products/0011-the-practical-guide-to-detox.md",
+      "product_status": "draft"
+    },
+    {
+      "id": 12,
+      "title": "The Practical Guide to Seolytics",
+      "format": "ebook",
+      "demand_score": 0.26,
+      "rationale": "No specific format pattern matched; a short practical guide is the safe general-purpose format.",
+      "status": "built",
+      "product_file_path": "data/exports/products/0012-the-practical-guide-to-seolytics.md",
+      "product_status": "draft"
+    }
+  ]
+}

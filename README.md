@@ -1,0 +1,77 @@
+# Biznis — Autonomous Digital Business Engine
+
+A modular, self-improving pipeline that discovers demand signals from free
+public APIs, scores them, and proposes original digital-product ideas
+(ebooks, checklists, templates, calculators, prompt packs) with a documented
+rationale for each. No paid APIs, no scraping against terms of service, no
+fabricated traffic or reviews — every signal is traceable back to a public,
+no-auth-required source.
+
+See [ARCHITECTURE.md](docs/ARCHITECTURE.md) for how it fits together and
+[ROADMAP.md](docs/ROADMAP.md) for what's built vs. planned.
+
+## Quickstart
+
+```bash
+pip install -r requirements.txt
+python3 core/db.py                 # initialize SQLite schema
+python3 scripts/run_pipeline.py    # run one full loop iteration
+```
+
+Output:
+- `db/biznis.sqlite3` — all runs, signals, keywords, scores, product ideas
+- `data/exports/run_XXXX.json` — full machine-readable report for that run
+- `data/exports/run_XXXX_ideas.csv` — product ideas + generated file paths
+- `data/exports/products/*.{html,md,csv}` — the actual generated product files
+
+## The loop (current implementation)
+
+```
+Market Research → Keyword Discovery → Demand Scoring → Product Ideas → Content Generation
+(5 free APIs)      (n-gram extraction)  (freq/breadth/    (rule-based       (real files:
+                                          growth score)     format matching)  calculator/checklist/
+                                                                              template/prompt_pack;
+                                                                              ebook/sop = draft outline)
+```
+
+| Stage | Agent | File |
+|---|---|---|
+| Market research + trend detection | Market Research Agent | [agents/market_research_agent.py](agents/market_research_agent.py) |
+| Keyword discovery | Keyword Agent | [agents/keyword_agent.py](agents/keyword_agent.py) |
+| Demand scoring | Demand Scoring Agent | [agents/demand_scoring_agent.py](agents/demand_scoring_agent.py) |
+| Product ideation | Product Agent | [agents/product_agent.py](agents/product_agent.py) |
+| Content generation | Content Agent | [agents/content_agent.py](agents/content_agent.py) |
+| Orchestration | — | [scripts/run_pipeline.py](scripts/run_pipeline.py) |
+
+Everything past "Content Generation" (landing pages, SEO, publishing,
+analytics) is not yet built — see the roadmap.
+
+## Data sources (all free, public, no API key)
+
+- Hacker News front page — [Algolia HN Search API](https://hn.algolia.com/api)
+- Wikipedia top pageviews — [Wikimedia REST API](https://wikimedia.org/api/rest_v1/)
+- npm registry search popularity — [npm public search API](https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md)
+- Stack Exchange active questions — [Stack Exchange API v2.3](https://api.stackexchange.com/docs)
+- GitHub recently-created trending repos — [GitHub REST search API](https://docs.github.com/en/rest/search)
+
+## Running on a schedule
+
+`.github/workflows/pipeline.yml` runs the loop daily via GitHub Actions
+(free tier: 2,000 min/month on public repos) and commits the updated
+database + reports back to the repo, so demand history accumulates over
+time and the growth-scoring component gets more accurate with every run.
+This requires the repo to actually be pushed to GitHub — it is not enabled
+until you do that.
+
+## Docker
+
+```bash
+docker compose up --build
+```
+
+## Principles
+
+- Legal, ethical, GDPR-respecting, copyright-respecting by construction.
+- Every claim an agent makes is traceable to a specific public data point.
+- No stubs pretending to be finished features — see ROADMAP.md for what's
+  honestly not built yet.

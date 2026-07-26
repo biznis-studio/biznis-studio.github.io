@@ -1,0 +1,7 @@
+services:
+  pipeline:
+    build: .
+    volumes:
+      - ./db:/app/db
+      - ./data:/app/data
+    command: ["python3", "scripts/run_pipeline.py"]
