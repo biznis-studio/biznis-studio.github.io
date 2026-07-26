@@ -9,7 +9,7 @@
 - [x] Product Idea Generation Agent (rule-based format matching)
 - [x] Orchestrator (`scripts/run_pipeline.py`) + JSON/CSV export
 - [x] Dockerfile + docker-compose.yml
-- [x] GitHub Actions workflow for a daily scheduled run (not yet active — no remote pushed)
+- [x] GitHub Actions workflow for a daily scheduled run (activated in iteration 5)
 - [x] First real end-to-end run producing 12 product ideas from live data
 
 ## Done (iteration 2)
@@ -43,19 +43,29 @@
       (single-word keywords, ~230 signals/run), not a bug — documented in
       ROADMAP.md rather than papered over
 
+## Done (iteration 5)
+- [x] Installed GitHub CLI, authenticated, pushed repo to
+      https://github.com/fwwk4pb868-afk/biznis (public)
+- [x] Verified the scheduled Action end-to-end: manual `workflow_dispatch`
+      run succeeded and the bot commit landed back on `main`
+- [x] Decided: ebook/sop prose will be written using Claude directly by the
+      user, not an automated Ollama/OpenRouter call — updated ROADMAP.md
+- [x] Landing Page Agent (`agents/landing_page_agent.py`): real static
+      pages under `site/` for "ready" products only; found and fixed a
+      real bug (intro blurb rendering above the calculator's own title)
+      during manual browser verification
+
 ## In progress / next
-- [ ] Decide: push repo to GitHub + enable the scheduled Action (needs your go-ahead)
+- [ ] SEO Agent (metadata/schema.org/FAQ/sitemap on top of `site/`)
 
 ## Backlog (see ROADMAP.md for detail and ordering rationale)
-- [ ] LLM-assisted ideation (Ollama or OpenRouter — needs your decision)
-- [ ] Landing Page Agent
-- [ ] SEO Agent
-- [ ] Publishing (Cloudflare Pages / GitHub Pages — needs remote repo)
+- [ ] Publishing (Cloudflare Pages / GitHub Pages — needs your go-ahead)
 - [ ] Analytics Agent
 - [ ] Conversion analysis + feedback loop back into demand scoring
 
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
+- **M2.5 — Pipeline runs autonomously on a schedule, not just locally** ✅ (iteration 5 — see the Actions tab on the repo)
 - **M3 — First page published and receiving organic traffic**
 - **M4 — First measured lead or sale attributed to the pipeline**

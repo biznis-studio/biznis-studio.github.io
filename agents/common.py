@@ -6,6 +6,7 @@ REST) strictly within their published rate limits and terms of use. No
 scraping of pages that forbid it, no bypassing of auth walls, no synthetic
 traffic.
 """
+import re
 import time
 import warnings
 from datetime import datetime, timezone
@@ -22,6 +23,10 @@ DEFAULT_HEADERS = {"User-Agent": USER_AGENT, "Accept": "application/json"}
 
 def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
+
+
+def slugify(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
 def http_get(url: str, params: Optional[dict] = None, retries: int = 2,

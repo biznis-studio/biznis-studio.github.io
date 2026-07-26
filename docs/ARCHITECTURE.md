@@ -24,8 +24,9 @@ Product Ideas           ✅ agents/product_agent.py
       ↓
 Product Creation        ✅ agents/content_agent.py (calculator/checklist/template/
       ↓                   prompt_pack ship "ready"; ebook/sop are outline-only "draft")
-Landing Page            ⬜ not started
-      ↓
+Landing Page            ✅ agents/landing_page_agent.py (only for "ready"
+      ↓                   products - static site under site/, pages.status
+      ↓                   stays 'draft' until an actual Publishing agent exists)
 SEO Optimization        ⬜ not started
       ↓
 Publishing              ⬜ not started
@@ -86,6 +87,12 @@ product_ideas (SQLite)
    │   output; ebook/sop are outline skeletons, status='draft')
    ▼
 products (SQLite) + data/exports/products/*.{html,md,csv}
+   │  (agents/landing_page_agent.py: builds a real page only for
+   │   status='ready' products - calculator is copied through as-is,
+   │   checklist/prompt_pack get a tiny built-in Markdown renderer,
+   │   template gets an HTML table preview - each with a download link)
+   ▼
+pages (SQLite) + site/index.html + site/products/*.html + site/downloads/*
    → data/exports/run_XXXX.json + _ideas.csv
 ```
 
@@ -104,7 +111,7 @@ See [db/schema.sql](../db/schema.sql) — the single source of truth. Summary:
 | `niches` / `niche_keywords` | Co-occurrence-based keyword clusters (`niche_agent.py`); empty until 2+ keywords share a signal |
 | `product_ideas` | Generated product briefs (title, format, rationale, target keyword) |
 | `products` | Actually-built product files (path, format, status ready/draft) |
-| `pages` | Landing pages (empty until a Landing Page Agent exists) |
+| `pages` | Landing pages for "ready" products (`landing_page_agent.py`); `status` stays 'draft' until deployed |
 | `analytics_events` | Traffic/conversion events (empty until publishing exists) |
 
 ## Design decisions worth knowing

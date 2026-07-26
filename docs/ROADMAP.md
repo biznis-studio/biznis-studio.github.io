@@ -28,16 +28,23 @@ Re-evaluate this ordering every iteration — see TASKBOARD.md.
    calculator/checklist/template/prompt_pack ideas as real, usable files;
    ebook/sop ship as outline skeletons (`status='draft'`) since they need
    real prose an LLM or human still has to write.
-4. **LLM-assisted ideation and content drafting** — once either (a) Ollama
-   is installed locally, or (b) the user provides an OpenRouter API key
-   (their choice — this requires an account, which this system will not
-   create on the user's behalf), swap the rule-based `product_agent`
-   title/rationale generation and the new Content Agent's drafting for
-   LLM calls, with the existing rule-based path kept as a zero-cost
-   fallback.
-5. **Landing Page Agent** — generate a static page (Astro/plain HTML) per
-   built product from a template, with metadata wired for the SEO Agent
-   below. Deployable free via Cloudflare Pages or GitHub Pages.
+4. **LLM-assisted content drafting (ebook/sop prose)** — decided 2026-07-26:
+   the user will use Claude directly (not Ollama/OpenRouter) to write the
+   actual prose for `draft`-status ebook/sop outlines produced by
+   `content_agent.py`. This stays a human-in-the-loop step for now rather
+   than an automated API call in the pipeline (no Anthropic API key/billing
+   wired into the system) - the outline skeleton is the handoff artifact.
+   Revisit automating this only if the user wants the pipeline itself to
+   call the Claude API end-to-end (would need an API key + billing set up
+   by the user first).
+5. ~~**Landing Page Agent**~~ — done: `agents/landing_page_agent.py` builds a
+   real static page under `site/` only for `status='ready'` products
+   (calculator/checklist/template/prompt_pack) - draft ebook/sop outlines
+   are skipped so nothing publishes a skeleton as a finished page. Verified
+   all four formats render correctly in-browser, including a real bug found
+   and fixed: the intro blurb was injected before the calculator's own
+   `<h1>`, rendering visually above the title. `pages.status` stays 'draft'
+   until an actual Publishing agent deploys `site/` somewhere.
 6. **SEO Agent** — metadata, schema.org markup, FAQ generation, internal
    linking between landing pages, sitemap/RSS generation.
 7. **Publishing** — actual deploy step (Cloudflare Pages via GitHub Actions,
@@ -55,9 +62,13 @@ Re-evaluate this ordering every iteration — see TASKBOARD.md.
   digital downloads, newsletter platform) — these involve creating accounts
   and agreeing to third-party terms, which this system will flag for you
   rather than do autonomously.
-- **GitHub remote + Cloudflare deployment** — the local git repo is ready;
-  pushing to a GitHub remote and wiring Cloudflare Pages needs your
-  go-ahead since it creates externally-visible, shared state.
+- ~~**GitHub remote**~~ — done 2026-07-26: pushed to
+  https://github.com/fwwk4pb868-afk/biznis (public), scheduled Action
+  verified working end-to-end (manual run succeeded, bot commit landed).
+  **Cloudflare Pages deployment of `site/` is still pending** the same
+  kind of go-ahead - it's the next externally-visible step once there's a
+  reason to want the pages actually live (vs. just building correctly
+  locally/in-CI).
 - **Competitor keyword-volume tools** (e.g. real search-volume data) are
   mostly paid; look for a free-tier-compliant alternative before building
   this rather than assuming one.

@@ -1,0 +1,5 @@
+Invoice Number,Issue Date,Due Date,Bill To,Item Description,Quantity,Unit Price,Line Total
+INV-0001,2026-07-26,2026-08-09,Client Name,Service or product description,1,100.0,100.0
+,,,,,,Subtotal,100.0
+,,,,,,Tax (0%),0.0
+,,,,,,Total Due,100.0

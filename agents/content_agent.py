@@ -20,22 +20,16 @@ product.
 """
 import csv
 import io
-import json
-import re
 import sys
 from pathlib import Path
 from typing import Optional
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from agents.common import now_iso
+from agents.common import now_iso, slugify
 from core.db import get_connection, init_db
 
 OUT_DIR = Path(__file__).resolve().parent.parent / "data" / "exports" / "products"
-
-
-def slugify(text: str) -> str:
-    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
 def topic_label(term: str, generic_word: str, fallback: str) -> str:

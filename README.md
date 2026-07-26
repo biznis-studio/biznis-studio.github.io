@@ -29,7 +29,7 @@ Output:
 ```
 Market Research → Keyword Discovery → Niche Clustering → Demand Scoring (1)
       → Competition Analysis → Demand Scoring (2, re-blend) → Product Ideas
-      → Content Generation
+      → Content Generation → Landing Pages
 ```
 
 | Stage | Agent | File |
@@ -41,10 +41,16 @@ Market Research → Keyword Discovery → Niche Clustering → Demand Scoring (1
 | Competition analysis (top-20 shortlist) | Competitor Agent | [agents/competitor_agent.py](agents/competitor_agent.py) |
 | Product ideation | Product Agent | [agents/product_agent.py](agents/product_agent.py) |
 | Content generation | Content Agent | [agents/content_agent.py](agents/content_agent.py) |
+| Landing pages (static site) | Landing Page Agent | [agents/landing_page_agent.py](agents/landing_page_agent.py) |
 | Orchestration | — | [scripts/run_pipeline.py](scripts/run_pipeline.py) |
 
-Everything past "Content Generation" (landing pages, SEO, publishing,
-analytics) is not yet built — see the roadmap.
+Output also includes:
+- `site/index.html` + `site/products/*.html` — a static site, one page per
+  "ready" product, deployable as-is to Cloudflare Pages/GitHub Pages (not
+  deployed yet - see roadmap)
+
+Everything past "Landing Pages" (SEO metadata, publishing, analytics) is
+not yet built — see the roadmap.
 
 ## Data sources (all free, public, no API key)
 
@@ -56,12 +62,11 @@ analytics) is not yet built — see the roadmap.
 
 ## Running on a schedule
 
+Live at **https://github.com/fwwk4pb868-afk/biznis** (public repo).
 `.github/workflows/pipeline.yml` runs the loop daily via GitHub Actions
-(free tier: 2,000 min/month on public repos) and commits the updated
-database + reports back to the repo, so demand history accumulates over
-time and the growth-scoring component gets more accurate with every run.
-This requires the repo to actually be pushed to GitHub — it is not enabled
-until you do that.
+(free, unlimited minutes on public repos) and commits the updated database
++ reports + site back to the repo, so demand history accumulates over time
+and the growth-scoring component gets more accurate with every run.
 
 ## Docker
 
