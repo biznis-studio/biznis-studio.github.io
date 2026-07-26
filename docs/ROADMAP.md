@@ -53,11 +53,17 @@ Re-evaluate this ordering every iteration — see TASKBOARD.md.
    `pages.seo_enhanced`). Found and fixed a real bug: the HowTo step text
    was pulled from already-HTML-escaped page content, so JSON-LD literally
    contained `&quot;` instead of a real quote character - fixed with
-   `html.unescape()`. Sitemap.xml/RSS are deliberately **not** generated
-   yet - both assert "this is live at this URL", which isn't true until
-   `SITE_BASE_URL` is set (see Publishing below).
-7. **Publishing** — actual deploy step (Cloudflare Pages via GitHub Actions,
-   or GitHub Pages) once there's at least one landing page.
+   `html.unescape()`. sitemap.xml/feed.xml generation was added right
+   after, once Publishing (below) made SITE_BASE_URL real.
+7. ~~**Publishing**~~ — done 2026-07-26: chose GitHub Pages over Cloudflare
+   Pages specifically because it needed no new account (Cloudflare Pages
+   would have required the user to sign up there first). Enabled via
+   `gh api repos/.../pages` with `build_type=workflow`; `pipeline.yml` now
+   uploads `site/` as a Pages artifact and deploys it via
+   `actions/deploy-pages` in a second job after every pipeline run. Live at
+   https://fwwk4pb868-afk.github.io/biznis/. `SITE_BASE_URL` is set as a
+   workflow-level env var, which is what turns on canonical URLs +
+   sitemap.xml + feed.xml in `seo_agent.py`.
 8. **Analytics Agent** — once pages are live, pull free analytics
    (Cloudflare Web Analytics is free and privacy-respecting, or
    plausible/umami self-hosted) into `analytics_events`.
@@ -74,10 +80,7 @@ Re-evaluate this ordering every iteration — see TASKBOARD.md.
 - ~~**GitHub remote**~~ — done 2026-07-26: pushed to
   https://github.com/fwwk4pb868-afk/biznis (public), scheduled Action
   verified working end-to-end (manual run succeeded, bot commit landed).
-  **Cloudflare Pages deployment of `site/` is still pending** the same
-  kind of go-ahead - it's the next externally-visible step once there's a
-  reason to want the pages actually live (vs. just building correctly
-  locally/in-CI).
+- ~~**Publishing (GitHub Pages)**~~ — done 2026-07-26, see item 7 above.
 - **Competitor keyword-volume tools** (e.g. real search-volume data) are
   mostly paid; look for a free-tier-compliant alternative before building
   this rather than assuming one.

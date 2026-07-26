@@ -1,5 +1,7 @@
 # Biznis — Autonomous Digital Business Engine
 
+**Live at https://fwwk4pb868-afk.github.io/biznis/**
+
 A modular, self-improving pipeline that discovers demand signals from free
 public APIs, scores them, and proposes original digital-product ideas
 (ebooks, checklists, templates, calculators, prompt packs) with a documented
@@ -47,13 +49,15 @@ Market Research → Keyword Discovery → Niche Clustering → Demand Scoring (1
 
 Output also includes:
 - `site/index.html` + `site/products/*.html` — a static site, one page per
-  "ready" product, each with schema.org JSON-LD + OG tags + a genuine FAQ,
-  deployable as-is to Cloudflare Pages/GitHub Pages (not deployed yet - see
-  roadmap). Set `SITE_BASE_URL` before running to also get canonical URLs
-  (sitemap.xml/RSS come later, once that URL is actually real).
+  "ready" product, each with schema.org JSON-LD + OG tags + a genuine FAQ.
+  Deployed live via GitHub Pages (see below).
+- `site/sitemap.xml` + `site/feed.xml` — generated once `SITE_BASE_URL` is
+  set (the deployed pipeline sets this automatically; running locally
+  without it skips both, since a sitemap for a URL that isn't real would
+  be misleading).
 
-Everything past "SEO Enhancement" (publishing, analytics) is not yet
-built — see the roadmap.
+Everything past "SEO Enhancement" (analytics, conversion feedback loop) is
+not yet built — see the roadmap.
 
 ## Data sources (all free, public, no API key)
 
@@ -65,11 +69,13 @@ built — see the roadmap.
 
 ## Running on a schedule
 
-Live at **https://github.com/fwwk4pb868-afk/biznis** (public repo).
+Repo: **https://github.com/fwwk4pb868-afk/biznis** (public).
 `.github/workflows/pipeline.yml` runs the loop daily via GitHub Actions
-(free, unlimited minutes on public repos) and commits the updated database
-+ reports + site back to the repo, so demand history accumulates over time
-and the growth-scoring component gets more accurate with every run.
+(free, unlimited minutes on public repos), commits the updated database +
+reports + site back to the repo, then deploys `site/` to GitHub Pages via
+`actions/deploy-pages`. Demand history accumulates over time, so the
+growth-scoring component and the live site both get more accurate/complete
+with every run.
 
 ## Docker
 

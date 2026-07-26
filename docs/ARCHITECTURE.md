@@ -28,10 +28,11 @@ Landing Page            ✅ agents/landing_page_agent.py (only for "ready"
       ↓                   products - static site under site/, pages.status
       ↓                   stays 'draft' until an actual Publishing agent exists)
 SEO Optimization        ✅ agents/seo_agent.py (schema.org JSON-LD, OG tags,
-      ↓                   genuine FAQ, internal links; sitemap/RSS
-      ↓                   deliberately deferred - see ROADMAP.md)
-Publishing              ⬜ not started
-      ↓
+      ↓                   genuine FAQ, internal links; sitemap.xml/feed.xml
+      ↓                   emit once SITE_BASE_URL is set - see below)
+Publishing              ✅ GitHub Pages, deployed via .github/workflows/
+      ↓                   pipeline.yml (actions/deploy-pages) - live at
+      ↓                   https://fwwk4pb868-afk.github.io/biznis/
 Traffic Collection      ⬜ not started
       ↓
 Analytics               ⬜ not started (schema exists: pages, analytics_events)
@@ -148,8 +149,15 @@ See [db/schema.sql](../db/schema.sql) — the single source of truth. Summary:
   `seo_agent.py` only emits schema types that don't assert social proof
   (SoftwareApplication, HowTo, CreativeWork, FAQPage). Revisit only once
   genuine user reviews exist to mark up.
-- **Sitemap.xml/RSS feed intentionally not generated yet.** Both formats
-  assert "this is live at this URL" - emitting them against a domain that
-  doesn't exist would be misleading busywork. `seo_agent.py` starts
-  emitting both the moment `SITE_BASE_URL` is set (i.e. once Publishing
-  actually deploys `site/` somewhere).
+- **Sitemap.xml/feed.xml are gated on `SITE_BASE_URL` being set.** Both
+  formats assert "this is live at this URL" - emitting them against a
+  domain that doesn't exist would be misleading busywork. Now that GitHub
+  Pages is live, `pipeline.yml` sets `SITE_BASE_URL` to the real deployed
+  URL and both files generate with genuine absolute URLs.
+- **GitHub Pages over Cloudflare Pages.** Chosen specifically because it
+  needed no new account - Cloudflare Pages would have required the user to
+  sign up there first, and this system doesn't create accounts on anyone's
+  behalf. Deployed via `actions/upload-pages-artifact` + `actions/deploy-pages`
+  as a second job in `pipeline.yml`, rather than GitHub Pages' classic
+  branch-based source, since `site/` lives in a subdirectory of the repo
+  (classic Pages only supports `/` or `/docs`).

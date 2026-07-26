@@ -68,8 +68,21 @@
 - [x] Deliberately did NOT build sitemap.xml/RSS yet - both assert "this is
       live at this URL", not true until `SITE_BASE_URL` is set at deploy time
 
+## Done (iteration 7)
+- [x] Chose GitHub Pages over Cloudflare Pages (no new account needed) and
+      deployed `site/`: enabled Pages via `gh api ... build_type=workflow`,
+      added a `deploy-pages` job to `pipeline.yml` using
+      `actions/upload-pages-artifact` + `actions/deploy-pages`
+- [x] Implemented `generate_sitemap`/`generate_rss` in `seo_agent.py`, now
+      that `SITE_BASE_URL` is a real deployed URL - fixed a real bug along
+      the way (RSS `pubDate` was ISO 8601, not the RFC-822 the spec requires)
+- [x] Caught and fixed a second real bug: repeated manual testing (resetting
+      `seo_enhanced` to re-test) had left `site/` pages with tripled
+      JSON-LD/FAQ/link blocks - fully regenerated cleanly before committing
+- [x] Verified locally end-to-end with `SITE_BASE_URL` set exactly as CI sets it
+
 ## In progress / next
-- [ ] Decide: deploy `site/` to Cloudflare Pages or GitHub Pages (needs your go-ahead)
+- [ ] Trigger the deploy workflow and confirm the site is actually reachable
 
 ## Backlog (see ROADMAP.md for detail and ordering rationale)
 - [ ] Analytics Agent
@@ -79,5 +92,5 @@
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
 - **M2.5 — Pipeline runs autonomously on a schedule, not just locally** ✅ (iteration 5 — see the Actions tab on the repo)
-- **M3 — First page published and receiving organic traffic**
+- **M3 — First page published and receiving organic traffic** 🚧 (iteration 7 — deployed, traffic not yet measured)
 - **M4 — First measured lead or sale attributed to the pipeline**

@@ -14,11 +14,12 @@ Enhances each already-built page under site/products/ in place with:
   - A handful of internal links to other real product pages, so pages
     aren't SEO-orphaned.
 
-Sitemap.xml and an RSS feed are *not* generated here: both formats assert
-"this is live at this URL", and there is no deployed URL yet (see
-ROADMAP.md - Publishing is still pending user go-ahead). Set the
-SITE_BASE_URL environment variable once a real deploy URL exists and this
-agent will start emitting both.
+sitemap.xml and feed.xml are only generated when the SITE_BASE_URL
+environment variable is set - both formats assert "this is live at this
+URL", which isn't true before there's an actual deployed site. Once set
+(see .github/workflows/pipeline.yml, which sets it to the real GitHub
+Pages URL), canonical link tags, sitemap.xml and feed.xml all start being
+emitted with real, absolute URLs.
 """
 import html
 import json
@@ -26,6 +27,7 @@ import os
 import re
 import sys
 from datetime import datetime, timezone
+from email.utils import format_datetime
 from pathlib import Path
 from typing import Optional
 
@@ -131,6 +133,53 @@ def related_links_html(current_url: str, all_pages: list[dict], limit: int = 3) 
     return f'<div class="card"><h2>More free tools</h2><ul>{items}</ul></div>'
 
 
+def generate_sitemap(pages: list[dict]) -> None:
+    """Standard sitemap.xml. Only called when SITE_BASE_URL is set - a
+    sitemap for a URL that doesn't exist yet would be actively misleading."""
+    urls = [f"{SITE_BASE_URL}/"] + [_abs_url(p["url"]) for p in pages]
+    lastmods = [datetime.now(timezone.utc).strftime("%Y-%m-%d")] + [
+        (p["created_at"] or "")[:10] for p in pages
+    ]
+    entries = "\n".join(
+        f"  <url><loc>{html.escape(u)}</loc><lastmod>{lm}</lastmod></url>"
+        for u, lm in zip(urls, lastmods)
+    )
+    xml = (f'<?xml version="1.0" encoding="UTF-8"?>\n'
+           f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{entries}\n</urlset>\n')
+    (SITE_DIR / "sitemap.xml").write_text(xml)
+
+
+def _rfc822(iso_timestamp: str) -> str:
+    try:
+        dt = datetime.fromisoformat(iso_timestamp)
+    except (ValueError, TypeError):
+        dt = datetime.now(timezone.utc)
+    return format_datetime(dt)
+
+
+def generate_rss(pages: list[dict]) -> None:
+    """Standard RSS 2.0 feed, newest first. Only called when SITE_BASE_URL
+    is set, for the same reason as the sitemap."""
+    items = []
+    for p in sorted(pages, key=lambda p: p["created_at"] or "", reverse=True):
+        pub_date = _rfc822(p["created_at"])
+        items.append(
+            "  <item>\n"
+            f"    <title>{html.escape(p['title'])}</title>\n"
+            f"    <link>{html.escape(_abs_url(p['url']))}</link>\n"
+            f"    <description>{html.escape(p['meta_description'])}</description>\n"
+            f"    <pubDate>{html.escape(pub_date)}</pubDate>\n"
+            "  </item>"
+        )
+    rss = (f'<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel>\n'
+           f"  <title>Biznis - Free Digital Products</title>\n"
+           f"  <link>{html.escape(SITE_BASE_URL)}/</link>\n"
+           f"  <description>Free checklists, templates, calculators and prompt packs "
+           f"generated from real demand signals.</description>\n"
+           + "\n".join(items) + "\n</channel></rss>\n")
+    (SITE_DIR / "feed.xml").write_text(rss)
+
+
 def inject(page_path: Path, head_extra: str, body_extra: str) -> None:
     text = page_path.read_text()
     head_close = re.search(r"</head>", text, re.IGNORECASE)
@@ -146,7 +195,8 @@ def run(run_id: Optional[int] = None) -> int:
     init_db()
     conn = get_connection()
     all_rows = conn.execute(
-        """SELECT pg.id, pg.url, pg.title, pg.meta_description, p.format, k.term
+        """SELECT pg.id, pg.url, pg.title, pg.meta_description, pg.created_at,
+                  p.format, k.term
            FROM pages pg
            JOIN products p ON p.id = pg.product_id
            JOIN product_ideas pi ON pi.id = p.idea_id
@@ -188,6 +238,10 @@ def run(run_id: Optional[int] = None) -> int:
 
     conn.commit()
     conn.close()
+
+    if SITE_BASE_URL:
+        generate_sitemap(all_pages)
+        generate_rss(all_pages)
 
     print(f"[seo_agent] enhanced {processed} pages"
           + ("" if SITE_BASE_URL else " (SITE_BASE_URL unset - no canonical URLs, sitemap/RSS skipped)"))
