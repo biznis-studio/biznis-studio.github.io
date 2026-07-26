@@ -1,18 +1,20 @@
 """Demand Scoring Agent.
 
-Scores every keyword touched in a given run on three transparent components:
+Runs in two passes:
 
-  - frequency_component: how strongly it showed up this run (per-run weight,
-    itself a percentile rank within source - see keyword_agent).
-  - breadth_component: how many *independent* free sources mentioned it.
-    Cross-source agreement is the strongest signal that demand is real
-    rather than a single-source artifact.
-  - growth_component: this run's occurrence count vs. the historical average
-    occurrence count for the same keyword (0 for brand-new keywords, since
-    there is no baseline yet - they instead score highly on novelty, tracked
-    separately so first-run output isn't misleadingly flat).
+1. `score_run()` - scores every keyword touched in a run on three
+   transparent components: frequency (per-run weight), breadth (how many
+   independent free sources mentioned it), and growth (this run vs. its
+   own history). This is what ranks the full candidate pool and produces
+   the shortlist the Competitor Analysis Agent then checks.
+2. `apply_competition()` - for the keywords the Competitor Analysis Agent
+   actually checked, re-blends the score to include an "opportunity"
+   component (1 - saturation: how much free supply already exists).
+   Keywords that weren't checked (rate-limit-bounded shortlist) keep their
+   pass-1 score - this is recorded in `components_json` so it's never
+   ambiguous which score a given row is.
 
-Final score = weighted sum, written to `demand_scores` and mirrored onto
+Final score is written to `demand_scores` and mirrored onto
 `keywords.latest_score` for fast lookup by downstream agents.
 """
 import json
@@ -25,6 +27,7 @@ from agents.common import now_iso
 from core.db import get_connection, init_db
 
 WEIGHTS = {"frequency": 0.4, "breadth": 0.4, "growth": 0.2}
+WEIGHTS_WITH_COMPETITION = {"frequency": 0.3, "breadth": 0.3, "growth": 0.15, "opportunity": 0.25}
 MAX_BREADTH = 5  # number of distinct sources in the whole system
 
 
@@ -89,9 +92,60 @@ def score_run(run_id: int) -> list[dict]:
     return results
 
 
+def apply_competition(run_id: int) -> list[dict]:
+    """Re-blend scores for keywords the Competitor Analysis Agent checked
+    this run, folding in an opportunity component (1 - saturation)."""
+    conn = get_connection()
+    cur = conn.cursor()
+
+    checks = cur.execute(
+        """SELECT cc.keyword_id, cc.saturation_score, cc.npm_package_count,
+                  cc.github_repo_count, cc.stackexchange_answered_count,
+                  cc.wikipedia_dedicated_article, ds.id AS demand_score_id,
+                  ds.components_json, k.term
+           FROM competition_checks cc
+           JOIN demand_scores ds ON ds.keyword_id = cc.keyword_id AND ds.run_id = cc.run_id
+           JOIN keywords k ON k.id = cc.keyword_id
+           WHERE cc.run_id = ?""",
+        (run_id,),
+    ).fetchall()
+
+    results = []
+    for row in checks:
+        components = json.loads(row["components_json"])
+        opportunity_component = round(1.0 - row["saturation_score"], 4)
+        w = WEIGHTS_WITH_COMPETITION
+        score = (w["frequency"] * components["frequency_component"]
+                 + w["breadth"] * components["breadth_component"]
+                 + w["growth"] * components["growth_component"]
+                 + w["opportunity"] * opportunity_component)
+
+        components["opportunity_component"] = opportunity_component
+        components["saturation_score"] = row["saturation_score"]
+        components["competition_checked"] = True
+
+        cur.execute(
+            "UPDATE demand_scores SET score = ?, components_json = ? WHERE id = ?",
+            (score, json.dumps(components), row["demand_score_id"]),
+        )
+        cur.execute("UPDATE keywords SET latest_score = ? WHERE id = ?", (score, row["keyword_id"]))
+        results.append({"keyword_id": row["keyword_id"], "term": row["term"], "score": score, **components})
+
+    conn.commit()
+    conn.close()
+    results.sort(key=lambda r: r["score"], reverse=True)
+    print(f"[demand_scoring_agent] run_id={run_id} re-scored {len(results)} keywords with competition data")
+    return results
+
+
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("usage: python3 agents/demand_scoring_agent.py <run_id>")
+        print("usage: python3 agents/demand_scoring_agent.py <run_id> [--apply-competition]")
         sys.exit(1)
-    for r in score_run(int(sys.argv[1]))[:15]:
-        print(f"  {r['score']:.3f}  breadth={r['breadth_count']}  new={r['is_new']}  {r['term']}")
+    run_id_arg = int(sys.argv[1])
+    if "--apply-competition" in sys.argv:
+        for r in apply_competition(run_id_arg)[:15]:
+            print(f"  {r['score']:.3f}  saturation={r['saturation_score']:.2f}  {r['term']}")
+    else:
+        for r in score_run(run_id_arg)[:15]:
+            print(f"  {r['score']:.3f}  breadth={r['breadth_count']}  new={r['is_new']}  {r['term']}")

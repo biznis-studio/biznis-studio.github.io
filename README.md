@@ -27,18 +27,16 @@ Output:
 ## The loop (current implementation)
 
 ```
-Market Research → Keyword Discovery → Demand Scoring → Product Ideas → Content Generation
-(5 free APIs)      (n-gram extraction)  (freq/breadth/    (rule-based       (real files:
-                                          growth score)     format matching)  calculator/checklist/
-                                                                              template/prompt_pack;
-                                                                              ebook/sop = draft outline)
+Market Research → Keyword Discovery → Demand Scoring (1) → Competition Analysis
+      → Demand Scoring (2, re-blend) → Product Ideas → Content Generation
 ```
 
 | Stage | Agent | File |
 |---|---|---|
 | Market research + trend detection | Market Research Agent | [agents/market_research_agent.py](agents/market_research_agent.py) |
 | Keyword discovery | Keyword Agent | [agents/keyword_agent.py](agents/keyword_agent.py) |
-| Demand scoring | Demand Scoring Agent | [agents/demand_scoring_agent.py](agents/demand_scoring_agent.py) |
+| Demand scoring (2 passes) | Demand Scoring Agent | [agents/demand_scoring_agent.py](agents/demand_scoring_agent.py) |
+| Competition analysis (top-20 shortlist) | Competitor Agent | [agents/competitor_agent.py](agents/competitor_agent.py) |
 | Product ideation | Product Agent | [agents/product_agent.py](agents/product_agent.py) |
 | Content generation | Content Agent | [agents/content_agent.py](agents/content_agent.py) |
 | Orchestration | — | [scripts/run_pipeline.py](scripts/run_pipeline.py) |

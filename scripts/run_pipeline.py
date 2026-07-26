@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Orchestrator: runs one full iteration of the discovery + creation loop -
 
-    Market Research -> Keyword Discovery -> Demand Scoring
+    Market Research -> Keyword Discovery -> Demand Scoring (pass 1)
+        -> Competition Analysis -> Demand Scoring (pass 2, re-blend)
         -> Product Ideas -> Content Generation
 
 and exports a JSON + CSV report to data/exports/. This is the single
@@ -15,8 +16,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from agents import (content_agent, demand_scoring_agent, keyword_agent,
-                     market_research_agent, product_agent)
+from agents import (competitor_agent, content_agent, demand_scoring_agent,
+                     keyword_agent, market_research_agent, product_agent)
 from agents.common import now_iso
 from core.db import get_connection
 
@@ -76,6 +77,8 @@ def main() -> int:
     run_id = market_research_agent.run()
     keyword_agent.run(run_id)
     demand_scoring_agent.score_run(run_id)
+    competitor_agent.run(run_id)
+    demand_scoring_agent.apply_competition(run_id)
     product_agent.run(run_id)
     content_agent.run(run_id)
     report_path = export_report(run_id)

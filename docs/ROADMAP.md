@@ -5,12 +5,13 @@ Re-evaluate this ordering every iteration — see TASKBOARD.md.
 
 ## Next up
 
-1. **Competitor/Competition Analysis Agent** — for each top product idea,
-   check whether free/cheap equivalents already dominate search results
-   (e.g. via a ToS-compliant search API or by checking existing GitHub/npm
-   equivalents already surfaced in signals_raw). Feeds a "competition"
-   component into demand scoring so ideas aren't just "popular" but
-   "popular and underserved."
+1. ~~**Competitor/Competition Analysis Agent**~~ — done: `agents/competitor_agent.py`
+   checks npm/GitHub/Stack Exchange/Wikipedia supply for the run's top 20
+   keywords (bounded by GitHub's 10 req/min unauthenticated search limit)
+   and `demand_scoring_agent.apply_competition()` re-blends their score with
+   a 25%-weighted opportunity component. See known limitations below - this
+   works well for developer-tool-shaped ideas, poorly for generic single
+   words.
 2. **Niche clustering** — currently `niches`/`niche_keywords` are unused.
    Group related keywords (e.g. via simple co-occurrence or, once available,
    embeddings from a local model) so product ideas target a *cluster* of
@@ -71,3 +72,16 @@ Re-evaluate this ordering every iteration — see TASKBOARD.md.
   "kebab-case" patterns), not a real dictionary check — a genuine two-word
   English niche phrase that happens to be hyphenated could theoretically be
   skipped. Revisit if that turns out to matter in practice.
+- Competition scoring's fixed saturation thresholds (`_normalize()` in
+  `competitor_agent.py`) conflate "code-repository density" with "consumer
+  content market saturation": broad single-word keywords like "checklist"
+  or "calculator" trivially max out at saturation=1.0 (millions of GitHub
+  repos mention the word "automation" in code, which says nothing about
+  whether a paid automation checklist ebook already saturates that market).
+  This makes the opportunity component weak precisely for the generic
+  umbrella terms that are actually our best product categories - it's
+  currently most useful for narrow, specific, developer-tool-shaped
+  keywords. The Wikipedia "dedicated article exists" check is the most
+  meaningful of the four for consumer-content topics; consider weighting
+  toward it, or finding a genuine consumer-search-volume proxy, before
+  trusting this component heavily.

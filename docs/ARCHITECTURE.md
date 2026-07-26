@@ -10,9 +10,12 @@ Market Research        ✅ agents/market_research_agent.py
       ↓
 Keyword Discovery       ✅ agents/keyword_agent.py
       ↓
-Competition Analysis    ⬜ not started
-      ↓
-Demand Scoring          ✅ agents/demand_scoring_agent.py
+Demand Scoring (pass 1) ✅ agents/demand_scoring_agent.py::score_run()
+      ↓                   (ranks the full pool so we know which ~20 to
+      ↓                    spend GitHub's 10 req/min budget checking)
+Competition Analysis    ✅ agents/competitor_agent.py (top-20 shortlist only -
+      ↓                   see known limitations in ROADMAP.md)
+Demand Scoring (pass 2) ✅ agents/demand_scoring_agent.py::apply_competition()
       ↓
 Product Ideas           ✅ agents/product_agent.py
       ↓
@@ -58,9 +61,18 @@ signals_raw (SQLite)  — one row per raw hit, full payload kept for audit
    │   (pageviews in the 100k range vs. HN points in the hundreds) dominate)
    ▼
 keywords + keyword_run_stats (SQLite) — cumulative candidate list + per-run snapshot
-   │  (agents/demand_scoring_agent.py: frequency 40% + breadth 40% + growth 20%)
+   │  (agents/demand_scoring_agent.py::score_run(): frequency 40% + breadth 40% + growth 20%)
    ▼
-demand_scores (SQLite)
+demand_scores (SQLite, pass 1)
+   │  (agents/competitor_agent.py: checks top 20 by pass-1 score against
+   │   npm/GitHub/Stack Exchange/Wikipedia supply - GitHub's unauthenticated
+   │   10 req/min search limit is why this is a shortlist, not all ~60)
+   ▼
+competition_checks (SQLite)
+   │  (agents/demand_scoring_agent.py::apply_competition(): re-blends the
+   │   checked 20 to frequency 30% + breadth 30% + growth 15% + opportunity 25%)
+   ▼
+demand_scores (SQLite, pass 2 for the checked subset)
    │  (agents/product_agent.py: regex format-matching, excludes
    │   Wikipedia-only keywords and npm package-name artifacts as
    │   non-commercial/non-topic noise)
@@ -84,7 +96,8 @@ See [db/schema.sql](../db/schema.sql) — the single source of truth. Summary:
 | `signals_raw` | Raw hits from the 5 free APIs, full JSON payload kept |
 | `keywords` | Deduplicated, cumulative keyword candidates |
 | `keyword_run_stats` | Per-run occurrence/weight snapshot (powers growth scoring) |
-| `demand_scores` | Per-run score + components per keyword |
+| `competition_checks` | Per-run npm/GitHub/Stack Exchange/Wikipedia supply check, top-20 shortlist only |
+| `demand_scores` | Per-run score + components per keyword (re-blended for the checked shortlist) |
 | `niches` / `niche_keywords` | Manual/future-automated keyword clustering (not yet populated) |
 | `product_ideas` | Generated product briefs (title, format, rationale, target keyword) |
 | `products` | Actually-built product files (path, format, status ready/draft) |

@@ -48,6 +48,22 @@ CREATE TABLE IF NOT EXISTS keyword_run_stats (
     PRIMARY KEY (keyword_id, run_id)
 );
 
+-- Competition/saturation check per keyword per run (Competitor Analysis
+-- Agent). Only computed for a top shortlist per run (not every keyword) -
+-- GitHub's unauthenticated Search API caps at 10 req/min, so checking all
+-- ~60 keywords discovered per run isn't feasible without an API key.
+CREATE TABLE IF NOT EXISTS competition_checks (
+    keyword_id INTEGER NOT NULL REFERENCES keywords(id),
+    run_id INTEGER NOT NULL REFERENCES runs(id),
+    npm_package_count INTEGER,
+    github_repo_count INTEGER,
+    stackexchange_answered_count INTEGER,
+    wikipedia_dedicated_article INTEGER, -- 0/1
+    saturation_score REAL NOT NULL,      -- 0 (wide open) .. 1 (heavily saturated)
+    checked_at TEXT NOT NULL,
+    PRIMARY KEY (keyword_id, run_id)
+);
+
 -- Demand scores per keyword per run (Demand Scoring Agent).
 CREATE TABLE IF NOT EXISTS demand_scores (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

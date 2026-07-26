@@ -22,8 +22,19 @@
 - [x] Wired Content Agent into the orchestrator; report now includes each
       idea's product file path/status
 
+## Done (iteration 3)
+- [x] Competitor Analysis Agent (`agents/competitor_agent.py`): checks
+      npm/GitHub/Stack Exchange/Wikipedia supply for the run's top 20
+      keywords, bounded by GitHub's 10 req/min unauthenticated search limit
+- [x] Demand Scoring Agent split into two passes; pass 2 re-blends the
+      checked shortlist's score with a 25%-weighted opportunity component
+- [x] Found and documented a real limitation: the competition signal
+      saturates trivially (1.0) for generic single-word keywords like
+      "checklist"/"calculator" since GitHub code-repo density isn't the
+      same thing as consumer-content market saturation — logged in
+      ROADMAP.md rather than presented as solved
+
 ## In progress / next
-- [ ] Competitor/Competition Analysis Agent
 - [ ] Niche clustering (populate `niches` / `niche_keywords`)
 
 ## Backlog (see ROADMAP.md for detail and ordering rationale)
