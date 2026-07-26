@@ -23,6 +23,7 @@ next to it.
 import csv
 import html
 import io
+import os
 import re
 import shutil
 import sys
@@ -39,6 +40,11 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE_DIR = ROOT / "site"
 PAGES_DIR = SITE_DIR / "products"
 DOWNLOADS_DIR = SITE_DIR / "downloads"
+
+# Set once the user creates a Google Search Console property for this site
+# and chooses the HTML-tag verification method - without this, Google may
+# not discover/index the site at all for a long time.
+GOOGLE_SITE_VERIFICATION = os.environ.get("GOOGLE_SITE_VERIFICATION", "")
 
 PAGE_CSS = """
   :root { color-scheme: light dark; }
@@ -59,6 +65,10 @@ PAGE_CSS = """
 
 
 def page_shell(title: str, meta_description: str, body_html: str) -> str:
+    verification_tag = (
+        f'<meta name="google-site-verification" content="{html.escape(GOOGLE_SITE_VERIFICATION)}">\n'
+        if GOOGLE_SITE_VERIFICATION else ""
+    )
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -66,7 +76,7 @@ def page_shell(title: str, meta_description: str, body_html: str) -> str:
 <title>{html.escape(title)}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="{html.escape(meta_description)}">
-<style>{PAGE_CSS}</style>
+{verification_tag}<style>{PAGE_CSS}</style>
 </head>
 <body>
 {body_html}
