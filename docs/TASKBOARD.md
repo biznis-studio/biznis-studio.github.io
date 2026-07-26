@@ -55,11 +55,23 @@
       real bug (intro blurb rendering above the calculator's own title)
       during manual browser verification
 
+## Done (iteration 6)
+- [x] SEO Agent (`agents/seo_agent.py`): schema.org JSON-LD (no fake
+      ratings/reviews - explicitly excluded per project rules), Open Graph
+      tags, a genuine FAQ mirrored as FAQPage schema, internal "more free
+      tools" links - injected idempotently via new `pages.seo_enhanced` column
+- [x] Added a lightweight DB migration mechanism (`core/db.py::MIGRATIONS`)
+      since `CREATE TABLE IF NOT EXISTS` doesn't add columns to existing tables
+- [x] Found and fixed a real bug: HowTo step text was pulled from
+      already-HTML-escaped page content, so JSON-LD literally contained
+      `&quot;` instead of a real quote character
+- [x] Deliberately did NOT build sitemap.xml/RSS yet - both assert "this is
+      live at this URL", not true until `SITE_BASE_URL` is set at deploy time
+
 ## In progress / next
-- [ ] SEO Agent (metadata/schema.org/FAQ/sitemap on top of `site/`)
+- [ ] Decide: deploy `site/` to Cloudflare Pages or GitHub Pages (needs your go-ahead)
 
 ## Backlog (see ROADMAP.md for detail and ordering rationale)
-- [ ] Publishing (Cloudflare Pages / GitHub Pages — needs your go-ahead)
 - [ ] Analytics Agent
 - [ ] Conversion analysis + feedback loop back into demand scoring
 

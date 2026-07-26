@@ -4,7 +4,7 @@
     Market Research -> Keyword Discovery -> Niche Clustering
         -> Demand Scoring (pass 1) -> Competition Analysis
         -> Demand Scoring (pass 2, re-blend) -> Product Ideas
-        -> Content Generation -> Landing Pages
+        -> Content Generation -> Landing Pages -> SEO Enhancement
 
 and exports a JSON + CSV report to data/exports/. This is the single
 entrypoint used both locally and by the GitHub Actions schedule.
@@ -19,7 +19,7 @@ sys.path.insert(0, str(ROOT))
 
 from agents import (competitor_agent, content_agent, demand_scoring_agent,
                      keyword_agent, landing_page_agent, market_research_agent,
-                     niche_agent, product_agent)
+                     niche_agent, product_agent, seo_agent)
 from agents.common import now_iso
 from core.db import get_connection
 
@@ -85,6 +85,7 @@ def main() -> int:
     product_agent.run(run_id)
     content_agent.run(run_id)
     landing_page_agent.run(run_id)
+    seo_agent.run(run_id)
     report_path = export_report(run_id)
     print(f"[run_pipeline] run_id={run_id} report={report_path}")
     return run_id

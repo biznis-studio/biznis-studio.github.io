@@ -15,10 +15,22 @@ def get_connection() -> sqlite3.Connection:
     return conn
 
 
+# Columns added to tables after their initial release. CREATE TABLE IF NOT
+# EXISTS (in schema.sql) only helps on a fresh database - existing databases
+# need an explicit ALTER TABLE to pick up new columns.
+MIGRATIONS = [
+    ("pages", "seo_enhanced", "INTEGER NOT NULL DEFAULT 0"),
+]
+
+
 def init_db() -> None:
     conn = get_connection()
     with open(SCHEMA_PATH) as f:
         conn.executescript(f.read())
+    for table, column, coltype in MIGRATIONS:
+        existing = {row["name"] for row in conn.execute(f"PRAGMA table_info({table})")}
+        if column not in existing:
+            conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {coltype}")
     conn.commit()
     conn.close()
 

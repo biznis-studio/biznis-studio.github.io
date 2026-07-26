@@ -27,8 +27,9 @@ Product Creation        ✅ agents/content_agent.py (calculator/checklist/templa
 Landing Page            ✅ agents/landing_page_agent.py (only for "ready"
       ↓                   products - static site under site/, pages.status
       ↓                   stays 'draft' until an actual Publishing agent exists)
-SEO Optimization        ⬜ not started
-      ↓
+SEO Optimization        ✅ agents/seo_agent.py (schema.org JSON-LD, OG tags,
+      ↓                   genuine FAQ, internal links; sitemap/RSS
+      ↓                   deliberately deferred - see ROADMAP.md)
 Publishing              ⬜ not started
       ↓
 Traffic Collection      ⬜ not started
@@ -93,6 +94,11 @@ products (SQLite) + data/exports/products/*.{html,md,csv}
    │   template gets an HTML table preview - each with a download link)
    ▼
 pages (SQLite) + site/index.html + site/products/*.html + site/downloads/*
+   │  (agents/seo_agent.py: injects schema.org JSON-LD + OG tags + a real
+   │   FAQ + internal links into each page in place, idempotently via
+   │   pages.seo_enhanced; sitemap.xml/feed.xml wait for SITE_BASE_URL)
+   ▼
+site/products/*.html (enhanced in place)
    → data/exports/run_XXXX.json + _ideas.csv
 ```
 
@@ -111,7 +117,7 @@ See [db/schema.sql](../db/schema.sql) — the single source of truth. Summary:
 | `niches` / `niche_keywords` | Co-occurrence-based keyword clusters (`niche_agent.py`); empty until 2+ keywords share a signal |
 | `product_ideas` | Generated product briefs (title, format, rationale, target keyword) |
 | `products` | Actually-built product files (path, format, status ready/draft) |
-| `pages` | Landing pages for "ready" products (`landing_page_agent.py`); `status` stays 'draft' until deployed |
+| `pages` | Landing pages for "ready" products (`landing_page_agent.py`); `status` stays 'draft' until deployed; `seo_enhanced` flags whether `seo_agent.py` already processed it |
 | `analytics_events` | Traffic/conversion events (empty until publishing exists) |
 
 ## Design decisions worth knowing
@@ -137,3 +143,13 @@ See [db/schema.sql](../db/schema.sql) — the single source of truth. Summary:
   general zeitgeist/timely-content signal but a poor proxy for "a problem
   someone would pay to have solved" (top pageviews skew celebrity/movie/
   sports). It stays in `keywords` for a future SEO/content-timing use case.
+- **No AggregateRating/Review schema.org markup, ever.** The project's
+  absolute rules forbid fake reviews; since there are no real ones yet,
+  `seo_agent.py` only emits schema types that don't assert social proof
+  (SoftwareApplication, HowTo, CreativeWork, FAQPage). Revisit only once
+  genuine user reviews exist to mark up.
+- **Sitemap.xml/RSS feed intentionally not generated yet.** Both formats
+  assert "this is live at this URL" - emitting them against a domain that
+  doesn't exist would be misleading busywork. `seo_agent.py` starts
+  emitting both the moment `SITE_BASE_URL` is set (i.e. once Publishing
+  actually deploys `site/` somewhere).

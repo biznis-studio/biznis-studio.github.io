@@ -126,6 +126,7 @@ CREATE TABLE IF NOT EXISTS pages (
     title TEXT,
     meta_description TEXT,
     status TEXT NOT NULL DEFAULT 'draft', -- draft | published
+    seo_enhanced INTEGER NOT NULL DEFAULT 0, -- 0/1, set by seo_agent.py so re-runs don't double-inject
     created_at TEXT NOT NULL
 );
 

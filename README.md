@@ -29,7 +29,7 @@ Output:
 ```
 Market Research → Keyword Discovery → Niche Clustering → Demand Scoring (1)
       → Competition Analysis → Demand Scoring (2, re-blend) → Product Ideas
-      → Content Generation → Landing Pages
+      → Content Generation → Landing Pages → SEO Enhancement
 ```
 
 | Stage | Agent | File |
@@ -42,15 +42,18 @@ Market Research → Keyword Discovery → Niche Clustering → Demand Scoring (1
 | Product ideation | Product Agent | [agents/product_agent.py](agents/product_agent.py) |
 | Content generation | Content Agent | [agents/content_agent.py](agents/content_agent.py) |
 | Landing pages (static site) | Landing Page Agent | [agents/landing_page_agent.py](agents/landing_page_agent.py) |
+| SEO enhancement (schema.org/OG/FAQ/internal links) | SEO Agent | [agents/seo_agent.py](agents/seo_agent.py) |
 | Orchestration | — | [scripts/run_pipeline.py](scripts/run_pipeline.py) |
 
 Output also includes:
 - `site/index.html` + `site/products/*.html` — a static site, one page per
-  "ready" product, deployable as-is to Cloudflare Pages/GitHub Pages (not
-  deployed yet - see roadmap)
+  "ready" product, each with schema.org JSON-LD + OG tags + a genuine FAQ,
+  deployable as-is to Cloudflare Pages/GitHub Pages (not deployed yet - see
+  roadmap). Set `SITE_BASE_URL` before running to also get canonical URLs
+  (sitemap.xml/RSS come later, once that URL is actually real).
 
-Everything past "Landing Pages" (SEO metadata, publishing, analytics) is
-not yet built — see the roadmap.
+Everything past "SEO Enhancement" (publishing, analytics) is not yet
+built — see the roadmap.
 
 ## Data sources (all free, public, no API key)
 

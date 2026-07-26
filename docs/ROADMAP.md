@@ -45,8 +45,17 @@ Re-evaluate this ordering every iteration — see TASKBOARD.md.
    and fixed: the intro blurb was injected before the calculator's own
    `<h1>`, rendering visually above the title. `pages.status` stays 'draft'
    until an actual Publishing agent deploys `site/` somewhere.
-6. **SEO Agent** — metadata, schema.org markup, FAQ generation, internal
-   linking between landing pages, sitemap/RSS generation.
+6. ~~**SEO Agent**~~ — done: `agents/seo_agent.py` injects schema.org
+   JSON-LD (SoftwareApplication/HowTo/CreativeWork - never
+   AggregateRating/Review, since there are no real reviews to mark up),
+   Open Graph tags, a genuine generic FAQ (mirrored as FAQPage schema), and
+   internal "more free tools" links, idempotently (tracked via
+   `pages.seo_enhanced`). Found and fixed a real bug: the HowTo step text
+   was pulled from already-HTML-escaped page content, so JSON-LD literally
+   contained `&quot;` instead of a real quote character - fixed with
+   `html.unescape()`. Sitemap.xml/RSS are deliberately **not** generated
+   yet - both assert "this is live at this URL", which isn't true until
+   `SITE_BASE_URL` is set (see Publishing below).
 7. **Publishing** — actual deploy step (Cloudflare Pages via GitHub Actions,
    or GitHub Pages) once there's at least one landing page.
 8. **Analytics Agent** — once pages are live, pull free analytics
