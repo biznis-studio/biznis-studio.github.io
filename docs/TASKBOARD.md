@@ -81,12 +81,34 @@
       JSON-LD/FAQ/link blocks - fully regenerated cleanly before committing
 - [x] Verified locally end-to-end with `SITE_BASE_URL` set exactly as CI sets it
 
+- [x] Triggered the deploy workflow and confirmed the site is live and
+      working: https://fwwk4pb868-afk.github.io/biznis/ (checked the index,
+      the calculator's interactivity, and sitemap.xml/feed.xml over HTTP)
+
+## Done (iteration 8)
+- [x] Wrote the first genuinely Claude-authored ebook: "The Practical Guide
+      to Automation" (~1300 words, matches the site's Markdown-lite
+      renderer's supported syntax), replacing its outline skeleton;
+      promoted `products.id=3` to `status='ready'`
+- [x] Rejected product idea #9 ("there way") - a garbage n-gram fragment
+      from Stack Exchange text, not a real topic; a real gap in the n-gram
+      stopword filter to revisit, not something worth writing content for
+- [x] Found and fixed a real content-quality bug while reviewing the new
+      page: the visible subtitle was showing product_agent's *internal*
+      fallback rationale ("No specific format pattern matched...") instead
+      of reader-facing copy - fixed the fallback string and backfilled all
+      9 existing product_ideas rows that had the old text
+- [x] Built + SEO-enhanced the new page, verified in-browser
+
 ## In progress / next
-- [ ] Trigger the deploy workflow and confirm the site is actually reachable
+- [ ] Decide: set up Cloudflare Web Analytics (needs your account) so
+      Analytics Agent has real traffic data to read
 
 ## Backlog (see ROADMAP.md for detail and ordering rationale)
-- [ ] Analytics Agent
+- [ ] Analytics Agent (blocked on the above)
 - [ ] Conversion analysis + feedback loop back into demand scoring
+- [ ] Write real prose for the remaining draft ebooks (productivity,
+      xlsx, appium, gantt chart - see `products` table for status='draft')
 
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)

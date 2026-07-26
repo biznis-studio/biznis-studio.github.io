@@ -34,9 +34,13 @@ Re-evaluate this ordering every iteration — see TASKBOARD.md.
    `content_agent.py`. This stays a human-in-the-loop step for now rather
    than an automated API call in the pipeline (no Anthropic API key/billing
    wired into the system) - the outline skeleton is the handoff artifact.
-   Revisit automating this only if the user wants the pipeline itself to
-   call the Claude API end-to-end (would need an API key + billing set up
-   by the user first).
+   First one done 2026-07-26: "The Practical Guide to Automation"
+   (`products.id=3`) - real ~1300-word prose replacing its outline,
+   promoted to `status='ready'`, published with its own landing page.
+   Remaining drafts (productivity, xlsx, appium, gantt chart) still need
+   the same treatment - see TASKBOARD.md. Revisit full automation only if
+   the user wants the pipeline itself to call the Claude API end-to-end
+   (would need an API key + billing set up by the user first).
 5. ~~**Landing Page Agent**~~ — done: `agents/landing_page_agent.py` builds a
    real static page under `site/` only for `status='ready'` products
    (calculator/checklist/template/prompt_pack) - draft ebook/sop outlines
@@ -116,3 +120,19 @@ Re-evaluate this ordering every iteration — see TASKBOARD.md.
   meaningful of the four for consumer-content topics; consider weighting
   toward it, or finding a genuine consumer-search-volume proxy, before
   trusting this component heavily.
+- The n-gram stopword filter in `keyword_agent.py` occasionally lets
+  through incoherent sentence fragments from Stack Exchange titles (found
+  "there way" - almost certainly a slice of "there's no way to..." or
+  similar) that survived the 2-occurrence bar by coincidence. Caught this
+  one manually and rejected the resulting product idea; the stopword list
+  needs to be stricter about fragments that don't stand alone as a topic,
+  rather than relying on manual review of every idea before writing content.
+- Any user-facing copy that's built by directly reusing `product_ideas.rationale`
+  (the landing page subtitle, meta description) needs to read correctly
+  both as an internal audit note *and* as visitor-facing text, since
+  `product_agent.py`'s docstring frames `rationale` as an audit trail but
+  `landing_page_agent.py` displays it verbatim. Already bit us once - the
+  ebook fallback rationale used to read "No specific format pattern
+  matched..." on a live page (fixed 2026-07-26). Worth a dedicated
+  visitor-facing blurb field if this keeps recurring as new format rules
+  are added.

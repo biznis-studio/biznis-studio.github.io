@@ -84,7 +84,7 @@ def pick_format(term: str):
         if pattern.search(term):
             return fmt, _dedupe_words(title_fn(term)), rationale
     return (FALLBACK_FORMAT, f"The Practical Guide to {term.title()}",
-            "No specific format pattern matched; a short practical guide is the safe general-purpose format.")
+            "General-purpose topic; a short practical guide covers it best.")
 
 
 def run(run_id: int) -> list[int]:
