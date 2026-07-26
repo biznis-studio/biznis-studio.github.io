@@ -32,7 +32,7 @@ from typing import Optional
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from agents.common import markdown_lite_to_html, now_iso, slugify
+from agents.common import markdown_lite_to_html, marketing_blurb, now_iso, slugify
 from agents.pdf_export import export as export_pdf
 from core.db import get_connection, init_db
 
@@ -121,24 +121,18 @@ def inject_intro_into_calculator(html_text: str, intro_html: str, meta_descripti
     return html_text
 
 
-def blurb_for(term: str, format_: str, rationale: str, monetized: bool) -> str:
-    lead = "Paid" if monetized else "Free"
-    return f"{lead} {format_.replace('_', ' ')} for \"{term}\", generated from real demand signals: {rationale}"
-
-
 def build_page(product: dict) -> Optional[dict]:
     title = product["title"]
     fmt = product["format"]
     term = product["term"]
-    rationale = product["rationale"] or ""
     monetization_url = product.get("monetization_url")
     src_path = ROOT / product["file_path"]
     if not src_path.exists():
         return None
 
     slug = slugify(title)
-    meta_description = blurb_for(term, fmt, rationale, bool(monetization_url))[:160]
-    intro_html = f'<p class="subtitle">{html.escape(rationale)}</p>'
+    meta_description = marketing_blurb(term, fmt, bool(monetization_url))[:160]
+    intro_html = f'<p class="subtitle">{html.escape(meta_description)}</p>'
 
     PAGES_DIR.mkdir(parents=True, exist_ok=True)
     DOWNLOADS_DIR.mkdir(parents=True, exist_ok=True)
@@ -207,7 +201,7 @@ def run(run_id: Optional[int] = None) -> list[int]:
     cur = conn.cursor()
 
     query = """SELECT p.id AS product_id, p.title, p.format, p.file_path,
-                      p.monetization_url, pi.rationale, k.term
+                      p.monetization_url, k.term
                FROM products p
                JOIN product_ideas pi ON pi.id = p.idea_id
                JOIN keywords k ON k.id = pi.target_keyword_id

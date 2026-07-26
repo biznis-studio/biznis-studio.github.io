@@ -134,12 +134,15 @@ Re-evaluate this ordering every iteration — see TASKBOARD.md.
   one manually and rejected the resulting product idea; the stopword list
   needs to be stricter about fragments that don't stand alone as a topic,
   rather than relying on manual review of every idea before writing content.
-- Any user-facing copy that's built by directly reusing `product_ideas.rationale`
-  (the landing page subtitle, meta description) needs to read correctly
-  both as an internal audit note *and* as visitor-facing text, since
-  `product_agent.py`'s docstring frames `rationale` as an audit trail but
-  `landing_page_agent.py` displays it verbatim. Already bit us once - the
-  ebook fallback rationale used to read "No specific format pattern
-  matched..." on a live page (fixed 2026-07-26). Worth a dedicated
-  visitor-facing blurb field if this keeps recurring as new format rules
-  are added.
+- ~~Any user-facing copy that's built by directly reusing `product_ideas.rationale`...~~
+  — resolved 2026-07-26: this kept recurring (every single live page's
+  subtitle read like an engineering log - "Keyword implies users want to
+  compute something quickly online.") so it got the dedicated field it
+  needed. `agents.common.marketing_blurb()` now generates real,
+  format-specific visitor-facing copy; `rationale` stays in the DB purely
+  as an internal audit trail and is no longer shown to visitors at all.
+  Caught two more issues while shipping this fix: sentences that echoed
+  the keyword back when the keyword *was* the format word itself ("A
+  clear, repeatable checklist for Checklist") and acronym mangling
+  ("Xlsx" instead of "XLSX") - both fixed in the same function
+  (`GENERIC_SUBJECT_BY_FORMAT`, `ACRONYM_OVERRIDES`).
