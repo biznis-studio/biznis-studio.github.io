@@ -121,6 +121,42 @@ def page_shell(title: str, meta_description: str, body_html: str, is_index: bool
 """
 
 
+def gate_swipe_file_preview(raw: str) -> str:
+    """For a *priced* swipe_file, showing every script in full on the free
+    landing page gives away 100% of what's being sold - found this during
+    a real sales-readiness review: a visitor never needed to pay, just
+    copy the page. Keeps the first script's exact wording as a real proof-
+    of-quality sample (a genuine, honest preview - not a fake teaser), and
+    the heading + "Use this when..." guidance for every other script
+    (real, valuable context that doesn't give away the deliverable), but
+    replaces scripts 2+ with a single locked placeholder line each."""
+    lines = raw.splitlines()
+    out = []
+    quote_buf = []
+    quote_seen_count = 0
+
+    def flush():
+        nonlocal quote_buf, quote_seen_count
+        if not quote_buf:
+            return
+        quote_seen_count += 1
+        if quote_seen_count == 1:
+            out.extend(quote_buf)  # first script: full, real sample
+        else:
+            out.append("> 🔒 *Full script included in the paid kit - see it "
+                        "instantly after purchase.*")
+        quote_buf = []
+
+    for line in lines:
+        if line.startswith(">"):
+            quote_buf.append(line)
+        else:
+            flush()
+            out.append(line)
+    flush()
+    return "\n".join(out)
+
+
 def csv_to_html_table(csv_text: str, max_rows: int = 10) -> str:
     reader = csv.reader(io.StringIO(csv_text))
     rows = list(reader)
@@ -191,6 +227,7 @@ def build_page(product: dict) -> Optional[dict]:
     fmt = product["format"]
     term = product["term"]
     monetization_url = product.get("monetization_url")
+    price_usd = product.get("price_usd")
     src_path = ROOT / product["file_path"]
     if not src_path.exists():
         return None
@@ -218,6 +255,8 @@ def build_page(product: dict) -> Optional[dict]:
             content_lines = raw.splitlines()
             if content_lines and content_lines[0].strip().startswith("# "):
                 raw = "\n".join(content_lines[1:])
+            if fmt == "swipe_file" and monetization_url:
+                raw = gate_swipe_file_preview(raw)
             body = markdown_lite_to_html(raw)
 
         if fmt == "service":
@@ -230,11 +269,13 @@ def build_page(product: dict) -> Optional[dict]:
                 f'<a class="button" href="mailto:{CONTACT_EMAIL}">Get in touch</a>')
         elif monetization_url:
             # Paid listing: don't also give the file away for free alongside it.
+            price_label = f" - ${price_usd:.0f}" if price_usd else ""
             cta = (f'<a class="button" href="{html.escape(monetization_url)}" '
-                   f'target="_blank" rel="noopener">Get it on Gumroad</a>\n'
-                   '<p class="form-note">Personal &amp; business use license: '
-                   "use it for your own work or your clients' work. Don't resell, "
-                   "redistribute, or republish the files themselves.</p>")
+                   f'target="_blank" rel="noopener">Get it on Gumroad{html.escape(price_label)}</a>\n'
+                   '<p class="form-note">Instant digital download - pay once on Gumroad\'s '
+                   "secure checkout, use it right away. Personal &amp; business use "
+                   "license: use it for your own work or your clients' work. Don't "
+                   "resell, redistribute, or republish the files themselves.</p>")
         else:
             if fmt in ("ebook", "sop"):
                 # A raw .md isn't a great deliverable for a standalone
@@ -309,7 +350,7 @@ def run(run_id: Optional[int] = None) -> list[int]:
     cur = conn.cursor()
 
     query = """SELECT p.id AS product_id, p.title, p.format, p.file_path,
-                      p.monetization_url, k.term
+                      p.monetization_url, p.price_usd, k.term
                FROM products p
                JOIN product_ideas pi ON pi.id = p.idea_id
                JOIN keywords k ON k.id = pi.target_keyword_id

@@ -782,6 +782,34 @@ one-by-one - so this gets wired in as a single batch.
 - [x] Refreshed `docs/COMPANY_SCOREBOARD.md` - `monetized_products` now
       correctly reads 5 (product #3 from iteration 11 + these 4).
 
+## Done (iteration 37) — sales-readiness review found the single biggest conversion killer
+- [x] User asked for a full marketing/design/content review of the now-
+      live paid products. Found the single most important issue possible:
+      **the entire paid product (all 7-8 scripts, word for word) was
+      shown in full on the free landing page** - a visitor never needed
+      to pay, just copy the text from the browser. The CSV templates were
+      fine (only 2 example rows preview, not the full deliverable).
+- [x] Fixed with `gate_swipe_file_preview()` in `landing_page_agent.py`:
+      script #1 stays fully visible as a genuine proof-of-quality sample
+      (honest, not a fake teaser), scripts 2+ keep their heading and
+      "use this when" guidance (real, valuable context) but the actual
+      wording is replaced with a locked placeholder pointing to the
+      Gumroad link. Applied only when `monetization_url` is set - the
+      still-free Resume Gap Scripts swipe_file is untouched.
+- [x] Also found the page never showed a price anywhere - a visitor had
+      to click through to Gumroad just to find out the cost. Added a
+      real `products.price_usd` column (user-set, never estimated) and
+      display it directly in the CTA ("Get it on Gumroad - $29"), plus a
+      short trust line ("Instant digital download - pay once...").
+- [x] Verified end-to-end with `scripts/audit_site.py` (0 issues) and
+      manual inspection: exactly one full script + N locked placeholders
+      per page, price shown, license/trust copy present, FAQ still
+      correctly paid-aware.
+- [x] Triggered a manual deployment (`gh workflow run`) since GitHub
+      Pages only redeploys when the scheduled/dispatched workflow runs,
+      not on every `git push` - otherwise these fixes would have sat
+      un-deployed until tomorrow's cron.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

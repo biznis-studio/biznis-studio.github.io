@@ -26,6 +26,12 @@ MIGRATIONS = [
     # kept free on purpose; 'retire_candidate' = generic/saturated pattern,
     # not worth building more like it. NULL = not yet classified.
     ("products", "tier", "TEXT"),
+    # Real, user-set list price shown directly on the landing page next to
+    # the Gumroad CTA (added after a sales-readiness review found the page
+    # never mentioned a price at all - a visitor had to click through to
+    # Gumroad just to find out). NULL until a real price is set; never
+    # estimated or auto-guessed.
+    ("products", "price_usd", "REAL"),
 ]
 
 
