@@ -848,6 +848,20 @@ one-by-one - so this gets wired in as a single batch.
 - [x] Verified clean with `scripts/audit_site.py` and confirmed the
       content gating from the previous iteration survived the rebuild.
 
+## Done (iteration 39) — same content-giveaway bug found on the first monetized product too
+- [x] After fixing the giveaway issue on the 2 new bundles, checked
+      whether the *first* monetized product (the pay-what-you-want
+      automation ebook, live since iteration 11) had the same problem -
+      it did: the full ~1300-word ebook was readable in its entirety
+      above the "Get it on Gumroad" button, undermining even a voluntary
+      tip.
+- [x] Added `gate_ebook_preview()`: keeps the first 2 sections in full (a
+      genuine, substantial preview), keeps every later heading visible as
+      a real table of contents, replaces later section bodies with a
+      locked placeholder. Applied only when `monetization_url` is set.
+- [x] Rebuilt the page with the same safe process (reset seo_enhanced,
+      re-run seo_agent) and verified clean with `scripts/audit_site.py`.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

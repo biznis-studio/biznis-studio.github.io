@@ -157,6 +157,37 @@ def gate_swipe_file_preview(raw: str) -> str:
     return "\n".join(out)
 
 
+def gate_ebook_preview(raw: str, free_sections: int = 2) -> str:
+    """Same problem as gate_swipe_file_preview, found on the ebook format
+    while auditing every monetized product for the same issue: the full
+    ~1300-word ebook was readable in its entirety right above the "Get it
+    on Gumroad" button, so there was no reason to pay anything - even on a
+    pay-what-you-want listing. Keeps the first `free_sections` "## "
+    headings in full (a genuine, substantial preview - not a teaser
+    paragraph), keeps every later heading visible as a real table of
+    contents, but replaces each later section's body with a single locked
+    placeholder line."""
+    lines = raw.splitlines()
+    out = []
+    sections_seen = 0
+    gating = False
+
+    for line in lines:
+        if line.startswith("## "):
+            sections_seen += 1
+            gating = sections_seen > free_sections
+            out.append(line)
+            if gating:
+                out.append("")
+                out.append("🔒 *Full section included after purchase - see it "
+                            "instantly on Gumroad.*")
+            continue
+        if gating:
+            continue
+        out.append(line)
+    return "\n".join(out)
+
+
 def csv_to_html_table(csv_text: str, max_rows: int = 10) -> str:
     reader = csv.reader(io.StringIO(csv_text))
     rows = list(reader)
@@ -257,6 +288,8 @@ def build_page(product: dict) -> Optional[dict]:
                 raw = "\n".join(content_lines[1:])
             if fmt == "swipe_file" and monetization_url:
                 raw = gate_swipe_file_preview(raw)
+            elif fmt in ("ebook", "sop") and monetization_url:
+                raw = gate_ebook_preview(raw)
             body = markdown_lite_to_html(raw)
 
         if fmt == "service":
