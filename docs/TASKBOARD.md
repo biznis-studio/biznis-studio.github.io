@@ -242,6 +242,28 @@
       lack of a download button is correct by design (the tool itself is
       the deliverable), not a missed case
 
+## Done (iteration 17) — real, no-account distribution: IndexNow
+- [x] Checked actual Google indexing status (`site:` search) - confirmed
+      0 pages indexed, as expected for a brand-new site with no Search
+      Console/backlinks. Google itself doesn't support any free instant-
+      index API - Search Console is still the only path there.
+- [x] Found IndexNow: a genuinely free, no-account protocol supported by
+      Bing/Yandex/Seznam/Naver/Yep - just a self-generated key file hosted
+      at the site root proves ownership, then a plain HTTP POST asks them
+      to (re)crawl specific URLs, usually within minutes instead of days.
+- [x] Implemented in `agents/seo_agent.py` (`get_or_create_indexnow_key`,
+      `submit_to_indexnow`) - persists the key in `db/indexnow_key.txt`
+      (must survive `site/` being wiped and rebuilt every run) and submits
+      the sitemap's URLs whenever `SITE_BASE_URL` is set.
+- [x] Found and fixed a real ordering bug before shipping: the main
+      pipeline run submits to IndexNow *before* commit+push+deploy, so the
+      key file isn't live yet for them to verify ownership. Added
+      `scripts/ping_indexnow.py` as a second, standalone re-ping that runs
+      as a CI step *after* `actions/deploy-pages` succeeds, so the first
+      real submission is guaranteed to hit a live key file.
+- [x] Tested both paths locally against the real deployed site - both
+      submissions returned `ok=True`.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

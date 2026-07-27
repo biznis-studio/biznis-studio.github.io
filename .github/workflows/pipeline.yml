@@ -37,7 +37,7 @@ jobs:
         run: |
           git config user.name "biznis-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add db/biznis.sqlite3 data/exports site
+          git add db/biznis.sqlite3 db/indexnow_key.txt data/exports site
           git diff --cached --quiet || git commit -m "chore: pipeline run $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           git push
 
@@ -58,3 +58,14 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - name: Ping IndexNow now that the key file is actually live
+        run: python3 scripts/ping_indexnow.py || true

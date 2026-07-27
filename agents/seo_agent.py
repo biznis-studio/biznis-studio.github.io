@@ -25,6 +25,7 @@ import html
 import json
 import os
 import re
+import secrets
 import sys
 from datetime import datetime, timezone
 from email.utils import format_datetime
@@ -33,11 +34,18 @@ from typing import Optional
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+import requests
+
 from core.db import get_connection, init_db
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE_DIR = ROOT / "site"
 SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "").rstrip("/")
+
+# Persisted outside site/ so it survives the directory getting rebuilt -
+# the filename IS the IndexNow key by convention, so it has to stay stable
+# across runs, not be regenerated every time.
+INDEXNOW_KEY_FILE = ROOT / "db" / "indexnow_key.txt"
 
 FAQS_BY_FORMAT = {
     "calculator": [
@@ -187,6 +195,39 @@ def generate_rss(pages: list[dict]) -> None:
     (SITE_DIR / "feed.xml").write_text(rss)
 
 
+def get_or_create_indexnow_key() -> str:
+    """The IndexNow key file's *name* has to be the key itself, hosted at
+    the site root, so it must stay stable across runs - persisted outside
+    site/ (which gets wiped and rebuilt) rather than regenerated."""
+    if INDEXNOW_KEY_FILE.exists():
+        return INDEXNOW_KEY_FILE.read_text().strip()
+    key = secrets.token_hex(16)
+    INDEXNOW_KEY_FILE.parent.mkdir(parents=True, exist_ok=True)
+    INDEXNOW_KEY_FILE.write_text(key)
+    return key
+
+
+def submit_to_indexnow(urls: list[str], key: str) -> bool:
+    """Ask Bing/Yandex/Seznam/Naver/Yep (not Google - IndexNow isn't a
+    Google protocol) to (re)crawl these URLs. Free, no account needed -
+    just the key file hosted at the site root for ownership proof. This
+    is a best-effort courtesy ping, not something the pipeline should ever
+    fail over if the API is briefly unreachable."""
+    if not urls or not SITE_BASE_URL:
+        return False
+    host = SITE_BASE_URL.split("://", 1)[-1].split("/", 1)[0]
+    try:
+        resp = requests.post(
+            "https://api.indexnow.org/indexnow",
+            json={"host": host, "key": key, "keyLocation": f"{SITE_BASE_URL}/{key}.txt",
+                  "urlList": urls},
+            timeout=15,
+        )
+        return resp.status_code in (200, 202)
+    except requests.RequestException:
+        return False
+
+
 def inject(page_path: Path, head_extra: str, body_extra: str) -> None:
     text = page_path.read_text()
     head_close = re.search(r"</head>", text, re.IGNORECASE)
@@ -246,12 +287,18 @@ def run(run_id: Optional[int] = None) -> int:
     conn.commit()
     conn.close()
 
+    indexnow_ok = None
     if SITE_BASE_URL:
         generate_sitemap(all_pages)
         generate_rss(all_pages)
+        key = get_or_create_indexnow_key()
+        (SITE_DIR / f"{key}.txt").write_text(key)
+        urls = [f"{SITE_BASE_URL}/"] + [_abs_url(p["url"]) for p in all_pages]
+        indexnow_ok = submit_to_indexnow(urls, key)
 
     print(f"[seo_agent] enhanced {processed} pages"
-          + ("" if SITE_BASE_URL else " (SITE_BASE_URL unset - no canonical URLs, sitemap/RSS skipped)"))
+          + ("" if SITE_BASE_URL else " (SITE_BASE_URL unset - no canonical URLs, sitemap/RSS skipped)")
+          + (f", indexnow_submit={'ok' if indexnow_ok else 'failed'}" if indexnow_ok is not None else ""))
     return processed
 
 

@@ -215,3 +215,13 @@ See [db/schema.sql](../db/schema.sql) — the single source of truth. Summary:
   but `landing_page_agent.py`'s renderer, `marketing_blurb()`, and
   `seo_agent.py`'s FAQ/schema all already support it the same as any
   other Markdown-based format.
+- **IndexNow submission happens twice, deliberately.** `seo_agent.py`
+  submits during the main pipeline run (before commit+push+deploy), which
+  is fine for every run except the very first time the key file itself
+  changes/appears - IndexNow needs to fetch `keyLocation` to verify
+  ownership, and the key file isn't live at that point yet.
+  `scripts/ping_indexnow.py` re-submits as a separate CI step *after*
+  `actions/deploy-pages` succeeds, so there's always at least one
+  submission per run guaranteed to hit an already-live key file. Google
+  doesn't participate in IndexNow (no free instant-index API from Google
+  exists) - only Search Console gets pages into Google specifically.
