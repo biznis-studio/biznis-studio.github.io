@@ -411,6 +411,34 @@
       (`feedback_enterprise_value_framing.md`) so it survives context
       compaction and future sessions apply it from the start.
 
+## Done (iteration 24) — Strategic Review mechanism + first review
+- [x] User refinement: tactical EBV-ranking alone still risks getting
+      "stuck" optimizing the current implementation forever without ever
+      questioning whether the business model itself is still the best bet.
+      Added a distinct, higher-level **Strategic Review** process
+      (`docs/STRATEGIC_REVIEWS.md`): 10 fixed questions, minimum weekly,
+      answered with real data, explicit willingness to recommend a pivot.
+- [x] Ran the first real Strategic Review using actual project data (19
+      runs, 85 keywords, 28 products/7-7-14 tier split, 0 confirmed
+      Google-indexed pages, 0 confirmed sales, 2 service pages with zero
+      leads/case studies). Honest findings: the product research is
+      sound, but the real systemic bottleneck is that nearly every
+      high-leverage growth lever is gated behind human-only account setup
+      (Search Console, Gumroad KYC, Formspree) that this system cannot do
+      on the user's behalf - flagged two follow-up decisions for the user
+      (Gumroad KYC vs. a lower-friction fallback; splitting services onto
+      their own trust-building track) rather than silently building more.
+      No pivot away from the current product line - explicitly said so,
+      since a Strategic Review has to be willing to say "no change needed"
+      too, not manufacture a pivot for its own sake.
+- [x] Documented the honest automation limit: a script can assemble the
+      data a review needs, but the judgment in questions 1-10 needs an
+      actual reasoning pass (same human-in-the-loop constraint already
+      documented for ebook prose - no LLM key wired into the scheduled
+      pipeline) - so this runs whenever a Claude Code session next touches
+      the project, triggered by the log's last dated entry being >1 week
+      old, not as an unattended cron job.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

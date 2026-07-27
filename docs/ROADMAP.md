@@ -55,6 +55,15 @@ Concrete consequences of this framing:
   because the EBV math changed, not because the user's earlier pause
   decision is being second-guessed.
 
+- **Never assume the current strategy is correct just because it's already
+  implemented.** A tactical EBV ranking (below) answers "what's next given
+  this business model" - it does not, by itself, question whether the
+  business model is still the best available option. That harder question
+  gets a dedicated **Strategic Review** (see docs/STRATEGIC_REVIEWS.md):
+  10 fixed questions, minimum weekly cadence, answered with real data, and
+  an explicit willingness to recommend a radical pivot if the data
+  supports one. The first review (2026-07-27) is already logged there.
+
 ## Next up, ranked by EBV (2026-07-27)
 
 1. **Resolve the distribution bottleneck** — either resume Google Search
