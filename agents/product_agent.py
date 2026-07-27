@@ -76,15 +76,21 @@ FORMAT_RULES = [
      lambda t: f"{t.title()}: Developer Quickstart & SOP",
      "Developer-tool keyword; a standard operating procedure / quickstart guide reduces onboarding friction."),
 ]
-FALLBACK_FORMAT = "ebook"
+# NOTE: there used to be a FALLBACK_FORMAT = "ebook" here that generated a
+# generic "The Practical Guide to {term}" idea for any keyword that didn't
+# match a specific pattern above. Retired 2026-07-27: this session's demand
+# validation research classified 14 products built from this fallback as
+# `retire_candidate` (see products.tier, docs/ROADMAP.md) - single-keyword
+# generic ebooks with no evidence of buyer intent beyond appearing once in a
+# scrape. Keywords that don't match a specific FORMAT_RULES pattern are now
+# skipped entirely rather than turned into a low-value idea.
 
 
 def pick_format(term: str):
     for pattern, fmt, title_fn, rationale in FORMAT_RULES:
         if pattern.search(term):
             return fmt, _dedupe_words(title_fn(term)), rationale
-    return (FALLBACK_FORMAT, f"The Practical Guide to {term.title()}",
-            "General-purpose topic; a short practical guide covers it best.")
+    return None
 
 
 def run(run_id: int) -> list[int]:
@@ -122,7 +128,10 @@ def run(run_id: int) -> list[int]:
         if existing:
             continue  # already have a live idea for this keyword; don't spam duplicates
 
-        fmt, title, rationale = pick_format(row["term"])
+        picked = pick_format(row["term"])
+        if picked is None:
+            continue  # no specific pattern matched - see note above pick_format()
+        fmt, title, rationale = picked
         cur.execute(
             """INSERT INTO product_ideas
                (run_id, title, format, target_keyword_id, niche_id, demand_score, rationale, status, created_at)

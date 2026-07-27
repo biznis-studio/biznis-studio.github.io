@@ -115,6 +115,7 @@ CREATE TABLE IF NOT EXISTS products (
     file_path TEXT,
     status TEXT NOT NULL DEFAULT 'draft', -- draft | ready | published
     monetization_url TEXT, -- set once a product is listed for sale (e.g. Gumroad); NULL = free download
+    tier TEXT, -- core | lead_magnet | retire_candidate | NULL (not yet classified) - see docs/ROADMAP.md
     created_at TEXT NOT NULL,
     published_at TEXT
 );

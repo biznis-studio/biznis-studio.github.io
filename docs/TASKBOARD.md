@@ -369,6 +369,25 @@
       form, give us the endpoint URL (`https://formspree.io/f/XXXXXXXX`) -
       until then the service pages fall back to a visible mailto link.
 
+## Done (iteration 22) — product tiering + retired the generic-ebook fallback
+- [x] Added `products.tier` column (`core`/`lead_magnet`/`retire_candidate`)
+      and classified all 28 products against this session's real
+      demand-validation research (iterations 14/18/19), instead of leaving
+      that judgment implicit in doc prose only. Result: 7 core, 7 lead
+      magnet, 14 retire_candidate.
+- [x] Confirmed (via the `pages` table) that all 14 retire_candidate
+      products were still `status='draft'` with zero live pages - no site
+      cleanup needed, just correcting the data to reflect reality. Set their
+      `product_ideas.status = 'rejected'`.
+- [x] Retired `product_agent.py`'s generic-ebook fallback at the source:
+      `pick_format()` no longer invents "The Practical Guide to {term}" for
+      unmatched keywords - it returns `None` and `run()` skips them. This is
+      the exact mechanism that produced all 14 retire_candidate products, so
+      fixing the doc/data without also fixing this would have let the same
+      clutter regenerate on the next scheduled run.
+- [x] Updated ROADMAP.md with the full rationale so this isn't just a silent
+      data change.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

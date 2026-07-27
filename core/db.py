@@ -21,6 +21,11 @@ def get_connection() -> sqlite3.Connection:
 MIGRATIONS = [
     ("pages", "seo_enhanced", "INTEGER NOT NULL DEFAULT 0"),
     ("products", "monetization_url", "TEXT"),
+    # 'core' = validated paid-demand evidence found (see docs/ROADMAP.md);
+    # 'lead_magnet' = good content, no evidence people pay for it directly -
+    # kept free on purpose; 'retire_candidate' = generic/saturated pattern,
+    # not worth building more like it. NULL = not yet classified.
+    ("products", "tier", "TEXT"),
 ]
 
 

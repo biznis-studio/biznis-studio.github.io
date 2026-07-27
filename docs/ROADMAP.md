@@ -75,6 +75,51 @@ Re-evaluate this ordering every iteration — see TASKBOARD.md.
    the loop back into demand scoring (a keyword whose product converts well
    should boost related keywords' scores).
 
+## Strategy: product tiering + retired fallback (2026-07-27)
+
+Rather than keep treating every product as equally worth building on, this
+session's accumulated demand-validation research (iterations 14/18/19) was
+turned into real data instead of staying implicit tribal knowledge:
+
+- Added `products.tier` (`core` | `lead_magnet` | `retire_candidate` | NULL)
+  via the standard `core/db.py::MIGRATIONS` mechanism. Classified all 28
+  existing products:
+  - **`core` (7)**: the monetized automation ebook; the Scope Creep Kit +
+    Change Request Log pair; the Retainer Renewal Kit + Tracker pair; the two
+    service offerings (web dev, chatbots) - real evidence of paid demand or
+    direct billable work, per iteration 18/19 research.
+  - **`lead_magnet` (7)**: XLSX ebook, generic checklist, spreadsheet pack,
+    calculator, invoice pack, EU compliance checklist, resume gap scripts -
+    genuinely useful, but no evidence anyone pays for these specifically
+    (resume gap scripts explicitly compete against free content from major
+    resume sites, per iteration 18). Kept free on purpose, valuable as
+    traffic/trust builders, not further investment targets.
+  - **`retire_candidate` (14)**: every product built purely from
+    `product_agent.py`'s old generic-ebook fallback (Appium, Productivity,
+    Detox, Gantt Chart, Seolytics, Dalia, Undefined Variable, Codeigniter
+    View/Query, Query Result, Typescript-To-Native Compiler, Google Chrome,
+    Hardhat, "there way"). All 14 were still `status='draft'` (outline
+    skeletons, never promoted, never given a live page) - confirmed via
+    `pages` table that none of them have any public footprint, so no site
+    cleanup was needed, just marking them as what they are.
+- Set the corresponding `product_ideas.status = 'rejected'` for those 14
+  (matching the convention already used for idea #9 "there way" in
+  iteration 8), so they stop showing up as live/actionable in any future
+  audit.
+- **Retired `product_agent.py`'s fallback entirely.** `pick_format()` used
+  to return `("ebook", "The Practical Guide to {term}", ...)` for any
+  keyword that didn't match a specific `FORMAT_RULES` pattern
+  (calculator/checklist/template/prompt_pack/sop). This fallback is exactly
+  what produced all 14 `retire_candidate` products - a single scraped
+  keyword with zero validation turned directly into a full product brief.
+  `pick_format()` now returns `None` for unmatched keywords, and
+  `run()` skips them instead of creating an idea. Net effect: the automated
+  pipeline can no longer manufacture a new generic single-keyword ebook on
+  its own; every future ebook-format product now has to come from deliberate
+  research (`manual_research` source, as already used for the EU Compliance
+  Checklist and the 3 diversified products in iterations 14-15) rather than
+  from raw keyword frequency.
+
 ## Explicitly deferred / needs a human decision
 
 - **Monetization: Gumroad chosen, awaiting the user's account + first listing**

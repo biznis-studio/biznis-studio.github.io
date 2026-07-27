@@ -118,7 +118,7 @@ See [db/schema.sql](../db/schema.sql) — the single source of truth. Summary:
 | `demand_scores` | Per-run score + components per keyword (re-blended for the checked shortlist) |
 | `niches` / `niche_keywords` | Co-occurrence-based keyword clusters (`niche_agent.py`); empty until 2+ keywords share a signal |
 | `product_ideas` | Generated product briefs (title, format, rationale, target keyword) |
-| `products` | Actually-built product files (path, format, status ready/draft); `monetization_url` set once a product is listed for sale |
+| `products` | Actually-built product files (path, format, status ready/draft); `monetization_url` set once a product is listed for sale; `tier` (`core`/`lead_magnet`/`retire_candidate`) records validated-demand classification, see ROADMAP.md |
 | `pages` | Landing pages for "ready" products (`landing_page_agent.py`); `status` stays 'draft' until deployed; `seo_enhanced` flags whether `seo_agent.py` already processed it |
 | `analytics_events` | Traffic/conversion events (empty until publishing exists) |
 
@@ -141,6 +141,15 @@ See [db/schema.sql](../db/schema.sql) — the single source of truth. Summary:
 - **Per-source percentile-rank normalization** in the keyword agent, not raw
   log-scaling — otherwise Wikipedia's 100k+ pageviews would always outrank
   HN's ~500-point stories regardless of actual relative significance.
+- **Product ideation no longer has a generic-ebook fallback.**
+  `product_agent.py::pick_format()` used to turn any keyword that didn't
+  match a specific format pattern into a "The Practical Guide to {term}"
+  ebook idea. Real research this session showed this pattern is exactly
+  what produced 14 low-value, never-promoted `retire_candidate` products
+  (see `products.tier`, ROADMAP.md) - so it was removed. Unmatched keywords
+  are now skipped entirely; ebook-format ideas only get created through
+  deliberate manual research (`sources_json` tag `manual_research`), not
+  raw keyword frequency.
 - **Wikipedia is kept but fenced off from product ideation.** It's a decent
   general zeitgeist/timely-content signal but a poor proxy for "a problem
   someone would pay to have solved" (top pageviews skew celebrity/movie/
