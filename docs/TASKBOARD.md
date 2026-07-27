@@ -632,6 +632,34 @@ gets wired in as a single batch, not three separate deploys.
       consultation surfaced: the public GitHub repo had no `homepageUrl`
       and zero topics set. Fixed immediately via `gh repo edit`.
 
+## Done (iteration 31) — stop writing docs, build a real Company Scoreboard
+- [x] Direct user feedback: enough principle documents exist now; more
+      markdown risks becoming the over-engineering this whole layer was
+      meant to prevent. Real gap was a queryable, trending record of
+      actual business state - not another policy file.
+- [x] Added `company_metrics` (one real snapshot per run) and
+      `experiments` (structure only, deliberately unused until there's
+      real traffic to test against - see ROADMAP.md) tables to the schema.
+- [x] Built `agents/scoreboard_agent.py`: computes real counts (products/
+      tiers/pages/keywords/monetized count/confirmed revenue/experiment
+      counts) from the DB every run, inserts a snapshot, and generates
+      docs/COMPANY_SCOREBOARD.md - a real data artifact, not hand-written
+      prose. Deliberately excludes Development Cost/Maintenance Cost/
+      Estimated Future Value fields rather than inventing dollar figures
+      for a project with no metered agent-time cost - documented as
+      "Not tracked (deliberately, not by oversight)" directly in the
+      generated file.
+- [x] Wired into `scripts/run_pipeline.py` (runs automatically every
+      scheduled iteration from now on) and verified end-to-end with a
+      real full local pipeline run (run_id=20) - confirmed the scoreboard
+      reflects real data (28 products, 86 keywords, 4,640 signals, 0
+      confirmed revenue) and that `product_agent.py`'s retired ebook
+      fallback correctly produced 0 new generic ideas on real live data.
+- [x] Recorded the phase shift explicitly in ROADMAP.md and Decision
+      Journal D11: judge future work by whether it produces new
+      knowledge, creates measurable value, or saves the human real work -
+      not by whether it adds another layer of process.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

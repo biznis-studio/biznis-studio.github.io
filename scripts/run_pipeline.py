@@ -19,7 +19,7 @@ sys.path.insert(0, str(ROOT))
 
 from agents import (competitor_agent, content_agent, demand_scoring_agent,
                      keyword_agent, landing_page_agent, market_research_agent,
-                     niche_agent, product_agent, seo_agent)
+                     niche_agent, product_agent, scoreboard_agent, seo_agent)
 from agents.common import now_iso
 from core.db import get_connection
 
@@ -86,6 +86,7 @@ def main() -> int:
     content_agent.run(run_id)
     landing_page_agent.run(run_id)
     seo_agent.run(run_id)
+    scoreboard_agent.run(run_id)
     report_path = export_report(run_id)
     print(f"[run_pipeline] run_id={run_id} report={report_path}")
     return run_id

@@ -121,6 +121,8 @@ See [db/schema.sql](../db/schema.sql) — the single source of truth. Summary:
 | `products` | Actually-built product files (path, format, status ready/draft); `monetization_url` set once a product is listed for sale; `tier` (`core`/`lead_magnet`/`retire_candidate`) records validated-demand classification, see ROADMAP.md |
 | `pages` | Landing pages for "ready" products (`landing_page_agent.py`); `status` stays 'draft' until deployed; `seo_enhanced` flags whether `seo_agent.py` already processed it |
 | `analytics_events` | Traffic/conversion events (empty until publishing exists) |
+| `company_metrics` | One real, computed snapshot per run (`scoreboard_agent.py`) - powers docs/COMPANY_SCOREBOARD.md's trend; no estimated/fabricated fields |
+| `experiments` | Hypothesis + success metric + status; structure only for now, see ROADMAP.md on why the full portfolio scheduler waits for real traffic |
 
 ## Design decisions worth knowing
 

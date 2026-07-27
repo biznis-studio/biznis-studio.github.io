@@ -214,6 +214,48 @@ real decisions made so far, then kept current going forward.
   whether the four documents are actually being kept current or have
   started to rot, which would itself be a constraint worth logging.
 
+### D11 — Stop adding principle docs, build a real measured scoreboard instead (2026-07-27)
+- **Decision**: Per direct user feedback, stopped adding new
+  principle/manifesto documents (this project now has ROADMAP,
+  STRATEGIC_REVIEWS, CONSTRAINT_LOG, OPPORTUNITY_QUEUE, and this journal -
+  enough). Built `company_metrics` + `experiments` DB tables and
+  `agents/scoreboard_agent.py`, which computes real numbers from the DB
+  every run and writes docs/COMPANY_SCOREBOARD.md - a generated data
+  artifact, not hand-written prose.
+- **Reasoning**: The user correctly identified that more documentation
+  has diminishing returns and risks becoming the exact over-engineering
+  this whole operating-principle layer was meant to prevent. The real gap
+  wasn't another policy - it was the absence of any queryable, trending,
+  quantified record of what the business actually has and produces.
+- **Assumptions**: Real, computed counts (products/tiers/pages/keywords/
+  confirmed revenue) are more useful right now than an economic model
+  with invented dollar figures for a solo project with no metered agent-
+  time cost - so the scoreboard deliberately omits Development Cost/
+  Maintenance Cost/Estimated Future Value rather than fabricating them.
+- **Alternatives rejected**: Assigning made-up dollar costs/values per
+  asset just to satisfy the "quantify everything" request literally -
+  rejected as fabricated data, which this project's rules explicitly
+  forbid (no fake traffic/reviews/data, extended here to no fake
+  financials). Building a full experiment-portfolio scheduler (parallel
+  hypotheses, auto-kill, auto-scale) right now - rejected as premature:
+  there is currently no real traffic to run any experiment against, so a
+  scheduler would have nothing real to manage yet. The `experiments`
+  table exists so this is a one-line addition once it's actually needed,
+  not a rebuild.
+- **Expected outcome**: Every future session opens on real trend data
+  instead of re-deriving business state from conversation history or
+  prose docs; the scoreboard's "Not tracked" section makes the honesty
+  boundary explicit instead of silently pretending precision that
+  doesn't exist.
+- **Metrics to validate**: The `company_metrics` trend actually
+  accumulates real, distinct snapshots run over run (not fabricated), and
+  future sessions consult docs/COMPANY_SCOREBOARD.md before restating
+  numbers from memory.
+- **Review date**: Check in the next Strategic Review whether the
+  scoreboard is actually being consulted, and whether the deliberately
+  excluded fields (cost/future-value estimates) are still the right call
+  once real revenue or traffic data exists.
+
 ### D10 — Consulted an independent AI (ChatGPT) for a second opinion, adopted some findings and explicitly rejected others (2026-07-27)
 - **Decision**: At the user's request, explained the full system to ChatGPT
   (via the user's own logged-in browser session) and asked for

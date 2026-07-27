@@ -143,3 +143,49 @@ CREATE TABLE IF NOT EXISTS analytics_events (
     source TEXT,
     recorded_at TEXT NOT NULL
 );
+
+-- One snapshot row per pipeline run (scoreboard_agent.py). Real, computed
+-- numbers only - no estimated/fabricated dollar figures. This is what
+-- lets docs/COMPANY_SCOREBOARD.md show a trend over time instead of a
+-- single point-in-time report.
+CREATE TABLE IF NOT EXISTS company_metrics (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    run_id INTEGER REFERENCES runs(id),
+    computed_at TEXT NOT NULL,
+    total_keywords INTEGER,
+    new_keywords_7d INTEGER,       -- learning-velocity proxy: real, computable from keywords.first_seen
+    total_signals INTEGER,
+    total_products INTEGER,
+    ready_products INTEGER,
+    core_tier_count INTEGER,
+    lead_magnet_count INTEGER,
+    retire_candidate_count INTEGER,
+    live_pages INTEGER,
+    seo_enhanced_pages INTEGER,
+    monetized_products INTEGER,
+    confirmed_revenue_usd REAL,    -- 0 until a real sale is confirmed by the user - never estimated
+    experiments_total INTEGER,
+    experiments_running INTEGER,
+    experiments_succeeded INTEGER,
+    experiments_failed INTEGER
+);
+
+-- Real experiments (not ideas, not products) - a hypothesis with a
+-- defined success metric that either passes or fails. Structure only for
+-- now: see docs/ROADMAP.md on why a full experiment-portfolio scheduler
+-- isn't being built yet (no traffic exists to run experiments against -
+-- building the harness before that would itself be premature
+-- over-engineering). This table exists so the first real experiment has
+-- somewhere honest to live the moment one becomes runnable.
+CREATE TABLE IF NOT EXISTS experiments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    hypothesis TEXT NOT NULL,
+    success_metric TEXT NOT NULL,
+    budget TEXT,                   -- human-readable time/resource budget - no metered $ cost exists to assign
+    status TEXT NOT NULL DEFAULT 'proposed', -- proposed | running | succeeded | failed | abandoned
+    started_at TEXT,
+    ended_at TEXT,
+    result TEXT,
+    created_at TEXT NOT NULL
+);
