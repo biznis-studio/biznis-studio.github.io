@@ -47,6 +47,13 @@ DOWNLOADS_DIR = SITE_DIR / "downloads"
 # not discover/index the site at all for a long time.
 GOOGLE_SITE_VERIFICATION = os.environ.get("GOOGLE_SITE_VERIFICATION", "")
 
+# Set once the user creates a free Formspree form and gives us its endpoint
+# (https://formspree.io/f/XXXXXXXX) - lets "service" pages use a real
+# contact form that forwards to the site owner's email without ever
+# putting that email address in the page source. Falls back to a mailto
+# CTA (which *does* expose the address) until this is configured.
+FORMSPREE_ENDPOINT = os.environ.get("FORMSPREE_ENDPOINT", "")
+
 # Human-readable download-button labels - fmt.replace("_", " ") alone would
 # still read as internal jargon for some formats ("swipe file" isn't a term
 # most visitors recognize; found this after "Download swipe_file" - with
@@ -131,6 +138,24 @@ def inject_intro_into_calculator(html_text: str, intro_html: str, meta_descripti
     return html_text
 
 
+def contact_form_html() -> str:
+    """A real contact form posting straight to Formspree - no email address
+    anywhere in this page's source. The honeypot ("_gotcha") is Formspree's
+    own spam-trap convention: a field hidden from real visitors via CSS
+    that, if filled in, means a bot filled out every field blindly."""
+    return f"""<form class="contact-form" action="{html.escape(FORMSPREE_ENDPOINT)}" method="POST">
+<label for="name">Name</label>
+<input type="text" id="name" name="name" required>
+<label for="email">Your email</label>
+<input type="email" id="email" name="email" required>
+<label for="message">What do you need?</label>
+<textarea id="message" name="message" required></textarea>
+<input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+<button type="submit" class="button">Send</button>
+<p class="form-note">Goes straight to us - no account or signup needed on your end.</p>
+</form>"""
+
+
 def build_page(product: dict) -> Optional[dict]:
     title = product["title"]
     fmt = product["format"]
@@ -167,8 +192,12 @@ def build_page(product: dict) -> Optional[dict]:
 
         if fmt == "service":
             # Not a download - a custom-scoped offering, so the CTA is a
-            # contact method instead of a file.
-            cta = f'<a class="button" href="mailto:{CONTACT_EMAIL}">Get in touch</a>'
+            # contact method instead of a file. Prefer the real contact
+            # form (email address never appears in the page source) once
+            # Formspree is configured; fall back to mailto (which *does*
+            # expose the address) until then.
+            cta = contact_form_html() if FORMSPREE_ENDPOINT else (
+                f'<a class="button" href="mailto:{CONTACT_EMAIL}">Get in touch</a>')
         elif monetization_url:
             # Paid listing: don't also give the file away for free alongside it.
             cta = (f'<a class="button" href="{html.escape(monetization_url)}" '

@@ -351,6 +351,24 @@
       now publicly visible on the site - flagged to the user rather than
       assumed acceptable silently.
 
+## Done (iteration 21) — real contact form, email hidden from page source
+- [x] User: hide the email, use a real form instead. mailto: links always
+      expose the address in the page source, so replaced them with a real
+      `<form>` posting to Formspree (free, no email ever in our HTML - the
+      form endpoint is an opaque ID tied to the account, not the address).
+- [x] Added `FORMSPREE_ENDPOINT` env var (same progressive-enhancement
+      pattern as `SITE_BASE_URL`/`GOOGLE_SITE_VERIFICATION`): falls back to
+      the mailto CTA (which *does* expose the address) until it's set, so
+      the site keeps working either way.
+- [x] Also fixed the header's "Hire us" nav link, which was a mailto on
+      *every* page - now points to the homepage's services section instead.
+- [x] Verified: with the endpoint set, zero occurrences of the email
+      address anywhere in the generated HTML; without it, exactly one
+      (the fallback mailto), confirming the toggle works both ways.
+- [ ] **Waiting on the user**: create a free Formspree account, make a
+      form, give us the endpoint URL (`https://formspree.io/f/XXXXXXXX`) -
+      until then the service pages fall back to a visible mailto link.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

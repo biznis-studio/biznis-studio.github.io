@@ -251,8 +251,16 @@ See [db/schema.sql](../db/schema.sql) — the single source of truth. Summary:
 - **`service` is a format with no downloadable file.** Custom Website
   Design & Development and Custom Chatbot Development are real offerings,
   not automated digital products - `landing_page_agent.py` gives this
-  format a `mailto:` CTA instead of a download link, and `seo_agent.py`
+  format a contact CTA instead of a download link, and `seo_agent.py`
   marks it up as schema.org `Service` (no `Offer`/price, since work is
   custom-quoted, not fixed-price). The homepage renders services in a
   separate "Work with us" section above the free-product grid rather than
   mixing them into the same grid.
+- **The service contact CTA never hardcodes a visible mailto as the only
+  path.** A `mailto:` link always exposes the address in the page source
+  to anyone (and every scraper). `FORMSPREE_ENDPOINT` (unset by default)
+  switches `contact_form_html()` to a real `<form>` POSTing to Formspree's
+  free tier instead - the endpoint is an opaque ID tied to the account,
+  so the actual address never appears in the site's HTML at all. Falls
+  back to the mailto CTA only until that's configured, so the site never
+  breaks either way.

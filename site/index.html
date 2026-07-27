@@ -84,17 +84,17 @@
     background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
     padding: 1.6rem 1.85rem; margin: 1.5rem 0; box-shadow: var(--shadow);
   }
-  a.button {
+  a.button, button.button {
     display: inline-block; background: var(--gradient); color: var(--brand-contrast) !important;
     padding: 0.85rem 1.75rem; border-radius: 12px; text-decoration: none; font-weight: 700;
-    box-shadow: var(--shadow-lg); transition: transform 0.15s ease, box-shadow 0.15s ease;
+    font-size: 1rem; box-shadow: var(--shadow-lg); transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
-  a.button:hover { transform: translateY(-2px) scale(1.015); }
-  a.button.secondary {
+  a.button:hover, button.button:hover { transform: translateY(-2px) scale(1.015); }
+  a.button.secondary, button.button.secondary {
     background: var(--surface); color: var(--text) !important; border: 1px solid var(--border);
     box-shadow: none;
   }
-  a.button.secondary:hover { border-color: var(--brand); }
+  a.button.secondary:hover, button.button.secondary:hover { border-color: var(--brand); }
   table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.92rem; }
   th, td { border: 1px solid var(--border); padding: 0.65rem 0.75rem; text-align: left; }
   th { background: var(--bg-alt); font-weight: 700; }
@@ -139,6 +139,20 @@
     display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.15rem; margin-top: 1.25rem;
   }
+  .contact-form label {
+    display: block; font-weight: 600; font-size: 0.9rem; color: var(--text-muted);
+    margin: 1rem 0 0.35rem;
+  }
+  .contact-form input, .contact-form textarea {
+    width: 100%; padding: 0.7rem 0.85rem; font-size: 1rem; font-family: inherit;
+    color: var(--text); background: var(--bg); border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .contact-form textarea { min-height: 120px; resize: vertical; }
+  .contact-form button {
+    margin-top: 1.25rem; border: none; cursor: pointer; font-family: inherit;
+  }
+  .form-note { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.75rem; }
   .hero { max-width: 680px; }
   .hero .subtitle { font-size: 1.15rem; }
   .hero h1 {
@@ -157,8 +171,7 @@
 <a class="brand" href="index.html">Biznis<span>.</span></a>
 <nav>
 <a href="index.html">Free products</a>
-<a href="#services">Services</a>
-<a class="nav-cta" href="mailto:jozefrusnak4@gmail.com">Hire us</a>
+<a class="nav-cta" href="#services">Hire us</a>
 </nav>
 </header>
 <main class="wide">
