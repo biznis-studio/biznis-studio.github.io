@@ -751,6 +751,37 @@ one-by-one - so this gets wired in as a single batch.
       changes pass directly - a contradictory FAQ or missing license
       terms are exactly the kind of friction that costs a sale.
 
+## Done (iteration 36) — both validated bundles live on Gumroad, priced $29
+- [x] User listed both bundles: Scope Creep Kit + Change Request Log at
+      https://jozefrusnak.gumroad.com/l/dtuqjc, Retainer Renewal Kit +
+      Tracker at https://jozefrusnak.gumroad.com/l/wztgr, both $29.
+      Wired `products.monetization_url` for all 4 underlying product rows
+      (19, 20, 22, 23).
+- [x] Found and fixed a real bug in my own process while rebuilding the
+      pages: calling `landing_page_agent.build_page()` directly on an
+      already-published page resets it to pre-SEO-enhancement state
+      (wipes canonical link, schema.org JSON-LD, and the FAQ block seo_
+      agent.py had injected) - `run()` only ever builds pages that don't
+      exist yet, it doesn't know how to safely refresh an existing one.
+      Fixed by resetting `pages.seo_enhanced = 0` for the 4 affected pages
+      and re-running `seo_agent.run()`, which correctly re-injected
+      everything with the new dynamic (paid) FAQ answer built in.
+- [x] Also fixed a real bug in `refresh_faq_for_page()` itself: it
+      returned `True` even when its regex replaced nothing, which is
+      exactly what silently happened here and is what surfaced the bug
+      above - now uses `re.subn` and returns `False` if either
+      replacement didn't actually match.
+- [x] Removed the 4 now-stale free download files from `site/downloads/`
+      - confirmed nothing still linked to them first. Leaving them up
+      would have undermined the new paid listings by giving the same
+      files away for free right next to them.
+- [x] Verified clean with `scripts/audit_site.py` (0 issues) and manual
+      checks: exactly one FAQPage schema and one canonical link per page,
+      correct "No - it's a one-time purchase..." FAQ answer, "Get it on
+      Gumroad" CTA, and the license-terms line all present on all 4 pages.
+- [x] Refreshed `docs/COMPANY_SCOREBOARD.md` - `monetized_products` now
+      correctly reads 5 (product #3 from iteration 11 + these 4).
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

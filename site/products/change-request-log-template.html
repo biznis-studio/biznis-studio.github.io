@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Skip the blank page. A ready-to-use Change Request Tracking template with the right structure already in place.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234f46e5'/%3E%3Ctext x='32' y='44' font-family='Arial,sans-serif' font-size='34' font-weight='800' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+<link rel="alternate" type="application/rss+xml" title="Biznis - Free Digital Products" href="https://fwwk4pb868-afk.github.io/biznis/feed.xml">
 <style>
   :root {
     color-scheme: light dark;
@@ -84,17 +85,17 @@
     background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
     padding: 1.6rem 1.85rem; margin: 1.5rem 0; box-shadow: var(--shadow);
   }
-  a.button {
+  a.button, button.button {
     display: inline-block; background: var(--gradient); color: var(--brand-contrast) !important;
     padding: 0.85rem 1.75rem; border-radius: 12px; text-decoration: none; font-weight: 700;
-    box-shadow: var(--shadow-lg); transition: transform 0.15s ease, box-shadow 0.15s ease;
+    font-size: 1rem; box-shadow: var(--shadow-lg); transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
-  a.button:hover { transform: translateY(-2px) scale(1.015); }
-  a.button.secondary {
+  a.button:hover, button.button:hover { transform: translateY(-2px) scale(1.015); }
+  a.button.secondary, button.button.secondary {
     background: var(--surface); color: var(--text) !important; border: 1px solid var(--border);
     box-shadow: none;
   }
-  a.button.secondary:hover { border-color: var(--brand); }
+  a.button.secondary:hover, button.button.secondary:hover { border-color: var(--brand); }
   table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.92rem; }
   th, td { border: 1px solid var(--border); padding: 0.65rem 0.75rem; text-align: left; }
   th { background: var(--bg-alt); font-weight: 700; }
@@ -139,6 +140,20 @@
     display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.15rem; margin-top: 1.25rem;
   }
+  .contact-form label {
+    display: block; font-weight: 600; font-size: 0.9rem; color: var(--text-muted);
+    margin: 1rem 0 0.35rem;
+  }
+  .contact-form input, .contact-form textarea {
+    width: 100%; padding: 0.7rem 0.85rem; font-size: 1rem; font-family: inherit;
+    color: var(--text); background: var(--bg); border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .contact-form textarea { min-height: 120px; resize: vertical; }
+  .contact-form button {
+    margin-top: 1.25rem; border: none; cursor: pointer; font-family: inherit;
+  }
+  .form-note { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.75rem; }
   .hero { max-width: 680px; }
   .hero .subtitle { font-size: 1.15rem; }
   .hero h1 {
@@ -156,16 +171,14 @@
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://fwwk4pb868-afk.github.io/biznis/products/change-request-log-template.html">
 <script type="application/ld+json">{"@context": "https://schema.org", "name": "Change Request Log Template", "description": "Skip the blank page. A ready-to-use Change Request Tracking template with the right structure already in place.", "url": "https://fwwk4pb868-afk.github.io/biznis/products/change-request-log-template.html", "@type": "CreativeWork"}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What file format is the template?", "acceptedAnswer": {"@type": "Answer", "text": "CSV, which opens directly in Excel, Google Sheets, or Numbers."}}, {"@type": "Question", "name": "Is it free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, no signup required."}}, {"@type": "Question", "name": "Can I customize the columns?", "acceptedAnswer": {"@type": "Answer", "text": "Yes - it's a starting point. Add, remove, or rename columns as needed."}}]}</script>
-<link rel="alternate" type="application/rss+xml" title="Biznis - Free Digital Products" href="https://fwwk4pb868-afk.github.io/biznis/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What file format is the template?", "acceptedAnswer": {"@type": "Answer", "text": "CSV, which opens directly in Excel, Google Sheets, or Numbers."}}, {"@type": "Question", "name": "Is it free?", "acceptedAnswer": {"@type": "Answer", "text": "No - it's a one-time purchase. See the Gumroad link above for the current price."}}, {"@type": "Question", "name": "Can I customize the columns?", "acceptedAnswer": {"@type": "Answer", "text": "Yes - it's a starting point. Add, remove, or rename columns as needed."}}]}</script>
 </head>
 <body>
 <header class="site-header">
 <a class="brand" href="../index.html">Biznis<span>.</span></a>
 <nav>
 <a href="../index.html">Free products</a>
-<a href="../index.html#services">Services</a>
-<a class="nav-cta" href="mailto:jozefrusnak4@gmail.com">Hire us</a>
+<a class="nav-cta" href="../index.html#services">Hire us</a>
 </nav>
 </header>
 <main>
@@ -177,13 +190,14 @@
 <tr><td>2026-07-26</td><td>Example Client</td><td>Add a second landing page variant</td><td>Client</td><td>3</td><td>150.00</td><td>Pending</td><td></td><td></td><td>Sent script #3 (formal change request)</td></tr>
 <tr><td>2026-07-20</td><td>Example Client</td><td>Extra revision round beyond the agreed 2</td><td>Client</td><td>1.5</td><td>75.00</td><td>Approved</td><td>Client (email)</td><td>2026-07-21</td><td>Bundled with next invoice</td></tr>
 </table></div>
-<a class="button" href="../downloads/0020-change-request-log-template.csv" download>Download template</a>
+<a class="button" href="https://jozefrusnak.gumroad.com/l/dtuqjc" target="_blank" rel="noopener">Get it on Gumroad</a>
+<p class="form-note">Personal &amp; business use license: use it for your own work or your clients' work. Don't resell, redistribute, or republish the files themselves.</p>
 </main>
 <div class="card"><h2>FAQ</h2>
 <h3>What file format is the template?</h3>
 <p>CSV, which opens directly in Excel, Google Sheets, or Numbers.</p>
 <h3>Is it free?</h3>
-<p>Yes, no signup required.</p>
+<p>No - it&#x27;s a one-time purchase. See the Gumroad link above for the current price.</p>
 <h3>Can I customize the columns?</h3>
 <p>Yes - it&#x27;s a starting point. Add, remove, or rename columns as needed.</p></div><div class="card"><h2>More free tools</h2><ul><li><a href="the-practical-guide-to-xlsx.html">The Practical Guide to XLSX</a></li>
 <li><a href="checklist-pdf-notion.html">Checklist (PDF + Notion)</a></li>

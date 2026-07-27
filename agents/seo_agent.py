@@ -307,17 +307,26 @@ def refresh_faq_for_page(page_id: int) -> bool:
     # Use a function (not a string) as the re.sub replacement - a plain
     # string would have backslash-escapes in the JSON-LD (\", \\n) parsed
     # as regex backreferences instead of literal characters.
-    text = re.sub(
+    text, n1 = re.subn(
         r'<div class="card"><h2>FAQ</h2>.*?</div>',
         lambda _m: new_faq_html,
         text, count=1, flags=re.DOTALL,
     )
     new_faq_script = f'<script type="application/ld+json">{json.dumps(new_faq_schema)}</script>'
-    text = re.sub(
+    text, n2 = re.subn(
         r'<script type="application/ld\+json">\{"@context": "https://schema\.org", "@type": "FAQPage".*?</script>',
         lambda _m: new_faq_script,
         text, count=1, flags=re.DOTALL,
     )
+    if n1 == 0 or n2 == 0:
+        # Nothing to patch - most likely the page never had a FAQ block
+        # injected yet (or was rebuilt from scratch since, wiping it out -
+        # this bit me once: calling landing_page_agent.build_page() directly
+        # on an already-enhanced page resets it to pre-SEO-enhancement
+        # state). Don't silently report success - the caller needs to know
+        # a full seo_agent.run() pass is needed instead (reset
+        # pages.seo_enhanced=0 for this page first).
+        return False
     page_path.write_text(text)
     return True
 

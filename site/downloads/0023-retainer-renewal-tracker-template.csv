@@ -1,3 +1,0 @@
-Client,Contract Start Date,Contract End Date,Renewal Notice Date,Current Rate,Status,Next Action,Notes
-Example Client,2026-01-01,2026-12-31,2026-11-01,2000.00/month,Active,Send script #1 (proactive check-in) on notice date,Renewed last year at same rate
-Example Client 2,2026-03-15,2026-09-15,2026-08-15,1500.00/month,Renewal Pending,Awaiting reply to script #3 (rate increase),Sent 2026-07-20
