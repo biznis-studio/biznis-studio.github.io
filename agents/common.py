@@ -89,12 +89,28 @@ def marketing_blurb(term: str, format_: str, monetized: bool = False) -> str:
     return template.format(term=subject, format=format_.replace("_", " "))
 
 
+_BOLD_RE = re.compile(r"\*\*(.+?)\*\*")
+_ITALIC_RE = re.compile(r"(?<!\*)\*([^*\n]+?)\*(?!\*)")
+
+
+def _inline_emphasis(escaped_text: str) -> str:
+    """Convert **bold** and *italic* to <strong>/<em>, applied *after*
+    html.escape() so the asterisks (not HTML-special) are untouched by
+    escaping but the tags we insert are real markup, not escaped text.
+    Found this gap by shipping content that used *italic* emphasis and
+    seeing literal asterisks on the live page."""
+    escaped_text = _BOLD_RE.sub(r"<strong>\1</strong>", escaped_text)
+    escaped_text = _ITALIC_RE.sub(r"<em>\1</em>", escaped_text)
+    return escaped_text
+
+
 def markdown_lite_to_html(md_text: str) -> str:
     """Minimal renderer for the specific Markdown subset content_agent.py
     produces: #/## headings, "- [ ] " checklist items, "- " list items,
-    "> " blockquotes, "---" rules, and plain paragraphs. Shared by
-    landing_page_agent.py (web pages) and scripts/export_pdf.py (PDF
-    downloads) so both never drift into two different parsers.
+    "> " blockquotes, "---" rules, plain paragraphs, and inline **bold**/
+    *italic* emphasis. Shared by landing_page_agent.py (web pages) and
+    scripts/export_pdf.py (PDF downloads) so both never drift into two
+    different parsers.
 
     Every block type here is hand-wrapped across multiple physical lines
     in the source (for readable line lengths), so this has to merge wrapped
@@ -117,7 +133,7 @@ def markdown_lite_to_html(md_text: str) -> str:
     def flush():
         nonlocal buffer_type, buffer_text
         if buffer_text:
-            text = html.escape(" ".join(buffer_text).strip())
+            text = _inline_emphasis(html.escape(" ".join(buffer_text).strip()))
             if buffer_type == "li":
                 out.append(f"<li>{text}</li>")
             elif buffer_type == "li_checked":

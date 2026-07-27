@@ -225,3 +225,9 @@ See [db/schema.sql](../db/schema.sql) — the single source of truth. Summary:
   submission per run guaranteed to hit an already-live key file. Google
   doesn't participate in IndexNow (no free instant-index API from Google
   exists) - only Search Console gets pages into Google specifically.
+- **`markdown_lite_to_html()` supports `**bold**`/`*italic*` inline
+  emphasis**, added after shipping content that used it and getting
+  literal asterisks on the live page. Applied via regex *after*
+  `html.escape()` (so raw asterisks in prose are untouched by escaping,
+  but the `<strong>`/`<em>` tags this inserts are real markup, not
+  escaped text) - see `_inline_emphasis()` in `agents/common.py`.

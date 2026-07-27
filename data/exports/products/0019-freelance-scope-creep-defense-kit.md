@@ -3,9 +3,23 @@
 Every freelancer and consultant hits this eventually: the project was
 scoped, the client agreed, and then the requests keep quietly growing.
 "Just one more small thing" said five times is a second project you're
-doing for free. These are ready-to-send scripts for the exact moments
-scope creep actually happens - not general advice, actual wording you can
-copy, adjust, and send today.
+doing for free. This kit is two things that work together: ready-to-send
+scripts for the exact moments scope creep actually happens, and a simple
+log to track every addition so nothing gets lost in email threads or
+forgotten by invoice time.
+
+## How the two parts work together
+
+- The scripts (this document) - the actual wording for seven specific
+  moments, from the first small ask to a full renegotiation.
+- The Change Request Log (companion template) - one row per addition:
+  what was asked, who asked, estimated hours/cost, and whether it was
+  approved. When you send script #3 (the formal change request), that's
+  the moment to add a row.
+
+Used together, you get a complete, lightweight system: notice it, name it
+with the right words, log it, get it approved, bill for it. No SaaS
+subscription, no complicated setup - just a document and a spreadsheet.
 
 ## Why this exists
 

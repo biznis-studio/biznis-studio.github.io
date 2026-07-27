@@ -264,6 +264,32 @@
 - [x] Tested both paths locally against the real deployed site - both
       submissions returned `ok=True`.
 
+## Done (iteration 18) — validated priorities, repackaged the strongest bet, one more real bug
+- [x] Deep research pass instead of more building: checked for actual
+      *paid* competitors/price evidence per product, not just topic
+      interest. Finding: **Scope Creep Kit + Change Request Log** is a
+      real, existing paid category ($19-79, sits between expensive SaaS
+      like FreshBooks/HoneyBook and DIY spreadsheets) - our strongest bet.
+      **Resume Gap Scripts** sits in a space dominated by free content
+      from major resume sites (AARP, ResumeGenius, career centers) with
+      no clear evidence people pay for this specifically - repositioned
+      as a free lead-magnet, not a monetization candidate.
+- [x] Useful side-finding: Gumroad acts as EU "merchant of record" and
+      already handles VAT itself - simplifies the user's own situation,
+      and means the EU Compliance Checklist is most valuable for direct-
+      Stripe sellers, less so for Gumroad-only sellers.
+- [x] Repackaged the Scope Creep Kit as one cohesive "system" (scripts +
+      log, explained together) instead of two separate unrelated free
+      items - matches the "professionally packaged system" pattern the
+      research found actually sells, ready to move to a fixed $19-29
+      price the moment Gumroad payouts are working.
+- [x] Found and fixed a real, systemic bug while writing that update: used
+      `**bold**`/`*italic*` markdown, which `markdown_lite_to_html()`
+      didn't support - would have shipped literal asterisks to readers
+      (already had 2 pre-existing instances of this in older content).
+      Added real `<strong>`/`<em>` inline emphasis support to the shared
+      renderer and rebuilt every page and PDF.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
