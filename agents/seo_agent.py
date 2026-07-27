@@ -122,10 +122,26 @@ def schema_for(fmt: str, title: str, description: str, url: Optional[str], page_
     return {**base, "@type": "CreativeWork"}
 
 
-def faq_block(fmt: str, term: str) -> tuple[str, Optional[dict]]:
+# Pricing-related question text is answered dynamically below rather than
+# baked into FAQS_BY_FORMAT as a static "Yes, free" string. Found this the
+# hard way: it would have kept telling a paying customer "Is this free?
+# Yes." right next to a Gumroad "Buy" button the moment a product got
+# priced, since seo_agent's injection is one-time (gated by
+# pages.seo_enhanced) and never re-runs after monetization_url is set.
+_FREE_QUESTIONS = {"Is this free?", "Is it free to use?", "Is this checklist free?", "Is it free?"}
+
+
+def _pricing_answer(monetized: bool) -> str:
+    if monetized:
+        return "No - it's a one-time purchase. See the Gumroad link above for the current price."
+    return "Yes, no signup required."
+
+
+def faq_block(fmt: str, term: str, monetized: bool = False) -> tuple[str, Optional[dict]]:
     faqs = FAQS_BY_FORMAT.get(fmt)
     if not faqs:
         return "", None
+    faqs = [(q, _pricing_answer(monetized) if q in _FREE_QUESTIONS else a) for q, a in faqs]
     items_html = "\n".join(
         f"<h3>{html.escape(q)}</h3>\n<p>{html.escape(a)}</p>" for q, a in faqs
     )
@@ -256,12 +272,62 @@ def inject(page_path: Path, head_extra: str, body_extra: str) -> None:
     page_path.write_text(text)
 
 
+def refresh_faq_for_page(page_id: int) -> bool:
+    """Re-generate just the FAQ card + FAQPage JSON-LD for one already-
+    enhanced page (seo_enhanced=1, so run() won't touch it again) and
+    patch it in place. Needed specifically when `products.monetization_url`
+    changes after the page was first built: the FAQ's pricing question
+    ("Is this free?") was baked in as static text at injection time and
+    would otherwise keep telling a paying customer "yes, free" forever -
+    see the note above FAQS_BY_FORMAT/_FREE_QUESTIONS. Call this right
+    after setting monetization_url, alongside rebuilding the page's CTA
+    via landing_page_agent.py."""
+    conn = get_connection()
+    row = conn.execute(
+        """SELECT pg.url, p.format, p.monetization_url, k.term
+           FROM pages pg JOIN products p ON p.id = pg.product_id
+           JOIN product_ideas pi ON pi.id = p.idea_id
+           JOIN keywords k ON k.id = pi.target_keyword_id
+           WHERE pg.id = ?""",
+        (page_id,),
+    ).fetchone()
+    conn.close()
+    if not row:
+        return False
+
+    page_path = SITE_DIR / row["url"]
+    if not page_path.exists():
+        return False
+    text = page_path.read_text()
+
+    new_faq_html, new_faq_schema = faq_block(row["format"], row["term"], monetized=bool(row["monetization_url"]))
+    if not new_faq_schema:
+        return False
+
+    # Use a function (not a string) as the re.sub replacement - a plain
+    # string would have backslash-escapes in the JSON-LD (\", \\n) parsed
+    # as regex backreferences instead of literal characters.
+    text = re.sub(
+        r'<div class="card"><h2>FAQ</h2>.*?</div>',
+        lambda _m: new_faq_html,
+        text, count=1, flags=re.DOTALL,
+    )
+    new_faq_script = f'<script type="application/ld+json">{json.dumps(new_faq_schema)}</script>'
+    text = re.sub(
+        r'<script type="application/ld\+json">\{"@context": "https://schema\.org", "@type": "FAQPage".*?</script>',
+        lambda _m: new_faq_script,
+        text, count=1, flags=re.DOTALL,
+    )
+    page_path.write_text(text)
+    return True
+
+
 def run(run_id: Optional[int] = None) -> int:
     init_db()
     conn = get_connection()
     all_rows = conn.execute(
         """SELECT pg.id, pg.url, pg.title, pg.meta_description, pg.created_at,
-                  p.format, k.term
+                  p.format, p.monetization_url, k.term
            FROM pages pg
            JOIN products p ON p.id = pg.product_id
            JOIN product_ideas pi ON pi.id = p.idea_id
@@ -284,7 +350,7 @@ def run(run_id: Optional[int] = None) -> int:
         url = _abs_url(p["url"])
 
         schema = schema_for(p["format"], p["title"], p["meta_description"], url, current_html)
-        faq_html, faq_schema = faq_block(p["format"], p["term"])
+        faq_html, faq_schema = faq_block(p["format"], p["term"], monetized=bool(p["monetization_url"]))
         links_html = related_links_html(p["url"], all_pages)
 
         head_parts = [f'<meta property="og:title" content="{html.escape(p["title"])}">',

@@ -725,6 +725,32 @@ one-by-one - so this gets wired in as a single batch.
       dashboard/manifest this iteration - both changes above are edits to
       already-existing files.
 
+## Done (iteration 35) — Phase 1 (sellable assets), found and fixed a real pre-launch bug
+- [x] User's single priority: make the 2 best products actually sellable
+      this week (their Fáza 1). Audited the real gaps against a
+      buy-ready checklist instead of assuming the pages were fine.
+- [x] Found a real bug that would have shipped: the FAQ on every
+      swipe_file/template/checklist/calculator/prompt_pack page has a
+      static "Is this free? Yes" answer baked in at first build time.
+      `seo_agent.py`'s injection is one-time (gated by `pages.seo_enhanced`)
+      and never re-runs, so this would have kept telling a paying
+      customer "yes, it's free" right next to a Gumroad "Buy" button the
+      moment either bundle got priced. Fixed `faq_block()` to answer this
+      question dynamically from `monetization_url`, and added
+      `refresh_faq_for_page()` so re-patching an already-built page after
+      it gets priced is a one-line call, not a manual edit - tested
+      end-to-end (simulated monetized -> correct answer -> reverted
+      cleanly, confirmed via `git diff` that the real site files are
+      untouched).
+- [x] Added a real, honest license/usage-terms line ("personal & business
+      use, don't resell the files") to the CTA shown once a product is
+      priced - a real Phase-1 checklist item (buyer trust/clarity) that
+      was simply missing before.
+- [x] Commit test applied throughout: does this increase the probability
+      of, or decrease the cost of, acquiring the next customer? Both
+      changes pass directly - a contradictory FAQ or missing license
+      terms are exactly the kind of friction that costs a sale.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

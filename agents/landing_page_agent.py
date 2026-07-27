@@ -231,7 +231,10 @@ def build_page(product: dict) -> Optional[dict]:
         elif monetization_url:
             # Paid listing: don't also give the file away for free alongside it.
             cta = (f'<a class="button" href="{html.escape(monetization_url)}" '
-                   f'target="_blank" rel="noopener">Get it on Gumroad</a>')
+                   f'target="_blank" rel="noopener">Get it on Gumroad</a>\n'
+                   '<p class="form-note">Personal &amp; business use license: '
+                   "use it for your own work or your clients' work. Don't resell, "
+                   "redistribute, or republish the files themselves.</p>")
         else:
             if fmt in ("ebook", "sop"):
                 # A raw .md isn't a great deliverable for a standalone
