@@ -660,6 +660,20 @@ gets wired in as a single batch, not three separate deploys.
       knowledge, creates measurable value, or saves the human real work -
       not by whether it adds another layer of process.
 
+## Done (iteration 32) — North Star metrics + Company Assets portfolio, then a hard stop on governance work
+- [x] Extended the scoreboard (not a new doc) per user feedback: leads
+      with 5 North Star metrics (Revenue Today/30d, Qualified Leads, CAC,
+      EBV - honestly ~0 right now) and a Company Assets Portfolio table
+      (5 real assets: Knowledge Base, Product Catalog, Distribution
+      Surface, Reusable Code/Design System, Service Capability), each
+      with real owner/value/automation fields - no fabricated dollar
+      figures or fake assets. Old counts demoted to a clearly-labeled
+      "diagnostic metrics" section.
+- [x] User's explicit 30-day directive recorded in ROADMAP.md: no new
+      governance layers - every change must either raise the probability
+      of the first paying customer or cut the time to get one. This is
+      the last change to the measurement layer for now.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

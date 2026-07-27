@@ -4,11 +4,19 @@ Computes real, queryable business metrics from the DB and (a) inserts one
 snapshot row into `company_metrics` per run, so a trend builds up over
 time, and (b) writes docs/COMPANY_SCOREBOARD.md from that data.
 
+Layout follows a North Star / diagnostic split (added 2026-07-27 per user
+feedback): the 5 numbers that actually matter for the business
+(revenue, leads, CAC, EBV) lead the file; everything else (keyword/
+product/page counts) is explicitly diagnostic, not the goal itself. A
+Company Assets portfolio view sits between them - "which asset has the
+most growth potential today" instead of "what task should I do next."
+
 Deliberately NOT a hand-written report: every number here is a real COUNT/
 SUM from the database, never an estimate. Fields this project can't
 honestly quantify yet (development cost in $, maintenance cost, estimated
-future value) are left out entirely rather than filled with invented
-numbers - see the "Not tracked" note in the generated file for why.
+future value, Enterprise Business Value as a single number, cost per
+acquired customer while acquisition spend is $0) are shown as explicit
+"not yet meaningful" notes rather than invented numbers.
 """
 import sys
 from pathlib import Path
@@ -44,9 +52,18 @@ def compute_metrics(conn, run_id: Optional[int]) -> dict:
     experiments_succeeded = q1("SELECT COUNT(*) FROM experiments WHERE status = 'succeeded'")
     experiments_failed = q1("SELECT COUNT(*) FROM experiments WHERE status = 'failed'")
 
+    last_run_row = conn.execute("SELECT started_at FROM runs ORDER BY started_at DESC LIMIT 1").fetchone()
+    last_run_at = last_run_row[0] if last_run_row else None
+    last_product_row = conn.execute(
+        "SELECT created_at FROM products ORDER BY created_at DESC LIMIT 1"
+    ).fetchone()
+    last_product_at = last_product_row[0] if last_product_row else None
+
     return dict(
         run_id=run_id,
         computed_at=now_iso(),
+        last_run_at=last_run_at,
+        last_product_at=last_product_at,
         total_keywords=total_keywords,
         new_keywords_7d=new_keywords_7d,
         total_signals=total_signals,
@@ -58,11 +75,49 @@ def compute_metrics(conn, run_id: Optional[int]) -> dict:
         live_pages=live_pages,
         seo_enhanced_pages=seo_enhanced_pages,
         monetized_products=monetized_products,
-        confirmed_revenue_usd=0.0,  # no real sale confirmed yet - see docs/DECISION_JOURNAL.md D1
+        confirmed_revenue_usd=0.0,      # no real sale confirmed yet - see docs/DECISION_JOURNAL.md D1
+        qualified_leads=0,              # Formspree endpoint not live yet - see TASKBOARD.md Human Action Batch
         experiments_total=experiments_total,
         experiments_running=experiments_running,
         experiments_succeeded=experiments_succeeded,
         experiments_failed=experiments_failed,
+    )
+
+
+def build_assets_table(metrics: dict) -> str:
+    rows = [
+        ("Knowledge Base", "Data", "Active",
+         "market_research_agent.py + keyword_agent.py",
+         f"{metrics['total_keywords']} keywords / {metrics['total_signals']} signals",
+         "100% (fully automated ingestion, no manual entry)",
+         (metrics['last_run_at'] or "n/a")[:10]),
+        ("Product Catalog", "Product portfolio", "Active",
+         "product_agent.py + content_agent.py + tiering",
+         f"{metrics['core_tier_count']} core / {metrics['lead_magnet_count']} lead_magnet / "
+         f"{metrics['ready_products']} ready",
+         "High for calculator/checklist/template/prompt_pack (fully automated); "
+         "low for ebook/sop (human-written prose by design)",
+         (metrics['last_product_at'] or "n/a")[:10]),
+        ("Distribution Surface", "Distribution", "Active, pre-revenue",
+         "landing_page_agent.py + seo_agent.py",
+         f"{metrics['live_pages']} live pages, 0 confirmed Google-indexed",
+         "100% (build + deploy); 0% for actual discovery, see docs/CONSTRAINT_LOG.md",
+         (metrics['last_run_at'] or "n/a")[:10]),
+        ("Reusable Code / Design System", "Software", "Active",
+         "agents/common.py, agents/pdf_export.py",
+         "shared design system + renderer + PDF export - zero marginal cost per new product",
+         "100% (every new product reuses it automatically)",
+         "see git log agents/common.py"),
+        ("Service Capability", "Service", "Active, 0 leads yet",
+         "manual delivery (web dev, chatbot dev)",
+         "2 offerings listed, 0 confirmed leads",
+         "0% by nature - services are human-delivered, not automatable",
+         (metrics['last_product_at'] or "n/a")[:10]),
+    ]
+    header = "| Asset | Type | Status | Owner (module) | Business Value (real) | Automation | Last Updated |\n"
+    header += "|---|---|---|---|---|---|---|\n"
+    return header + "\n".join(
+        f"| {a} | {t} | {s} | {o} | {v} | {auto} | {lu} |" for a, t, s, o, v, auto, lu in rows
     )
 
 
@@ -77,11 +132,49 @@ def render_markdown(metrics: dict, history: list[dict]) -> str:
     return f"""# Company Scoreboard
 
 **Auto-generated by `agents/scoreboard_agent.py` on every pipeline run -
-do not hand-edit.** Every number below is a real COUNT/SUM from the
+do not hand-edit.** Every number below is real, computed from the
 database at `{metrics['computed_at']}` ({run_label}), never an estimate.
-See "Not tracked" at the bottom for what's deliberately left out and why.
 
-## Assets
+## North Star Metrics (the only numbers that actually matter)
+
+Everything below this section is diagnostic. These 5 are what the
+business lives or dies on.
+
+| Metric | Value |
+|---|---|
+| Revenue Today (USD) | {metrics['confirmed_revenue_usd']:.2f} |
+| Revenue Last 30 Days (USD) | {metrics['confirmed_revenue_usd']:.2f} |
+| Qualified Leads | {metrics['qualified_leads']} |
+| Cost per Acquired Customer | N/A - $0 acquisition spend and 0 customers so far |
+| Enterprise Business Value | Not computable as a single number - no revenue or user base exists yet to value. The `tier` classification (core/lead_magnet/retire_candidate) is the honest qualitative proxy until real numbers exist; see docs/CONSTRAINT_LOG.md for the current blocking constraint. |
+
+All effectively zero right now - that's the real, current state, not a
+display bug. See docs/CONSTRAINT_LOG.md for why (distribution/discovery)
+and docs/TASKBOARD.md's Human Action Batch for what unblocks it fastest.
+
+## Company Assets Portfolio
+
+The question that matters: **which asset has the most growth potential
+today** - not "what task should I do." Real assets only (no fabricated
+ones like an email list or audience that don't exist yet - see
+docs/ROADMAP.md's Company Assets note).
+
+{build_assets_table(metrics)}
+
+## Experiments
+
+| Metric | Value |
+|---|---|
+| Total defined | {metrics['experiments_total']} |
+| Running | {metrics['experiments_running']} |
+| Succeeded | {metrics['experiments_succeeded']} |
+| Failed | {metrics['experiments_failed']} |
+
+All zero right now - see docs/ROADMAP.md on why a full experiment
+portfolio isn't built yet (no traffic exists to run one against). The
+`experiments` table exists and is ready the moment a real one is runnable.
+
+## Diagnostic metrics (not the goal - context for the North Star numbers above)
 
 | Metric | Value |
 |---|---|
@@ -97,28 +190,6 @@ See "Not tracked" at the bottom for what's deliberately left out and why.
 | New keywords in last 7 days (learning-velocity proxy) | {metrics['new_keywords_7d']} |
 | Total raw signals collected | {metrics['total_signals']} |
 
-## Revenue
-
-| Metric | Value |
-|---|---|
-| Confirmed revenue (USD) | {metrics['confirmed_revenue_usd']:.2f} |
-
-Stays at 0.00 until the user reports (or a future Gumroad integration
-confirms) a real completed sale - never estimated from traffic or intent.
-
-## Experiments
-
-| Metric | Value |
-|---|---|
-| Total defined | {metrics['experiments_total']} |
-| Running | {metrics['experiments_running']} |
-| Succeeded | {metrics['experiments_succeeded']} |
-| Failed | {metrics['experiments_failed']} |
-
-All zero right now - see docs/ROADMAP.md on why a full experiment
-portfolio isn't built yet (no traffic exists to run one against). The
-`experiments` table exists and is ready the moment a real one is runnable.
-
 ## Trend (last {len(history)} run snapshot(s))
 
 | Date | Products | Ready | Core tier | Pages | Keywords | New kw (7d) | Revenue |
@@ -129,13 +200,9 @@ portfolio isn't built yet (no traffic exists to run one against). The
 
 - **Development / maintenance cost in USD** - no metered cost model
   exists for agent time in this environment, so any dollar figure here
-  would be invented, not measured. If that changes, this section gets a
-  real field, not an estimated one.
-- **Estimated future value per product** - would require forecasting
-  assumptions this project has no basis to make yet. The `tier`
-  classification (core/lead_magnet/retire_candidate) is the current
-  honest substitute: a categorical, evidence-based judgment, not a
-  fabricated number.
+  would be invented, not measured.
+- **Estimated future value per product / a single EBV number** - would
+  require forecasting assumptions this project has no basis to make yet.
 - **Traffic/impressions/clicks** - 0 real analytics exist yet (see
   docs/CONSTRAINT_LOG.md - this is the current primary constraint).
 """

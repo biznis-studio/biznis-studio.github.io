@@ -256,6 +256,21 @@ adds a new layer of process: **did it produce new knowledge, did it
 create measurable value, did it save the human real work?** If a proposed
 change doesn't move at least one of those, it likely shouldn't happen.
 
+**Update, same day**: the scoreboard itself got one more real refinement
+(not a new doc - an extension of the same generated file) before this
+30-day value-creation focus starts for real: it now leads with 5 North
+Star metrics (Revenue Today, Revenue 30d, Qualified Leads, CAC, EBV - all
+honestly ~0 right now, not hidden) and a Company Assets Portfolio table
+(5 real assets, "which asset has the most growth potential" instead of
+"what task next"), with the old counts demoted to a clearly-labeled
+"diagnostic metrics" section. The value chain this project is actually
+optimizing is Knowledge -> Assets -> Distribution -> Trust -> Revenue,
+not Products -> Traffic -> Revenue - the scoreboard's structure now
+reflects that. **This is the last change to the measurement layer.** The
+next 30 days: no new governance layers - every change must either
+increase the probability of getting the first paying customer or reduce
+the time it takes to get one.
+
 ## Next up, ranked by EBV (2026-07-27)
 
 1. **Resolve the distribution bottleneck** — either resume Google Search
