@@ -290,6 +290,23 @@
       Added real `<strong>`/`<em>` inline emphasis support to the shared
       renderer and rebuilt every page and PDF.
 
+## Done (iteration 19) — third product in the validated freelancer family
+- [x] Researched durable (not fad) growth areas: confirmed freelance/gig
+      economy is a structural, decade-long trend (72.9M US freelancers,
+      15.79% CAGR, described as one of the biggest structural shifts in
+      labor markets - not cyclical). Found renewal/expiration tracking is
+      a proven *paid* category with real Etsy listings, though generic
+      subscription trackers are somewhat crowded with free alternatives.
+- [x] Combined both findings into a more specific, less crowded angle:
+      **Client Retainer Renewal Kit** (8 scripts for the actual moments a
+      freelance retainer needs renewing/renegotiating/ending) + a
+      **Retainer Renewal Tracker** (CSV, pairs with it) - same proven
+      "system" packaging as the Scope Creep Kit, extending the same
+      validated freelancer product family instead of chasing a new,
+      unrelated topic.
+- [x] Free for now (ready to price once Gumroad payouts work); verified
+      no markdown/rendering regressions before shipping
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
