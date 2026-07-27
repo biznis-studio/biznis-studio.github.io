@@ -809,6 +809,17 @@ one-by-one - so this gets wired in as a single batch.
       Pages only redeploys when the scheduled/dispatched workflow runs,
       not on every `git push` - otherwise these fixes would have sat
       un-deployed until tomorrow's cron.
+- [x] Checked the live homepage in-browser and found a second real issue:
+      both paid bundles sat undistinguished inside the "Free products"
+      grid, no price shown anywhere on the card - a visitor browsing
+      "free products" would click through expecting a free download and
+      hit a paywall, which damages trust rather than helping conversion.
+      Fixed: homepage now splits into "Get the full system" (paid, with a
+      green `$29` price badge on each card) and "Free products" (only
+      rendered as a paid section when something is actually for sale, so
+      it doesn't misrepresent state before any product was priced).
+      Updated the hero copy and nav link ("Free products" -> "Products")
+      site-wide to match, since the site is no longer free-only.
 
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)

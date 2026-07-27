@@ -100,6 +100,12 @@
     font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border);
   }
   footer a { color: var(--text-muted); }
+  @media (max-width: 480px) {
+    .site-header { padding: 1.25rem 1rem 0; }
+    .site-header nav { gap: 0.75rem; }
+    .site-header nav a { font-size: 0.82rem; white-space: nowrap; }
+    .site-header nav a.nav-cta { padding: 0.45rem 0.8rem; }
+  }
 
   label { display: block; margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }
   input { width: 100%; padding: 0.65rem 0.75rem; font-size: 1rem; margin-top: 0.35rem;
@@ -121,7 +127,7 @@
 <header class="site-header">
 <a class="brand" href="../index.html">Biznis<span>.</span></a>
 <nav>
-<a href="../index.html">Free products</a>
+<a href="../index.html">Products</a>
 <a href="../index.html#services">Services</a>
 <a class="nav-cta" href="mailto:jozefrusnak4@gmail.com">Hire us</a>
 </nav>

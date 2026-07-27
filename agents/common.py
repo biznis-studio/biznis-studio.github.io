@@ -194,6 +194,16 @@ SITE_CSS = """
     font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border);
   }
   footer a { color: var(--text-muted); }
+  @media (max-width: 480px) {
+    /* Found via a real mobile check: the nav link text and the "Hire us"
+       pill button were each wrapping onto two lines and colliding with
+       the logo on a 375px-wide screen - narrow the spacing instead of
+       letting flexbox wrap mid-word. */
+    .site-header { padding: 1.25rem 1rem 0; }
+    .site-header nav { gap: 0.75rem; }
+    .site-header nav a { font-size: 0.82rem; white-space: nowrap; }
+    .site-header nav a.nav-cta { padding: 0.45rem 0.8rem; }
+  }
 """
 
 # One accent color per product format, used for the small badge shown on
@@ -238,7 +248,7 @@ def site_header_html(active_is_index: bool = False) -> str:
     return f"""<header class="site-header">
 <a class="brand" href="{home_href}">Biznis<span>.</span></a>
 <nav>
-<a href="{home_href}">Free products</a>
+<a href="{home_href}">Products</a>
 <a class="nav-cta" href="{services_href}">Hire us</a>
 </nav>
 </header>"""

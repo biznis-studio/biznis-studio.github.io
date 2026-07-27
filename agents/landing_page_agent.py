@@ -302,9 +302,25 @@ def build_page(product: dict) -> Optional[dict]:
     }
 
 
+def _product_card(p: dict) -> str:
+    # A monetized product sitting undistinguished in a "Free products" grid
+    # actively misleads a visitor into expecting a free download - found
+    # this during a sales-readiness review. A price badge next to the
+    # format badge sets the right expectation before the click, not after.
+    price_badge = (
+        f'<span class="badge" style="background:#16a34a;margin-left:0.4rem">${p["price_usd"]:.0f}</span>'
+        if p.get("monetization_url") and p.get("price_usd") else ""
+    )
+    return (f'<a class="product-card" href="products/{Path(p["url"]).name}">'
+            f'{format_badge_html(p["format"])}{price_badge}'
+            f'<h3>{html.escape(p["title"])}</h3>'
+            f'<p>{html.escape(p["meta_description"])}</p></a>')
+
+
 def build_index(pages: list[dict]) -> None:
     services = [p for p in pages if p["format"] == "service"]
-    products = [p for p in pages if p["format"] != "service"]
+    paid_products = [p for p in pages if p["format"] != "service" and p.get("monetization_url")]
+    free_products = [p for p in pages if p["format"] != "service" and not p.get("monetization_url")]
 
     service_cards = "\n".join(
         f'<a class="service-card" href="products/{Path(p["url"]).name}">'
@@ -313,31 +329,36 @@ def build_index(pages: list[dict]) -> None:
         f'<p>{html.escape(p["meta_description"])}</p></a>'
         for p in services
     )
-    product_cards = "\n".join(
-        f'<a class="product-card" href="products/{Path(p["url"]).name}">'
-        f'{format_badge_html(p["format"])}'
-        f'<h3>{html.escape(p["title"])}</h3>'
-        f'<p>{html.escape(p["meta_description"])}</p></a>'
-        for p in products
-    )
+    paid_cards = "\n".join(_product_card(p) for p in paid_products)
+    free_cards = "\n".join(_product_card(p) for p in free_products)
     services_section = (
         f'<h2 id="services" class="section-title">Work with us</h2>\n'
         f'<div class="service-grid">{service_cards}</div>\n'
         if services else ""
     )
+    # Only show a distinct "Get the full system" section once something is
+    # actually for sale - an empty paid section would be as misleading in
+    # the other direction (implying nothing here costs money at all,
+    # before anything was ever monetized).
+    paid_section = (
+        f'<h2 class="section-title">Get the full system</h2>\n'
+        f'<div class="product-grid">{paid_cards}</div>\n'
+        if paid_products else ""
+    )
     body = f"""<div class="hero">
 <h1>Biznis</h1>
-<p class="subtitle">Free digital products - checklists, templates, calculators, and ready-to-send
+<p class="subtitle">Digital products - checklists, templates, calculators, and ready-to-send
 scripts - built from real, live demand signals. Plus custom website and chatbot development.
 See the project repo for how the products are made.</p>
 </div>
 {services_section}
+{paid_section}
 <h2 class="section-title">Free products</h2>
-<div class="product-grid">{product_cards}</div>"""
+<div class="product-grid">{free_cards}</div>"""
     SITE_DIR.mkdir(parents=True, exist_ok=True)
     (SITE_DIR / "index.html").write_text(page_shell(
-        "Biznis - Free Digital Products & Custom Development",
-        "Free checklists, templates, calculators and prompt packs generated from real demand "
+        "Biznis - Digital Products & Custom Development",
+        "Checklists, templates, calculators and ready-to-send scripts generated from real demand "
         "signals, plus custom website and chatbot development.",
         body,
         is_index=True,
@@ -377,7 +398,8 @@ def run(run_id: Optional[int] = None) -> list[int]:
     conn.commit()
 
     all_pages = cur.execute(
-        """SELECT pg.url, pg.title, pg.meta_description, p.format
+        """SELECT pg.url, pg.title, pg.meta_description, p.format,
+                  p.monetization_url, p.price_usd
            FROM pages pg JOIN products p ON p.id = pg.product_id
            ORDER BY pg.id"""
     ).fetchall()
