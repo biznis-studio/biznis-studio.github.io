@@ -225,6 +225,14 @@ See [db/schema.sql](../db/schema.sql) — the single source of truth. Summary:
   submission per run guaranteed to hit an already-live key file. Google
   doesn't participate in IndexNow (no free instant-index API from Google
   exists) - only Search Console gets pages into Google specifically.
+  **Update:** submissions now consistently return a 403
+  `UserForbiddedToAccessSite` even with the key file confirmed live -
+  suspected (unconfirmed) cause is Bing not trusting subdirectory
+  `keyLocation` ownership proof on a shared multi-tenant domain like
+  `*.github.io`, where we only control `/biznis/`, not the domain root.
+  Other IndexNow users report the same unexplained error with no public
+  fix. Left in place since it fails gracefully and costs nothing - see
+  TASKBOARD.md.
 - **`markdown_lite_to_html()` supports `**bold**`/`*italic*` inline
   emphasis**, added after shipping content that used it and getting
   literal asterisks on the live page. Applied via regex *after*

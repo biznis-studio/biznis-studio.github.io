@@ -263,6 +263,22 @@
       real submission is guaranteed to hit a live key file.
 - [x] Tested both paths locally against the real deployed site - both
       submissions returned `ok=True`.
+- [ ] **Update 2026-07-27: subsequent runs now consistently get a 403
+      `UserForbiddedToAccessSite`**, even though the key file is
+      confirmed live and byte-identical at its `keyLocation` URL
+      (verified directly with curl). Researched this: other IndexNow
+      users hit the same unexplained 403 with no clear public fix -
+      Microsoft's own forum moderators tell people to contact Bing
+      Webmaster Support directly for backend diagnostics, which this
+      system can't do on the user's behalf. Suspected cause (unconfirmed):
+      Bing's ownership verification may not trust a *subdirectory*
+      `keyLocation` on a shared multi-tenant domain like `*.github.io`,
+      where we only control the `/biznis/` project-site path, not the
+      domain root - the docs say subdirectory `keyLocation` should work,
+      but shared-hosting domains may be a special case. Left the
+      integration in place (it already fails gracefully, no crash) rather
+      than ripping it out - it may start working once Bing's systems
+      process the host, and costs nothing while failing.
 
 ## Done (iteration 18) — validated priorities, repackaged the strongest bet, one more real bug
 - [x] Deep research pass instead of more building: checked for actual
