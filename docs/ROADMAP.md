@@ -266,10 +266,23 @@ honestly ~0 right now, not hidden) and a Company Assets Portfolio table
 "diagnostic metrics" section. The value chain this project is actually
 optimizing is Knowledge -> Assets -> Distribution -> Trust -> Revenue,
 not Products -> Traffic -> Revenue - the scoreboard's structure now
-reflects that. **This is the last change to the measurement layer.** The
-next 30 days: no new governance layers - every change must either
-increase the probability of getting the first paying customer or reduce
-the time it takes to get one.
+reflects that. **This is the last change to the measurement layer.**
+
+**One final rule (2026-07-27), then no more rules**: before starting any
+major initiative, run an **Opportunity Scan** rather than assuming the
+next planned task is still the best one - scan what's newly available,
+re-rank against Expected Business Value / Expected Learning Value / time
+to first customer / human cost, and proceed only if the previously-picked
+item is still the winner. The roadmap is a hypothesis, not a contract.
+(This rule already caught a real mistake the same day it was written -
+see Decision Journal D12: a plan to research Ko-fi turned out to rest on
+an unverified assumption that a scan disproved in minutes.)
+
+**The single KPI for the next 30 days**: get the first paying customer,
+with minimal human involvement. Not more agents, not more documents, not
+more rules, not more architecture - one outcome. If it doesn't happen in
+30 days, that's when revisiting the architecture becomes worth doing
+again - not before.
 
 ## Next up, ranked by EBV (2026-07-27)
 

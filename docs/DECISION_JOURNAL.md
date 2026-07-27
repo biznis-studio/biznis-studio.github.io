@@ -30,11 +30,18 @@ real decisions made so far, then kept current going forward.
 - **Expected outcome**: At least one product generating real payments
   within weeks of listing.
 - **Metrics to validate**: Gumroad account active, ≥1 completed sale
-  (currently: account + 1 listing done, 0 confirmed sales, payout blocked
-  on Stripe KYC - see D9/Constraint Log).
-- **Review date**: Revisit if Stripe KYC doesn't resolve within a
-  reasonable window - see the Ko-fi fallback flagged in the first
-  Strategic Review (docs/STRATEGIC_REVIEWS.md, 2026-07-27).
+  (currently: account + 1 listing done, 0 confirmed sales).
+- **Correction (2026-07-27, via an Opportunity Scan)**: this entry
+  previously assumed Stripe KYC blocks *sales*, not just *payouts* - that
+  assumption was never verified and turned out to be wrong. Real research
+  (see D12) confirms Gumroad lets an account make sales before Stripe
+  verification completes; only receiving the payout is delayed. This
+  means listing/pricing the remaining `core`-tier products was never
+  actually blocked on KYC - it was just mis-filed as blocked. The Ko-fi
+  fallback idea is correspondingly deprioritized (see D12) - it would
+  have solved a problem (blocked sales) that doesn't exist.
+- **Review date**: Revisit payout-specific status once Stripe
+  verification completes; sales-enablement is no longer waiting on it.
 
 ### D2 — GitHub Pages over Cloudflare Pages for publishing (2026-07-26)
 - **Decision**: Deploy the generated site to GitHub Pages.
@@ -255,6 +262,48 @@ real decisions made so far, then kept current going forward.
   scoreboard is actually being consulted, and whether the deliberately
   excluded fields (cost/future-value estimates) are still the right call
   once real revenue or traffic data exists.
+
+### D12 — First real Opportunity Scan: caught myself assuming instead of scanning (2026-07-27)
+- **Decision**: Before acting on a previous turn's assumption ("next step
+  is researching Ko-fi"), ran an actual Opportunity Scan per the user's
+  new rule instead - re-ranked live candidates for "fastest path to a
+  first paying customer" rather than proceeding on the un-scanned plan.
+- **Reasoning**: The user caught a real violation of this project's own
+  Strategic Review principle: I'd picked Ko-fi as the next action without
+  verifying the premise (that Gumroad KYC blocks *sales*, not just
+  *payouts*). That premise was never actually checked.
+- **What the scan found**: A real web search confirmed Gumroad allows an
+  account to make sales before Stripe verification finishes - only the
+  payout is delayed, not the sale itself. This changes the ranking
+  materially: the 4 core-tier freelancer-system files
+  (Scope Creep Kit + Change Request Log; Retainer Renewal Kit + Tracker)
+  were sitting un-listed on Gumroad, incorrectly filed as "blocked on
+  KYC" when they were never actually blocked from being listed and sold.
+- **Alternatives considered and re-ranked**:
+  1. **List the 2 already-validated product bundles on Gumroad now**
+     (highest EBV - directly enables a first sale; low human cost since
+     the account/workflow already exists from D1; PDFs for the two
+     swipe_file components generated immediately as prep so the human
+     only has to upload + set a price, not also convert files).
+  2. Resume Search Console (already in progress) - a multiplier on #1,
+     not a substitute for it.
+  3. Ko-fi research - **deprioritized**, not abandoned: it would solve a
+     problem (blocked sales) that this scan showed doesn't exist. Revisit
+     only if real Gumroad sales attempts hit an actual blocker the search
+     didn't surface.
+  4. B2B service outreach - kept in the queue behind #1, since it still
+     needs Formspree live first and more direct human effort per lead.
+- **Expected outcome**: A real Gumroad listing attempt for both bundles
+  this week, independent of whether Stripe KYC has resolved yet.
+- **Metrics to validate**: Whether Gumroad in fact accepts new listings
+  and processes a test/real sale pre-KYC as the research suggested - this
+  is itself still an assumption from secondary sources, not first-hand
+  confirmed, so treat it as a hypothesis to verify by trying, not a
+  guarantee.
+- **Review date**: As soon as the user attempts the listing - if Gumroad
+  actually does block something unexpected, log it here and re-open the
+  Ko-fi option immediately rather than assuming this scan's finding was
+  complete.
 
 ### D10 — Consulted an independent AI (ChatGPT) for a second opinion, adopted some findings and explicitly rejected others (2026-07-27)
 - **Decision**: At the user's request, explained the full system to ChatGPT

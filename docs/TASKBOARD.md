@@ -226,15 +226,37 @@ short session instead of several. Nothing below is urgent enough to
 justify a separate interruption on its own; together they unlock most of
 this system's near-term revenue potential.
 
-**Status: all 3 marked `BLOCKED` per the Blocked Task Policy
-(ROADMAP.md) - already surfaced once (this section), not re-asked every
-turn. Work continues on unblocked tasks in parallel (see iterations below
-this batch) until the user reports one done, or until Constraint Log
-evidence says one of these has become the sole remaining lever.**
+**Corrected 2026-07-27 via an Opportunity Scan (Decision Journal D12):
+item 2 below was previously (incorrectly) filed as blocking sales. Real
+research shows Gumroad lets an account sell before Stripe verification
+finishes - only the *payout* is delayed, not the sale. That means item 1
+below was never actually blocked and is now the fastest lever to a first
+sale, not item 2.**
 
-1. **[BLOCKED] Google Search Console verification** — ~3 min, highest EBV (unlocks
-   Google discovery for all 14 live pages at once, currently 0 confirmed
-   indexed).
+1. **NOT BLOCKED, ready now** — List the 2 validated `core`-tier product
+   bundles on the existing Gumroad account. Files are already prepared:
+   - **Bundle A "Freelance Scope Creep Defense Kit"**:
+     `data/exports/products/0019-freelance-scope-creep-defense-kit.pdf`
+     (7 ready-to-send scripts) + `0020-change-request-log-template.csv`
+     (the tracker) - upload both to one listing, matching the "packaged
+     system" pattern the competitor-pricing research found actually
+     sells (iteration 18).
+   - **Bundle B "Client Retainer Renewal Kit"**:
+     `data/exports/products/0022-client-retainer-renewal-kit.pdf` (8
+     scripts) + `0023-retainer-renewal-tracker-template.csv` - same
+     pairing.
+   - Suggested price: **$29 each** - low end of the $19-79 validated
+     competitor range (iteration 18), fine to adjust.
+   - Send back the two resulting Gumroad URLs - wires into
+     `products.monetization_url` for ids 19/20 and 22/23, same as the
+     first product.
+2. **[BLOCKED - payout only, not sales]** Gumroad Stripe KYC — no longer
+   blocks listing or selling (see correction above), only delays actually
+   receiving the money. Still worth finishing when convenient, no rush
+   tied to item 1 above.
+3. **[BLOCKED] Google Search Console verification** — ~3 min, still the
+   highest-EBV distribution lever (unlocks Google discovery for all 14
+   live pages, currently 0 confirmed indexed).
    - Go to search.google.com/search-console → Add property → **URL
      prefix** → `https://fwwk4pb868-afk.github.io/biznis/`
    - Choose the **HTML tag** verification method (not file upload/DNS)
@@ -242,31 +264,18 @@ evidence says one of these has become the sole remaining lever.**
    - Send it here - it gets wired into `GOOGLE_SITE_VERIFICATION`, the
      site rebuilds, then click **Verify** in Search Console, then submit
      `https://fwwk4pb868-afk.github.io/biznis/sitemap.xml` as a sitemap
-2. **[BLOCKED] Gumroad Stripe KYC / payout setup** — time varies (their review
-   queue), second-highest EBV (unlocks actual revenue collection on the
-   already-built, already-tiered `core` products once priced).
-   - Finish whatever verification step Stripe is asking for (likely ID +
-     business classification - "Individual" was the suggested option,
-     see iteration 12 notes) so payouts activate
-   - Tell me once it's resolved either way (approved, or what it's
-     actually asking for) - if it stalls, worth revisiting the "Ko-fi as
-     a lower-friction fallback" option flagged in the first Strategic
-     Review instead of waiting indefinitely
-3. **[BLOCKED] Formspree signup** — ~3 min, unlocks real lead capture on the 2
-   service pages (currently falling back to a visible mailto link).
+4. **[BLOCKED] Formspree signup** — ~3 min, unlocks real lead capture on
+   the 2 service pages (currently falling back to a visible mailto link).
    - Free signup at formspree.io → create a form → copy the endpoint URL
      (`https://formspree.io/f/XXXXXXXX`)
    - Send it here - wires into `FORMSPREE_ENDPOINT`, removes the mailto
      fallback everywhere
-4. **Optional, skip unless you're already doing the above**: Cloudflare
-   Web Analytics account - deliberately low priority (EBV ranking in
-   ROADMAP.md sequences Analytics *after* distribution/traffic exists, so
-   there's nothing to measure yet). Only worth bundling in if you're
-   already in an account-setup mood.
+5. **Optional, skip unless already in an account-setup mood**: Cloudflare
+   Web Analytics - deliberately low priority (nothing to measure until
+   distribution/traffic exists).
 
-Send back whatever you've completed (verification string / KYC status /
-Formspree URL) in one message when convenient - not one-by-one - so this
-gets wired in as a single batch, not three separate deploys.
+Send back whatever you've completed in one message when convenient - not
+one-by-one - so this gets wired in as a single batch.
 
 ## Backlog (see ROADMAP.md for detail and ordering rationale)
 - [ ] Analytics Agent (blocked on Cloudflare account decision above)
@@ -673,6 +682,29 @@ gets wired in as a single batch, not three separate deploys.
       governance layers - every change must either raise the probability
       of the first paying customer or cut the time to get one. This is
       the last change to the measurement layer for now.
+
+## Done (iteration 33) — Opportunity Scan caught a real wrong assumption
+- [x] User correction: proceeding straight to "research Ko-fi" without
+      re-scanning violated this project's own "never assume the current
+      plan is optimal" principle. Added a final rule (ROADMAP.md):
+      Opportunity Scan before any major initiative - re-rank against
+      EBV/Learning Value/time-to-first-customer/human cost, proceed only
+      if the plan still wins.
+- [x] Ran the scan for real: verified via web research that Gumroad lets
+      an account sell before Stripe verification completes - only the
+      payout is delayed, not the sale. This means the 2 validated
+      freelancer-system bundles were never actually blocked from being
+      listed - they were just mis-filed as blocked (corrected in
+      Decision Journal D1/D12).
+  - [x] Ko-fi correspondingly deprioritized - it would have solved a
+      problem that doesn't exist.
+- [x] Generated the missing Gumroad-ready PDFs for both swipe_file
+      products (0019, 0022) so the human only has to upload + price, not
+      also convert files - reduces the remaining human effort to list
+      both bundles today.
+- [x] Set the single 30-day KPI in ROADMAP.md: get the first paying
+      customer, minimal human involvement - no more agents/docs/rules/
+      architecture unless that doesn't happen in 30 days.
 
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
