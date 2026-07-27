@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fwwk4pb868-afk.github.io/biznis/sitemap.xml

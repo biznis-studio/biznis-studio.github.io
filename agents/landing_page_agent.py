@@ -54,6 +54,15 @@ GOOGLE_SITE_VERIFICATION = os.environ.get("GOOGLE_SITE_VERIFICATION", "")
 # CTA (which *does* expose the address) until this is configured.
 FORMSPREE_ENDPOINT = os.environ.get("FORMSPREE_ENDPOINT", "")
 
+# Same var seo_agent.py uses. Needed here too because the homepage
+# (index.html) is built directly by this module and never passes through
+# seo_agent.py's post-hoc inject() (that only processes rows in the
+# `pages` table, one per product - the homepage isn't a "product"). Found
+# via a crawl-readiness audit: every product page had a canonical link,
+# the homepage - the single most important URL on the whole site - had
+# none at all.
+SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "").rstrip("/")
+
 # Human-readable download-button labels - fmt.replace("_", " ") alone would
 # still read as internal jargon for some formats ("swipe file" isn't a term
 # most visitors recognize; found this after "Download swipe_file" - with
@@ -69,6 +78,18 @@ def page_shell(title: str, meta_description: str, body_html: str, is_index: bool
         if GOOGLE_SITE_VERIFICATION else ""
     )
     main_class = ' class="wide"' if is_index else ""
+    # The homepage doesn't go through seo_agent.py's per-product inject()
+    # step, so it's the only page that needs its canonical/OG tags added
+    # right here rather than post-hoc.
+    index_seo_tags = ""
+    if is_index and SITE_BASE_URL:
+        index_seo_tags = (
+            f'<link rel="canonical" href="{SITE_BASE_URL}/">\n'
+            f'<meta property="og:title" content="{html.escape(title)}">\n'
+            f'<meta property="og:description" content="{html.escape(meta_description)}">\n'
+            f'<meta property="og:url" content="{SITE_BASE_URL}/">\n'
+            f'<meta property="og:type" content="website">\n'
+        )
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -77,7 +98,7 @@ def page_shell(title: str, meta_description: str, body_html: str, is_index: bool
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="{html.escape(meta_description)}">
 <link rel="icon" href="{FAVICON_DATA_URI}">
-{verification_tag}<style>{SITE_CSS}</style>
+{verification_tag}{index_seo_tags}<style>{SITE_CSS}</style>
 </head>
 <body>
 {site_header_html(active_is_index=is_index)}

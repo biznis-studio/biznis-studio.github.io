@@ -115,6 +115,45 @@ Concrete consequences of this framing:
   silently drifting - the company should learn from its own recorded
   decisions, not rely on someone re-reading the whole conversation history.
 
+- **Blocked Task Policy - never idle on one dependency.** Some tasks are
+  blocked on an action only the human can legally/technically perform
+  (login to a personal account, identity verification, entering payment
+  details) - no prompt or amount of agent cleverness changes that. The
+  correct response to a blocked task is never to wait idle:
+  1. Mark it `BLOCKED` with its Expected Business Value recorded (see
+     docs/CONSTRAINT_LOG.md and the Human Action Batch in TASKBOARD.md).
+  2. Note a retry/recheck point (e.g. "recheck once the user says it's
+     done," not a literal timer, since this system only runs when a
+     session is active) - don't ask about the same blocked item again
+     before that point.
+  3. Immediately move to the next-highest-EBV *unblocked* task - research,
+     engineering/tech-debt, SEO/technical audits, competitor analysis,
+     conversion improvements, internal tooling, pipeline refactoring, new
+     validated product ideas. There is always unblocked work available in
+     a project this size; "nothing else needed from you" is never an
+     acceptable way to end a turn.
+  4. Only surface a blocked item to the human again when it has become
+     *the* single highest-EBV constraint (per the Constraint Log) AND no
+     other high-value unblocked work remains - not on every turn.
+  - Think in state transitions, not a straight-line pipeline:
+    `BLOCKED -> skip to next task`, `DONE -> pull next task`,
+    `FAILED -> find a different path`, `LOW EBV -> drop it`,
+    `HIGH EBV -> do it`, `UNKNOWN -> research it first`. Never
+    `BLOCKED -> wait`.
+- **On multi-agent architecture**: the user proposed a durable next step -
+  separate CEO/Research/Engineering/Growth/Review agents running in
+  parallel, so one blocked workstream (e.g. Growth blocked on Search
+  Console) doesn't stall the others. Honest current state: this session
+  is one Claude Code agent working sequentially, not literally parallel
+  processes with separate memory. The `Agent` tool can spawn genuinely
+  independent background subagents (e.g. a research pass while
+  engineering work continues in the foreground) and is worth reaching for
+  when a task is truly independent and substantial - but should be used
+  for real parallel work, not simulated as decoration. Scheduled/cron
+  sessions (already used for the daily pipeline run) are the other real
+  mechanism for a distinct cadence per workstream. Don't fake multi-agent
+  theater with role-labeled sections written by the same single pass.
+
 ## Next up, ranked by EBV (2026-07-27)
 
 1. **Resolve the distribution bottleneck** — either resume Google Search

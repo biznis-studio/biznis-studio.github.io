@@ -168,6 +168,19 @@ def generate_sitemap(pages: list[dict]) -> None:
     (SITE_DIR / "sitemap.xml").write_text(xml)
 
 
+def generate_robots_txt() -> None:
+    """robots.txt with an explicit Sitemap: directive. This is a genuine,
+    account-free discovery lever distinct from Search Console/IndexNow:
+    any well-behaved crawler (Google included) checks robots.txt on its
+    own initiative and can find the sitemap from it without needing prior
+    verification of any kind. Only written when SITE_BASE_URL is set, same
+    reasoning as the sitemap itself."""
+    (SITE_DIR / "robots.txt").write_text(
+        "User-agent: *\nAllow: /\n\n"
+        f"Sitemap: {SITE_BASE_URL}/sitemap.xml\n"
+    )
+
+
 def _rfc822(iso_timestamp: str) -> str:
     try:
         dt = datetime.fromisoformat(iso_timestamp)
@@ -295,6 +308,7 @@ def run(run_id: Optional[int] = None) -> int:
     if SITE_BASE_URL:
         generate_sitemap(all_pages)
         generate_rss(all_pages)
+        generate_robots_txt()
         key = get_or_create_indexnow_key()
         (SITE_DIR / f"{key}.txt").write_text(key)
         urls = [f"{SITE_BASE_URL}/"] + [_abs_url(p["url"]) for p in all_pages]

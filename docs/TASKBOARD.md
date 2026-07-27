@@ -226,7 +226,13 @@ short session instead of several. Nothing below is urgent enough to
 justify a separate interruption on its own; together they unlock most of
 this system's near-term revenue potential.
 
-1. **Google Search Console verification** — ~3 min, highest EBV (unlocks
+**Status: all 3 marked `BLOCKED` per the Blocked Task Policy
+(ROADMAP.md) - already surfaced once (this section), not re-asked every
+turn. Work continues on unblocked tasks in parallel (see iterations below
+this batch) until the user reports one done, or until Constraint Log
+evidence says one of these has become the sole remaining lever.**
+
+1. **[BLOCKED] Google Search Console verification** — ~3 min, highest EBV (unlocks
    Google discovery for all 14 live pages at once, currently 0 confirmed
    indexed).
    - Go to search.google.com/search-console → Add property → **URL
@@ -236,7 +242,7 @@ this system's near-term revenue potential.
    - Send it here - it gets wired into `GOOGLE_SITE_VERIFICATION`, the
      site rebuilds, then click **Verify** in Search Console, then submit
      `https://fwwk4pb868-afk.github.io/biznis/sitemap.xml` as a sitemap
-2. **Gumroad Stripe KYC / payout setup** — time varies (their review
+2. **[BLOCKED] Gumroad Stripe KYC / payout setup** — time varies (their review
    queue), second-highest EBV (unlocks actual revenue collection on the
    already-built, already-tiered `core` products once priced).
    - Finish whatever verification step Stripe is asking for (likely ID +
@@ -246,7 +252,7 @@ this system's near-term revenue potential.
      actually asking for) - if it stalls, worth revisiting the "Ko-fi as
      a lower-friction fallback" option flagged in the first Strategic
      Review instead of waiting indefinitely
-3. **Formspree signup** — ~3 min, unlocks real lead capture on the 2
+3. **[BLOCKED] Formspree signup** — ~3 min, unlocks real lead capture on the 2
    service pages (currently falling back to a visible mailto link).
    - Free signup at formspree.io → create a form → copy the endpoint URL
      (`https://formspree.io/f/XXXXXXXX`)
@@ -521,6 +527,35 @@ gets wired in as a single batch, not three separate deploys.
       builds nothing can be the right call.
 - [x] Updated the durable cross-session memory with all three new
       mechanisms so they persist past this session.
+
+## Done (iteration 27) — Blocked Task Policy, then proved it with real unblocked work
+- [x] User feedback: 3 blocked human-only tasks (Search Console, Gumroad
+      KYC, Formspree) are a genuine limit (login/KYC/payment - no prompt
+      changes that), but the correct response is never to end a turn
+      idle waiting on them. Added the Blocked Task Policy to ROADMAP.md:
+      mark blocked items BLOCKED with EBV, surface once (not every turn),
+      and immediately pull the next-highest-EBV unblocked task. Marked
+      all 3 items `[BLOCKED]` in the Human Action Batch instead of a bare
+      "waiting" list.
+- [x] Added an honest note on the user's proposed CEO/Research/
+      Engineering/Growth/Review multi-agent architecture: this session is
+      one sequential agent, not literally parallel processes - the `Agent`
+      tool (real background subagents) and scheduled/cron sessions are
+      the two real mechanisms available for genuine parallelism, to be
+      used for actual independent work, not simulated as role-labeled
+      decoration.
+  - [x] Immediately proved the policy with two real unblocked fixes found
+      via a genuine crawl-readiness audit (title/meta description length/
+      canonical/JSON-LD validity/broken internal links) across all 14 live
+      pages: (1) added `robots.txt` with an explicit `Sitemap:` directive -
+      a real, account-free discovery lever distinct from Search Console/
+      IndexNow, since well-behaved crawlers check it unprompted; (2) found
+      and fixed a real gap - the homepage (the single most important URL
+      on the site) never passed through `seo_agent.py`'s per-product
+      `inject()` step, so it had zero canonical link and zero Open Graph
+      tags while every product page had them. Fixed in `page_shell()`
+      directly. Verified both locally with `SITE_BASE_URL` set exactly as
+      CI sets it, and re-ran the audit clean (0 issues) after the fix.
 
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
