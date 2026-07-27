@@ -706,6 +706,25 @@ one-by-one - so this gets wired in as a single batch.
       customer, minimal human involvement - no more agents/docs/rules/
       architecture unless that doesn't happen in 30 days.
 
+## Done (iteration 34) — evidence discipline + mission refined, no new files
+- [x] User feedback: "webový výskum ukázal" isn't enough - strategic
+      claims need a source, verification date, confidence level, what
+      they disproved, and a re-verify trigger, since SaaS platform rules
+      change. Added this directly into Decision Journal D12 (existing
+      file, not a new one): cited Gumroad's own Help Center articles
+      specifically, marked confidence Medium (not yet confirmed by an
+      actual listing attempt), and set the re-verify trigger to "when the
+      user actually tries listing" or 6 months, whichever first.
+- [x] Mission refined in ROADMAP.md: not "first paying customer" (could
+      be luck) but **Repeatable Customer Acquisition** - a second, third,
+      and tenth customer via the same process is what makes this a
+      business. New one-sentence commit test: does this increase the
+      probability of, or decrease the cost of, acquiring the *next*
+      customer? If not, don't commit it.
+- [x] Explicit instruction followed: no new markdown/journal/log/
+      dashboard/manifest this iteration - both changes above are edits to
+      already-existing files.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

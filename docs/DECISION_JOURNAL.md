@@ -279,6 +279,30 @@ real decisions made so far, then kept current going forward.
   (Scope Creep Kit + Change Request Log; Retainer Renewal Kit + Tracker)
   were sitting un-listed on Gumroad, incorrectly filed as "blocked on
   KYC" when they were never actually blocked from being listed and sold.
+- **Evidence** (added 2026-07-27 per user feedback - SaaS platform rules
+  change, so the claim above needs a paper trail, not just "research
+  showed"):
+  - **Source**: Gumroad's own Help Center - "Your payout settings page"
+    (gumroad.com/help/article/260-your-payout-settings-page) and "Stripe
+    Connect" (gumroad.com/help/article/330-stripe-connect), cross-checked
+    against a secondary summary (insightraider.com/en/answers/how-does-
+    gumroad-pay-you). Primary sources are Gumroad's own docs, not just
+    third-party blogs.
+  - **Verified**: 2026-07-27, via WebSearch (not first-hand tested by
+    actually listing a product yet - see below).
+  - **Confidence**: Medium. High confidence in what Gumroad's own help
+    docs say; medium overall because this hasn't been confirmed by an
+    actual listing/sale attempt on this specific account yet, and
+    platform behavior can differ from documentation or change without
+    notice.
+  - **What it disproved**: The working assumption in D1 that Stripe KYC
+    blocks *sales* (not just payouts) - that assumption was never
+    verified when D1 was written, just carried forward as fact.
+  - **Re-verify when**: The user actually attempts the Gumroad listing
+    (this will either confirm it directly or surface a real blocker the
+    docs didn't mention - update this entry either way, don't let it go
+    stale); or if 6+ months pass without the account processing a sale,
+    since Gumroad's own rules could change in that time.
 - **Alternatives considered and re-ranked**:
   1. **List the 2 already-validated product bundles on Gumroad now**
      (highest EBV - directly enables a first sale; low human cost since

@@ -278,11 +278,16 @@ item is still the winner. The roadmap is a hypothesis, not a contract.
 see Decision Journal D12: a plan to research Ko-fi turned out to rest on
 an unverified assumption that a scan disproved in minutes.)
 
-**The single KPI for the next 30 days**: get the first paying customer,
-with minimal human involvement. Not more agents, not more documents, not
-more rules, not more architecture - one outcome. If it doesn't happen in
-30 days, that's when revisiting the architecture becomes worth doing
-again - not before.
+**Mission for the next 30 days (2026-07-27, revised)**: build the
+smallest repeatable customer acquisition system. A first customer could
+be luck; a second, third, and tenth acquired the same way is a business.
+Ignore everything else. **Every commit must be defensible in one
+sentence: "how did this increase the probability of acquiring the next
+customer, or decrease the cost of acquiring the next customer?"** If it
+can't answer that, don't make the commit - no new agents, documents,
+rules, dashboards, or architecture, full stop. If a repeatable
+acquisition path doesn't exist in 30 days, that's when revisiting
+architecture becomes worth doing again - not before.
 
 ## Next up, ranked by EBV (2026-07-27)
 
