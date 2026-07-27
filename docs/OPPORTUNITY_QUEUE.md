@@ -82,6 +82,39 @@ refill it rather than inventing filler.
    Cost: low ($ per year). Confidence: low until more evidence exists.
    Deps: some real traffic data first. Human: advisory ($ approval).
 
+## Customer Discovery Layer (new category, added 2026-07-27 after an
+## external second opinion - see Decision Journal D10)
+
+The pipeline currently only reads keyword *frequency*, never actual
+customer language ("I wish...", "I'm tired of...", "does anyone know...").
+That language is a stronger demand signal than frequency alone. Scoped
+honestly by what's actually free/no-auth vs. what needs a new account:
+
+1. **HN comments, not just titles** - the Algolia HN API already used by
+   `market_research_agent.py` also exposes comment text
+   (`tags=comment`), currently unused. EBV: med. Cost: low (extend an
+   existing integration). Confidence: high. Deps: none. Human: none.
+2. **Stack Exchange comments, not just questions** - same API already in
+   use, comments endpoint is free/no-auth too. EBV: med. Cost: low.
+   Confidence: high. Deps: none. Human: none.
+3. **GitHub Issues** (titles + bodies) on public repos - same GitHub
+   search API already in use, same rate limit. Real "I wish X did Y"
+   language shows up here often. EBV: med. Cost: low-med. Confidence:
+   med. Deps: none. Human: none.
+4. **Reddit** (public `.json` endpoints on public subreddits, no login
+   needed for read-only access at low volume) - genuinely new source,
+   not currently integrated at all. EBV: med-high (Reddit threads are
+   often exactly "I wish/does anyone know" phrasing). Cost: med (new
+   integration + ToS/rate-limit care). Confidence: med. Deps: none.
+   Human: none for read-only public access.
+5. **Product Hunt, IndieHackers, Discord** - suggested alongside the
+   above, but explicitly NOT equally free: Product Hunt's real API needs
+   an OAuth app/token, IndieHackers has no public API (would mean
+   scraping, ToS risk), Discord needs server-specific access. EBV:
+   unknown until evaluated. Cost: real (new account/token setup). Human:
+   **blocking** - correctly belongs in the Human Action Batch if ever
+   pursued, not bundled in as if it were free like items 1-4.
+
 ## Growth / distribution
 
 1. **Audit and improve internal cross-linking density** across all 14

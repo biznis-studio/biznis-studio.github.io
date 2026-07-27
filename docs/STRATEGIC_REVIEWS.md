@@ -32,6 +32,11 @@ recommend a radical change of direction if the analysis supports one.
 8. What are three alternative strategies with higher expected EBV?
 9. Why might this company fail even with excellent execution?
 10. What is the single biggest systemic bottleneck in the whole company?
+11. **(added 2026-07-27, after an external second opinion)** If Google
+    stopped sending this business any traffic tomorrow, would it survive?
+    If the honest answer is no, SEO isn't a distribution channel here -
+    it's the only one, which is a real concentration risk independent of
+    whether SEO itself is currently working.
 
 **Honest limitation on automation**: there's no LLM wired into the
 scheduled GitHub Actions pipeline (no Anthropic/OpenRouter/Ollama key

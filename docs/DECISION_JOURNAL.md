@@ -213,3 +213,77 @@ real decisions made so far, then kept current going forward.
 - **Review date**: Revisit in the next Strategic Review (~1 week) - check
   whether the four documents are actually being kept current or have
   started to rot, which would itself be a constraint worth logging.
+
+### D10 — Consulted an independent AI (ChatGPT) for a second opinion, adopted some findings and explicitly rejected others (2026-07-27)
+- **Decision**: At the user's request, explained the full system to ChatGPT
+  (via the user's own logged-in browser session) and asked for
+  optimization suggestions, specifically asking for an independent view
+  rather than confirmation of what's already being done.
+- **Reasoning**: An external model with no stake in this system's prior
+  decisions is a cheap way to surface real blind spots that accumulated
+  context can hide - the same reason docs/STRATEGIC_REVIEWS.md exists,
+  applied via a genuinely different reasoning process instead of just
+  another pass of my own.
+- **What was adopted as genuinely new and real** (not already covered by
+  the existing EBV/Constraint/Decision-Journal layer):
+  - **Customer Discovery Layer**: the pipeline currently only reads
+    keyword *frequency*, never actual customer language ("I wish...",
+    "I'm tired of...", "does anyone know..."). Added to
+    docs/OPPORTUNITY_QUEUE.md, scoped honestly: Reddit (public JSON,
+    no-account), GitHub Issues (already-used API), HN *comments* (not
+    just titles - same Algolia API), and Stack Exchange *comments* (same
+    API already in use) are genuinely free/no-auth extensions of the
+    current stack. Product Hunt, IndieHackers, and Discord were also
+    suggested but need a new account/API token each - correctly gated
+    behind the Human Action Batch/Human Cost Analysis, not treated as
+    equally "free" just because ChatGPT listed them together.
+  - **Expected Learning Value** as a companion to EBV: some low-EBV tasks
+    are worth doing anyway because they resolve real uncertainty cheaply
+    (e.g. a tiny paid distribution test that answers "do people even
+    click" regardless of whether it sells anything). Added to ROADMAP.md
+    as an explicit second axis alongside EBV, not a replacement for it.
+  - **Kill Switch**: no rule currently exists for retiring a *published*
+    product that isn't performing, only for rejecting ideas before
+    they're built (the `retire_candidate` tier). Logged as a real gap;
+    can't fully implement the trigger conditions (impressions/clicks/
+    conversions) until Analytics exists, but the rule itself is recorded
+    now so it's not forgotten once that data exists.
+  - **An 11th Strategic Review question** ("if Google stopped sending
+    traffic tomorrow, would this survive?") - a sharper, more falsifiable
+    version of a concern the first Strategic Review already raised in
+    softer form; added directly to docs/STRATEGIC_REVIEWS.md.
+  - **GitHub repo discoverability** was genuinely just missing and free to
+    fix: `homepageUrl` was empty and there were zero topics on the public
+    repo. Set both immediately (`gh repo edit`) - a real, unblocked,
+    zero-cost distribution surface that had simply been overlooked.
+- **What was explicitly NOT adopted, and why**:
+  - The claim that most of the pipeline (Competition Analysis, Demand
+    Scoring, Niche Clustering) is "engineering comfort" that doesn't
+    move revenue. Rejected: the competition/demand scoring work directly
+    produced this session's product tiering decision (D5) - it's not
+    decorative, it materially changed what got built and what got
+    retired. Logged the pushback rather than silently ignoring or
+    silently complying with an external opinion that didn't match the
+    evidence in hand.
+  - Migrating off SQLite-in-git or off GitHub Pages right now - both are
+    reasonable *future* considerations (already independently flagged in
+    D2 and ARCHITECTURE.md's design decisions) but premature at 28
+    products and 0 measured traffic; re-platforming now would cost real
+    engineering time against a constraint (distribution) that doesn't
+    require it.
+  - A full "Problem Statement" pipeline stage (keyword -> problem ->
+    solution -> product) as new infrastructure: the `core`-tier products
+    already implicitly went through exactly this reasoning via
+    `manual_research`-sourced ideas (D4) - the gap is only in the
+    *rule-based* `FORMAT_RULES` path used for lower-conviction ideas, so
+    this is a refinement to note, not a new system to build.
+- **Expected outcome**: A slightly larger, better-scoped Opportunity
+  Queue and two new standing principles (Expected Learning Value, Kill
+  Switch), without importing untested claims wholesale just because they
+  came from a second AI.
+- **Metrics to validate**: Whether the Customer Discovery Layer additions
+  (once built) surface product ideas with a qualitatively different,
+  more specific rationale than the current keyword-frequency approach.
+- **Review date**: Revisit in the next Strategic Review - check whether
+  Customer Discovery signals actually produced a better idea than the
+  keyword pipeline would have, or whether it was a detour.

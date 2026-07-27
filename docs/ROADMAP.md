@@ -221,6 +221,23 @@ there's enough real surface area (more products, more traffic data, more
 competitors mapped) to support that many genuinely distinct ideas without
 padding.
 
+- **Expected Learning Value, alongside EBV** (added 2026-07-27 after an
+  external second opinion - see Decision Journal D10). Some low-EBV tasks
+  are still worth doing because they resolve real uncertainty cheaply -
+  e.g. a small distribution experiment that answers "do people even
+  click on this" is valuable regardless of whether it produces a sale.
+  When ranking the Opportunity Queue, a low-EBV/high-learning item can
+  outrank a higher-EBV item whose outcome is already well-understood.
+- **Kill Switch** (added 2026-07-27). There's a rule for not *building*
+  a low-conviction idea (`retire_candidate` tier), but none yet for
+  retiring a product that *is* published but isn't performing. Rule:
+  once Analytics exists, any `ready` product with no meaningful
+  engagement (impressions/clicks/conversions) after a reasonable window
+  gets flagged for archive review in the next Strategic Review - keeps
+  the live catalog a genuine asset, not an ever-growing pile. Can't fully
+  trigger yet (no analytics data), but the rule is recorded now so it
+  isn't forgotten once that data exists.
+
 ## Next up, ranked by EBV (2026-07-27)
 
 1. **Resolve the distribution bottleneck** — either resume Google Search

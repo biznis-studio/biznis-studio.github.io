@@ -610,6 +610,28 @@ gets wired in as a single batch, not three separate deploys.
       pulled directly from the new Opportunity Queue's automation
       category instead of leaving it as a one-off.
 
+## Done (iteration 30) — external second opinion (ChatGPT), critically evaluated
+- [x] At the user's request, explained the full system to ChatGPT (via
+      the user's own Chrome/Claude-in-Chrome session) and asked for
+      independent optimization suggestions, not confirmation.
+- [x] Critically evaluated the response rather than importing it
+      wholesale (full reasoning in Decision Journal D10). Adopted as
+      genuinely new: a **Customer Discovery Layer** (HN comments, Stack
+      Exchange comments, GitHub Issues, Reddit - scoped by what's
+      actually free/no-auth vs. account-gated), an **Expected Learning
+      Value** axis alongside EBV, a **Kill Switch** rule for retiring
+      underperforming *published* products (not just unbuilt ideas), and
+      an 11th Strategic Review question ("if Google stopped sending
+      traffic tomorrow, would this survive?").
+- [x] Explicitly rejected the claim that Competition/Demand/Niche scoring
+      is "engineering comfort" that doesn't move revenue - it directly
+      produced this session's tiering decision (D5), so the claim didn't
+      match the evidence. Logged the pushback rather than silently
+      complying with or silently ignoring an external opinion.
+- [x] Found and fixed one genuinely free, unblocked distribution gap the
+      consultation surfaced: the public GitHub repo had no `homepageUrl`
+      and zero topics set. Fixed immediately via `gh repo edit`.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
