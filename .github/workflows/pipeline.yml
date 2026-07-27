@@ -12,6 +12,7 @@ permissions:
 
 env:
   SITE_BASE_URL: https://fwwk4pb868-afk.github.io/biznis
+  FORMSPREE_ENDPOINT: https://formspree.io/f/xykrlrjz
 
 jobs:
   run-pipeline:

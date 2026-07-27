@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Custom Website Development, scoped and quoted for your actual project - get in touch to start.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234f46e5'/%3E%3Ctext x='32' y='44' font-family='Arial,sans-serif' font-size='34' font-weight='800' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+<link rel="alternate" type="application/rss+xml" title="Biznis - Free Digital Products" href="https://fwwk4pb868-afk.github.io/biznis/feed.xml">
 <style>
   :root {
     color-scheme: light dark;
@@ -165,6 +166,10 @@
   }
   footer a { color: var(--text-muted); }
   @media (max-width: 480px) {
+    /* Found via a real mobile check: the nav link text and the "Hire us"
+       pill button were each wrapping onto two lines and colliding with
+       the logo on a 375px-wide screen - narrow the spacing instead of
+       letting flexbox wrap mid-word. */
     .site-header { padding: 1.25rem 1rem 0; }
     .site-header nav { gap: 0.75rem; }
     .site-header nav a { font-size: 0.82rem; white-space: nowrap; }
@@ -176,7 +181,6 @@
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://fwwk4pb868-afk.github.io/biznis/products/custom-website-design-development.html">
 <script type="application/ld+json">{"@context": "https://schema.org", "name": "Custom Website Design & Development", "description": "Custom Website Development, scoped and quoted for your actual project - get in touch to start.", "url": "https://fwwk4pb868-afk.github.io/biznis/products/custom-website-design-development.html", "@type": "Service"}</script>
-<link rel="alternate" type="application/rss+xml" title="Biznis - Free Digital Products" href="https://fwwk4pb868-afk.github.io/biznis/feed.xml">
 </head>
 <body>
 <header class="site-header">
@@ -212,7 +216,17 @@
 <p>This is a new service offering - there&#x27;s no long portfolio to point to yet, and this page won&#x27;t pretend otherwise. What you can evaluate instead: this entire site (design, content, and the automated system that produced it) is a working example of the same care and attention that would go into your project.</p>
 <h2>Get in touch</h2>
 <p>Describe what you&#x27;re looking for and I&#x27;ll reply with next steps.</p></div>
-<a class="button" href="mailto:jozefrusnak4@gmail.com">Get in touch</a>
+<form class="contact-form" action="https://formspree.io/f/xykrlrjz" method="POST">
+<label for="name">Name</label>
+<input type="text" id="name" name="name" required>
+<label for="email">Your email</label>
+<input type="email" id="email" name="email" required>
+<label for="message">What do you need?</label>
+<textarea id="message" name="message" required></textarea>
+<input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+<button type="submit" class="button">Send</button>
+<p class="form-note">Goes straight to us - no account or signup needed on your end.</p>
+</form>
 </main>
 <div class="card"><h2>More free tools</h2><ul><li><a href="the-practical-guide-to-xlsx.html">The Practical Guide to XLSX</a></li>
 <li><a href="checklist-pdf-notion.html">Checklist (PDF + Notion)</a></li>

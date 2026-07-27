@@ -264,12 +264,13 @@ sale, not item 2.**
    - Send it here - it gets wired into `GOOGLE_SITE_VERIFICATION`, the
      site rebuilds, then click **Verify** in Search Console, then submit
      `https://fwwk4pb868-afk.github.io/biznis/sitemap.xml` as a sitemap
-4. **[BLOCKED] Formspree signup** — ~3 min, unlocks real lead capture on
-   the 2 service pages (currently falling back to a visible mailto link).
-   - Free signup at formspree.io → create a form → copy the endpoint URL
-     (`https://formspree.io/f/XXXXXXXX`)
-   - Send it here - wires into `FORMSPREE_ENDPOINT`, removes the mailto
-     fallback everywhere
+4. ~~**[BLOCKED] Formspree signup**~~ — **done 2026-07-27**: endpoint
+   `https://formspree.io/f/xykrlrjz` wired into `FORMSPREE_ENDPOINT`
+   (workflow env + rebuilt pages). Both service pages now use a real
+   contact form - verified 0 occurrences of the email address in either
+   page's source, form posts to the correct endpoint. The mailto fallback
+   (reported as "doesn't work" - no default mail client on many browsers/
+   devices) is gone.
 5. **Optional, skip unless already in an account-setup mood**: Cloudflare
    Web Analytics - deliberately low priority (nothing to measure until
    distribution/traffic exists).
