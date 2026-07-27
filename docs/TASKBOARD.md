@@ -323,6 +323,34 @@
 - [x] Free for now (ready to price once Gumroad payouts work); verified
       no markdown/rendering regressions before shipping
 
+## Done (iteration 20) — full visual redesign + services offering
+- [x] User feedback: design was "extremely bland and unprofessional."
+      Built a real shared design system (`SITE_CSS` in `agents/common.py`):
+      color palette with light/dark variants, gradient brand accents,
+      card shadows/hover lift, a colored format badge per product type, a
+      real site header/nav, and a favicon - used by every generated page
+      (including the calculator, which previously had its own bespoke CSS).
+- [x] Found and fixed a real bug while verifying: the *existing* calculator
+      product file on disk was generated before this change and never
+      gets regenerated automatically (content_agent.py only builds new
+      products) - had to manually regenerate it to pick up the new styles.
+- [x] Found and fixed a second real bug: every non-calculator page showed
+      its title twice (once from the page shell, once from the markdown
+      file's own leading "# Title" line, now stripped before rendering).
+- [x] User then asked for "ultra-modern" design + a services offering:
+      pushed the design further (gradient hero text, gradient buttons,
+      subtle background gradients, section labels) and added a new
+      `service` format for **Custom Website Design & Development** and
+      **Custom Chatbot Development** - not downloadable products, so they
+      get a "Get in touch" mailto CTA instead of a download link, a
+      dedicated schema.org `Service` type, and a distinct "Work with us"
+      section on the homepage above the free products grid.
+- [x] Verified light mode, dark mode, the calculator's interactivity, and
+      the Gumroad-monetized page all render correctly with the new system.
+- [x] Note: the mailto CTA uses the site owner's real personal email,
+      now publicly visible on the site - flagged to the user rather than
+      assumed acceptable silently.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

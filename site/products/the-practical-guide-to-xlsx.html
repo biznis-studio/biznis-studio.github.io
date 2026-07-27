@@ -5,21 +5,151 @@
 <title>The Practical Guide to XLSX</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="A fast, practical guide to XLSX - no fluff, just what actually works.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234f46e5'/%3E%3Ctext x='32' y='44' font-family='Arial,sans-serif' font-size='34' font-weight='800' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
 <style>
-  :root { color-scheme: light dark; }
-  body { font-family: -apple-system, system-ui, sans-serif; max-width: 720px;
-         margin: 0 auto; padding: 2rem 1.25rem 4rem; color: #1a1a1a; background: #ffffff; }
-  h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
-  .subtitle { color: #555; margin-top: 0; }
-  .card { background: #f6f6f6; border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
-  a.button { display: inline-block; background: #1a1a1a; color: #fff; padding: 0.6rem 1.2rem;
-             border-radius: 6px; text-decoration: none; font-weight: 600; }
-  table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
-  th, td { border: 1px solid #ddd; padding: 0.5rem; text-align: left; font-size: 0.9rem; }
-  th { background: #f0f0f0; }
-  blockquote { background: #f6f6f6; border-left: 3px solid #999; margin: 0.75rem 0;
-               padding: 0.5rem 1rem; }
-  footer { margin-top: 2.5rem; font-size: 0.8rem; color: #888; }
+  :root {
+    color-scheme: light dark;
+    --bg: #ffffff;
+    --bg-alt: #fafaff;
+    --surface: #f6f7fc;
+    --border: #e4e7ef;
+    --text: #14161f;
+    --text-muted: #5b6072;
+    --brand: #4f46e5;
+    --brand2: #7c3aed;
+    --brand-hover: #4338ca;
+    --brand-contrast: #ffffff;
+    --shadow: 0 1px 2px rgba(20, 22, 31, 0.04), 0 8px 24px rgba(20, 22, 31, 0.07);
+    --shadow-lg: 0 4px 10px rgba(79, 70, 229, 0.12), 0 16px 40px rgba(20, 22, 31, 0.10);
+    --radius: 16px;
+    --gradient: linear-gradient(135deg, var(--brand), var(--brand2));
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0a0b12;
+      --bg-alt: #0d0e17;
+      --surface: #151723;
+      --border: #262a3a;
+      --text: #f1f2f9;
+      --text-muted: #9a9fb5;
+      --brand: #818cf8;
+      --brand2: #a78bfa;
+      --brand-hover: #a5b0fb;
+      --brand-contrast: #0a0b12;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 4px 14px rgba(129, 140, 248, 0.18), 0 20px 48px rgba(0, 0, 0, 0.45);
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0; background: var(--bg); color: var(--text); line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(60rem 30rem at 15% -10%, rgba(124, 58, 237, 0.10), transparent 60%),
+                       radial-gradient(50rem 26rem at 100% 0%, rgba(79, 70, 229, 0.10), transparent 55%);
+    background-repeat: no-repeat;
+  }
+  .site-header {
+    display: flex; align-items: center; justify-content: space-between;
+    max-width: 960px; margin: 0 auto; padding: 1.75rem 1.25rem 0;
+  }
+  .site-header a.brand {
+    font-weight: 800; font-size: 1.2rem; color: var(--text); text-decoration: none;
+    letter-spacing: -0.03em;
+  }
+  .site-header a.brand span {
+    background: var(--gradient); -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .site-header nav { display: flex; gap: 1.5rem; align-items: center; }
+  .site-header nav a {
+    color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600;
+    transition: color 0.15s ease;
+  }
+  .site-header nav a:hover { color: var(--brand); }
+  .site-header nav a.nav-cta {
+    background: var(--gradient); color: #fff !important; padding: 0.5rem 1.1rem; border-radius: 999px;
+    font-weight: 700; box-shadow: var(--shadow);
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+  main.wide { max-width: 1080px; }
+  h1 {
+    font-size: 2.1rem; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 0.5rem;
+    line-height: 1.15;
+  }
+  h2 { font-size: 1.3rem; font-weight: 750; margin-top: 2.25rem; letter-spacing: -0.015em; }
+  h3 { font-size: 1.05rem; font-weight: 700; }
+  .subtitle { color: var(--text-muted); margin: 0 0 1.75rem; font-size: 1.08rem; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 1.6rem 1.85rem; margin: 1.5rem 0; box-shadow: var(--shadow);
+  }
+  a.button {
+    display: inline-block; background: var(--gradient); color: var(--brand-contrast) !important;
+    padding: 0.85rem 1.75rem; border-radius: 12px; text-decoration: none; font-weight: 700;
+    box-shadow: var(--shadow-lg); transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  a.button:hover { transform: translateY(-2px) scale(1.015); }
+  a.button.secondary {
+    background: var(--surface); color: var(--text) !important; border: 1px solid var(--border);
+    box-shadow: none;
+  }
+  a.button.secondary:hover { border-color: var(--brand); }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.92rem; }
+  th, td { border: 1px solid var(--border); padding: 0.65rem 0.75rem; text-align: left; }
+  th { background: var(--bg-alt); font-weight: 700; }
+  blockquote {
+    background: var(--bg-alt); border-left: 3px solid var(--brand); margin: 0.9rem 0;
+    padding: 0.7rem 1.15rem; border-radius: 0 10px 10px 0;
+  }
+  ul { padding-left: 1.3rem; }
+  li { margin-bottom: 0.55rem; }
+  .badge {
+    display: inline-block; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.05em;
+    text-transform: uppercase; color: #fff; padding: 0.3rem 0.7rem; border-radius: 999px;
+    margin-bottom: 0.85rem; box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  }
+  .section-title {
+    font-size: 0.82rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-muted); margin: 3rem 0 0.25rem;
+  }
+  .product-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.15rem; margin-top: 1.25rem;
+  }
+  .product-card {
+    display: block; background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem 1.6rem; text-decoration: none; color: var(--text);
+    box-shadow: var(--shadow); transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .product-card:hover { transform: translateY(-3px); border-color: var(--brand); box-shadow: var(--shadow-lg); }
+  .product-card h3 { margin: 0.55rem 0 0.4rem; font-size: 1.08rem; }
+  .product-card p { margin: 0; color: var(--text-muted); font-size: 0.9rem; }
+  .service-card {
+    display: block; text-decoration: none; color: var(--text);
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 1.75rem 2rem; box-shadow: var(--shadow); position: relative; overflow: hidden;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .service-card::before {
+    content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--gradient);
+  }
+  .service-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+  .service-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.15rem; margin-top: 1.25rem;
+  }
+  .hero { max-width: 680px; }
+  .hero .subtitle { font-size: 1.15rem; }
+  .hero h1 {
+    background: var(--gradient); -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; display: inline-block;
+  }
+  footer {
+    max-width: 960px; margin: 3rem auto 0; padding: 1.5rem 1.25rem 2.5rem;
+    font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--text-muted); }
 </style>
 <meta property="og:title" content="The Practical Guide to XLSX">
 <meta property="og:description" content="A fast, practical guide to XLSX - no fluff, just what actually works.">
@@ -28,10 +158,19 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "name": "The Practical Guide to XLSX", "description": "A fast, practical guide to XLSX - no fluff, just what actually works.", "url": "https://fwwk4pb868-afk.github.io/biznis/products/the-practical-guide-to-xlsx.html", "@type": "CreativeWork"}</script>
 </head>
 <body>
+<header class="site-header">
+<a class="brand" href="../index.html">Biznis<span>.</span></a>
+<nav>
+<a href="../index.html">Free products</a>
+<a href="../index.html#services">Services</a>
+<a class="nav-cta" href="mailto:jozefrusnak4@gmail.com">Hire us</a>
+</nav>
+</header>
+<main>
+<span class="badge" style="background:#db2777">ebook</span>
 <h1>The Practical Guide to XLSX</h1>
 <p class="subtitle">A fast, practical guide to XLSX - no fluff, just what actually works.</p>
-<div class="card"><h1>The Practical Guide to Working with XLSX Files</h1>
-<p>XLSX is the file format behind Microsoft Excel spreadsheets - and, whether you write code or not, there&#x27;s a good chance you&#x27;ve had to open, edit, or generate one. This guide covers the practical side: what the format actually is, the most common ways people work with it, and the mistakes that cause the most wasted time.</p>
+<div class="card"><p>XLSX is the file format behind Microsoft Excel spreadsheets - and, whether you write code or not, there&#x27;s a good chance you&#x27;ve had to open, edit, or generate one. This guide covers the practical side: what the format actually is, the most common ways people work with it, and the mistakes that cause the most wasted time.</p>
 <h2>Why XLSX matters right now</h2>
 <p>XLSX has become the default way businesses exchange structured data - far beyond just &quot;spreadsheets you type numbers into.&quot; Invoices, reports, inventory exports, and data handed between departments or companies routinely show up as .xlsx files, because almost every tool on almost every computer can open one. That ubiquity is exactly why so many people end up needing to read, generate, or transform them programmatically, not just click around in them by hand.</p>
 <p>Underneath the familiar spreadsheet grid, an .xlsx file is actually a zip archive full of XML files - which is worth knowing, because it explains both why the format is so flexible (it can hold formatting, formulas, charts, multiple sheets) and why it can go wrong in ways a plain text file never would - a corrupted zip entry, a formula that only breaks in one specific spreadsheet program, or a &quot;simple&quot; file that&#x27;s secretly several megabytes of unused formatting.</p>
@@ -74,9 +213,11 @@
 <li>If you&#x27;re unsure whether you need XLSX or CSV for a given task, the short version is: CSV for raw data exchange, XLSX for anything a human needs to open, format, or calculate in directly.</li>
 </ul></div>
 <a class="button" href="../downloads/0001-the-practical-guide-to-xlsx.pdf" download>Download ebook</a>
+</main>
 <div class="card"><h2>More free tools</h2><ul><li><a href="checklist-pdf-notion.html">Checklist (PDF + Notion)</a></li>
 <li><a href="the-practical-guide-to-automation.html">The Practical Guide to Automation</a></li>
 <li><a href="spreadsheet-pack.html">Spreadsheet Pack</a></li></ul></div>
-<footer>Generated by the Biznis pipeline. <a href="../index.html">Back to all products</a></footer>
+<footer>Generated by the Biznis pipeline from real demand signals.
+<a href="../index.html">Back to all products</a></footer>
 </body>
 </html>

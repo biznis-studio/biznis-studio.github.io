@@ -115,6 +115,10 @@ def schema_for(fmt: str, title: str, description: str, url: Optional[str], page_
         if steps:
             return {**base, "@type": "HowTo",
                     "step": [{"@type": "HowToStep", "text": s} for s in steps]}
+    if fmt == "service":
+        # No fixed price (custom-quoted per project) - schema.org's Service
+        # type doesn't require one, unlike Offer-based types.
+        return {**base, "@type": "Service"}
     return {**base, "@type": "CreativeWork"}
 
 

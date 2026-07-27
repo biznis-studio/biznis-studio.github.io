@@ -239,3 +239,20 @@ See [db/schema.sql](../db/schema.sql) — the single source of truth. Summary:
   `html.escape()` (so raw asterisks in prose are untouched by escaping,
   but the `<strong>`/`<em>` tags this inserts are real markup, not
   escaped text) - see `_inline_emphasis()` in `agents/common.py`.
+- **One shared design system (`SITE_CSS` in `agents/common.py`) for every
+  page**, including the calculator, which used to carry its own bespoke
+  CSS. A single source of truth for colors/typography/spacing means a
+  future redesign only touches one constant. Learned the hard way that
+  changing `content_agent.py`'s calculator generator doesn't retroactively
+  fix the *already-built* calculator file sitting in
+  `data/exports/products/` - `content_agent.py` only writes a product file
+  once, when the idea is first promoted, so an existing file needs a
+  manual/explicit regeneration to pick up a generator change.
+- **`service` is a format with no downloadable file.** Custom Website
+  Design & Development and Custom Chatbot Development are real offerings,
+  not automated digital products - `landing_page_agent.py` gives this
+  format a `mailto:` CTA instead of a download link, and `seo_agent.py`
+  marks it up as schema.org `Service` (no `Offer`/price, since work is
+  custom-quoted, not fixed-price). The homepage renders services in a
+  separate "Work with us" section above the free-product grid rather than
+  mixing them into the same grid.

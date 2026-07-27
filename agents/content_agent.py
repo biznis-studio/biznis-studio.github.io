@@ -26,7 +26,7 @@ from typing import Optional
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from agents.common import now_iso, slugify
+from agents.common import SITE_CSS, now_iso, slugify
 from core.db import get_connection, init_db
 
 OUT_DIR = Path(__file__).resolve().parent.parent / "data" / "exports" / "products"
@@ -146,31 +146,31 @@ def generate_calculator_html(term: str) -> tuple[str, str]:
 <title>{topic} Calculator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-  :root {{ color-scheme: light dark; }}
-  body {{ font-family: -apple-system, system-ui, sans-serif; max-width: 480px;
-          margin: 3rem auto; padding: 0 1rem; color: #1a1a1a; background: #ffffff; }}
-  h1 {{ font-size: 1.4rem; }}
-  label {{ display: block; margin-top: 1rem; font-size: 0.9rem; color: #444; }}
-  input {{ width: 100%; padding: 0.5rem; font-size: 1rem; margin-top: 0.25rem;
-           box-sizing: border-box; color: #1a1a1a; background: #fff; border: 1px solid #ccc; }}
-  .result {{ margin-top: 1.5rem; padding: 1rem; background: #f4f4f4;
-             border-radius: 8px; font-size: 1.1rem; color: #1a1a1a; }}
-  .result b {{ font-size: 1.4rem; }}
+{SITE_CSS}
+  label {{ display: block; margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }}
+  input {{ width: 100%; padding: 0.65rem 0.75rem; font-size: 1rem; margin-top: 0.35rem;
+           box-sizing: border-box; color: var(--text); background: var(--bg);
+           border: 1px solid var(--border); border-radius: 8px; }}
+  .result b {{ font-size: 1.3rem; }}
 </style>
 </head>
 <body>
+<main>
 <h1>{topic} Calculator</h1>
+<div class="card">
 <label>Base amount
   <input type="number" id="base" value="100" step="0.01">
 </label>
 <label>Percentage (%)
   <input type="number" id="pct" value="20" step="0.01">
 </label>
-<div class="result">
+</div>
+<div class="card result">
   Percentage of base: <b id="pctOf">-</b><br>
   Base + percentage (markup): <b id="markupUp">-</b><br>
   Base - percentage (discount): <b id="markupDown">-</b>
 </div>
+</main>
 <script>
   function recalc() {{
     const base = parseFloat(document.getElementById('base').value) || 0;

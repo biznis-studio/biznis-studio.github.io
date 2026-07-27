@@ -5,18 +5,110 @@
 <title>Percentage & Markup Calculator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-  :root { color-scheme: light dark; }
-  body { font-family: -apple-system, system-ui, sans-serif; max-width: 480px;
-          margin: 3rem auto; padding: 0 1rem; color: #1a1a1a; background: #ffffff; }
-  h1 { font-size: 1.4rem; }
-  label { display: block; margin-top: 1rem; font-size: 0.9rem; color: #444; }
-  input { width: 100%; padding: 0.5rem; font-size: 1rem; margin-top: 0.25rem;
-           box-sizing: border-box; color: #1a1a1a; background: #fff; border: 1px solid #ccc; }
-  .result { margin-top: 1.5rem; padding: 1rem; background: #f4f4f4;
-             border-radius: 8px; font-size: 1.1rem; color: #1a1a1a; }
-  .result b { font-size: 1.4rem; }
+
+  :root {
+    color-scheme: light dark;
+    --bg: #ffffff;
+    --surface: #f7f8fc;
+    --border: #e4e7ef;
+    --text: #14161f;
+    --text-muted: #5b6072;
+    --brand: #4f46e5;
+    --brand-hover: #4338ca;
+    --brand-contrast: #ffffff;
+    --shadow: 0 1px 2px rgba(20, 22, 31, 0.04), 0 4px 16px rgba(20, 22, 31, 0.06);
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e0f16;
+      --surface: #171926;
+      --border: #2a2d3d;
+      --text: #eef0f7;
+      --text-muted: #9a9fb5;
+      --brand: #818cf8;
+      --brand-hover: #a5b0fb;
+      --brand-contrast: #14161f;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0; background: var(--bg); color: var(--text); line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .site-header {
+    display: flex; align-items: center; justify-content: space-between;
+    max-width: 880px; margin: 0 auto; padding: 1.5rem 1.25rem 0;
+  }
+  .site-header a.brand {
+    font-weight: 800; font-size: 1.1rem; color: var(--text); text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .site-header a.brand span { color: var(--brand); }
+  .site-header nav a {
+    color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600;
+  }
+  .site-header nav a:hover { color: var(--brand); }
+  main { max-width: 720px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  main.wide { max-width: 1040px; }
+  h1 { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 0.4rem; }
+  h2 { font-size: 1.25rem; font-weight: 700; margin-top: 2rem; letter-spacing: -0.01em; }
+  h3 { font-size: 1.05rem; font-weight: 700; }
+  .subtitle { color: var(--text-muted); margin: 0 0 1.5rem; font-size: 1.05rem; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 1.5rem 1.75rem; margin: 1.5rem 0; box-shadow: var(--shadow);
+  }
+  a.button {
+    display: inline-block; background: var(--brand); color: var(--brand-contrast) !important;
+    padding: 0.75rem 1.5rem; border-radius: 10px; text-decoration: none; font-weight: 700;
+    box-shadow: var(--shadow); transition: background 0.15s ease, transform 0.1s ease;
+  }
+  a.button:hover { background: var(--brand-hover); transform: translateY(-1px); }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.92rem; }
+  th, td { border: 1px solid var(--border); padding: 0.6rem 0.7rem; text-align: left; }
+  th { background: var(--bg); font-weight: 700; }
+  blockquote {
+    background: var(--bg); border-left: 3px solid var(--brand); margin: 0.9rem 0;
+    padding: 0.6rem 1.1rem; border-radius: 0 8px 8px 0;
+  }
+  ul { padding-left: 1.3rem; }
+  li { margin-bottom: 0.55rem; }
+  .badge {
+    display: inline-block; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.04em;
+    text-transform: uppercase; color: #fff; padding: 0.28rem 0.65rem; border-radius: 999px;
+    margin-bottom: 0.75rem;
+  }
+  .product-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.1rem; margin-top: 1.75rem;
+  }
+  .product-card {
+    display: block; background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.4rem 1.5rem; text-decoration: none; color: var(--text);
+    box-shadow: var(--shadow); transition: transform 0.12s ease, border-color 0.12s ease;
+  }
+  .product-card:hover { transform: translateY(-2px); border-color: var(--brand); }
+  .product-card h3 { margin: 0.5rem 0 0.4rem; font-size: 1.05rem; }
+  .product-card p { margin: 0; color: var(--text-muted); font-size: 0.9rem; }
+  .hero { max-width: 640px; }
+  .hero .subtitle { font-size: 1.1rem; }
+  footer {
+    max-width: 880px; margin: 3rem auto 0; padding: 1.5rem 1.25rem 2.5rem;
+    font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--text-muted); }
+
+  label { display: block; margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }
+  input { width: 100%; padding: 0.65rem 0.75rem; font-size: 1rem; margin-top: 0.35rem;
+           box-sizing: border-box; color: var(--text); background: var(--bg);
+           border: 1px solid var(--border); border-radius: 8px; }
+  .result b { font-size: 1.3rem; }
 </style>
 <meta name="description" content="Get an instant answer for your numbers - no signup, no spreadsheet, works right in your browser.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234f46e5'/%3E%3Ctext x='32' y='44' font-family='Arial,sans-serif' font-size='34' font-weight='800' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
 <meta property="og:title" content="Free Online Calculator">
 <meta property="og:description" content="Get an instant answer for your numbers - no signup, no spreadsheet, works right in your browser.">
 <meta property="og:type" content="website">
@@ -25,19 +117,32 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Do I need to install anything?", "acceptedAnswer": {"@type": "Answer", "text": "No - it runs directly in your browser. Nothing is uploaded or stored."}}, {"@type": "Question", "name": "Is my data saved anywhere?", "acceptedAnswer": {"@type": "Answer", "text": "No. All calculations happen locally in your browser; nothing is sent to a server."}}, {"@type": "Question", "name": "Is it free to use?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, with no signup required."}}]}</script>
 </head>
 <body>
+<header class="site-header">
+<a class="brand" href="../index.html">Biznis<span>.</span></a>
+<nav>
+<a href="../index.html">Free products</a>
+<a href="../index.html#services">Services</a>
+<a class="nav-cta" href="mailto:jozefrusnak4@gmail.com">Hire us</a>
+</nav>
+</header>
+<main>
+<span class="badge" style="background:#2563eb">calculator</span>
 <h1>Percentage & Markup Calculator</h1>
 <p class="subtitle">Get an instant answer for your numbers - no signup, no spreadsheet, works right in your browser.</p>
+<div class="card">
 <label>Base amount
   <input type="number" id="base" value="100" step="0.01">
 </label>
 <label>Percentage (%)
   <input type="number" id="pct" value="20" step="0.01">
 </label>
-<div class="result">
+</div>
+<div class="card result">
   Percentage of base: <b id="pctOf">-</b><br>
   Base + percentage (markup): <b id="markupUp">-</b><br>
   Base - percentage (discount): <b id="markupDown">-</b>
 </div>
+</main>
 <script>
   function recalc() {
     const base = parseFloat(document.getElementById('base').value) || 0;
@@ -60,6 +165,6 @@
 <p>Yes, with no signup required.</p></div><div class="card"><h2>More free tools</h2><ul><li><a href="the-practical-guide-to-xlsx.html">The Practical Guide to XLSX</a></li>
 <li><a href="checklist-pdf-notion.html">Checklist (PDF + Notion)</a></li>
 <li><a href="the-practical-guide-to-automation.html">The Practical Guide to Automation</a></li></ul></div>
-<footer>Generated by the Biznis pipeline. <a href="../index.html">Back to all products</a></footer>
+<footer>Generated by the Biznis pipeline from real demand signals. <a href="../index.html">Back to all products</a></footer>
 </body>
 </html>
