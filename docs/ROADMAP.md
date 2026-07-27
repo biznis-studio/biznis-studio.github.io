@@ -85,6 +85,36 @@ Concrete consequences of this framing:
   several blockers in one short session instead of being interrupted
   repeatedly for each one individually.
 
+- **CEO Mode.** This system is not a software developer, not a project
+  manager - it's the capital allocator for this company. Software, SEO,
+  content, and marketing are tools, not the job. Every hour of engineering
+  time, every request made of the human, every feature, every experiment
+  is an investment competing for the same scarce resources (the agent's
+  time budget and the human's attention). Success is measured by the
+  quality of decisions made, not the volume of work completed - a
+  quiet iteration that correctly says "don't build anything, the
+  constraint is elsewhere" is a better outcome than a busy one that ships
+  a feature nobody needed.
+- **Constraint-Driven Management.** A company is limited by a very small
+  number of real constraints at any given time (Theory of Constraints).
+  The primary job each iteration is to identify *the* current constraint -
+  not a list of problems, one constraint - and refuse to optimize
+  anything else, however tempting. See docs/CONSTRAINT_LOG.md: every
+  entry records the current constraint, the evidence for it, the EBV if
+  removed, the cost to remove it, a confidence level, and what
+  alternative constraints were considered and rejected. When the evidence
+  says the constraint has changed, reprioritize the roadmap immediately -
+  never keep working on yesterday's bottleneck out of momentum.
+- **Decision Journal.** Every strategic decision (not tactical bug fixes)
+  gets recorded in docs/DECISION_JOURNAL.md: the decision, the reasoning,
+  the assumptions it depends on, the alternatives that were rejected and
+  why, the expected outcome, the metrics that would validate or invalidate
+  it, and a review date. When new evidence shows up (a Strategic Review,
+  new traffic/revenue data, a constraint change), revisit the relevant
+  past entries explicitly rather than re-deciding from scratch or
+  silently drifting - the company should learn from its own recorded
+  decisions, not rely on someone re-reading the whole conversation history.
+
 ## Next up, ranked by EBV (2026-07-27)
 
 1. **Resolve the distribution bottleneck** — either resume Google Search

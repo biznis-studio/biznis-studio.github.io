@@ -496,6 +496,32 @@ gets wired in as a single batch, not three separate deploys.
       Strategic Review feedback, so future sessions batch manual asks by
       default instead of re-learning this the same way.
 
+## Done (iteration 26) — management layer: constraints + decision journal
+- [x] User's natural next step after EBV/Strategic Review/Human Cost
+      Analysis: the project still lacked a mechanism to (a) name the one
+      real bottleneck at a time instead of a backlog of problems, and (b)
+      remember *why* past strategic calls were made instead of relying on
+      conversation history that doesn't survive a context reset.
+- [x] Added `docs/CONSTRAINT_LOG.md` (Constraint-Driven Management):
+      names the single current constraint per iteration with evidence,
+      EBV if removed, cost to remove, confidence, and alternatives
+      considered/rejected. First real entry: distribution/discovery (0
+      confirmed Google-indexed pages) is the current constraint, not
+      product quality or analytics.
+- [x] Added `docs/DECISION_JOURNAL.md`, populated retroactively with the
+      9 real strategic decisions made so far this project (Gumroad choice,
+      GitHub Pages choice, IndexNow adoption, ebook-diversification pivot,
+      product tiering, services offering, Formspree, resuming Search
+      Console, adopting this whole operating-principle layer) - each with
+      reasoning, assumptions, rejected alternatives, validation metrics,
+      and a review date, so future sessions revisit decisions on evidence
+      instead of silently drifting.
+- [x] Added "CEO Mode" framing to ROADMAP.md: success is measured by
+      decision quality, not work volume - a quiet iteration that correctly
+      builds nothing can be the right call.
+- [x] Updated the durable cross-session memory with all three new
+      mechanisms so they persist past this session.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
