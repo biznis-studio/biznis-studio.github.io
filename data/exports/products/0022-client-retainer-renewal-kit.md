@@ -31,6 +31,23 @@ one. The actual wording for these conversations is rarely written down
 anywhere, so people either avoid the conversation or write it from
 scratch, under time pressure, every single time.
 
+## Why not just ask an AI to write this?
+
+You could - the words themselves aren't the hard part. The hard part is
+knowing which of the eight moments below you're actually in (proactive
+check-in vs. a client going quiet vs. a rate increase) and having the
+right tone ready before the deadline is already close and the
+conversation feels urgent. That decision-making is what's packaged here,
+paired with the tracker so the renewal date itself never sneaks up on you.
+
+## Who this isn't for
+
+- Your retainers renew automatically with no negotiation and no rate
+  changes - there's no real "moment" here for these scripts to help with.
+- You have an account manager or ops person who already owns client
+  renewals - these are written for the freelancer having the
+  conversation directly.
+
 ## 1. The proactive check-in, well before the end date
 
 Use this 30-60 days before a contract or retainer ends - reaching out

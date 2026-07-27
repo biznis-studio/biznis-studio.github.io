@@ -267,6 +267,7 @@ def build_page(product: dict) -> Optional[dict]:
             # expose the address) until then.
             cta = contact_form_html() if FORMSPREE_ENDPOINT else (
                 f'<a class="button" href="mailto:{CONTACT_EMAIL}">Get in touch</a>')
+            trust_note = ""
         elif monetization_url:
             # Paid listing: don't also give the file away for free alongside it.
             price_label = f" - ${price_usd:.0f}" if price_usd else ""
@@ -276,7 +277,20 @@ def build_page(product: dict) -> Optional[dict]:
                    "secure checkout, use it right away. Personal &amp; business use "
                    "license: use it for your own work or your clients' work. Don't "
                    "resell, redistribute, or republish the files themselves.</p>")
+            # Found via a sales-readiness review: paying $29 to a page with
+            # zero indication of who made it or why to trust it is a real
+            # conversion barrier - honest, not a fake bio/testimonial.
+            trust_note = (
+                '<div class="card"><h2>Who makes this</h2>'
+                "<p>Built by one person, researched against real competitor "
+                "pricing and freelancer pain points rather than generated on "
+                "the spot - the same process and design system used across "
+                'this entire site. See <a href="https://github.com/fwwk4pb868-afk/biznis" '
+                'target="_blank" rel="noopener">the project repo</a> for exactly '
+                "how it's built.</p></div>\n"
+            )
         else:
+            trust_note = ""
             if fmt in ("ebook", "sop"):
                 # A raw .md isn't a great deliverable for a standalone
                 # document (and some marketplaces won't even accept it as
@@ -291,7 +305,7 @@ def build_page(product: dict) -> Optional[dict]:
                    f'download>Download {html.escape(label)}</a>')
 
         body_html = (f"{format_badge_html(fmt)}\n<h1>{html.escape(title)}</h1>\n{intro_html}\n"
-                     f'<div class="card">{body}</div>\n{cta}')
+                     f'<div class="card">{body}</div>\n{trust_note}{cta}')
         page_path = PAGES_DIR / f"{slug}.html"
         page_path.write_text(page_shell(title, meta_description, body_html))
 

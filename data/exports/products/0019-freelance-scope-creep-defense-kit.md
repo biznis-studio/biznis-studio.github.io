@@ -29,6 +29,24 @@ starting a fight over what was "obviously included." Having the wording
 ready before you need it means you send something calm and professional
 in the moment, instead of an anxious message written under pressure.
 
+## Why not just ask an AI to write this?
+
+You could - and the wording would probably be fine. What you're actually
+paying for is not having to: notice the right moment for each of the
+seven scenarios below, decide on a tone that stays calm and professional
+under pressure, and write it from scratch while a client is waiting on a
+reply. This kit is that decision-making already done, tested against
+real scope-creep situations, paired with the tracker so you're not
+managing two separate tools.
+
+## Who this isn't for
+
+- You already have a signed contract with a change-order clause your
+  clients actually follow, and a process for logging additions.
+- You work through an agency or PM who handles client communication for
+  you - these scripts are written for the freelancer having the
+  conversation directly.
+
 ## 1. The first sign of scope creep
 
 Use this the moment you notice a request stretching past what was agreed

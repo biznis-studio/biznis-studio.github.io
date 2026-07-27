@@ -166,6 +166,10 @@
   }
   footer a { color: var(--text-muted); }
   @media (max-width: 480px) {
+    /* Found via a real mobile check: the nav link text and the "Hire us"
+       pill button were each wrapping onto two lines and colliding with
+       the logo on a 375px-wide screen - narrow the spacing instead of
+       letting flexbox wrap mid-word. */
     .site-header { padding: 1.25rem 1rem 0; }
     .site-header nav { gap: 0.75rem; }
     .site-header nav a { font-size: 0.82rem; white-space: nowrap; }
@@ -196,6 +200,7 @@
 <tr><td>2026-07-26</td><td>Example Client</td><td>Add a second landing page variant</td><td>Client</td><td>3</td><td>150.00</td><td>Pending</td><td></td><td></td><td>Sent script #3 (formal change request)</td></tr>
 <tr><td>2026-07-20</td><td>Example Client</td><td>Extra revision round beyond the agreed 2</td><td>Client</td><td>1.5</td><td>75.00</td><td>Approved</td><td>Client (email)</td><td>2026-07-21</td><td>Bundled with next invoice</td></tr>
 </table></div>
+<div class="card"><h2>Who makes this</h2><p>Built by one person, researched against real competitor pricing and freelancer pain points rather than generated on the spot - the same process and design system used across this entire site. See <a href="https://github.com/fwwk4pb868-afk/biznis" target="_blank" rel="noopener">the project repo</a> for exactly how it's built.</p></div>
 <a class="button" href="https://jozefrusnak.gumroad.com/l/dtuqjc" target="_blank" rel="noopener">Get it on Gumroad - $29</a>
 <p class="form-note">Instant digital download - pay once on Gumroad's secure checkout, use it right away. Personal &amp; business use license: use it for your own work or your clients' work. Don't resell, redistribute, or republish the files themselves.</p>
 </main>

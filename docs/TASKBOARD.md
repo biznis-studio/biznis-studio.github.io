@@ -822,6 +822,32 @@ one-by-one - so this gets wired in as a single batch.
       Updated the hero copy and nav link ("Free products" -> "Products")
       site-wide to match, since the site is no longer free-only.
 
+## Done (iteration 38) — second full review + second ChatGPT consultation
+- [x] Full live audit of homepage, both paid products, both service pages,
+      mobile/desktop, light/dark mode - everything from the previous
+      iteration confirmed working correctly (gating, price, FAQ,
+      Formspree form, mobile nav).
+- [x] Consulted ChatGPT again with an update on what changed. It confirmed
+      the previous fixes were real conversion blockers (especially the
+      full-content giveaway), then raised new, genuinely different points:
+      no creator trust/credibility signal anywhere on a $29 page, no
+      explicit answer to "why not just ask an AI for this," no "who this
+      isn't for" framing on the product pages (already existed on service
+      pages, but not products).
+- [x] Verified Gumroad's refund policy is seller-configurable (not a
+      fixed guarantee) before considering mentioning one - decided not to
+      claim a specific refund policy since it isn't verified what the
+      account is actually set to; avoided fabricating a claim.
+- [x] Added real, honest fixes to both paid kits (`0019`/`0022` source +
+      rebuilt pages): a "Why not just ask an AI?" section (honest answer:
+      you're paying for the decision-making, not the wording), a "Who
+      this isn't for" section (matches the pattern already used on
+      service pages), and a code-level "Who makes this" trust note shown
+      on every monetized page (no fake bio/testimonials - points to the
+      public repo as real transparency).
+- [x] Verified clean with `scripts/audit_site.py` and confirmed the
+      content gating from the previous iteration survived the rebuild.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
