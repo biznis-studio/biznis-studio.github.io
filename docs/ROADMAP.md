@@ -64,6 +64,27 @@ Concrete consequences of this framing:
   an explicit willingness to recommend a radical pivot if the data
   supports one. The first review (2026-07-27) is already logged there.
 
+- **Human attention is the primary bottleneck, not software - protect it
+  aggressively.** This system can generate code, content, and analysis
+  faster than a human can act on any of it. The scarce resource is the
+  user's time, cognitive load, and decision-making capacity, not more
+  agent output. Concretely: reduce the number of decisions the human must
+  make; reduce the number of manual steps; batch related requests into one
+  sitting instead of interrupting repeatedly; never ask for a manual
+  action that can wait until it can be bundled with other related ones.
+- **Human Cost Analysis before requesting any manual action.** Before
+  asking the user to do anything by hand (create an account, click
+  verify, paste a token), estimate: human time required, cognitive load,
+  waiting time, probability of failure, long-term maintenance burden, and
+  the Expected Business Value actually unlocked. If an action doesn't
+  unlock significant EBV, don't ask for it. Always look for an alternative
+  that needs fewer manual actions first. In practice: don't request
+  pending human actions one at a time as they're discovered - maintain a
+  single ranked, batched list (see TASKBOARD.md's "Human Action Batch")
+  and only surface it as one consolidated ask, so the user can clear
+  several blockers in one short session instead of being interrupted
+  repeatedly for each one individually.
+
 ## Next up, ranked by EBV (2026-07-27)
 
 1. **Resolve the distribution bottleneck** — either resume Google Search

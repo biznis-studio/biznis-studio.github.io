@@ -112,9 +112,7 @@
 - [x] Tested the whole mechanism end-to-end with a placeholder Gumroad URL,
       confirmed the CTA/meta-description swap correctly, then reverted to
       the free state (no real listing exists yet)
-- [ ] **Waiting on the user**: create a free Gumroad account, list one
-      product, send the resulting URL - this system does not create
-      payment/seller accounts on anyone's behalf
+- [x] Done in iteration 11 below - account created, first product listed
 
 ## Done (iteration 10) — PDF export
 - [x] Found Gumroad's file picker won't accept `.md` uploads; built
@@ -219,10 +217,50 @@
       genuinely multi-script content (7 separate scripts, each one
       correctly merged into a single `<blockquote>`)
 
-## In progress / next
-- [ ] Decide: set up Cloudflare Web Analytics (needs your account) so
-      Analytics Agent has real traffic data to read
-- [ ] Google Search Console verification (paused mid-setup per user's request)
+## Human Action Batch — do these together, one sitting (updated 2026-07-27)
+
+Per the Human Cost Analysis principle in ROADMAP.md: don't interrupt the
+user once per blocker as each is discovered - collect every pending
+manual action here, ranked by EBV unlocked, so they can be cleared in one
+short session instead of several. Nothing below is urgent enough to
+justify a separate interruption on its own; together they unlock most of
+this system's near-term revenue potential.
+
+1. **Google Search Console verification** — ~3 min, highest EBV (unlocks
+   Google discovery for all 14 live pages at once, currently 0 confirmed
+   indexed).
+   - Go to search.google.com/search-console → Add property → **URL
+     prefix** → `https://fwwk4pb868-afk.github.io/biznis/`
+   - Choose the **HTML tag** verification method (not file upload/DNS)
+   - Copy just the `content="..."` value from the tag it shows you
+   - Send it here - it gets wired into `GOOGLE_SITE_VERIFICATION`, the
+     site rebuilds, then click **Verify** in Search Console, then submit
+     `https://fwwk4pb868-afk.github.io/biznis/sitemap.xml` as a sitemap
+2. **Gumroad Stripe KYC / payout setup** — time varies (their review
+   queue), second-highest EBV (unlocks actual revenue collection on the
+   already-built, already-tiered `core` products once priced).
+   - Finish whatever verification step Stripe is asking for (likely ID +
+     business classification - "Individual" was the suggested option,
+     see iteration 12 notes) so payouts activate
+   - Tell me once it's resolved either way (approved, or what it's
+     actually asking for) - if it stalls, worth revisiting the "Ko-fi as
+     a lower-friction fallback" option flagged in the first Strategic
+     Review instead of waiting indefinitely
+3. **Formspree signup** — ~3 min, unlocks real lead capture on the 2
+   service pages (currently falling back to a visible mailto link).
+   - Free signup at formspree.io → create a form → copy the endpoint URL
+     (`https://formspree.io/f/XXXXXXXX`)
+   - Send it here - wires into `FORMSPREE_ENDPOINT`, removes the mailto
+     fallback everywhere
+4. **Optional, skip unless you're already doing the above**: Cloudflare
+   Web Analytics account - deliberately low priority (EBV ranking in
+   ROADMAP.md sequences Analytics *after* distribution/traffic exists, so
+   there's nothing to measure yet). Only worth bundling in if you're
+   already in an account-setup mood.
+
+Send back whatever you've completed (verification string / KYC status /
+Formspree URL) in one message when convenient - not one-by-one - so this
+gets wired in as a single batch, not three separate deploys.
 
 ## Backlog (see ROADMAP.md for detail and ordering rationale)
 - [ ] Analytics Agent (blocked on Cloudflare account decision above)
@@ -365,9 +403,8 @@
 - [x] Verified: with the endpoint set, zero occurrences of the email
       address anywhere in the generated HTML; without it, exactly one
       (the fallback mailto), confirming the toggle works both ways.
-- [ ] **Waiting on the user**: create a free Formspree account, make a
-      form, give us the endpoint URL (`https://formspree.io/f/XXXXXXXX`) -
-      until then the service pages fall back to a visible mailto link.
+- [ ] Folded into the consolidated "Human Action Batch" above rather than
+      asked for separately - see the "In progress / next" section.
 
 ## Done (iteration 22) — product tiering + retired the generic-ebook fallback
 - [x] Added `products.tier` column (`core`/`lead_magnet`/`retire_candidate`)
@@ -438,6 +475,26 @@
       pipeline) - so this runs whenever a Claude Code session next touches
       the project, triggered by the log's last dated entry being >1 week
       old, not as an unattended cron job.
+
+## Done (iteration 25) — Human Cost Analysis, stopped interrupting one blocker at a time
+- [x] User feedback: I asked for the Search Console verification token in
+      isolation right after finishing the Strategic Review, when the
+      actual bottleneck list also includes Gumroad KYC and Formspree -
+      exactly the "acting as implementer, not CEO" failure mode being
+      corrected. Added two durable principles to ROADMAP.md: Human Cost
+      Analysis before requesting any manual action (weigh time/cognitive
+      load/failure risk against EBV unlocked before asking), and "human
+      attention is the primary bottleneck, protect it aggressively."
+- [x] Consolidated 3 previously-scattered "waiting on the user" asks
+      (Search Console, Gumroad KYC, Formspree) into one ranked "Human
+      Action Batch" in this file - each with exact steps, time estimate,
+      and EBV unlocked - meant to be cleared together in one sitting
+      instead of three separate interruptions. Marked the stale Gumroad
+      "waiting on user" bullet from iteration 9 as done (superseded by
+      iteration 11) rather than leaving contradictory open items in the doc.
+- [x] Saved this as a durable cross-session memory alongside the EBV/
+      Strategic Review feedback, so future sessions batch manual asks by
+      default instead of re-learning this the same way.
 
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
