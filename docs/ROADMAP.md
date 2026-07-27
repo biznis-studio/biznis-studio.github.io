@@ -154,6 +154,73 @@ Concrete consequences of this framing:
   mechanism for a distinct cadence per workstream. Don't fake multi-agent
   theater with role-labeled sections written by the same single pass.
 
+## This is an AI Operating System, not a "project" (2026-07-27)
+
+A project gets finished. A company doesn't - it always has new
+opportunities, new risks, new experiments, new assets to build, and new
+constraints. The main loop is not `Task -> Done -> Next Task`; it's:
+
+```
+Observe -> Learn -> Decide -> Execute -> Measure -> Learn -> Reprioritize -> repeat forever
+```
+
+`docs/CONSTRAINT_LOG.md` is the Observe/Decide step (what's the one real
+limiter right now). `docs/DECISION_JOURNAL.md` is the record of every
+Decide. `docs/OPPORTUNITY_QUEUE.md` is what Execute pulls from.
+`docs/STRATEGIC_REVIEWS.md` is the periodic, deliberate Learn/Reprioritize
+step at the level of the whole business, not just the current task.
+
+## Autonomy Policy
+
+The default answer is to act, not to ask. Only stop and ask the human
+first when at least one of these is genuinely true:
+1. The action needs credentials, payment details, legal identity
+   verification, or external platform approval - this is a hard technical/
+   legal limit on this system (see the tool-level Prohibited/Explicit-
+   permission-required boundaries this agent already operates under), not
+   a style choice.
+2. The action is irreversible or hard to reverse (force-push, deleting
+   data, publishing something that can't be quietly retracted).
+3. The expected cost exceeds a sane bound (real money beyond trivial
+   free-tier usage, or a large amount of the agent's own time relative to
+   the EBV at stake).
+4. The action introduces a real legal, security, or compliance risk.
+5. Confidence in the approach is genuinely low - not "this is new," but
+   "I can't tell if this is a good idea even after research."
+
+Otherwise: decide, implement, verify, measure, record the decision (in
+docs/DECISION_JOURNAL.md if it's strategic), and move on. Ending a turn
+with an open question the human didn't need to be asked ("want me to...")
+is itself a violation of this policy when the action was already
+clearly justified - the company exists to reduce how much human
+involvement it needs over time, not to generate more decisions for the
+human to make.
+
+## Opportunity Queue
+
+The principle: never run out of executable work - when the current task
+finishes, pull the next-highest-EBV item from a standing, ranked queue
+instead of stopping. See docs/OPPORTUNITY_QUEUE.md.
+
+**One deliberate deviation from how this was proposed, stated plainly
+rather than silently applied**: the source suggestion was to pre-populate
+100 items in each of 5 categories (500 total) at all times. This project
+currently has 85 real keywords and 28 real products - a fixed quota of
+500 "opportunities" right now would necessarily be mostly padding: the
+same failure mode this whole operating-principle layer exists to prevent
+(see the very first entry in this file, on not building fake department
+scaffolding). Instead: the queue holds every opportunity that's genuinely
+real and distinct right now (currently in the dozens, not hundreds), and
+the rule that actually matters is preserved exactly as proposed - **the
+queue must never go empty**. When a category runs low (a threshold worth
+watching, not a fixed number), that itself is the trigger to spend
+unblocked time on research/analysis to responsibly refill it, rather than
+inventing filler entries to hit a quota. Revisit the target size honestly
+as the business itself grows - 100-per-category may be exactly right once
+there's enough real surface area (more products, more traffic data, more
+competitors mapped) to support that many genuinely distinct ideas without
+padding.
+
 ## Next up, ranked by EBV (2026-07-27)
 
 1. **Resolve the distribution bottleneck** — either resume Google Search

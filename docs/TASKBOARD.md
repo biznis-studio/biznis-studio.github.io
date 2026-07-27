@@ -577,6 +577,39 @@ gets wired in as a single batch, not three separate deploys.
       middle) can still slip through - flagged as a real remaining gap
       rather than claiming it's fully solved.
 
+## Done (iteration 29) — Autonomy Policy, Opportunity Queue, OS reframe
+- [x] User feedback: ending the last turn with "if you want me to
+      actually wire this in, say so" is exactly the kind of permission-
+      seeking an autonomous system shouldn't do by default. Added an
+      **Autonomy Policy** to ROADMAP.md: act by default, only ask first
+      when an action needs credentials/payment/legal identity/external
+      approval, is irreversible, exceeds a sane cost, carries real legal/
+      security risk, or confidence is genuinely low.
+- [x] Added **docs/OPPORTUNITY_QUEUE.md** - a real, standing, ranked list
+      of executable work across engineering/business/growth/experiments/
+      automation, each with EBV/cost/confidence/dependencies/human-
+      involvement, so finishing one task always has a next one queued.
+      Deliberately deviated from the proposed fixed "100 per category"
+      quota and said so explicitly in ROADMAP.md: at this project's real
+      current scale (85 keywords, 28 products), 500 items would mostly be
+      padding - the actual rule that matters (never let the queue go
+      empty; refill via research when a category runs low) is preserved
+      exactly as proposed.
+- [x] Reframed the project in ROADMAP.md as an **AI Operating System**,
+      not a project that finishes: the main loop is Observe -> Learn ->
+      Decide -> Execute -> Measure -> Learn -> Reprioritize -> repeat,
+      mapping each existing doc (Constraint Log, Decision Journal,
+      Opportunity Queue, Strategic Reviews) to a step in that loop.
+- [x] Proved the Autonomy Policy immediately rather than just writing it:
+      found and fixed a third real crawl-readiness gap (feed.xml existed
+      since iteration 7 but no page ever linked to it - crawlers/RSS
+      readers had no way to discover it), patched all 14 existing static
+      product pages plus the homepage template, then turned the whole
+      ad-hoc audit script into a real repo asset (`scripts/audit_site.py`)
+      wired into `pipeline.yml` as a (currently non-fatal) CI check -
+      pulled directly from the new Opportunity Queue's automation
+      category instead of leaving it as a one-off.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

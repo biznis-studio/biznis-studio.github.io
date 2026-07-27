@@ -90,6 +90,15 @@ def page_shell(title: str, meta_description: str, body_html: str, is_index: bool
             f'<meta property="og:url" content="{SITE_BASE_URL}/">\n'
             f'<meta property="og:type" content="website">\n'
         )
+    # feed.xml has existed since iteration 7 but nothing ever linked to it -
+    # crawlers/RSS readers have no way to discover it without this tag.
+    # Site-wide (not just index), same SITE_BASE_URL-gating as everything
+    # else that asserts a live URL.
+    rss_link_tag = (
+        f'<link rel="alternate" type="application/rss+xml" title="Biznis - Free Digital Products" '
+        f'href="{SITE_BASE_URL}/feed.xml">\n'
+        if SITE_BASE_URL else ""
+    )
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -98,7 +107,7 @@ def page_shell(title: str, meta_description: str, body_html: str, is_index: bool
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="{html.escape(meta_description)}">
 <link rel="icon" href="{FAVICON_DATA_URI}">
-{verification_tag}{index_seo_tags}<style>{SITE_CSS}</style>
+{verification_tag}{index_seo_tags}{rss_link_tag}<style>{SITE_CSS}</style>
 </head>
 <body>
 {site_header_html(active_is_index=is_index)}

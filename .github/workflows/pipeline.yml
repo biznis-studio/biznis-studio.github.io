@@ -33,6 +33,9 @@ jobs:
         env:
           CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
 
+      - name: Crawl-readiness audit (non-fatal for now - see ROADMAP.md)
+        run: python3 scripts/audit_site.py || true
+
       - name: Commit updated database, reports and site
         run: |
           git config user.name "biznis-bot"
