@@ -388,6 +388,29 @@
 - [x] Updated ROADMAP.md with the full rationale so this isn't just a silent
       data change.
 
+## Done (iteration 23) — reframed strategy as enterprise-value optimization
+- [x] User feedback: stop framing this as "build a website"/"build products"/
+      literal Departments - the real objective is maximizing long-term
+      enterprise value, with strategy freely replaceable as data changes.
+      Confirmed the codebase already never built literal departments
+      (grepped - none exist); formalized the correct instinct as a durable
+      written principle instead of leaving it implicit.
+- [x] Added "Operating principle" section to ROADMAP.md: Capabilities/
+      Decision Engines terminology (not Departments), an Expected Business
+      Value framework for ranking backlog items before building, and an
+      honest Company Assets inventory (knowledge base: 4,408 signals/85
+      keywords; reusable code/design system; 14 ready tiered products; 2
+      service capabilities) that explicitly does NOT claim assets that
+      don't exist yet (no email list, no audience/community, no affiliate
+      network).
+- [x] Applied the EBV framework live to today's real backlog: ranked
+      distribution (0 pages confirmed indexed, IndexNow still 403) above
+      Gumroad monetization, above Analytics, above more content - the
+      product catalog is not the current constraint, discovery is.
+- [x] Saved this reframing as a durable cross-session memory
+      (`feedback_enterprise_value_framing.md`) so it survives context
+      compaction and future sessions apply it from the start.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

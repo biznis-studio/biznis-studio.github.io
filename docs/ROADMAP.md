@@ -3,6 +3,78 @@
 Ordered by expected leverage, not by the order listed in the original brief.
 Re-evaluate this ordering every iteration — see TASKBOARD.md.
 
+## Operating principle (2026-07-27): optimize the company, not the product
+
+The mission is not "build products," "build a website," or "increase
+traffic" — those are strategies, not the goal. The only objective is to
+maximize the long-term value of the company itself. A specific product,
+page, or piece of content can be deleted tomorrow without threatening the
+company; the system (data, code, distribution channels, audience) must
+survive any single product's failure. Never get attached to a previous
+decision if the data says something else now has higher expected value.
+
+Concrete consequences of this framing:
+
+- **Terminology**: this project never builds literal "Departments"
+  (confirmed 2026-07-27: no such construct exists in the codebase). When a
+  cross-cutting responsibility needs a name, it's a **Capability** (e.g.
+  "SEO capability" = `seo_agent.py` + `sitemap.xml`/`feed.xml`/IndexNow) or
+  a **Decision Engine** (e.g. "Product tiering" = the `products.tier`
+  classification + the rule it enforces in `product_agent.py`), not a
+  department with a headcount that doesn't exist for a zero-revenue company.
+- **Expected Business Value before building anything new.** Before
+  implementing the next roadmap item, weigh it against the alternatives on:
+  expected cost (my time + any real $ cost), expected revenue, probability
+  of success, time to profit, ongoing maintenance cost, risk, automation
+  potential, and expected lifetime. Never build the second-best option when
+  a higher-EBV one is available and unblocked. See "Next up, ranked by EBV"
+  below — re-rank it every iteration rather than working the list in a
+  fixed order.
+- **Company Assets, not page count.** The things actually worth compounding
+  are: the knowledge base (`signals_raw`/`keywords` — 4,408 raw signals,
+  85 deduplicated keywords as of 2026-07-27, growing every scheduled run),
+  the reusable code/design system (`agents/common.py`'s renderer, CSS
+  system, PDF export — every new product reuses this for free), the product
+  catalog itself (14 `ready` products, tiered by validated demand), and the
+  two service capabilities (web dev, chatbots — billable without inventory
+  risk). Explicitly **not yet real assets**, so not listed as one: an email
+  list (no capture mechanism live — Formspree form exists but isn't wired
+  to a newsletter), an audience/community (zero measured traffic - see
+  below), an affiliate network, a "brand" beyond the design system. Don't
+  claim these exist until they honestly do.
+- **The current single biggest constraint on enterprise value is
+  distribution, not product supply.** 14 ready products/pages exist and 0
+  are confirmed indexed by Google (iteration 17); IndexNow (Bing/Yandex/
+  Seznam/Naver/Yep only, not Google) has been returning 403 since
+  2026-07-27 with no known fix. This means the honest expected revenue of
+  *any* new product is currently ~0 until at least one real discovery
+  channel works, regardless of how good the product is — building more
+  content right now has a lower EBV than fixing distribution. Google
+  Search Console (the direct fix) was explicitly paused by the user
+  mid-setup and hasn't been resumed since; this is flagged again here
+  because the EBV math changed, not because the user's earlier pause
+  decision is being second-guessed.
+
+## Next up, ranked by EBV (2026-07-27)
+
+1. **Resolve the distribution bottleneck** — either resume Google Search
+   Console verification (fastest real fix, needs the user's go-ahead since
+   it was explicitly paused before) or find another free/no-account
+   indexing path. Highest EBV: unlocks revenue potential for all 14
+   existing products at once, near-zero build cost, blocks everything else.
+2. **Get the two `core`-tier products paid on Gumroad** (Scope Creep Kit,
+   Retainer Renewal Kit) — blocked on the user's own Stripe KYC/business-
+   status decision, not on more building. Second-highest EBV per unit of
+   effort *for the user*, ~zero additional engineering cost for this
+   system once unblocked.
+3. **Analytics** (Cloudflare Web Analytics or similar) — needed to turn
+   "distribution exists" into a feedback loop, but has ~zero value until
+   #1 produces actual visits to measure. Sequenced after #1, not before.
+4. **More content/products** — deliberately ranked last. The product
+   catalog is not the constraint right now; distribution is. Only pursue
+   this for the validated `core` family (freelancer swipe-file system) if
+   #1-#3 are blocked on the user and there's still available effort.
+
 ## Next up
 
 1. ~~**Competitor/Competition Analysis Agent**~~ — done: `agents/competitor_agent.py`
