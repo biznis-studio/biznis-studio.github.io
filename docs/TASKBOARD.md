@@ -557,6 +557,26 @@ gets wired in as a single batch, not three separate deploys.
       directly. Verified both locally with `SITE_BASE_URL` set exactly as
       CI sets it, and re-ran the audit clean (0 issues) after the fix.
 
+## Done (iteration 28) — more unblocked work: n-gram stopword fix
+- [x] Continued straight from iteration 27's Blocked Task Policy proof
+      with another real, unblocked fix instead of stopping: the
+      long-documented "there way" n-gram bug (a Stack Exchange title
+      fragment that survived keyword extraction and had to be manually
+      rejected in iteration 8) is now actually filtered - added
+      `there/here/some/any/such/other/another/same` to `STOPWORDS` in
+      `agents/keyword_agent.py`, after checking it against every existing
+      keyword for collisions (only the already-rejected "there way"
+      matched).
+- [x] Verified with real function calls: "is there a way to do something"
+      now correctly extracts zero keywords; unrelated real phrases
+      ("checklist template", "template for freelancers") still extract
+      correctly - no false-positive filtering introduced.
+- [x] Documented the fix honestly in ROADMAP.md as *partial*: the
+      underlying filter only checks a window's first/last word, not the
+      middle, so a fragment like "explain there way" (stopword in the
+      middle) can still slip through - flagged as a real remaining gap
+      rather than claiming it's fully solved.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

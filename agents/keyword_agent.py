@@ -33,7 +33,14 @@ what which who whom whose why how do does did doing not no nor so than too
 very can will just should now new best top vs how-to guide show ask hn
 introducing announcing release v1 v2 into your my our their his her about
 one two three using use used make made get gets got know need want
+there here some any such other another same
 """.split())
+# "there/here/some/any/such/other/another/same" added after finding "there
+# way" (a fragment of a Stack Exchange title like "is there a way to...")
+# survive as a keyword and get promoted into a rejected product idea -
+# these words are almost never the start of a real topic phrase, only
+# checked they don't collide with any existing legitimate keyword before
+# adding (none did, see docs/ROADMAP.md's n-gram stopword limitation note).
 
 WORD_RE = re.compile(r"[a-zA-Z][a-zA-Z0-9+#.\-]{1,}")
 

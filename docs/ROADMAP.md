@@ -343,13 +343,21 @@ turned into real data instead of staying implicit tribal knowledge:
   meaningful of the four for consumer-content topics; consider weighting
   toward it, or finding a genuine consumer-search-volume proxy, before
   trusting this component heavily.
-- The n-gram stopword filter in `keyword_agent.py` occasionally lets
-  through incoherent sentence fragments from Stack Exchange titles (found
-  "there way" - almost certainly a slice of "there's no way to..." or
-  similar) that survived the 2-occurrence bar by coincidence. Caught this
-  one manually and rejected the resulting product idea; the stopword list
-  needs to be stricter about fragments that don't stand alone as a topic,
-  rather than relying on manual review of every idea before writing content.
+- ~~The n-gram stopword filter in `keyword_agent.py` occasionally lets
+  through incoherent sentence fragments~~ — partially fixed 2026-07-27:
+  the specific reported case ("there way", a slice of "is there a way
+  to...") is now filtered - added `there/here/some/any/such/other/
+  another/same` to `STOPWORDS` (checked first against all existing
+  keywords for collisions; only "there way" itself matched, and that idea
+  was already rejected). **Real remaining limitation, not fully solved**:
+  `significant_ngrams()` only checks that a window's *first and last*
+  word aren't stopwords, not the middle ones - so a trigram like "explain
+  there way" (fragment word in the middle) still slips through. Fixing
+  that needs the filter to reject any window containing a stopword
+  anywhere, which risks being overly aggressive on legitimate 3-word
+  phrases with a genuine middle stopword (e.g. "guide to xlsx") - needs a
+  more careful rule than a blanket change, left for a future pass rather
+  than risking silently losing good keywords tonight.
 - ~~Any user-facing copy that's built by directly reusing `product_ideas.rationale`...~~
   — resolved 2026-07-26: this kept recurring (every single live page's
   subtitle read like an engineering log - "Keyword implies users want to
