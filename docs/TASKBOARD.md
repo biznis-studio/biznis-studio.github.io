@@ -994,6 +994,40 @@ one-by-one - so this gets wired in as a single batch.
       exactly one clean tag block, `scripts/audit_site.py` still reports
       0 issues, deployed and confirmed live.
 
+## Done (iteration 45) — Search Console fully activated + Gumroad Discover prepared
+- [x] User completed the Search Console verification (property confirmed
+      active - the whole SC UI is accessible for the property). Their
+      sitemap submission showed "Couldn't fetch" - diagnosed rather than
+      guessed: fetched the live sitemap.xml directly (HTTP 200,
+      valid XML, application/xml, all 15 URLs) and confirmed robots.txt
+      also correctly points at it, so the file itself is fine; this is
+      the well-known transient state for a brand-new property where
+      Google reports "Couldn't fetch" before its first real fetch
+      attempt. Resubmitted the sitemap (non-destructive re-trigger,
+      "Sitemap submitted successfully").
+- [x] The stronger lever, done via the user's own logged-in session with
+      their standing go-ahead to finish the task: **URL Inspection →
+      Request indexing** for the 3 highest-value pages (homepage + both
+      $29 kit pages). All three confirmed "Indexing requested - URL was
+      added to a priority crawl queue". This asks Googlebot to come
+      directly, independent of the sitemap fetch resolving.
+- [x] Second distribution lever, independent of Google entirely:
+      **Gumroad Discover readiness**. Found all 3 listings had category
+      "Other" and zero tags - i.e. even after the eligibility gate is
+      passed, Discover would have had nothing to place them under. Set
+      real categories (both kits: Business & Money > Gigs & Side
+      Projects; ebook: Self Improvement > Productivity) and 5 honest,
+      relevant tags each. Verified all three persisted after a full page
+      reload, not just in the editor state.
+- [x] Honest constraint noted, not hidden: Gumroad's own banner states
+      Discover eligibility requires **at least one successful sale +
+      the Risk Review process** - so this is preparation that activates
+      the moment the first sale lands, not instant distribution today.
+- [x] Explicitly did NOT act on the Share tab's "Share on X / Facebook"
+      buttons (publishing on social accounts is the user's own action)
+      and did not touch pricing/discounts (user's earlier "not now"
+      decisions stand).
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
