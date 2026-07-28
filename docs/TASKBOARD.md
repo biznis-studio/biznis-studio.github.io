@@ -1239,6 +1239,40 @@ one-by-one - so this gets wired in as a single batch.
       assuming the merge was fine. In a rebase `--ours` is upstream and
       `--theirs` is the commit being replayed - the reverse of a merge.
 
+## Done (iteration 51) — repositioned: a studio, not a template shop
+- [x] User pushback, and correct: "to čo ponúkame je ďaleko za nejakými
+      šablónami a scriptami" - the site (and the social banner) sold the
+      cheapest thing in the catalogue while four real services sat
+      underneath it. The offering is design, websites, custom digital
+      products, chatbots and automation; the ready-made templates are the
+      catalogue, not the business.
+- [x] Rewrote the top-level positioning everywhere it appears:
+      - Hero: "We design and build the digital side of your business",
+        with the four service lines named explicitly in the subtitle and
+        the ready-made catalogue demoted to a closing clause.
+      - Eyebrow: "Design · Build · Automate" (was "Real demand signals").
+      - Page title: "Design, Websites, Custom Digital Products &
+        Automation" (was "Digital Products & Custom Development").
+      - Section headings: "What we build for you" (was the weak "Work
+        with us"), "Ready-made systems", "Free downloads".
+      - New X/social banner listing the four services as tags instead of
+        describing the company as a script vendor.
+- [x] `scripts/audit_site.py` caught the rewritten meta description at 164
+      characters, over the 160 limit where search engines truncate -
+      shortened to 136 rather than shipping a description that would be
+      cut mid-sentence in results. Worth noting the audit paid for itself
+      here: this is exactly the kind of detail a copy rewrite breaks
+      silently.
+- [x] Brand assets for social profiles generated in the site's own visual
+      identity: `data/exports/brand/avatar.png` (800x800 monogram) and
+      `banner-x.png` (1500x500).
+- [x] Declined to create social accounts on the user's behalf - account
+      creation means accepting terms of service and establishing identity,
+      which has to be the person responsible. Prepared everything around
+      it instead: checked handle availability across X/GitHub, wrote the
+      bio copy, and produced the profile imagery, so the signup itself is
+      a few minutes of the user's time.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

@@ -468,7 +468,7 @@ def build_index(pages: list[dict], stats: Optional[dict] = None) -> None:
     paid_cards = "\n".join(_product_card(p) for p in paid_products)
     free_cards = "\n".join(_product_card(p) for p in free_products)
     services_section = (
-        f'<h2 id="services" class="section-title">Work with us</h2>\n'
+        f'<h2 id="services" class="section-title">What we build for you</h2>\n'
         f'<div class="service-grid">{service_cards}</div>\n'
         if services else ""
     )
@@ -477,7 +477,7 @@ def build_index(pages: list[dict], stats: Optional[dict] = None) -> None:
     # the other direction (implying nothing here costs money at all,
     # before anything was ever monetized).
     paid_section = (
-        f'<h2 class="section-title">Get the full system</h2>\n'
+        f'<h2 class="section-title">Ready-made systems</h2>\n'
         f'<div class="product-grid">{paid_cards}</div>\n'
         if paid_products else ""
     )
@@ -516,24 +516,23 @@ def build_index(pages: list[dict], stats: Optional[dict] = None) -> None:
     body = f"""<div class="hero-banner">
 {hero_img}
 <div class="hero-copy">
-<span class="eyebrow">Real demand signals &middot; no fluff</span>
-<h1>Practical digital products for people who bill by the hour</h1>
-<p>Scripts, templates, checklists and calculators for the moments that quietly cost
-freelancers and consultants money - scope creep, retainer renewals, pricing. Plus custom
-builds to your own brief.</p>
+<span class="eyebrow">Design &middot; Build &middot; Automate</span>
+<h1>We design and build the digital side of your business</h1>
+<p>Brand identity and design. Websites and chatbots. Custom digital products built to your
+brief. And automation for the work you should not be doing by hand. Plus a growing
+catalogue of ready-made tools you can use today.</p>
 </div>
 </div>
 {stats_html}
 {services_section}
 {paid_section}
-<h2 class="section-title">Free products</h2>
+<h2 class="section-title">Free downloads</h2>
 <div class="product-grid">{free_cards}</div>
 {blog_section}"""
     SITE_DIR.mkdir(parents=True, exist_ok=True)
     (SITE_DIR / "index.html").write_text(page_shell(
-        "Biznis - Digital Products & Custom Development",
-        "Checklists, templates, calculators and ready-to-send scripts generated from real demand "
-        "signals, plus custom website and chatbot development.",
+        "Biznis - Design, Websites, Custom Digital Products & Automation",
+        "Digital studio: brand identity and design, websites and chatbots, digital products built to your brief, and automation. Plus free tools.",
         body,
         is_index=True,
     ))
