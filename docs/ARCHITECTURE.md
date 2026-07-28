@@ -33,7 +33,7 @@ SEO Optimization        ✅ agents/seo_agent.py (schema.org JSON-LD, OG tags,
       ↓                   emit once SITE_BASE_URL is set - see below)
 Publishing              ✅ GitHub Pages, deployed via .github/workflows/
       ↓                   pipeline.yml (actions/deploy-pages) - live at
-      ↓                   https://fwwk4pb868-afk.github.io/biznis/
+      ↓                   https://biznis-studio.github.io/
 Traffic Collection      ⬜ not started
       ↓
 Analytics               ⬜ not started (schema exists: pages, analytics_events)

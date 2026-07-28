@@ -57,7 +57,7 @@ keywords, 4,408 raw signals collected (HN/Wikipedia/npm/Stack Exchange/
 GitHub, all free/no-auth). 28 products created; tiered this session into
 7 `core`, 7 `lead_magnet`, 14 `retire_candidate` (rejected, never had a
 live page). 14 pages live on GitHub Pages
-(fwwk4pb868-afk.github.io/biznis). **0 pages confirmed indexed by Google.**
+(biznis-studio.github.io/biznis). **0 pages confirmed indexed by Google.**
 IndexNow (Bing/Yandex/Seznam/Naver/Yep only — never covered Google) has
 returned 403 since 2026-07-27 with no known fix. 1 product listed on
 Gumroad (pay-what-you-want), 0 confirmed sales, payout blocked on the

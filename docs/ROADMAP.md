@@ -371,7 +371,7 @@ architecture becomes worth doing again - not before.
    `gh api repos/.../pages` with `build_type=workflow`; `pipeline.yml` now
    uploads `site/` as a Pages artifact and deploys it via
    `actions/deploy-pages` in a second job after every pipeline run. Live at
-   https://fwwk4pb868-afk.github.io/biznis/. `SITE_BASE_URL` is set as a
+   https://biznis-studio.github.io/. `SITE_BASE_URL` is set as a
    workflow-level env var, which is what turns on canonical URLs +
    sitemap.xml + feed.xml in `seo_agent.py`.
 8. **Analytics Agent** — once pages are live, pull free analytics
@@ -440,7 +440,7 @@ turned into real data instead of staying implicit tribal knowledge:
   Affiliate links and a newsletter platform remain deferred behind this
   same account-creation constraint - revisit once Gumroad is proven out.
 - ~~**GitHub remote**~~ — done 2026-07-26: pushed to
-  https://github.com/fwwk4pb868-afk/biznis (public), scheduled Action
+  https://github.com/biznis-studio/biznis-studio.github.io (public), scheduled Action
   verified working end-to-end (manual run succeeded, bot commit landed).
 - ~~**Publishing (GitHub Pages)**~~ — done 2026-07-26, see item 7 above.
 - **Competitor keyword-volume tools** (e.g. real search-volume data) are

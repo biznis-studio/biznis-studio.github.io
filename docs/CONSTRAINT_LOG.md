@@ -23,7 +23,7 @@ immediately - don't keep working on yesterday's bottleneck out of momentum.
   pages yet, so their expected revenue is ~0 regardless of how good they
   are.
 - **Evidence supporting it**:
-  - `site:fwwk4pb868-afk.github.io` search confirmed 0 indexed pages
+  - `site:biznis-studio.github.io` search confirmed 0 indexed pages
     (iteration 17).
   - IndexNow (the one implemented free/no-account indexing path) has
     returned 403 `UserForbiddedToAccessSite` since 2026-07-27 with no

@@ -334,7 +334,7 @@ def build_page(product: dict) -> Optional[dict]:
                 "<p>Built by one person, researched against real competitor "
                 "pricing and freelancer pain points rather than generated on "
                 "the spot - the same process and design system used across "
-                'this entire site. See <a href="https://github.com/fwwk4pb868-afk/biznis" '
+                'this entire site. See <a href="https://github.com/biznis-studio/biznis-studio.github.io" '
                 'target="_blank" rel="noopener">the project repo</a> for exactly '
                 "how it's built.</p></div>\n"
             )

@@ -45,7 +45,7 @@
 
 ## Done (iteration 5)
 - [x] Installed GitHub CLI, authenticated, pushed repo to
-      https://github.com/fwwk4pb868-afk/biznis (public)
+      https://github.com/biznis-studio/biznis-studio.github.io (public)
 - [x] Verified the scheduled Action end-to-end: manual `workflow_dispatch`
       run succeeded and the bot commit landed back on `main`
 - [x] Decided: ebook/sop prose will be written using Claude directly by the
@@ -82,7 +82,7 @@
 - [x] Verified locally end-to-end with `SITE_BASE_URL` set exactly as CI sets it
 
 - [x] Triggered the deploy workflow and confirmed the site is live and
-      working: https://fwwk4pb868-afk.github.io/biznis/ (checked the index,
+      working: https://biznis-studio.github.io/ (checked the index,
       the calculator's interactivity, and sitemap.xml/feed.xml over HTTP)
 
 ## Done (iteration 8)
@@ -249,12 +249,12 @@ sale, not item 2.**
    highest-EBV distribution lever (unlocks Google discovery for all 14
    live pages, currently 0 confirmed indexed).
    - Go to search.google.com/search-console → Add property → **URL
-     prefix** → `https://fwwk4pb868-afk.github.io/biznis/`
+     prefix** → `https://biznis-studio.github.io/`
    - Choose the **HTML tag** verification method (not file upload/DNS)
    - Copy just the `content="..."` value from the tag it shows you
    - Send it here - it gets wired into `GOOGLE_SITE_VERIFICATION`, the
      site rebuilds, then click **Verify** in Search Console, then submit
-     `https://fwwk4pb868-afk.github.io/biznis/sitemap.xml` as a sitemap
+     `https://biznis-studio.github.io/sitemap.xml` as a sitemap
 4. ~~**[BLOCKED] Formspree signup**~~ — **done 2026-07-27**: endpoint
    `https://formspree.io/f/xykrlrjz` wired into `FORMSPREE_ENDPOINT`
    (workflow env + rebuilt pages). Both service pages now use a real

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fwwk4pb868-afk.github.io/biznis/sitemap.xml
+Sitemap: https://biznis-studio.github.io/sitemap.xml

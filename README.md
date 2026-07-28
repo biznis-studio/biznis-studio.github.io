@@ -1,6 +1,6 @@
 # Biznis — Autonomous Digital Business Engine
 
-**Live at https://fwwk4pb868-afk.github.io/biznis/**
+**Live at https://biznis-studio.github.io/**
 
 A modular, self-improving pipeline that discovers demand signals from free
 public APIs, scores them, and proposes original digital-product ideas
@@ -69,7 +69,7 @@ not yet built — see the roadmap.
 
 ## Running on a schedule
 
-Repo: **https://github.com/fwwk4pb868-afk/biznis** (public).
+Repo: **https://github.com/biznis-studio/biznis-studio.github.io** (public).
 `.github/workflows/pipeline.yml` runs the loop daily via GitHub Actions
 (free, unlimited minutes on public repos), commits the updated database +
 reports + site back to the repo, then deploys `site/` to GitHub Pages via
