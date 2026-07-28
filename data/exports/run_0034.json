@@ -1,6 +1,6 @@
 {
   "run_id": 34,
-  "generated_at": "2026-07-28T21:28:36.779932+00:00",
+  "generated_at": "2026-07-28T22:11:53.265754+00:00",
   "run_status": "success",
   "signals_by_source": {
     "github": 30,
@@ -47,7 +47,7 @@
     },
     {
       "term": "@ai-sdk/gateway",
-      "score": 0.507495,
+      "score": 0.514185,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
@@ -179,8 +179,8 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "appium",
-      "score": 0.376685,
+      "term": "@rytass/invoice",
+      "score": 0.37555555555555553,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
