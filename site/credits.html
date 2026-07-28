@@ -237,8 +237,24 @@
   .card-art {
     display: block; width: 100%; height: 130px; border-radius: 12px;
     margin: -0.35rem 0 1rem;
+    /* object-fit is not optional here: cards are a fluid grid, so a fixed
+       height with width:100% stretches a photo to whatever ratio the
+       column happens to be. `cover` crops instead of distorting. */
+    object-fit: cover; object-position: center;
+    background: var(--bg-alt);
   }
   .post-card .card-art { height: 110px; }
+  /* Used full-width at the top of an article or tool page, the 130px card
+     height becomes a ~5:1 letterbox strip. Give the page-level banner a
+     sensible height so `cover` crops gently instead of severely. */
+  article.post > .card-art, main > .card-art { height: 260px; margin-bottom: 1.5rem; }
+  @media (max-width: 640px) {
+    article.post > .card-art, main > .card-art { height: 180px; }
+  }
+  /* The generated SVG fallback is a gradient, so distorting it is fine and
+     stretching avoids letterboxing - but object-fit would apply to it too,
+     hence the explicit override. */
+  svg.card-art { object-fit: fill; }
   .news-list { display: grid; gap: 0.6rem; margin-top: 1.1rem; }
   .news-item {
     display: flex; gap: 0.9rem; align-items: baseline;
@@ -408,6 +424,7 @@ spending anyone else's bandwidth either.</p>
 <tr><td>A diverse group of professionals engaged in a meeting at a modern office, promoting teamwork and collaboration.</td><td>Tiger Lily</td><td>PEXELS LICENSE</td><td>pexels</td></tr>
 <tr><td>Close-up of a hand holding a smartphone with app icons and a nature wallpaper.</td><td>FOX ^.ᆽ.^= ∫</td><td>PEXELS LICENSE</td><td>pexels</td></tr>
 <tr><td>Close-up of HTML code lines highlighting web development concepts and techniques.</td><td>Pixabay</td><td>PEXELS LICENSE</td><td>pexels</td></tr>
+<tr><td>A woman studying a color wheel on a laptop during a work session in a modern office.</td><td>Ivan S</td><td>PEXELS LICENSE</td><td>pexels</td></tr>
 <tr><td>European Union and Estonian flags wave under a clear blue sky, symbolizing unity and harmony.</td><td>Paolo Rossa</td><td>PEXELS LICENSE</td><td>pexels</td></tr>
 <tr><td>Hand using calculator for architectural calculations on blueprints.</td><td>RDNE Stock project</td><td>PEXELS LICENSE</td><td>pexels</td></tr>
 <tr><td>Colorful assortment of international paper currencies from various countries in a flat lay.</td><td>Valentin Ivantsov</td><td>PEXELS LICENSE</td><td>pexels</td></tr>

@@ -95,6 +95,8 @@ QUERIES = {
     "resume-gap-job-title-explainer-scripts": ["job interview", "resume cv paper", "office interview"],
     "custom-website-design-development": ["web design code", "programming code screen", "developer laptop"],
     "custom-chatbot-development": ["smartphone screen apps hands", "mobile phone typing hands", "smartphone technology desk"],
+    "design-branding-visual-identity": ["graphic designer working colour palette",
+        "design studio sketches branding", "designer desk colour swatches"],
     "tailored-digital-product": ["designer sketching workspace", "blueprint design desk", "creative studio desk"],
     # --- blog ---
     "scope-creep-by-the-numbers": ["calculator money", "coins calculator", "finance desk"],

@@ -237,6 +237,15 @@ def inject_intro_into_calculator(html_text: str, intro_html: str, meta_descripti
         insert_at = h1_close_match.end()
         html_text = html_text[:insert_at] + "\n" + intro_html + html_text[insert_at:]
 
+    # The calculator ships with its own <style> block, copied from SITE_CSS
+    # at the time the product file was generated - and never regenerated
+    # since. That silently froze this one page on an old design while every
+    # other page moved on (found when a site-wide CSS fix landed everywhere
+    # except here). Replace the block from the live SITE_CSS on every build
+    # so it cannot drift again.
+    html_text = re.sub(r"<style>.*?</style>", lambda _m: f"<style>{SITE_CSS}</style>",
+                       html_text, count=1, flags=re.DOTALL)
+
     head_match = re.compile(r"</head>", re.IGNORECASE).search(html_text)
     if head_match:
         # The calculator is the one page type that doesn't go through

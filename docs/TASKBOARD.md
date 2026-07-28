@@ -1172,6 +1172,42 @@ one-by-one - so this gets wired in as a single batch.
       all permit commercial use without credit - but the application said
       we would, so we do.
 
+## Done (iteration 49) — stretched-image fix, calculator design drift, design service
+- [x] User: "niektoré fotky sú ponaťahované" (some photos are stretched).
+      Correct, and it was a CSS bug, not an image problem - verified all 25
+      stored files were at their exact target size first. `.card-art` had
+      `width:100%` with a fixed `height`, but **no `object-fit`**, so in a
+      fluid grid the browser stretched each photo to whatever ratio its
+      column happened to be. Added `object-fit: cover` (crops instead of
+      distorting), with an explicit `object-fit: fill` override for the
+      generated SVG fallback, where stretching a gradient is fine and
+      avoids letterboxing.
+- [x] Second proportion problem found while measuring: used full-width at
+      the top of an article, the 130px card height became a ~5:1 letterbox
+      strip. Page-level banners now get 260px (180px on mobile).
+- [x] Found a real design regression the CSS check exposed: the calculator
+      page was the **only** page missing the fix, because it ships its own
+      `<style>` block copied from SITE_CSS when the product file was first
+      generated - and never regenerated since. That had silently frozen it
+      on an old design while every other page moved on. Fixed at source:
+      `inject_intro_into_calculator()` now replaces the style block from
+      the live SITE_CSS on every build, so it cannot drift again. This is
+      the third time this page's bespoke build path caused drift (see also
+      the RSS tag in iteration 47) - now structurally prevented.
+- [x] New service on user request: **Design, Branding & Visual Identity** -
+      logos, identity systems, marketing graphics, presentation design,
+      illustration and interface design. Written with the same honesty as
+      the other offerings: an explicit "who this isn't for", full
+      commercial rights with editable source files, fixed price agreed in
+      writing before work starts, and a stated refusal to pretend a
+      24-hour cheap logo service is what this is. Pairs naturally with the
+      Tailored Digital Product - a commissioned product can now be
+      designed to the client's own brand instead of ours.
+- [x] Restored the original hero image at the user's request (exact file
+      from 1c0e408), including its correct credit record - the Pexels
+      record had named the wrong photographer for it - and reverted the
+      hero search query so a forced refetch cannot silently swap it again.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
