@@ -1273,6 +1273,36 @@ one-by-one - so this gets wired in as a single batch.
       bio copy, and produced the profile imagery, so the signup itself is
       a few minutes of the user's time.
 
+## Done (iteration 52) — wordmark unified where it renders, plain name where it does not
+- [x] Asked for an opinion on rolling `Biznis.studiO` out everywhere, and
+      gave a split recommendation the user agreed with: apply the wordmark
+      only where it is **rendered with its styling** (header, footer,
+      social banner), and keep plain "Biznis" in text-only contexts
+      (`<title>`, meta descriptions, RSS). Unstyled, the terminal capital
+      reads as a typo rather than a design choice, and people mistype it -
+      the logotype is a visual asset, the name is what you write.
+- [x] Favicon and social avatar deliberately left as the "B" monogram.
+      They render at 16px and ~40px respectively, where ".studiO" is an
+      unreadable smudge; a single letter is the correct mark at that size,
+      not a compromise.
+- [x] Added `BRAND_HTML` as the single source for the wordmark so the
+      header and footer cannot drift apart, and generalised the CSS from
+      `.site-header a.brand` to `a.brand`.
+- [x] Footer mark needed its own treatment rather than reusing the
+      header's: at 0.95rem a 0.7px stroke is thinner than the rendered
+      stem, so the letters break up. The footer leans on fill instead of
+      the etched stroke.
+- [x] Found stale copy while touching this: the RSS feed was still titled
+      "Biznis - Free Digital Products" with a description about free
+      checklists and prompt packs - contradicting the repositioning and
+      wrong on its own terms now that most products are paid. Retitled and
+      rewritten in both the feed and the `<link rel="alternate">` tag.
+- [x] Stated an honest strategic view alongside the branding answer:
+      design has stopped being the constraint. With 0 sales and near-zero
+      traffic, the next hour is worth more spent on distribution than on
+      brand refinement - offered without refusing the branding work, which
+      was small and worth finishing.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

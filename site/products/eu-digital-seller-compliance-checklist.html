@@ -7,7 +7,7 @@
 <meta name="description" content="A clear, repeatable checklist for EU Digital Seller Compliance - know exactly what to do next, in the right order.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234f46e5'/%3E%3Ctext x='32' y='44' font-family='Arial,sans-serif' font-size='34' font-weight='800' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
 <meta name="google-site-verification" content="wSzc38h_LgWxBpKFU09fpxDk6_tdnplhjOgWRJ23ilA">
-<link rel="alternate" type="application/rss+xml" title="Biznis - Free Digital Products" href="https://biznis-studio.github.io/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="Biznis - New products, tools and articles" href="https://biznis-studio.github.io/feed.xml">
 <style>
   :root {
     color-scheme: light dark;
@@ -99,7 +99,7 @@
     display: flex; align-items: center; justify-content: space-between;
     max-width: 1080px; margin: 0 auto; padding: 0.85rem 1.25rem;
   }
-  .site-header a.brand {
+  a.brand {
     font-weight: 800; font-size: 1.25rem; color: var(--text); text-decoration: none;
     letter-spacing: -0.03em;
   }
@@ -108,26 +108,26 @@
      into the surface rather than printed on it. The stroke is what keeps
      it legible - a low-opacity fill on its own just looks like faded
      text. */
-  .site-header a.brand span {
+  a.brand span {
     background: none;
     color: transparent;
     -webkit-text-fill-color: var(--ghost-fill);
     -webkit-text-stroke: 0.7px var(--ghost-stroke);
     transition: -webkit-text-fill-color 0.25s ease, -webkit-text-stroke-color 0.25s ease;
   }
-  .site-header a.brand:hover span {
+  a.brand:hover span {
     -webkit-text-fill-color: var(--ghost-stroke);
   }
   /* The terminal capital O is the logotype's one deliberate quirk - kept
      slightly heavier and tighter so it reads as a mark rather than a
      typo, and never inherits <b>'s default browser weight. */
-  .site-header a.brand span b {
+  a.brand span b {
     font-weight: 800; letter-spacing: -0.04em;
   }
   /* Firefox has no -webkit-text-stroke, so the glass letters would vanish
      to a near-invisible fill. Give it a readable translucent fill instead. */
   @supports not (-webkit-text-stroke: 1px black) {
-    .site-header a.brand span { -webkit-text-fill-color: initial; color: var(--ghost-stroke); }
+    a.brand span { -webkit-text-fill-color: initial; color: var(--ghost-stroke); }
   }
   .site-header nav { display: flex; gap: 1.4rem; align-items: center; }
   .site-header nav a {
@@ -408,6 +408,16 @@
     font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border);
     display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; align-items: center;
   }
+  footer a.brand {
+    font-size: 0.95rem; font-weight: 800; letter-spacing: -0.03em;
+    color: var(--text); text-decoration: none; margin-right: 0.4rem;
+  }
+  /* At footer size a 0.7px stroke is thinner than the rendered stem and
+     the letters break up, so the footer mark leans on fill instead. */
+  footer a.brand span {
+    -webkit-text-fill-color: var(--ghost-stroke); -webkit-text-stroke-width: 0;
+    color: var(--ghost-stroke);
+  }
   footer a { color: var(--text-muted); }
   footer a:hover { color: var(--brand); }
   @media (max-width: 480px) {
@@ -521,7 +531,8 @@
 <p>Yes, it&#x27;s yours to adapt for your own use.</p></div><div class="card"><h2>More free tools</h2><ul><li><a href="the-practical-guide-to-xlsx.html">The Practical Guide to XLSX</a></li>
 <li><a href="checklist-pdf-notion.html">Checklist (PDF + Notion)</a></li>
 <li><a href="the-practical-guide-to-automation.html">The Practical Guide to Automation</a></li></ul></div>
-<footer><span>Biznis - built in public from real demand signals.</span>
+<footer><a class="brand" href="../index.html">Biznis<span>.studi<b>O</b></span></a>
+<span>Built in public from real demand signals.</span>
 <a href="../index.html">Products</a>
 <a href="../tools/index.html">Free tools</a>
 <a href="../news/index.html">Signals</a>

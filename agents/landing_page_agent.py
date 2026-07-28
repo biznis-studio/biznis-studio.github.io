@@ -32,7 +32,7 @@ from typing import Optional
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from agents.common import (CONTACT_EMAIL, FAVICON_DATA_URI, SITE_CSS, format_badge_html,
+from agents.common import (BRAND_HTML, CONTACT_EMAIL, FAVICON_DATA_URI, SITE_CSS, format_badge_html,
                             card_art, markdown_lite_to_html, marketing_blurb, now_iso,
                             site_header_html, slugify)
 from agents.pdf_export import export as export_pdf
@@ -112,7 +112,7 @@ def page_shell(title: str, meta_description: str, body_html: str, is_index: bool
     # Site-wide (not just index), same SITE_BASE_URL-gating as everything
     # else that asserts a live URL.
     rss_link_tag = (
-        f'<link rel="alternate" type="application/rss+xml" title="Biznis - Free Digital Products" '
+        f'<link rel="alternate" type="application/rss+xml" title="Biznis - New products, tools and articles" '
         f'href="{SITE_BASE_URL}/feed.xml">\n'
         if SITE_BASE_URL else ""
     )
@@ -131,7 +131,8 @@ def page_shell(title: str, meta_description: str, body_html: str, is_index: bool
 <main{main_class}>
 {body_html}
 </main>
-<footer><span>Biznis - built in public from real demand signals.</span>
+<footer><a class="brand" href="{'' if is_index else '../'}index.html">{BRAND_HTML}</a>
+<span>Built in public from real demand signals.</span>
 <a href="{'' if is_index else '../'}index.html">Products</a>
 <a href="{'' if is_index else '../'}tools/index.html">Free tools</a>
 <a href="{'' if is_index else '../'}news/index.html">Signals</a>
@@ -255,7 +256,7 @@ def inject_intro_into_calculator(html_text: str, intro_html: str, meta_descripti
         # exactly this way and was caught by scripts/audit_site.py.
         rss_tag = (
             f'<link rel="alternate" type="application/rss+xml" '
-            f'title="Biznis - Free Digital Products" href="{SITE_BASE_URL}/feed.xml">\n'
+            f'title="Biznis - New products, tools and articles" href="{SITE_BASE_URL}/feed.xml">\n'
             if SITE_BASE_URL else ""
         )
         verification = (

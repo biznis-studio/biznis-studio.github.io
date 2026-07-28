@@ -131,7 +131,7 @@ SITE_CSS = """
     display: flex; align-items: center; justify-content: space-between;
     max-width: 1080px; margin: 0 auto; padding: 0.85rem 1.25rem;
   }
-  .site-header a.brand {
+  a.brand {
     font-weight: 800; font-size: 1.25rem; color: var(--text); text-decoration: none;
     letter-spacing: -0.03em;
   }
@@ -140,26 +140,26 @@ SITE_CSS = """
      into the surface rather than printed on it. The stroke is what keeps
      it legible - a low-opacity fill on its own just looks like faded
      text. */
-  .site-header a.brand span {
+  a.brand span {
     background: none;
     color: transparent;
     -webkit-text-fill-color: var(--ghost-fill);
     -webkit-text-stroke: 0.7px var(--ghost-stroke);
     transition: -webkit-text-fill-color 0.25s ease, -webkit-text-stroke-color 0.25s ease;
   }
-  .site-header a.brand:hover span {
+  a.brand:hover span {
     -webkit-text-fill-color: var(--ghost-stroke);
   }
   /* The terminal capital O is the logotype's one deliberate quirk - kept
      slightly heavier and tighter so it reads as a mark rather than a
      typo, and never inherits <b>'s default browser weight. */
-  .site-header a.brand span b {
+  a.brand span b {
     font-weight: 800; letter-spacing: -0.04em;
   }
   /* Firefox has no -webkit-text-stroke, so the glass letters would vanish
      to a near-invisible fill. Give it a readable translucent fill instead. */
   @supports not (-webkit-text-stroke: 1px black) {
-    .site-header a.brand span { -webkit-text-fill-color: initial; color: var(--ghost-stroke); }
+    a.brand span { -webkit-text-fill-color: initial; color: var(--ghost-stroke); }
   }
   .site-header nav { display: flex; gap: 1.4rem; align-items: center; }
   .site-header nav a {
@@ -440,6 +440,16 @@ SITE_CSS = """
     font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border);
     display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; align-items: center;
   }
+  footer a.brand {
+    font-size: 0.95rem; font-weight: 800; letter-spacing: -0.03em;
+    color: var(--text); text-decoration: none; margin-right: 0.4rem;
+  }
+  /* At footer size a 0.7px stroke is thinner than the rendered stem and
+     the letters break up, so the footer mark leans on fill instead. */
+  footer a.brand span {
+    -webkit-text-fill-color: var(--ghost-stroke); -webkit-text-stroke-width: 0;
+    color: var(--ghost-stroke);
+  }
   footer a { color: var(--text-muted); }
   footer a:hover { color: var(--brand); }
   @media (max-width: 480px) {
@@ -574,6 +584,14 @@ def format_badge_html(fmt: str) -> str:
     return f'<span class="badge" style="background:{color}">{label}</span>'
 
 
+# The wordmark is a *visual* asset, so it lives in exactly one place and is
+# only ever used where it gets rendered with its styling (header, footer,
+# banner image). Plain-text contexts - <title>, meta descriptions, RSS -
+# deliberately keep "Biznis": unstyled, the terminal capital reads as a
+# typo rather than a design choice, and people mistype it.
+BRAND_HTML = "Biznis<span>.studi<b>O</b></span>"
+
+
 def site_header_html(active_is_index: bool = False) -> str:
     """Shared sticky header. Product pages and blog pages both live one
     directory below the root (site/products/, site/blog/), so the same
@@ -583,7 +601,7 @@ def site_header_html(active_is_index: bool = False) -> str:
     services_href = "#services" if active_is_index else "../index.html#services"
     return f"""<header class="site-header">
 <div class="site-header-inner">
-<a class="brand" href="{home_href}">Biznis<span>.studi<b>O</b></span></a>
+<a class="brand" href="{home_href}">{BRAND_HTML}</a>
 <nav>
 <a href="{home_href}">Products</a>
 <a href="{prefix}tools/index.html">Tools</a>

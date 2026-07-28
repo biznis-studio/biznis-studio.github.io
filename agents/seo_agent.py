@@ -261,10 +261,10 @@ def generate_rss(pages: list[dict]) -> None:
             "  </item>"
         )
     rss = (f'<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel>\n'
-           f"  <title>Biznis - Free Digital Products</title>\n"
+           f"  <title>Biznis - New products, tools and articles</title>\n"
            f"  <link>{html.escape(SITE_BASE_URL)}/</link>\n"
-           f"  <description>Free checklists, templates, calculators and prompt packs "
-           f"generated from real demand signals.</description>\n"
+           f"  <description>New digital products, free tools and articles from Biznis - "
+           f"design, websites, custom digital products and automation.</description>\n"
            + "\n".join(items) + "\n</channel></rss>\n")
     (SITE_DIR / "feed.xml").write_text(rss)
 
