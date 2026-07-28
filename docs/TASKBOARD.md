@@ -1208,6 +1208,37 @@ one-by-one - so this gets wired in as a single batch.
       record had named the wrong photographer for it - and reverted the
       hero search query so a forced refetch cannot silently swap it again.
 
+## Done (iteration 50) — unified card treatment + stronger glassmorphism
+- [x] User: "na kartách používaš rozdielny efekt" (the cards use different
+      effects). Correct - three clickable card types had grown three
+      unrelated hover treatments: product cards had a scaling gradient
+      blob in the corner, service cards a permanently-visible top bar, and
+      blog cards nothing but a lift. Collapsed all three into one shared
+      rule: same surface, same lift, same brand border, same gradient
+      accent bar fading in on hover. Removed the now-duplicated
+      `.post-card` block that would have overridden the shared definition.
+- [x] User: "daj tam väčší sklenený efekt". Extended glassmorphism from
+      the header alone to cards, stat tiles, widgets, news items, topic
+      tabs and eyebrows: translucent surfaces with `backdrop-filter`
+      blur + saturation and a light edge. Two supporting changes were
+      needed for it to actually read as glass rather than flat tint -
+      the background orbs were strengthened (glass needs something behind
+      it to refract) and the background set to `fixed`, so the colour
+      behind each panel shifts while scrolling.
+- [x] Kept legibility as the constraint: the glass tokens stay above 50%
+      opaque, so body text contrast is unaffected - the effect comes from
+      blur and the edge highlight, not from making panels see-through.
+- [x] Added an `@supports not (backdrop-filter)` fallback to solid
+      surfaces, so browsers without support get the previous opaque design
+      instead of washed-out translucent boxes with no blur.
+- [x] Process note worth recording: resolving `db/biznis.sqlite3` with
+      `--ours` during a **rebase** took the upstream side, not mine, and
+      silently dropped the new design service's DB rows while leaving its
+      HTML file behind as an orphan (absent from homepage and sitemap).
+      Caught by checking the service count after the rebuild rather than
+      assuming the merge was fine. In a rebase `--ours` is upstream and
+      `--theirs` is the commit being replayed - the reverse of a merge.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

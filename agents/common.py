@@ -54,11 +54,19 @@ SITE_CSS = """
     --brand3: #db2777;
     --brand-hover: #4338ca;
     --brand-contrast: #ffffff;
-    --orb-a: rgba(124, 58, 237, 0.16);
-    --orb-b: rgba(79, 70, 229, 0.14);
-    --orb-c: rgba(219, 39, 119, 0.07);
+    --orb-a: rgba(124, 58, 237, 0.26);
+    --orb-b: rgba(79, 70, 229, 0.22);
+    --orb-c: rgba(219, 39, 119, 0.14);
     --dot: rgba(20, 22, 31, 0.06);
-    --header-bg: rgba(255, 255, 255, 0.72);
+    --header-bg: rgba(255, 255, 255, 0.62);
+    /* Glassmorphism tokens. A translucent surface is only readable if the
+       text on it stays high-contrast, so these stay well above 50% opaque
+       - the effect comes from the blur and the light edge, not from making
+       the panel see-through enough to hurt legibility. */
+    --glass: rgba(255, 255, 255, 0.58);
+    --glass-strong: rgba(255, 255, 255, 0.72);
+    --glass-border: rgba(255, 255, 255, 0.75);
+    --glass-blur: blur(20px) saturate(140%);
     --shadow: 0 1px 2px rgba(20, 22, 31, 0.04), 0 8px 24px rgba(20, 22, 31, 0.07);
     --shadow-lg: 0 4px 10px rgba(79, 70, 229, 0.12), 0 16px 40px rgba(20, 22, 31, 0.10);
     --radius: 16px;
@@ -78,11 +86,15 @@ SITE_CSS = """
       --brand3: #f472b6;
       --brand-hover: #a5b0fb;
       --brand-contrast: #0a0b12;
-      --orb-a: rgba(124, 58, 237, 0.28);
-      --orb-b: rgba(79, 70, 229, 0.22);
-      --orb-c: rgba(219, 39, 119, 0.10);
+      --orb-a: rgba(124, 58, 237, 0.42);
+      --orb-b: rgba(79, 70, 229, 0.34);
+      --orb-c: rgba(219, 39, 119, 0.20);
       --dot: rgba(241, 242, 249, 0.05);
-      --header-bg: rgba(10, 11, 18, 0.72);
+      --header-bg: rgba(10, 11, 18, 0.58);
+      --glass: rgba(28, 31, 48, 0.55);
+      --glass-strong: rgba(28, 31, 48, 0.72);
+      --glass-border: rgba(255, 255, 255, 0.10);
+      --glass-blur: blur(20px) saturate(130%);
       --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.4);
       --shadow-lg: 0 4px 14px rgba(129, 140, 248, 0.18), 0 20px 48px rgba(0, 0, 0, 0.45);
     }
@@ -99,13 +111,17 @@ SITE_CSS = """
       radial-gradient(circle at 1px 1px, var(--dot) 1px, transparent 1.5px);
     background-size: auto, auto, auto, 26px 26px;
     background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+    /* Fixed so the colour behind the glass shifts as you scroll - that
+       movement is what makes the panels read as translucent rather than
+       just lightly tinted. */
+    background-attachment: fixed, fixed, fixed, fixed;
   }
   ::selection { background: var(--brand2); color: #fff; }
   .site-header {
     position: sticky; top: 0; z-index: 50;
     background: var(--header-bg);
-    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border);
+    -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+    border-bottom: 1px solid var(--glass-border);
   }
   .site-header-inner {
     display: flex; align-items: center; justify-content: space-between;
@@ -147,15 +163,18 @@ SITE_CSS = """
   .eyebrow {
     display: inline-flex; align-items: center; gap: 0.5rem;
     font-size: 0.74rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--brand); border: 1px solid var(--border); border-radius: 999px;
-    padding: 0.35rem 0.9rem; margin-bottom: 1.1rem; background: var(--surface);
+    color: var(--brand); border: 1px solid var(--glass-border); border-radius: 999px;
+    padding: 0.35rem 0.9rem; margin-bottom: 1.1rem; background: var(--glass);
+    -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
   }
   .eyebrow::before {
     content: ""; width: 8px; height: 8px; border-radius: 50%;
     background: var(--gradient); box-shadow: 0 0 8px var(--brand);
   }
   .card {
-    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    background: var(--glass); border: 1px solid var(--glass-border);
+    -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+    border-radius: var(--radius);
     padding: 1.6rem 1.85rem; margin: 1.5rem 0; box-shadow: var(--shadow);
     position: relative; overflow: hidden;
   }
@@ -214,7 +233,8 @@ SITE_CSS = """
     display: flex; flex-wrap: wrap; gap: 1rem; margin: 2rem 0 0.5rem;
   }
   .stat {
-    flex: 1 1 150px; background: var(--surface); border: 1px solid var(--border);
+    flex: 1 1 150px; background: var(--glass); border: 1px solid var(--glass-border);
+    -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
     border-radius: var(--radius); padding: 1.1rem 1.3rem; box-shadow: var(--shadow);
   }
   .stat b {
@@ -227,31 +247,35 @@ SITE_CSS = """
     display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 1.15rem; margin-top: 1.25rem;
   }
-  .product-card {
-    display: block; background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 1.5rem 1.6rem; text-decoration: none; color: var(--text);
-    box-shadow: var(--shadow); position: relative; overflow: hidden;
+  /* One shared definition for every clickable card - product, service and
+     blog post. They previously each had their own hover treatment (a
+     corner gradient blob, a permanent top bar, and nothing at all
+     respectively), which read as three unrelated components on the same
+     page. Same surface, same lift, same accent bar on hover. */
+  .product-card, .service-card, .post-card {
+    display: block; background: var(--glass); border: 1px solid var(--glass-border);
+    -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+    border-radius: var(--radius); padding: 1.5rem 1.6rem; text-decoration: none;
+    color: var(--text); box-shadow: var(--shadow); position: relative; overflow: hidden;
     transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
   }
-  .product-card::after {
-    content: ""; position: absolute; right: -40px; top: -40px; width: 110px; height: 110px;
-    border-radius: 50%; background: var(--gradient); opacity: 0.08;
-    transition: transform 0.25s ease, opacity 0.25s ease;
+  .product-card::before, .service-card::before, .post-card::before {
+    content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; z-index: 1;
+    background: var(--gradient); opacity: 0; transition: opacity 0.2s ease;
   }
-  .product-card:hover { transform: translateY(-3px); border-color: var(--brand); box-shadow: var(--shadow-lg); }
-  .product-card:hover::after { transform: scale(1.5); opacity: 0.14; }
-  .product-card h3 { margin: 0.55rem 0 0.4rem; font-size: 1.08rem; }
-  .product-card p { margin: 0; color: var(--text-muted); font-size: 0.9rem; }
-  .service-card {
-    display: block; text-decoration: none; color: var(--text);
-    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 1.75rem 2rem; box-shadow: var(--shadow); position: relative; overflow: hidden;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  .product-card:hover, .service-card:hover, .post-card:hover {
+    transform: translateY(-3px); border-color: var(--brand); box-shadow: var(--shadow-lg);
+    background: var(--glass-strong);
   }
-  .service-card::before {
-    content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--gradient);
+  .product-card:hover::before, .service-card:hover::before, .post-card:hover::before {
+    opacity: 1;
   }
-  .service-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+  .product-card h3, .service-card h3, .post-card h3 {
+    margin: 0.55rem 0 0.4rem; font-size: 1.08rem;
+  }
+  .product-card p, .service-card p, .post-card p {
+    margin: 0; color: var(--text-muted); font-size: 0.9rem;
+  }
   .service-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.15rem; margin-top: 1.25rem;
@@ -280,11 +304,14 @@ SITE_CSS = """
   .news-list { display: grid; gap: 0.6rem; margin-top: 1.1rem; }
   .news-item {
     display: flex; gap: 0.9rem; align-items: baseline;
-    background: var(--surface); border: 1px solid var(--border);
+    background: var(--glass); border: 1px solid var(--glass-border);
+    -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
     border-radius: 12px; padding: 0.85rem 1.1rem;
-    transition: border-color 0.15s ease, transform 0.15s ease;
+    transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
   }
-  .news-item:hover { border-color: var(--brand); transform: translateX(3px); }
+  .news-item:hover {
+    border-color: var(--brand); transform: translateX(3px); background: var(--glass-strong);
+  }
   .news-item a { text-decoration: none; font-weight: 650; color: var(--text); }
   .news-item a:hover { color: var(--brand); }
   .news-src {
@@ -295,12 +322,15 @@ SITE_CSS = """
   .topic-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.4rem 0 0.4rem; }
   .topic-tab {
     font-size: 0.78rem; font-weight: 700; text-decoration: none; color: var(--text-muted);
-    border: 1px solid var(--border); border-radius: 999px; padding: 0.35rem 0.85rem;
-    background: var(--surface);
+    border: 1px solid var(--glass-border); border-radius: 999px; padding: 0.35rem 0.85rem;
+    background: var(--glass);
+    -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
   }
   .topic-tab:hover { border-color: var(--brand); color: var(--brand); }
   .widget {
-    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    background: var(--glass); border: 1px solid var(--glass-border);
+    -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+    border-radius: var(--radius);
     padding: 1.5rem 1.75rem; margin: 1.5rem 0; box-shadow: var(--shadow);
   }
   .widget label {
@@ -321,15 +351,6 @@ SITE_CSS = """
   .widget-out span { font-size: 0.85rem; opacity: 0.92; }
   .widget-note { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.9rem; }
   .post-list { display: grid; gap: 1.15rem; margin-top: 1.25rem; }
-  .post-card {
-    display: block; text-decoration: none; color: var(--text);
-    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 1.5rem 1.75rem; box-shadow: var(--shadow); position: relative; overflow: hidden;
-    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-  }
-  .post-card:hover { transform: translateY(-3px); border-color: var(--brand); box-shadow: var(--shadow-lg); }
-  .post-card h3 { margin: 0.3rem 0 0.45rem; font-size: 1.12rem; }
-  .post-card p { margin: 0; color: var(--text-muted); font-size: 0.92rem; }
   .post-meta {
     font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
     color: var(--brand);
@@ -407,6 +428,15 @@ SITE_CSS = """
     .widget-row { grid-template-columns: 1fr; }
     .news-item { flex-wrap: wrap; gap: 0.35rem 0.8rem; }
     .news-item .news-date { margin-left: 0 !important; }
+  }
+  /* Safari/Firefox versions without backdrop-filter would render these as
+     washed-out translucent boxes with no blur, so fall back to the solid
+     surface colour there instead. */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .card, .product-card, .service-card, .post-card, .stat, .widget,
+    .news-item, .topic-tab, .eyebrow, .site-header {
+      background: var(--surface); border-color: var(--border);
+    }
   }
   @media (prefers-reduced-motion: reduce) {
     a.button::after, button.button::after { display: none; }
