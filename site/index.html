@@ -237,8 +237,24 @@
   .card-art {
     display: block; width: 100%; height: 130px; border-radius: 12px;
     margin: -0.35rem 0 1rem;
+    /* object-fit is not optional here: cards are a fluid grid, so a fixed
+       height with width:100% stretches a photo to whatever ratio the
+       column happens to be. `cover` crops instead of distorting. */
+    object-fit: cover; object-position: center;
+    background: var(--bg-alt);
   }
   .post-card .card-art { height: 110px; }
+  /* Used full-width at the top of an article or tool page, the 130px card
+     height becomes a ~5:1 letterbox strip. Give the page-level banner a
+     sensible height so `cover` crops gently instead of severely. */
+  article.post > .card-art, main > .card-art { height: 260px; margin-bottom: 1.5rem; }
+  @media (max-width: 640px) {
+    article.post > .card-art, main > .card-art { height: 180px; }
+  }
+  /* The generated SVG fallback is a gradient, so distorting it is fine and
+     stretching avoids letterboxing - but object-fit would apply to it too,
+     hence the explicit override. */
+  svg.card-art { object-fit: fill; }
   .news-list { display: grid; gap: 0.6rem; margin-top: 1.1rem; }
   .news-item {
     display: flex; gap: 0.9rem; align-items: baseline;
