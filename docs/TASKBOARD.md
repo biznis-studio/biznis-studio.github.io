@@ -964,6 +964,36 @@ one-by-one - so this gets wired in as a single batch.
       live on the real public listing page for the Scope Creep Kit,
       confirming the new copy renders correctly.
 
+## Done (iteration 44) — real og:image, every page had a blank link-preview until now
+- [x] User asked "čo ďalej?" (what's next). Per the Autonomy Policy, acted
+      directly on the next-highest-EBV unblocked item from
+      `docs/OPPORTUNITY_QUEUE.md` (Growth #2) instead of asking - Search
+      Console (the single highest-EBV lever per `docs/CONSTRAINT_LOG.md`)
+      is still blocked on ~3 min of the user's own time, so surfaced it
+      once (see Human Action Batch item 3, unchanged) and moved to real
+      unblocked work in the same turn rather than ending idle.
+- [x] Found a real, concrete gap: every one of the 15 live pages had
+      `og:title`/`og:description` but no `og:image` - sharing any link
+      (Gumroad "share" buttons, social, forums, Slack/Discord previews)
+      rendered a blank/generic card instead of a real preview, which
+      hurts click-through on every distribution channel at once, not
+      just search.
+- [x] Generated one honest, site-wide branded share image (1200x630,
+      headless Chrome, same brand gradient as the product cover images -
+      not a fabricated product photo, since none exists) -
+      `site/assets/og-image.png`. Wired `og:image`/`og:image:width`/
+      `og:image:height`/`twitter:card`/`twitter:image` into both
+      `landing_page_agent.py` (homepage) and `seo_agent.py` (product
+      pages) so every future page build includes it automatically.
+- [x] Backfilled all 14 already-published pages + the homepage with a
+      targeted idempotent insert (checked for `og:image` already present,
+      inserted once before `</head>`) rather than resetting
+      `seo_enhanced` and re-running full `inject()` - the latter would
+      have duplicated the JSON-LD/FAQ/canonical blocks already on each
+      page (the exact bug fixed in iteration 7). Verified: every page has
+      exactly one clean tag block, `scripts/audit_site.py` still reports
+      0 issues, deployed and confirmed live.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
