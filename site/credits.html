@@ -41,6 +41,8 @@
        text on it stays high-contrast, so these stay well above 50% opaque
        - the effect comes from the blur and the light edge, not from making
        the panel see-through enough to hurt legibility. */
+    --ghost-fill: rgba(20, 22, 31, 0.16);
+    --ghost-stroke: rgba(20, 22, 31, 0.42);
     --glass: rgba(255, 255, 255, 0.58);
     --glass-strong: rgba(255, 255, 255, 0.72);
     --glass-border: rgba(255, 255, 255, 0.75);
@@ -69,6 +71,8 @@
       --orb-c: rgba(219, 39, 119, 0.20);
       --dot: rgba(241, 242, 249, 0.05);
       --header-bg: rgba(10, 11, 18, 0.58);
+      --ghost-fill: rgba(241, 242, 249, 0.14);
+      --ghost-stroke: rgba(241, 242, 249, 0.40);
       --glass: rgba(28, 31, 48, 0.55);
       --glass-strong: rgba(28, 31, 48, 0.72);
       --glass-border: rgba(255, 255, 255, 0.10);
@@ -109,15 +113,31 @@
     font-weight: 800; font-size: 1.25rem; color: var(--text); text-decoration: none;
     letter-spacing: -0.03em;
   }
+  /* ".studiO" is treated as etched glass: the fill is almost gone and a
+     thin light stroke carries the letterforms, so it reads as pressed
+     into the surface rather than printed on it. The stroke is what keeps
+     it legible - a low-opacity fill on its own just looks like faded
+     text. */
   .site-header a.brand span {
-    background: var(--gradient); -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent;
+    background: none;
+    color: transparent;
+    -webkit-text-fill-color: var(--ghost-fill);
+    -webkit-text-stroke: 0.7px var(--ghost-stroke);
+    transition: -webkit-text-fill-color 0.25s ease, -webkit-text-stroke-color 0.25s ease;
+  }
+  .site-header a.brand:hover span {
+    -webkit-text-fill-color: var(--ghost-stroke);
   }
   /* The terminal capital O is the logotype's one deliberate quirk - kept
      slightly heavier and tighter so it reads as a mark rather than a
      typo, and never inherits <b>'s default browser weight. */
   .site-header a.brand span b {
     font-weight: 800; letter-spacing: -0.04em;
+  }
+  /* Firefox has no -webkit-text-stroke, so the glass letters would vanish
+     to a near-invisible fill. Give it a readable translucent fill instead. */
+  @supports not (-webkit-text-stroke: 1px black) {
+    .site-header a.brand span { -webkit-text-fill-color: initial; color: var(--ghost-stroke); }
   }
   .site-header nav { display: flex; gap: 1.4rem; align-items: center; }
   .site-header nav a {
