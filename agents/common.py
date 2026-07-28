@@ -135,6 +135,12 @@ SITE_CSS = """
     background: var(--gradient); -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+  /* The terminal capital O is the logotype's one deliberate quirk - kept
+     slightly heavier and tighter so it reads as a mark rather than a
+     typo, and never inherits <b>'s default browser weight. */
+  .site-header a.brand span b {
+    font-weight: 800; letter-spacing: -0.04em;
+  }
   .site-header nav { display: flex; gap: 1.4rem; align-items: center; }
   .site-header nav a {
     color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600;
@@ -557,7 +563,7 @@ def site_header_html(active_is_index: bool = False) -> str:
     services_href = "#services" if active_is_index else "../index.html#services"
     return f"""<header class="site-header">
 <div class="site-header-inner">
-<a class="brand" href="{home_href}">Biznis<span>.</span></a>
+<a class="brand" href="{home_href}">Biznis<span>.studi<b>O</b></span></a>
 <nav>
 <a href="{home_href}">Products</a>
 <a href="{prefix}tools/index.html">Tools</a>
