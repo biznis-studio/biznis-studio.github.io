@@ -1028,6 +1028,36 @@ one-by-one - so this gets wired in as a single batch.
       and did not touch pricing/discounts (user's earlier "not now"
       decisions stand).
 
+## Done (iteration 46) — migrated to biznis-studio.github.io (trust-critical URL fix)
+- [x] User correctly called out that `fwwk4pb868-afk.github.io/biznis`
+      looked auto-generated/untrustworthy and that it should have been
+      flagged as a marketing issue - a fair catch: the trust audit
+      (iteration 38) covered page *content* but never the URL itself,
+      even though the "Who makes this" trust note linked straight to it.
+      Lesson recorded: the trust surface includes the address bar, not
+      just what's on the page.
+- [x] Free fix executed end-to-end: user renamed the GitHub account to
+      `biznis-studio` (their own account action); repo renamed to
+      `biznis-studio.github.io` via `gh repo rename`, which moves the
+      site from a project subpath to the clean root URL
+      **https://biznis-studio.github.io/**. Pages config (workflow
+      build) survived the rename; `homepageUrl` updated automatically.
+- [x] Replaced all 124 old-URL references across 26 files in one
+      scripted, ordered pass (Pages URL with subpath first, then repo
+      URL, then bare username): SITE_BASE_URL in pipeline.yml,
+      canonical/OG/twitter tags, sitemap, robots, RSS, JSON-LD,
+      trust-note repo links, README, docs. Verified 0 occurrences
+      remain, audit clean, deployed, and confirmed live on the real
+      new URL (homepage/product canonicals, sitemap with all 15 URLs on
+      the new domain, og-image, robots.txt, trust link -> new repo).
+- [x] Timing was the reason to do it immediately, not later: 0 pages
+      indexed and 0 traffic meant the old URL died with nothing lost.
+      Known cost accepted and disclosed: today's 3 Search Console
+      indexing requests were spent on now-dead URLs and must be redone
+      on a new property (same account-level verification tag, so it's
+      Add property -> Verify -> resubmit sitemap -> re-request the 3
+      pages, ~3 min of the user's time).
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
