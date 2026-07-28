@@ -933,6 +933,37 @@ one-by-one - so this gets wired in as a single batch.
       purposes" toggle - a real tax/legal classification question outside
       what this system should decide for the user.
 
+## Done (iteration 43) — cross-sell upsells live, tightened both Gumroad descriptions
+- [x] User relayed 6 suggestions from Gumroad's own "Agent" feature
+      (bundling, cross-sell upsell, PWYW pricing, discount code, emailing
+      the list, tightening descriptions). Evaluated each on merit rather
+      than adopting wholesale: agreed cross-sell upsell and tightening
+      descriptions were genuinely valuable and low-risk; asked the user
+      directly (pricing/discount are their call, not something to decide
+      unilaterally) - answered "leave pricing for later" and "not a
+      discount code for now," so neither was touched; deprioritized
+      bundling pending real per-product sales data; declined to
+      auto-send marketing emails on the user's behalf (offered to draft
+      copy for their own review instead, not yet requested).
+- [x] Created both directions of a Gumroad checkout Upsell (Checkout →
+      Upsells, via the user's own logged-in Chrome session): buying
+      Freelance Scope Creep Defense Kit offers Client Retainer Renewal
+      Kit, and buying Client Retainer Renewal Kit offers Freelance Scope
+      Creep Defense Kit. No discount attached to either offer, matching
+      the user's "not now" answer on discounts. Verified both show
+      "Live" with correct trigger/offer pairing in the Upsells list.
+- [x] Found a real, concrete content gap while reviewing the Gumroad
+      listing descriptions against the website copy: both product pages
+      on the site already had a "Why not just ask an AI?" and a "Who
+      this isn't for" section (added in iteration 38's ChatGPT-review
+      pass), but the Gumroad *listing* descriptions - what buyers
+      actually see before purchase - never got the same sections, since
+      that description is its own separate rich-text field, not a copy
+      of the site page. Added both sections (adapted to Gumroad's
+      shorter, condensed style) to both listings and saved. Verified
+      live on the real public listing page for the Scope Creep Kit,
+      confirming the new copy renders correctly.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
