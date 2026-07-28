@@ -233,23 +233,14 @@ finishes - only the *payout* is delayed, not the sale. That means item 1
 below was never actually blocked and is now the fastest lever to a first
 sale, not item 2.**
 
-1. **NOT BLOCKED, ready now** — List the 2 validated `core`-tier product
-   bundles on the existing Gumroad account. Files are already prepared:
-   - **Bundle A "Freelance Scope Creep Defense Kit"**:
-     `data/exports/products/0019-freelance-scope-creep-defense-kit.pdf`
-     (7 ready-to-send scripts) + `0020-change-request-log-template.csv`
-     (the tracker) - upload both to one listing, matching the "packaged
-     system" pattern the competitor-pricing research found actually
-     sells (iteration 18).
-   - **Bundle B "Client Retainer Renewal Kit"**:
-     `data/exports/products/0022-client-retainer-renewal-kit.pdf` (8
-     scripts) + `0023-retainer-renewal-tracker-template.csv` - same
-     pairing.
-   - Suggested price: **$29 each** - low end of the $19-79 validated
-     competitor range (iteration 18), fine to adjust.
-   - Send back the two resulting Gumroad URLs - wires into
-     `products.monetization_url` for ids 19/20 and 22/23, same as the
-     first product.
+1. ~~**List the 2 validated `core`-tier product bundles on Gumroad**~~ —
+   **done 2026-07-27**: both bundles live and priced at $29 -
+   [Scope Creep Kit + Change Request Log](https://jozefrusnak.gumroad.com/l/dtuqjc),
+   [Retainer Renewal Kit + Tracker](https://jozefrusnak.gumroad.com/l/wztgr).
+   `products.monetization_url`/`price_usd` wired for ids 19/20/22/23; a
+   follow-up sales-readiness review then found and fixed a real bug
+   (full paid content was viewable for free on the landing page) before
+   flagging this fully complete - see iterations 36-39.
 2. **[BLOCKED - payout only, not sales]** Gumroad Stripe KYC — no longer
    blocks listing or selling (see correction above), only delays actually
    receiving the money. Still worth finishing when convenient, no rush
@@ -861,6 +852,30 @@ one-by-one - so this gets wired in as a single batch.
       locked placeholder. Applied only when `monetization_url` is set.
 - [x] Rebuilt the page with the same safe process (reset seo_enhanced,
       re-run seo_agent) and verified clean with `scripts/audit_site.py`.
+
+## Done (iteration 40) — full system health check, cleaned up stale data/docs
+- [x] Systematic verification per user request: syntax-checked every
+      Python file, confirmed the last 8 scheduled/dispatched pipeline
+      runs all succeeded (both jobs), confirmed no new generic ebook
+      ideas have appeared since the fallback fix, confirmed DB/site
+      consistency (no orphaned pages, no missing files, no duplicates),
+      re-ran `scripts/audit_site.py` clean, verified every sitemap URL
+      returns 200, spot-checked the 4 previously-unaudited page formats
+      (checklist/calculator/template/EU-checklist) render correctly.
+- [x] Found and fixed 3 real imperfections:
+      1. A stray manual-test row (`run_id IS NULL`) had leaked into
+         `company_metrics` despite earlier cleanup attempts - removed it
+         and regenerated `docs/COMPANY_SCOREBOARD.md` from the clean,
+         all-real history (7 genuine snapshots).
+      2. TASKBOARD's Human Action Batch still listed "list the 2 bundles
+         on Gumroad" as an open, actionable item days after it was
+         actually completed - marked done with the real listing URLs.
+      3. ROADMAP's EBV-ranked list still said Gumroad monetization was
+         "blocked on Stripe KYC" - stale given the later Decision Journal
+         D12 correction (sales were never blocked, only payout) and the
+         listings already being live - updated to reflect reality and
+         pointed out Gumroad's own dashboard as a zero-build-cost source
+         of view/click data while Analytics stays deprioritized.
 
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)

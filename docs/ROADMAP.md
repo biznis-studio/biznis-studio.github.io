@@ -291,23 +291,23 @@ architecture becomes worth doing again - not before.
 
 ## Next up, ranked by EBV (2026-07-27)
 
-1. **Resolve the distribution bottleneck** — either resume Google Search
-   Console verification (fastest real fix, needs the user's go-ahead since
-   it was explicitly paused before) or find another free/no-account
-   indexing path. Highest EBV: unlocks revenue potential for all 14
-   existing products at once, near-zero build cost, blocks everything else.
-2. **Get the two `core`-tier products paid on Gumroad** (Scope Creep Kit,
-   Retainer Renewal Kit) — blocked on the user's own Stripe KYC/business-
-   status decision, not on more building. Second-highest EBV per unit of
-   effort *for the user*, ~zero additional engineering cost for this
-   system once unblocked.
-3. **Analytics** (Cloudflare Web Analytics or similar) — needed to turn
-   "distribution exists" into a feedback loop, but has ~zero value until
-   #1 produces actual visits to measure. Sequenced after #1, not before.
-4. **More content/products** — deliberately ranked last. The product
-   catalog is not the constraint right now; distribution is. Only pursue
-   this for the validated `core` family (freelancer swipe-file system) if
-   #1-#3 are blocked on the user and there's still available effort.
+1. **Resolve the distribution bottleneck** — resume/complete Google
+   Search Console verification (needs the user, ~3 min - see TASKBOARD's
+   Human Action Batch) or find another free/no-account indexing path.
+   Still the highest EBV item: unlocks discovery for all 14 existing
+   pages at once, including the 2 now-live paid listings.
+2. ~~**Get the two `core`-tier products paid on Gumroad**~~ — **done
+   2026-07-27**: both bundles listed and priced at $29 (see Decision
+   Journal D12/D1 correction - this was never actually blocked on Stripe
+   KYC, only the payout was). A sales-readiness review then found and
+   fixed a real launch bug on all 3 monetized products (full paid content
+   viewable for free) - see TASKBOARD iterations 36-39.
+3. **Analytics** — Gumroad's own dashboard already gives basic view/click
+   data on the 2 listings at zero build cost; a fuller Analytics Agent
+   (Cloudflare Web Analytics or similar) still has ~zero value until #1
+   produces real site traffic to measure. Sequenced after #1.
+4. **More content/products** — still ranked last. The product catalog is
+   not the constraint; distribution is.
 
 ## Next up
 
