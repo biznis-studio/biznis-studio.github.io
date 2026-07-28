@@ -1,6 +1,6 @@
 {
   "run_id": 34,
-  "generated_at": "2026-07-28T20:59:51.110919+00:00",
+  "generated_at": "2026-07-28T21:04:50.819259+00:00",
   "run_status": "success",
   "signals_by_source": {
     "github": 30,
@@ -72,13 +72,6 @@
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
-    },
-    {
-      "term": "obsession",
-      "score": 0.43084,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"wikipedia_pageviews\"]"
     },
     {
       "term": "checklist",
@@ -181,6 +174,13 @@
     {
       "term": "invoice",
       "score": 0.38166,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "appium",
+      "score": 0.376685,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
