@@ -42,6 +42,17 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE_DIR = ROOT / "site"
 SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "").rstrip("/")
 
+# Same site-wide share image landing_page_agent.py uses for the homepage -
+# kept in sync here since product pages get their OG tags from this
+# module's run(), not from page_shell().
+OG_IMAGE_HEAD_TAGS = [
+    f'<meta property="og:image" content="{SITE_BASE_URL}/assets/og-image.png">',
+    '<meta property="og:image:width" content="1200">',
+    '<meta property="og:image:height" content="630">',
+    '<meta name="twitter:card" content="summary_large_image">',
+    f'<meta name="twitter:image" content="{SITE_BASE_URL}/assets/og-image.png">',
+] if SITE_BASE_URL else []
+
 # Persisted outside site/ so it survives the directory getting rebuilt -
 # the filename IS the IndexNow key by convention, so it has to stay stable
 # across runs, not be regenerated every time.
@@ -365,6 +376,7 @@ def run(run_id: Optional[int] = None) -> int:
         head_parts = [f'<meta property="og:title" content="{html.escape(p["title"])}">',
                       f'<meta property="og:description" content="{html.escape(p["meta_description"])}">',
                       '<meta property="og:type" content="website">']
+        head_parts.extend(OG_IMAGE_HEAD_TAGS)
         if url:
             head_parts.append(f'<link rel="canonical" href="{html.escape(url)}">')
         head_parts.append(f'<script type="application/ld+json">{json.dumps(schema)}</script>')

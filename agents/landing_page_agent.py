@@ -63,6 +63,21 @@ FORMSPREE_ENDPOINT = os.environ.get("FORMSPREE_ENDPOINT", "")
 # none at all.
 SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "").rstrip("/")
 
+# One site-wide share image (not per-product - there's no real product
+# photography, and a generic branded card is honest, unlike a fabricated
+# product photo) used for every page's og:image/twitter:image, so links
+# shared anywhere (Gumroad, social, forums) show a real preview instead of
+# a blank box. Generated once via headless Chrome, committed as a static
+# asset - see site/assets/og-image.png.
+OG_IMAGE_TAGS = (
+    f'<meta property="og:image" content="{SITE_BASE_URL}/assets/og-image.png">\n'
+    f'<meta property="og:image:width" content="1200">\n'
+    f'<meta property="og:image:height" content="630">\n'
+    f'<meta name="twitter:card" content="summary_large_image">\n'
+    f'<meta name="twitter:image" content="{SITE_BASE_URL}/assets/og-image.png">\n'
+    if SITE_BASE_URL else ""
+)
+
 # Human-readable download-button labels - fmt.replace("_", " ") alone would
 # still read as internal jargon for some formats ("swipe file" isn't a term
 # most visitors recognize; found this after "Download swipe_file" - with
@@ -89,6 +104,7 @@ def page_shell(title: str, meta_description: str, body_html: str, is_index: bool
             f'<meta property="og:description" content="{html.escape(meta_description)}">\n'
             f'<meta property="og:url" content="{SITE_BASE_URL}/">\n'
             f'<meta property="og:type" content="website">\n'
+            + OG_IMAGE_TAGS
         )
     # feed.xml has existed since iteration 7 but nothing ever linked to it -
     # crawlers/RSS readers have no way to discover it without this tag.
