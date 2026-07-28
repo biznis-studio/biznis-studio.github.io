@@ -14,6 +14,9 @@ env:
   SITE_BASE_URL: https://biznis-studio.github.io
   FORMSPREE_ENDPOINT: https://formspree.io/f/xykrlrjz
   GOOGLE_SITE_VERIFICATION: wSzc38h_LgWxBpKFU09fpxDk6_tdnplhjOgWRJ23ilA
+  # Stored as a repo secret - the repository is public, so the key
+  # must never appear in committed files.
+  PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
 
 jobs:
   run-pipeline:

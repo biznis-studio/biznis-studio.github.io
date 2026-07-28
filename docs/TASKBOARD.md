@@ -1138,6 +1138,40 @@ one-by-one - so this gets wired in as a single batch.
       `scripts/audit_site.py`, fixed in the builder rather than patched
       in the output. Site grew 15 -> 25 pages, audit clean.
 
+## Done (iteration 48) — switched photography to Pexels (professional stock)
+- [x] User obtained a free Pexels API key after the CC0-only pool proved
+      too thin: Openverse's licence-filtered library is dominated by
+      archives, so several images were merely acceptable rather than good.
+- [x] Key stored as a **GitHub Actions secret** (`PEXELS_API_KEY`), never
+      committed - the repository is public. Verified with a repo-wide grep
+      that the key appears in no tracked file. `pipeline.yml` passes it
+      through from `secrets`, matching how the Formspree endpoint is
+      handled.
+- [x] `image_agent.py` now runs a three-pass cascade: Pexels first
+      (professional stock, best quality), then Openverse restricted to a
+      modern stock source, then the wider CC0/PDM pool with the archive
+      blocklist. The fallbacks are kept deliberately: the pipeline still
+      produces images if the key is ever missing, revoked or rate-limited.
+- [x] Real bug found and fixed while wiring it up: Pexels answers a bare
+      Python user-agent with HTTP 403. Diagnosed with curl rather than
+      assuming the key was wrong, and set a proper User-Agent.
+- [x] Pexels results skip the relevance gate by design (`_curated` flag) -
+      that gate exists to compensate for Openverse's weak ranking on a
+      small pool, and Pexels' own alt text is frequently empty, so
+      applying it there would have rejected good photos for the wrong
+      reason. The resolution floor still applies to every source.
+- [x] All 25 images refetched. Quality is a clear step up - contract
+      signing, a real team meeting, HTML on screen, trading charts,
+      calendar with pins. The hero was refetched separately after review:
+      the first result was dark and cluttered, the replacement is bright
+      with the subject right-of-centre, leaving the left clear for the
+      overlaid headline.
+- [x] Honoured the attribution promised in the API application: the
+      credits page now names Pexels and links to it, alongside every
+      photographer. No licence here requires that - Pexels, CC0 and PDM
+      all permit commercial use without credit - but the application said
+      we would, so we do.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

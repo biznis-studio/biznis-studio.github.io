@@ -419,13 +419,15 @@ def build_credits_page() -> None:
         for c in credits
     )
     body = f"""<h1>Photo credits</h1>
-<p class="subtitle">Every photograph on this site is published under Creative Commons Zero
-(CC0) or the Public Domain Mark, sourced through Openverse.</p>
+<p class="subtitle">Every photograph on this site comes from
+<a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a>, or is published
+under Creative Commons Zero (CC0) or the Public Domain Mark via Openverse.</p>
 <div class="card">
-<p>Neither licence requires attribution, and we could legally list nothing here. We list them
-anyway: these photographers gave their work away for free, and that deserves a name against
-it. Images are stored on our own server rather than hot-linked, so we are not spending anyone
-else's bandwidth either.</p>
+<p>None of these licences requires attribution, and we could legally list nothing here. We
+list them anyway: these photographers gave their work away for free, and that deserves a name
+against it. Photos are stored on our own server rather than hot-linked, so we are not
+spending anyone else's bandwidth either.</p>
+<p>Stock photography by <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a>.</p>
 </div>
 <table>
 <tr><th>Image</th><th>Creator</th><th>Licence</th><th>Source</th></tr>

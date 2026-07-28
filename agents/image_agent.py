@@ -23,6 +23,7 @@ nothing and is the decent thing to do.
 """
 import io
 import json
+import os
 import sys
 import time
 import urllib.parse
@@ -37,7 +38,18 @@ IMG_DIR = ROOT / "site" / "assets" / "img"
 CREDITS_FILE = ROOT / "data" / "image_credits.json"
 
 API = "https://api.openverse.org/v1/images/"
-UA = {"User-Agent": "biznis-site/1.0 (+https://biznis-studio.github.io)"}
+PEXELS_API = "https://api.pexels.com/v1/search"
+# Pexels rejects a bare Python user-agent with 403, so send a real one.
+UA = {"User-Agent": "Mozilla/5.0 (compatible; biznis-site/1.0; "
+                    "+https://biznis-studio.github.io)"}
+
+# Primary source when a key is configured (GitHub Actions secret
+# PEXELS_API_KEY - never committed, the repo is public). The Pexels
+# licence allows commercial use and modification and requires no
+# attribution; we credit photographers on /credits.html regardless.
+# Openverse CC0/PDM stays as the fallback so the pipeline still produces
+# images with no key at all.
+PEXELS_API_KEY = os.environ.get("PEXELS_API_KEY", "")
 # Only licences with no attribution/share-alike/commercial conditions.
 ALLOWED_LICENSES = "cc0,pdm"
 
@@ -97,8 +109,38 @@ QUERIES = {
     "news-technology": ["circuit board", "electronics chip", "computer hardware"],
     "news-economy": ["stock market chart", "financial chart graph", "trading screen"],
     # --- homepage hero ---
-    "hero": ["office workspace desk", "modern office interior", "desk laptop window"],
+    "hero": ["freelancer working laptop coffee shop", "person working laptop desk bright",
+             "modern workspace laptop notebook"],
 }
+
+
+def _search_pexels(query: str) -> list[dict]:
+    """Pexels results normalised into the same shape as Openverse ones."""
+    if not PEXELS_API_KEY:
+        return []
+    params = urllib.parse.urlencode({
+        "query": query, "per_page": 15, "orientation": "landscape",
+    })
+    try:
+        req = urllib.request.Request(f"{PEXELS_API}?{params}",
+                                     headers={**UA, "Authorization": PEXELS_API_KEY})
+        with urllib.request.urlopen(req, timeout=25) as resp:
+            photos = json.load(resp).get("photos", [])
+    except Exception as exc:
+        print(f"[image_agent] pexels search failed '{query}': {type(exc).__name__}")
+        return []
+    return [{
+        "url": p["src"].get("large2x") or p["src"].get("large") or p["src"]["original"],
+        "title": p.get("alt") or query,
+        "creator": p.get("photographer") or "Unknown",
+        "license": "Pexels License",
+        "source": "pexels",
+        "foreign_landing_url": p.get("url") or "",
+        "width": p.get("width") or 0,
+        "height": p.get("height") or 0,
+        "_curated": True,   # skip the relevance gate: Pexels ranks its own
+                            # library well and its alt text is often empty
+    } for p in photos]
 
 
 def _search(query: str, source: Optional[str] = None) -> list[dict]:
@@ -127,6 +169,8 @@ _STOPWORDS = {"the", "a", "of", "and", "in", "on", "with", "to"}
 def _is_usable(result: dict) -> bool:
     """Reject archive/museum collections and anything too small to look
     sharp as card art."""
+    if result.get("_curated"):
+        return (result.get("width") or 0) >= MIN_WIDTH
     if (result.get("source") or "").lower() in BLOCKED_SOURCES:
         return False
     if (result.get("creator") or "").lower().strip() in BLOCKED_CREATORS:
@@ -142,6 +186,8 @@ def _is_relevant(result: dict, query: str) -> bool:
     from the query. Without this the CC0/PDM pool - which is small - hands
     back confidently-ranked but topically wrong photos (a Forest Service
     landscape for "physics laboratory" was the case that prompted this)."""
+    if result.get("_curated"):
+        return True
     words = {w for w in query.lower().split() if w not in _STOPWORDS and len(w) > 2}
     haystack = (result.get("title") or "").lower()
     haystack += " " + " ".join(
@@ -193,12 +239,15 @@ def fetch_one(slug: str, queries, size: tuple) -> Optional[dict]:
     usable image. Returns its credit record."""
     if isinstance(queries, str):
         queries = [queries]
-    # Pass 1 prefers a modern stock library; pass 2 opens up to the wider
-    # pool but only with the archive block + resolution floor applied.
-    attempts = [(q, s) for s in PREFERRED_SOURCES for q in queries]
+    # Pass 0: Pexels (professional stock, best quality) when a key exists.
+    # Pass 1: Openverse restricted to a modern stock source.
+    # Pass 2: wider Openverse CC0/PDM pool with the archive block applied.
+    attempts = [(q, "pexels") for q in queries]
+    attempts += [(q, s) for s in PREFERRED_SOURCES for q in queries]
     attempts += [(q, None) for q in queries]
     for query, source in attempts:
-        for result in _search(query, source):
+        results = _search_pexels(query) if source == "pexels" else _search(query, source)
+        for result in results:
             if not _is_usable(result) or not _is_relevant(result, query):
                 continue
             src = result.get("url")
