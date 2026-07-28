@@ -877,6 +877,27 @@ one-by-one - so this gets wired in as a single batch.
          pointed out Gumroad's own dashboard as a zero-build-cost source
          of view/click data while Analytics stays deprioritized.
 
+## Done (iteration 41) — Gumroad cover images generated
+- [x] User (or a tool with Gumroad dashboard access relayed by the user)
+      reported 0 sales across all 3 listings and flagged 2 real gaps: a
+      duplicate unpublished Retainer Kit listing (this system never
+      created a second one - only one URL, `wztgr`, is registered; the
+      duplicate must have been created directly on Gumroad, so deleting
+      it is the user's own call on their own account, not something to
+      authorize from here) and missing cover images/thumbnails on all
+      products.
+- [x] Generated real 1280x720 cover images (Gumroad's own recommended
+      size) for all 3 monetized listings, reusing the actual site's brand
+      colors/gradient/badge styling from `agents/common.py` - not stock
+      photos or fabricated product shots, the same honest visual identity
+      already used everywhere else on the site:
+      `data/exports/products/0019-freelance-scope-creep-defense-kit-cover.png`,
+      `0022-client-retainer-renewal-kit-cover.png`,
+      `0003-the-practical-guide-to-automation-cover.png`.
+- [x] Did not attempt to log into or modify anything on Gumroad directly -
+      no access, and deleting a listing is the user's own irreversible
+      call on their own account.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
