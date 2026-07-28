@@ -1068,6 +1068,76 @@ one-by-one - so this gets wired in as a single batch.
       the next signal to watch is Search Console's first real
       crawl/index data in the coming days.
 
+## Done (iteration 47) — visual redesign, real photography, blog, news bot, free tools, build-to-brief product
+- [x] User feedback in two rounds: the design was "monotonous and dry",
+      then - after a first pass using generated SVG gradient art - that it
+      was "still weak", with a clear instruction: use real copyright-free
+      photographs wherever possible, relevance to the content matters, and
+      **stop advertising that any of this is AI-generated**.
+- [x] Removed every AI/automation boast from visitor-facing copy: the
+      homepage eyebrow ("AI-operated"), the "Updated automatically" badge
+      and "automatically-updated digest" wording on the news page, and
+      deleted the entire blog post that was built around being an AI-run
+      business. Replaced it with a genuinely useful article on pricing
+      digital products. What the pipeline is remains documented in the
+      repo for anyone who looks - it is simply no longer a sales pitch.
+- [x] `agents/image_agent.py` (new): sources real photography from
+      Openverse restricted to **CC0 + Public Domain Mark only** - the two
+      licences with no attribution, share-alike or commercial conditions,
+      so there is no licensing exposure on a commercial site. Images are
+      downloaded once, centre-cropped to 16:9, resized and committed to
+      site/assets/img/ rather than hot-linked (dead links break the
+      design; hot-linking spends someone else's bandwidth).
+- [x] Three real quality problems found and fixed by actually looking at
+      the downloaded images rather than trusting the API's ranking:
+      (1) Openverse's CC0 pool is dominated by museum/natural-history
+      archives, which cheerfully returned a sepia colonial-era portrait
+      for "tailor" and a ransom-note letter collage for "web design" -
+      fixed with a preferred modern-stock source (Rawpixel) tried first,
+      an explicit archive blocklist on both `source` and `creator`
+      (museums republish through Rawpixel, so blocking one field was not
+      enough), and a 1000px minimum width. (2) Transparent-PNG cutout
+      assets rendered as a grey checkerboard - fixed by restricting to
+      JPEG. (3) A relevance gate requiring the image's own title/tags to
+      match the query, since a small licence-filtered pool ranks
+      confidently but wrongly. Each page's search query is hand-written,
+      not derived from the title - relevance is a judgement call.
+- [x] Photo credits page + `data/image_credits.json`: CC0/PDM require no
+      attribution and we could legally list nothing, but the
+      photographers are credited anyway.
+- [x] Design system rebuilt in `agents/common.py`: sticky glass header,
+      photographic hero banner with gradient overlay, real photos on
+      every product/blog/tool card, gradient-underlined headings, an
+      honest stats strip fed from real DB counts, plus news/widget/blog
+      styles. All CSS-only, no external fonts or assets.
+- [x] `agents/blog_agent.py` (new) + 3 hand-written articles: scope creep
+      arithmetic, a no-affiliate reading list of genuinely useful
+      external resources, and digital product pricing. Markdown-lite
+      renderer gained real `[text](url)` link support for this.
+- [x] `agents/news_agent.py` (new) - the autonomous news bot: polls a
+      fixed allowlist of 10 high-trust feeds (arXiv cs.AI/cs.LG/quant-ph,
+      MIT Technology Review, IEEE Spectrum, Ars Technica, Nature,
+      Phys.org, ECB, US Federal Reserve) across AI, quantum, technology
+      and economics. Deliberately conservative on copyright: stores and
+      shows **only headline + publisher + date + link**, never article
+      text or feed summaries - a link index with attribution, not a
+      content mirror. Every source failure is non-fatal. 57 headlines on
+      first run.
+- [x] `agents/tools_agent.py` (new) - free widgets: a Scope Creep Cost
+      Calculator and a Freelance Hourly Rate Calculator. Vanilla JS, run
+      entirely client-side, nothing transmitted or stored, and each links
+      to the relevant paid kit only *after* delivering its answer.
+- [x] New product: **Tailored Digital Product** - build-to-brief, which
+      inverts the pipeline's usual direction (demand signal -> product).
+      Fixed price agreed in a written proposal before work starts, full
+      commercial rights to the buyer, and an explicit "who this isn't
+      for" section.
+- [x] Found and fixed a real regression at source: the calculator page is
+      the one page type that bypasses `page_shell()`, so it silently lost
+      the RSS discovery link on rebuild - caught by
+      `scripts/audit_site.py`, fixed in the builder rather than patched
+      in the output. Site grew 15 -> 25 pages, audit clean.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

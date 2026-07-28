@@ -179,9 +179,36 @@ def related_links_html(current_url: str, all_pages: list[dict], limit: int = 3) 
     return f'<div class="card"><h2>More free tools</h2><ul>{items}</ul></div>'
 
 
+def _blog_entries() -> list[dict]:
+    """Blog posts for the sitemap/RSS. Local import to keep the dependency
+    one-directional at module level (blog_agent imports landing_page_agent,
+    which this module must not create a cycle with)."""
+    from agents.blog_agent import load_posts
+    from agents.tools_agent import tool_entries
+    entries = [{"url": p["url"], "title": p["title"],
+                "meta_description": p["description"], "created_at": p["date"]}
+               for p in load_posts()]
+    if entries:
+        entries.insert(0, {"url": "blog/index.html", "title": "Blog - Biznis",
+                           "meta_description": "Practical notes on freelancing, automation, "
+                           "and running a small digital product business in public.",
+                           "created_at": entries[0]["created_at"]})
+    entries += tool_entries()
+    # The news page is generated fresh every run from the allowlisted
+    # feeds; include it so crawlers see it, dated today.
+    entries.append({"url": "news/index.html",
+                    "title": "Signals - AI, quantum, technology & economy news",
+                    "meta_description": "A daily digest of AI, quantum computing, technology "
+                    "and economics headlines from primary sources.",
+                    "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%d")})
+    return entries
+
+
 def generate_sitemap(pages: list[dict]) -> None:
-    """Standard sitemap.xml. Only called when SITE_BASE_URL is set - a
-    sitemap for a URL that doesn't exist yet would be actively misleading."""
+    """Standard sitemap.xml covering the homepage, every product page, and
+    every blog page. Only called when SITE_BASE_URL is set - a sitemap for
+    a URL that doesn't exist yet would be actively misleading."""
+    pages = list(pages) + _blog_entries()
     urls = [f"{SITE_BASE_URL}/"] + [_abs_url(p["url"]) for p in pages]
     lastmods = [datetime.now(timezone.utc).strftime("%Y-%m-%d")] + [
         (p["created_at"] or "")[:10] for p in pages
@@ -217,8 +244,11 @@ def _rfc822(iso_timestamp: str) -> str:
 
 
 def generate_rss(pages: list[dict]) -> None:
-    """Standard RSS 2.0 feed, newest first. Only called when SITE_BASE_URL
-    is set, for the same reason as the sitemap."""
+    """Standard RSS 2.0 feed, newest first - product pages and blog posts
+    together (the blog index page itself is excluded; a listing page isn't
+    a feed item). Only called when SITE_BASE_URL is set, for the same
+    reason as the sitemap."""
+    pages = list(pages) + [e for e in _blog_entries() if e["url"] != "blog/index.html"]
     items = []
     for p in sorted(pages, key=lambda p: p["created_at"] or "", reverse=True):
         pub_date = _rfc822(p["created_at"])

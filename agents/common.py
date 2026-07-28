@@ -31,11 +31,15 @@ def slugify(text: str) -> str:
 
 
 # Shared visual design system for every generated page (landing_page_agent.py's
-# non-calculator pages + index, and content_agent.py's calculator tool) so
-# the whole site reads as one product, not a pile of separately-styled
-# documents. Rewritten after direct feedback that the design looked
-# "extremely bland and unprofessional," then again to be "ultra-modern":
-# gradient accents, glow/lift hover states, gradient text on the hero.
+# non-calculator pages + index, blog_agent.py's blog pages, and
+# content_agent.py's calculator tool) so the whole site reads as one
+# product, not a pile of separately-styled documents. Rewritten after
+# direct feedback that the design looked "extremely bland and
+# unprofessional," then "ultra-modern," then (2026-07-28) "monotonous and
+# dry": sticky glass header, decorative gradient orbs + a faint dot grid,
+# gradient-hairline cards, gradient-underlined headings, a stats strip,
+# and blog styles - all CSS-only, no external assets or fonts (keeps
+# pages self-contained and avoids third-party font requests entirely).
 SITE_CSS = """
   :root {
     color-scheme: light dark;
@@ -47,12 +51,19 @@ SITE_CSS = """
     --text-muted: #5b6072;
     --brand: #4f46e5;
     --brand2: #7c3aed;
+    --brand3: #db2777;
     --brand-hover: #4338ca;
     --brand-contrast: #ffffff;
+    --orb-a: rgba(124, 58, 237, 0.16);
+    --orb-b: rgba(79, 70, 229, 0.14);
+    --orb-c: rgba(219, 39, 119, 0.07);
+    --dot: rgba(20, 22, 31, 0.06);
+    --header-bg: rgba(255, 255, 255, 0.72);
     --shadow: 0 1px 2px rgba(20, 22, 31, 0.04), 0 8px 24px rgba(20, 22, 31, 0.07);
     --shadow-lg: 0 4px 10px rgba(79, 70, 229, 0.12), 0 16px 40px rgba(20, 22, 31, 0.10);
     --radius: 16px;
     --gradient: linear-gradient(135deg, var(--brand), var(--brand2));
+    --gradient-warm: linear-gradient(135deg, var(--brand2), var(--brand3));
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -64,8 +75,14 @@ SITE_CSS = """
       --text-muted: #9a9fb5;
       --brand: #818cf8;
       --brand2: #a78bfa;
+      --brand3: #f472b6;
       --brand-hover: #a5b0fb;
       --brand-contrast: #0a0b12;
+      --orb-a: rgba(124, 58, 237, 0.28);
+      --orb-b: rgba(79, 70, 229, 0.22);
+      --orb-c: rgba(219, 39, 119, 0.10);
+      --dot: rgba(241, 242, 249, 0.05);
+      --header-bg: rgba(10, 11, 18, 0.72);
       --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.4);
       --shadow-lg: 0 4px 14px rgba(129, 140, 248, 0.18), 0 20px 48px rgba(0, 0, 0, 0.45);
     }
@@ -75,23 +92,34 @@ SITE_CSS = """
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     margin: 0; background: var(--bg); color: var(--text); line-height: 1.65;
     -webkit-font-smoothing: antialiased;
-    background-image: radial-gradient(60rem 30rem at 15% -10%, rgba(124, 58, 237, 0.10), transparent 60%),
-                       radial-gradient(50rem 26rem at 100% 0%, rgba(79, 70, 229, 0.10), transparent 55%);
-    background-repeat: no-repeat;
+    background-image:
+      radial-gradient(55rem 30rem at 12% -8%, var(--orb-a), transparent 60%),
+      radial-gradient(45rem 26rem at 105% 2%, var(--orb-b), transparent 55%),
+      radial-gradient(40rem 30rem at 70% 100%, var(--orb-c), transparent 60%),
+      radial-gradient(circle at 1px 1px, var(--dot) 1px, transparent 1.5px);
+    background-size: auto, auto, auto, 26px 26px;
+    background-repeat: no-repeat, no-repeat, no-repeat, repeat;
   }
+  ::selection { background: var(--brand2); color: #fff; }
   .site-header {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--header-bg);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .site-header-inner {
     display: flex; align-items: center; justify-content: space-between;
-    max-width: 960px; margin: 0 auto; padding: 1.75rem 1.25rem 0;
+    max-width: 1080px; margin: 0 auto; padding: 0.85rem 1.25rem;
   }
   .site-header a.brand {
-    font-weight: 800; font-size: 1.2rem; color: var(--text); text-decoration: none;
+    font-weight: 800; font-size: 1.25rem; color: var(--text); text-decoration: none;
     letter-spacing: -0.03em;
   }
   .site-header a.brand span {
     background: var(--gradient); -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  .site-header nav { display: flex; gap: 1.5rem; align-items: center; }
+  .site-header nav { display: flex; gap: 1.4rem; align-items: center; }
   .site-header nav a {
     color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600;
     transition: color 0.15s ease;
@@ -101,25 +129,55 @@ SITE_CSS = """
     background: var(--gradient); color: #fff !important; padding: 0.5rem 1.1rem; border-radius: 999px;
     font-weight: 700; box-shadow: var(--shadow);
   }
-  main { max-width: 720px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+  main { max-width: 720px; margin: 0 auto; padding: 3rem 1.25rem 4rem; }
   main.wide { max-width: 1080px; }
   h1 {
-    font-size: 2.1rem; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 0.5rem;
-    line-height: 1.15;
+    font-size: clamp(2.1rem, 5vw, 2.7rem); font-weight: 800; letter-spacing: -0.035em;
+    margin: 0 0 0.5rem; line-height: 1.12; text-wrap: balance;
   }
-  h2 { font-size: 1.3rem; font-weight: 750; margin-top: 2.25rem; letter-spacing: -0.015em; }
+  h2 {
+    font-size: 1.3rem; font-weight: 750; margin-top: 2.4rem; letter-spacing: -0.015em;
+  }
+  main > h2::after, .card > h2:first-child::after {
+    content: ""; display: block; width: 44px; height: 3px; border-radius: 3px;
+    background: var(--gradient); margin-top: 0.45rem;
+  }
   h3 { font-size: 1.05rem; font-weight: 700; }
-  .subtitle { color: var(--text-muted); margin: 0 0 1.75rem; font-size: 1.08rem; }
+  .subtitle { color: var(--text-muted); margin: 0 0 1.75rem; font-size: 1.08rem; text-wrap: pretty; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.74rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--brand); border: 1px solid var(--border); border-radius: 999px;
+    padding: 0.35rem 0.9rem; margin-bottom: 1.1rem; background: var(--surface);
+  }
+  .eyebrow::before {
+    content: ""; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--gradient); box-shadow: 0 0 8px var(--brand);
+  }
   .card {
     background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
     padding: 1.6rem 1.85rem; margin: 1.5rem 0; box-shadow: var(--shadow);
+    position: relative; overflow: hidden;
   }
+  .card::before {
+    content: ""; position: absolute; inset: 0 0 auto 0; height: 3px;
+    background: var(--gradient); opacity: 0; transition: opacity 0.2s ease;
+  }
+  .card:hover::before { opacity: 1; }
   a.button, button.button {
     display: inline-block; background: var(--gradient); color: var(--brand-contrast) !important;
     padding: 0.85rem 1.75rem; border-radius: 12px; text-decoration: none; font-weight: 700;
-    font-size: 1rem; box-shadow: var(--shadow-lg); transition: transform 0.15s ease, box-shadow 0.15s ease;
+    font-size: 1rem; box-shadow: var(--shadow-lg); border: none;
+    position: relative; overflow: hidden;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  a.button::after, button.button::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.28) 50%, transparent 65%);
+    transform: translateX(-120%); transition: transform 0.5s ease;
   }
   a.button:hover, button.button:hover { transform: translateY(-2px) scale(1.015); }
+  a.button:hover::after, button.button:hover::after { transform: translateX(120%); }
   a.button.secondary, button.button.secondary {
     background: var(--surface); color: var(--text) !important; border: 1px solid var(--border);
     box-shadow: none;
@@ -129,20 +187,42 @@ SITE_CSS = """
   th, td { border: 1px solid var(--border); padding: 0.65rem 0.75rem; text-align: left; }
   th { background: var(--bg-alt); font-weight: 700; }
   blockquote {
-    background: var(--bg-alt); border-left: 3px solid var(--brand); margin: 0.9rem 0;
-    padding: 0.7rem 1.15rem; border-radius: 0 10px 10px 0;
+    background: var(--bg-alt); border-left: 3px solid transparent;
+    border-image: var(--gradient) 1; margin: 0.9rem 0;
+    padding: 0.7rem 1.15rem;
   }
   ul { padding-left: 1.3rem; }
   li { margin-bottom: 0.55rem; }
+  li::marker { color: var(--brand); }
+  a { color: var(--brand); }
+  a:hover { color: var(--brand-hover); }
   .badge {
     display: inline-block; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.05em;
     text-transform: uppercase; color: #fff; padding: 0.3rem 0.7rem; border-radius: 999px;
     margin-bottom: 0.85rem; box-shadow: 0 2px 8px rgba(0,0,0,0.12);
   }
   .section-title {
+    display: flex; align-items: center; gap: 0.7rem;
     font-size: 0.82rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--text-muted); margin: 3rem 0 0.25rem;
+    color: var(--text-muted); margin: 3.2rem 0 0.25rem;
   }
+  .section-title::before {
+    content: ""; width: 26px; height: 3px; border-radius: 3px; background: var(--gradient);
+  }
+  .section-title::after { display: none; }
+  .stats-strip {
+    display: flex; flex-wrap: wrap; gap: 1rem; margin: 2rem 0 0.5rem;
+  }
+  .stat {
+    flex: 1 1 150px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.1rem 1.3rem; box-shadow: var(--shadow);
+  }
+  .stat b {
+    display: block; font-size: 1.55rem; font-weight: 800; letter-spacing: -0.02em;
+    background: var(--gradient); -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .stat span { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
   .product-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 1.15rem; margin-top: 1.25rem;
@@ -150,9 +230,16 @@ SITE_CSS = """
   .product-card {
     display: block; background: var(--surface); border: 1px solid var(--border);
     border-radius: var(--radius); padding: 1.5rem 1.6rem; text-decoration: none; color: var(--text);
-    box-shadow: var(--shadow); transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    box-shadow: var(--shadow); position: relative; overflow: hidden;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .product-card::after {
+    content: ""; position: absolute; right: -40px; top: -40px; width: 110px; height: 110px;
+    border-radius: 50%; background: var(--gradient); opacity: 0.08;
+    transition: transform 0.25s ease, opacity 0.25s ease;
   }
   .product-card:hover { transform: translateY(-3px); border-color: var(--brand); box-shadow: var(--shadow-lg); }
+  .product-card:hover::after { transform: scale(1.5); opacity: 0.14; }
   .product-card h3 { margin: 0.55rem 0 0.4rem; font-size: 1.08rem; }
   .product-card p { margin: 0; color: var(--text-muted); font-size: 0.9rem; }
   .service-card {
@@ -169,6 +256,71 @@ SITE_CSS = """
     display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.15rem; margin-top: 1.25rem;
   }
+  .card-art {
+    display: block; width: 100%; height: 130px; border-radius: 12px;
+    margin: -0.35rem 0 1rem;
+  }
+  .post-card .card-art { height: 110px; }
+  .news-list { display: grid; gap: 0.6rem; margin-top: 1.1rem; }
+  .news-item {
+    display: flex; gap: 0.9rem; align-items: baseline;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 0.85rem 1.1rem;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .news-item:hover { border-color: var(--brand); transform: translateX(3px); }
+  .news-item a { text-decoration: none; font-weight: 650; color: var(--text); }
+  .news-item a:hover { color: var(--brand); }
+  .news-src {
+    flex: none; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--brand); white-space: nowrap;
+  }
+  .news-date { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
+  .topic-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.4rem 0 0.4rem; }
+  .topic-tab {
+    font-size: 0.78rem; font-weight: 700; text-decoration: none; color: var(--text-muted);
+    border: 1px solid var(--border); border-radius: 999px; padding: 0.35rem 0.85rem;
+    background: var(--surface);
+  }
+  .topic-tab:hover { border-color: var(--brand); color: var(--brand); }
+  .widget {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 1.5rem 1.75rem; margin: 1.5rem 0; box-shadow: var(--shadow);
+  }
+  .widget label {
+    display: block; font-weight: 600; font-size: 0.88rem; color: var(--text-muted);
+    margin: 0.9rem 0 0.3rem;
+  }
+  .widget input, .widget select {
+    width: 100%; padding: 0.65rem 0.8rem; font-size: 1rem; font-family: inherit;
+    color: var(--text); background: var(--bg); border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .widget-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+  .widget-out {
+    margin-top: 1.4rem; padding: 1.2rem 1.4rem; border-radius: 12px;
+    background: var(--gradient); color: #fff;
+  }
+  .widget-out b { display: block; font-size: 1.9rem; font-weight: 800; letter-spacing: -0.02em; }
+  .widget-out span { font-size: 0.85rem; opacity: 0.92; }
+  .widget-note { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.9rem; }
+  .post-list { display: grid; gap: 1.15rem; margin-top: 1.25rem; }
+  .post-card {
+    display: block; text-decoration: none; color: var(--text);
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 1.5rem 1.75rem; box-shadow: var(--shadow); position: relative; overflow: hidden;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .post-card:hover { transform: translateY(-3px); border-color: var(--brand); box-shadow: var(--shadow-lg); }
+  .post-card h3 { margin: 0.3rem 0 0.45rem; font-size: 1.12rem; }
+  .post-card p { margin: 0; color: var(--text-muted); font-size: 0.92rem; }
+  .post-meta {
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--brand);
+  }
+  article.post { max-width: 680px; }
+  article.post h1 { margin-top: 0.6rem; }
+  article.post .post-meta { margin-bottom: 0.2rem; }
   .contact-form label {
     display: block; font-weight: 600; font-size: 0.9rem; color: var(--text-muted);
     margin: 1rem 0 0.35rem;
@@ -183,26 +335,66 @@ SITE_CSS = """
     margin-top: 1.25rem; border: none; cursor: pointer; font-family: inherit;
   }
   .form-note { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.75rem; }
-  .hero { max-width: 680px; }
+  .hero-banner {
+    position: relative; border-radius: 20px; overflow: hidden; margin-bottom: 2.2rem;
+    box-shadow: var(--shadow-lg); border: 1px solid var(--border);
+  }
+  .hero-banner img { display: block; width: 100%; height: 280px; object-fit: cover; }
+  .hero-banner::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(105deg, rgba(79,70,229,0.72), rgba(124,58,237,0.45) 55%, rgba(219,39,119,0.30));
+  }
+  .hero-banner .hero-copy {
+    position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;
+    padding: 2.5rem 3rem; z-index: 2; color: #fff;
+  }
+  .hero-banner .hero-copy h1 {
+    color: #fff; -webkit-text-fill-color: #fff; background: none; margin-bottom: 0.6rem;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.25);
+  }
+  .hero-banner .hero-copy p {
+    margin: 0; max-width: 640px; font-size: 1.05rem; color: rgba(255,255,255,0.94);
+    text-shadow: 0 1px 12px rgba(0,0,0,0.3);
+  }
+  .hero-banner .eyebrow {
+    background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.32); color: #fff;
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  }
+  .hero-banner .eyebrow::before { background: #fff; box-shadow: 0 0 8px rgba(255,255,255,0.9); }
+  @media (max-width: 640px) {
+    .hero-banner img { height: 340px; }
+    .hero-banner .hero-copy { padding: 1.6rem 1.5rem; }
+  }
+  .hero { max-width: 720px; padding-top: 1rem; }
   .hero .subtitle { font-size: 1.15rem; }
   .hero h1 {
-    background: var(--gradient); -webkit-background-clip: text; background-clip: text;
+    background: linear-gradient(120deg, var(--text) 0%, var(--brand) 55%, var(--brand2) 100%);
+    -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent; display: inline-block;
   }
   footer {
-    max-width: 960px; margin: 3rem auto 0; padding: 1.5rem 1.25rem 2.5rem;
+    max-width: 1080px; margin: 3rem auto 0; padding: 1.5rem 1.25rem 2.5rem;
     font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border);
+    display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; align-items: center;
   }
   footer a { color: var(--text-muted); }
+  footer a:hover { color: var(--brand); }
   @media (max-width: 480px) {
     /* Found via a real mobile check: the nav link text and the "Hire us"
        pill button were each wrapping onto two lines and colliding with
        the logo on a 375px-wide screen - narrow the spacing instead of
        letting flexbox wrap mid-word. */
-    .site-header { padding: 1.25rem 1rem 0; }
-    .site-header nav { gap: 0.75rem; }
-    .site-header nav a { font-size: 0.82rem; white-space: nowrap; }
-    .site-header nav a.nav-cta { padding: 0.45rem 0.8rem; }
+    .site-header-inner { padding: 0.7rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+    .site-header nav { gap: 0.65rem; flex-wrap: wrap; }
+    .site-header nav a { font-size: 0.78rem; white-space: nowrap; }
+    .site-header nav a.nav-cta { padding: 0.4rem 0.75rem; }
+    .widget-row { grid-template-columns: 1fr; }
+    .news-item { flex-wrap: wrap; gap: 0.35rem 0.8rem; }
+    .news-item .news-date { margin-left: 0 !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    a.button::after, button.button::after { display: none; }
+    .card, .product-card, .post-card, .service-card, a.button, button.button { transition: none; }
   }
 """
 
@@ -236,6 +428,74 @@ FAVICON_DATA_URI = (
 )
 
 
+def card_art(slug: str, alt: str, seed_text: str = "", depth: int = 1) -> str:
+    """Card/hero artwork: a real photograph when we have one for this slug,
+    otherwise the generated gradient as a graceful fallback.
+
+    Photos come from agents/image_agent.py (CC0/Public-Domain only) and are
+    served from our own site/assets/img/, so a card never depends on a
+    third-party host staying up. `depth` is how many directories deep the
+    referencing page sits, so the relative path resolves from products/,
+    blog/, tools/ and news/ as well as the root.
+    """
+    from pathlib import Path as _Path
+    img_path = _Path(__file__).resolve().parent.parent / "site" / "assets" / "img" / f"{slug}.jpg"
+    if img_path.exists():
+        prefix = "../" * depth
+        return (f'<img class="card-art" src="{prefix}assets/img/{slug}.jpg" '
+                f'alt="{html.escape(alt)}" loading="lazy" decoding="async" '
+                f'width="800" height="450">')
+    return illustration_svg(seed_text or alt)
+
+
+def illustration_svg(seed_text: str, height: int = 150) -> str:
+    """A deterministic, on-brand abstract illustration for a card header.
+
+    Generated as inline SVG rather than sourced images on purpose: no
+    external requests, no licensing/attribution risk, nothing to break if
+    a CDN disappears, and every card gets a distinct-but-consistent look
+    derived from its own title. The seed only shifts hue/positions within
+    the brand's violet-indigo range, so the set still reads as one family.
+    """
+    h = 0
+    for ch in seed_text:
+        h = (h * 31 + ord(ch)) & 0xFFFFFFFF
+    # Spread across cyan -> blue -> indigo -> violet -> magenta. A narrower
+    # band (tried 232-292 first) made every card read as the same pink and
+    # drifted off the indigo brand anchor; this keeps real variety while
+    # every stop still sits in the brand's cool-to-violet family.
+    hue = 196 + (h % 118)
+    hue2 = (hue + 26 + (h >> 8) % 34)
+    cx1, cy1 = 12 + (h >> 3) % 40, 20 + (h >> 5) % 40
+    cx2, cy2 = 60 + (h >> 7) % 35, 45 + (h >> 11) % 45
+    r1, r2 = 30 + (h >> 13) % 18, 22 + (h >> 17) % 16
+    rot = (h >> 19) % 90
+    uid = f"g{h % 100000}"
+    return (
+        f'<svg class="card-art" viewBox="0 0 400 {height}" preserveAspectRatio="none" '
+        f'aria-hidden="true" xmlns="http://www.w3.org/2000/svg">'
+        f'<defs>'
+        f'<linearGradient id="{uid}a" x1="0" y1="0" x2="1" y2="1">'
+        f'<stop offset="0%" stop-color="hsl({hue},85%,62%)"/>'
+        f'<stop offset="100%" stop-color="hsl({hue2},80%,55%)"/></linearGradient>'
+        f'<radialGradient id="{uid}b"><stop offset="0%" stop-color="hsl({hue2},90%,72%)" '
+        f'stop-opacity="0.85"/><stop offset="100%" stop-color="hsl({hue2},90%,72%)" '
+        f'stop-opacity="0"/></radialGradient>'
+        f'</defs>'
+        f'<rect width="400" height="{height}" fill="url(#{uid}a)"/>'
+        f'<circle cx="{cx1 * 4}" cy="{cy1}" r="{r1 * 1.6:.0f}" fill="url(#{uid}b)"/>'
+        f'<circle cx="{cx2 * 4}" cy="{cy2}" r="{r2 * 1.4:.0f}" fill="#fff" opacity="0.10"/>'
+        f'<g transform="rotate({rot} 200 {height // 2})" opacity="0.16" stroke="#fff" '
+        f'stroke-width="1.5" fill="none">'
+        f'<circle cx="200" cy="{height // 2}" r="34"/>'
+        f'<circle cx="200" cy="{height // 2}" r="58"/>'
+        f'<circle cx="200" cy="{height // 2}" r="82"/></g>'
+        f'<path d="M0 {height} L130 {height - 46} L260 {height - 14} L400 {height - 62} '
+        f'L400 {height} Z" fill="#fff" opacity="0.09"/>'
+        f"</svg>"
+    )
+
+
 def format_badge_html(fmt: str) -> str:
     color = FORMAT_BADGE_COLORS.get(fmt, "#4b5563")
     label = fmt.replace("_", " ")
@@ -243,14 +503,23 @@ def format_badge_html(fmt: str) -> str:
 
 
 def site_header_html(active_is_index: bool = False) -> str:
-    home_href = "index.html" if active_is_index else "../index.html"
+    """Shared sticky header. Product pages and blog pages both live one
+    directory below the root (site/products/, site/blog/), so the same
+    ../-relative links work for either; only the homepage differs."""
+    prefix = "" if active_is_index else "../"
+    home_href = f"{prefix}index.html"
     services_href = "#services" if active_is_index else "../index.html#services"
     return f"""<header class="site-header">
+<div class="site-header-inner">
 <a class="brand" href="{home_href}">Biznis<span>.</span></a>
 <nav>
 <a href="{home_href}">Products</a>
+<a href="{prefix}tools/index.html">Tools</a>
+<a href="{prefix}news/index.html">Signals</a>
+<a href="{prefix}blog/index.html">Blog</a>
 <a class="nav-cta" href="{services_href}">Hire us</a>
 </nav>
+</div>
 </header>"""
 
 
@@ -316,14 +585,27 @@ def marketing_blurb(term: str, format_: str, monetized: bool = False) -> str:
 
 _BOLD_RE = re.compile(r"\*\*(.+?)\*\*")
 _ITALIC_RE = re.compile(r"(?<!\*)\*([^*\n]+?)\*(?!\*)")
+# [text](https://...) or [text](../relative/path.html). Applied after
+# html.escape(), so brackets/parens are still literal characters. Only
+# http(s) and site-relative .html targets - no javascript: etc.
+_LINK_RE = re.compile(r"\[([^\]]+)\]\((https?://[^)\s]+|[a-zA-Z0-9_./#-]+\.html(?:#[\w-]*)?)\)")
+
+
+def _link_sub(match: "re.Match[str]") -> str:
+    text, href = match.group(1), match.group(2)
+    # External links open in a new tab; internal (relative) links don't.
+    extra = ' target="_blank" rel="noopener"' if href.startswith("http") else ""
+    return f'<a href="{href}"{extra}>{text}</a>'
 
 
 def _inline_emphasis(escaped_text: str) -> str:
-    """Convert **bold** and *italic* to <strong>/<em>, applied *after*
-    html.escape() so the asterisks (not HTML-special) are untouched by
-    escaping but the tags we insert are real markup, not escaped text.
-    Found this gap by shipping content that used *italic* emphasis and
-    seeing literal asterisks on the live page."""
+    """Convert **bold**, *italic* and [text](url) links to real markup,
+    applied *after* html.escape() so the punctuation (not HTML-special) is
+    untouched by escaping but the tags we insert are real markup, not
+    escaped text. Found this gap by shipping content that used *italic*
+    emphasis and seeing literal asterisks on the live page; link support
+    added for the blog, which curates external resources."""
+    escaped_text = _LINK_RE.sub(_link_sub, escaped_text)
     escaped_text = _BOLD_RE.sub(r"<strong>\1</strong>", escaped_text)
     escaped_text = _ITALIC_RE.sub(r"<em>\1</em>", escaped_text)
     return escaped_text

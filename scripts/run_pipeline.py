@@ -17,9 +17,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from agents import (competitor_agent, content_agent, demand_scoring_agent,
-                     keyword_agent, landing_page_agent, market_research_agent,
-                     niche_agent, product_agent, scoreboard_agent, seo_agent)
+from agents import (blog_agent, competitor_agent, content_agent, demand_scoring_agent,
+                     image_agent, keyword_agent, landing_page_agent, market_research_agent, news_agent,
+                     niche_agent, product_agent, scoreboard_agent, seo_agent, tools_agent)
 from agents.common import now_iso
 from core.db import get_connection
 
@@ -84,7 +84,11 @@ def main() -> int:
     demand_scoring_agent.apply_competition(run_id)
     product_agent.run(run_id)
     content_agent.run(run_id)
+    image_agent.run()
     landing_page_agent.run(run_id)
+    blog_agent.run()
+    tools_agent.run()
+    news_agent.run()
     seo_agent.run(run_id)
     scoreboard_agent.run(run_id)
     report_path = export_report(run_id)
