@@ -1057,6 +1057,16 @@ one-by-one - so this gets wired in as a single batch.
       on a new property (same account-level verification tag, so it's
       Add property -> Verify -> resubmit sitemap -> re-request the 3
       pages, ~3 min of the user's time).
+- [x] Follow-up completed same day: user created and verified the new
+      property and submitted the sitemap; its "Couldn't fetch" status
+      was diagnosed again as the known pre-first-fetch transient (file
+      re-verified live: 200, valid XML, 15 URLs - correct `/sitemap.xml`
+      path, empty "Last read"), not resubmitted repeatedly. All 3 key
+      pages (homepage + both $29 kits) re-requested for indexing on the
+      new property - each confirmed "Indexing requested - URL was added
+      to a priority crawl queue". The migration is now fully complete;
+      the next signal to watch is Search Console's first real
+      crawl/index data in the coming days.
 
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
