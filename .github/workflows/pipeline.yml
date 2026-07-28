@@ -46,8 +46,34 @@ jobs:
           git config user.name "biznis-bot"
           git config user.email "actions@users.noreply.github.com"
           git add db/biznis.sqlite3 db/indexnow_key.txt data/exports site
-          git diff --cached --quiet || git commit -m "chore: pipeline run $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          git push
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+            exit 0
+          fi
+          git commit -m "chore: pipeline run $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+          # A bare `git push` here fails the whole run - deploy included -
+          # whenever anyone pushes while the pipeline is mid-flight, which
+          # is a normal thing to do and happened repeatedly during a
+          # working session. Retry on top of whatever landed meanwhile.
+          for attempt in 1 2 3; do
+            if git push; then
+              echo "Pushed on attempt $attempt."
+              exit 0
+            fi
+            echo "Push rejected (attempt $attempt) - rebasing onto origin/main."
+            if ! git pull --rebase origin "${GITHUB_REF_NAME}"; then
+              # Conflicts here are between two sets of generated artefacts.
+              # Resolving them blindly could discard real work, so abort and
+              # let this run's commit go. Everything committed here is
+              # regenerated from source on the next run, and the deploy step
+              # below still publishes the site built in this run.
+              git rebase --abort || true
+              echo "::warning::Rebase conflicted; skipping this run's commit. Deploy continues."
+              exit 0
+            fi
+          done
+          echo "::warning::Could not push after 3 attempts. Deploy continues."
 
       - uses: actions/upload-pages-artifact@v3
         with:
