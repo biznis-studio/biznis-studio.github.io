@@ -109,8 +109,8 @@ QUERIES = {
     "news-technology": ["circuit board", "electronics chip", "computer hardware"],
     "news-economy": ["stock market chart", "financial chart graph", "trading screen"],
     # --- homepage hero ---
-    "hero": ["freelancer working laptop coffee shop", "person working laptop desk bright",
-             "modern workspace laptop notebook"],
+    # User picked this one explicitly - do not change the query without asking.
+    "hero": ["office workspace desk", "modern office interior", "desk laptop window"],
 }
 
 
