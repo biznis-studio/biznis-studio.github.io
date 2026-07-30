@@ -33,10 +33,15 @@ that frustrates people.
 ## Honest expectations
 
 This is a new service offering, same as the website design service above
-- no long track record to point to yet. What's true regardless: this
-entire site was itself planned, built, and refined using AI-assisted
-tooling by the same person offering to build yours, so the process
-being offered is a real, currently-in-use one, not theoretical.
+- no long track record to point to yet. What you can evaluate instead:
+this entire site, its products and the system that publishes it were
+built by the same people offering to build yours, and all of it is
+public and inspectable.
+
+One practical point stated up front: a chatbot needs access to a language
+model, which is a paid third-party service billed per use. That account
+stays in your name and you pay for it directly - we never put your usage
+on our billing, and you are never locked into us to keep it running.
 
 A chatbot is only as good as its scope - it works best for well-defined,
 repeatable questions, not as a stand-in for a person handling every

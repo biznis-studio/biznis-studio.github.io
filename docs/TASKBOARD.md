@@ -1303,6 +1303,55 @@ one-by-one - so this gets wired in as a single batch.
       brand refinement - offered without refusing the branding work, which
       was small and worth finishing.
 
+## Done (iteration 53) — capability audit: only offer what can actually be delivered
+- [x] User instruction, and a serious one: **only offer services we can
+      genuinely deliver ourselves, with light help at most.** Audited all
+      four existing services against real capability rather than assuming
+      the copy was fine because it read well.
+- [x] Reassessed direction on real data first, not from the armchair.
+      Decisive finding: Gumroad shows **0 views**, not just 0 sales. Zero
+      sales at zero views is not a product, price, copy or design problem -
+      nobody has arrived. Everything this session polished sits downstream
+      of a gate that has not opened. Also relevant: the project is 4 days
+      old and the domain changed 2 days ago, so Search Console is still
+      processing and has no data at all. "We are at zero" is currently the
+      absence of evidence, not evidence of failure.
+- [x] Surfaced a real blocker found in the dashboard: Gumroad reports
+      **identity verification failed** ("The identity information you
+      entered cannot be verified"). Payouts are blocked until the user
+      fixes it - a sale today could not reach him. User action, flagged
+      rather than attempted.
+- [x] **Design service rewritten to match actual capability.** It had
+      promised hand illustration, spot artwork, icon sets "drawn to fit",
+      and "layered source files" - none of which can be honestly
+      delivered. Now states precisely what is delivered and in which
+      formats (SVG vector logos, colour/type systems as a written guide
+      *and* a working stylesheet, web/UI designed directly in real
+      HTML/CSS rather than as a picture of a website, marketing graphics,
+      PDF/PPTX decks, SVG icon sets), plus an explicit **"What we do not
+      offer"** section: no hand illustration or character art, no
+      photography, no print/CMYK/prepress, no layered PSD or Figma source.
+- [x] **Added Automation & Integrations** as a real service. It was named
+      in the homepage hero with nothing to click - a claim with no page
+      behind it - and it is the capability this operation can deliver most
+      reliably. Includes its own honest limits: no managed 24/7 ops, no
+      automating anything needing credentials/payment authority/legal
+      identity, no bypassing services whose terms forbid automation, no
+      enterprise platform work. Also says plainly that a task taking ten
+      minutes a month is not worth automating.
+- [x] **Website service**: added what it does not cover - no web apps with
+      accounts and a database, no direct card-payment shops (integrate an
+      existing checkout instead, merchant account stays the client's), no
+      content-update retainers.
+- [x] **Chatbot service**: stated up front that a chatbot needs a paid
+      third-party language model account which stays in the client's name
+      and is billed to them directly - no hidden dependency on us. Also
+      reworded the AI-tooling credibility line per the standing
+      instruction not to advertise that angle.
+- [x] Five services now, each with an explicit boundary. A studio that
+      claims everything is useless to a buyer - the "what we do not offer"
+      sections are what make the rest credible.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

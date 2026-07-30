@@ -16,6 +16,20 @@ functional, and without unnecessary bloat.
   search engines can actually understand your site
 - Deployed and working - not just a design file handed over at the end
 
+## What this does not cover
+
+Stated plainly, because a studio that claims everything is useless to you:
+
+- **Web applications with user accounts, logins and a database** behind
+  them. Marketing sites, product sites, landing pages and interactive
+  browser tools, yes. A SaaS product, no.
+- **Online shops taking card payments directly.** We integrate an
+  existing checkout - Gumroad, Stripe Payment Links, Lemon Squeezy - but
+  the merchant account is yours, in your name, and the payment provider
+  handles the money and the tax.
+- **Ongoing content updates as a retainer.** You get a site you can edit,
+  and documentation for how.
+
 ## Who this is for
 
 Small businesses, freelancers, and solo founders who need a real,
