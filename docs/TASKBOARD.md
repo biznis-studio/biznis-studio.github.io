@@ -1437,6 +1437,39 @@ one-by-one - so this gets wired in as a single batch.
 - [x] Verified by grep that no builder-speak survived the rewrite on
       either page.
 
+## Done (iteration 56) — corrected my own over-broad SEO conclusion, found the winnable half
+- [x] Dropped the repeated KYC/payout mention at the user's direct
+      instruction. I had verified myself that it has no bearing on demand
+      or traffic, then kept raising it in closing summaries anyway. Fair
+      correction.
+- [x] More importantly, corrected a reasoning error of my own: the
+      previous iteration concluded from **one** saturated SERP that SEO
+      could not deliver the first customer. That generalised from a single
+      data point.
+- [x] Second check changed the conclusion. "email to client about scope
+      creep what to say" returns replyguard.ai, two Reddit threads,
+      whereismyproject.com, a personal blog and kitchen.co - no
+      incumbents, no dedicated tools. Winnable.
+- [x] **The real pattern:** tool/calculator queries in this niche are
+      owned by established players; *conversational* queries ("what do I
+      say", "how do I tell a client") are served only by forum threads and
+      small blogs. Conversational queries are exactly what this catalogue
+      answers, because what we sell is scripts. We had been aiming at the
+      wrong half of the keyword space.
+- [x] Also exposed a funnel mismatch: the Scope Creep Kit page contains
+      the answer to those queries but gates it behind a purchase. A
+      searcher wants the answer, not a buying decision - so a gated
+      product page will not win an informational query no matter how good
+      it is.
+- [x] Published `blog/what-to-say-scope-creep.html` targeting that gap:
+      three complete, genuinely usable scripts given away free, structured
+      around Google's own "People also ask" questions (how to tell a
+      client something is out of scope, what to say when they call it
+      small, a better way to say "scope creep"), plus the tracking habit
+      that makes the wording stick. Routes to the kit only for the
+      moments it does not cover, and says plainly that if the free scripts
+      solve your problem you need nothing else from us.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

@@ -118,3 +118,34 @@ is now resolved and was not the real limit.**
   search, it is verifiable proof of capability for the services - which
   are worth 100x per sale and are bought via outreach and portfolio, not
   via a keyword.
+
+### Same-day correction: the SEO conclusion above was drawn too broadly
+
+The entry above concluded from **one** saturated SERP that SEO cannot
+deliver the first customer. That over-generalised from a single data
+point, which is exactly the reasoning error this log exists to catch.
+
+A second check changes the picture. Searching
+"email to client about scope creep what to say" returns a first page of
+**replyguard.ai, two Reddit threads, whereismyproject.com, a personal
+blog and kitchen.co** - no Harvest, no established SaaS, no dedicated
+tool. That is a winnable page.
+
+**The real pattern, stated properly:** *tool and calculator* queries in
+this niche are saturated by incumbents with years of authority.
+*Conversational* queries - "what do I say", "how do I tell a client" -
+are not, because they are served by forum threads and small blogs. And
+conversational queries are precisely what this catalogue answers, since
+what we sell is scripts.
+
+This also exposes a structural problem in our own funnel: the Scope Creep
+Kit page *contains* the answer to those queries, but gates it (one script
+visible, the rest locked). A gated product page is a poor match for an
+informational search - a searcher wants the answer, not a purchase
+decision. The fix is free content that genuinely answers the query and
+routes to the kit for the complete system, which is now published as
+`blog/what-to-say-scope-creep.html` with three complete, usable scripts
+given away.
+
+**Constraint restated:** not "SEO is unwinnable" but "we were aiming at
+the wrong half of the keyword space".
