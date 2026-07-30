@@ -101,6 +101,8 @@ QUERIES = {
         "design studio sketches branding", "designer desk colour swatches"],
     "tailored-digital-product": ["designer sketching workspace", "blueprint design desk", "creative studio desk"],
     # --- blog ---
+    "telling-clients-rate-increase": ["business handshake agreement office",
+        "person writing notes desk meeting", "professional discussion two people"],
     "what-to-say-scope-creep": ["person typing laptop email", "writing email keyboard hands",
         "person working laptop message"],
     "scope-creep-by-the-numbers": ["calculator money", "coins calculator", "finance desk"],
