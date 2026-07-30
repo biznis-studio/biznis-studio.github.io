@@ -1,6 +1,6 @@
 {
   "run_id": 35,
-  "generated_at": "2026-07-29T13:10:46.514020+00:00",
+  "generated_at": "2026-07-30T04:59:23.206613+00:00",
   "run_status": "success",
   "signals_by_source": {
     "github": 30,
@@ -26,28 +26,21 @@
     },
     {
       "term": "@e965/xlsx",
-      "score": 0.5424899999999999,
+      "score": 0.54918,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
       "term": "@accounter/green-invoice-graphql",
-      "score": 0.53583,
+      "score": 0.5291699999999999,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
       "term": "sms-segments-calculator",
-      "score": 0.53543,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
-    },
-    {
-      "term": "@ai-sdk/google",
-      "score": 0.46001,
+      "score": 0.52874,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
@@ -60,6 +53,13 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
+      "term": "xhamster",
+      "score": 0.45847000000000004,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
       "term": "react-spreadsheet",
       "score": 0.45751000000000003,
       "breadth_component": 0.2,
@@ -67,8 +67,22 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "@ai-sdk/react",
-      "score": 0.44666,
+      "term": "zendaya",
+      "score": 0.45572,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "@ai-sdk/google",
+      "score": 0.4377777777777778,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@ai-sdk/gateway",
+      "score": 0.4288888888888889,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
@@ -81,13 +95,6 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "odyssey",
-      "score": 0.42222,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"wikipedia_pageviews\"]"
-    },
-    {
       "term": "automation",
       "score": 0.42168,
       "breadth_component": 0.2,
@@ -95,14 +102,14 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "@ai-sdk/gateway",
+      "term": "@firebase/ai",
       "score": 0.42000000000000004,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": ".xyz",
+      "term": "odyssey",
       "score": 0.41586,
       "breadth_component": 0.2,
       "growth_component": 0.5,
@@ -116,22 +123,22 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "@firebase/ai",
+      "term": "@ai-sdk/react",
       "score": 0.4111111111111111,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "spreadsheet",
-      "score": 0.405845,
+      "term": "automation-events",
+      "score": 0.41083,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "automation-events",
-      "score": 0.40417,
+      "term": "spreadsheet",
+      "score": 0.40999500000000005,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
@@ -144,6 +151,13 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
+      "term": ".xxx",
+      "score": 0.4012765957446809,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
       "term": "productivity",
       "score": 0.3933333333333333,
       "breadth_component": 0.2,
@@ -151,8 +165,15 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": ".xxx",
+      "term": "limonene",
       "score": 0.39276595744680853,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": ".xyz",
+      "score": 0.39033,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"wikipedia_pageviews\"]"
@@ -160,27 +181,6 @@
     {
       "term": "media-engine",
       "score": 0.3844444444444445,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
-    },
-    {
-      "term": "zendaya",
-      "score": 0.3842553191489362,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"wikipedia_pageviews\"]"
-    },
-    {
-      "term": "invoice",
-      "score": 0.38166,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
-    },
-    {
-      "term": "@rytass/invoice",
-      "score": 0.37555555555555553,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
