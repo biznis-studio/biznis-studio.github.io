@@ -1403,6 +1403,40 @@ one-by-one - so this gets wired in as a single batch.
       every run's outcome - success and failure - is visible and always
       current.
 
+## Done (iteration 55) — rewrote Work and the homepage stats for buyers, not builders
+- [x] User read the new Work page and called it correctly: it was full of
+      things that flatter whoever built them and mean nothing to a
+      customer - page counts, "static HTML with no framework, no build
+      step", lines of Python, signal totals, unattended-run counts. A
+      client evaluating a studio is asking one question, and none of that
+      answered it.
+- [x] Rewrote the page so every section follows the same shape: **what we
+      built -> try it yourself -> what this means for your project.** The
+      technical facts either became a benefit or were deleted:
+      - "25 pages, static HTML, no framework" -> "a finished website, not
+        a mockup - this is the standard you get, live and working, not a
+        design file for somebody else to build"
+      - "7,642 signals, 4,933 lines of Python, 33 runs" -> "software that
+        runs without anyone touching it... if there is something you do by
+        hand every week, this is what replacing it looks like"
+      - the calculators reframed around why a client would want one (an
+        interactive tool is one of the few things that gets shared and
+        linked to on its own)
+      - the design section now promises the *rules and a stylesheet*, not
+        just a logo, which is the actual client pain
+- [x] Same fix on the homepage: the stats strip was internal machinery
+      ("market signals analyzed", "keywords demand-scored"). Replaced with
+      the terms of doing business, which is what a buyer weighs - fixed
+      price agreed in writing, full rights and source files, delivered
+      live rather than as a file, everything public to try first.
+- [x] Kept both honesty sections deliberately - "Read this first" (this is
+      our own project, not client work) and "What this does not prove"
+      (building for yourself is not building for a client; the first
+      client takes that partly on trust, and a fixed written price is what
+      we put against it). Those are the reason the rest is believable.
+- [x] Verified by grep that no builder-speak survived the rewrite on
+      either page.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

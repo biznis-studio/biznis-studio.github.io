@@ -414,91 +414,98 @@ def _product_card(p: dict) -> str:
 
 
 def build_work_page(stats: dict) -> None:
-    """Proof-of-capability page.
+    """Proof-of-capability page, written for a buyer rather than a builder.
 
-    Services are bought on evidence, and there are no clients yet to point
-    at. What does exist is this operation's own work - a live site, a
-    scheduled pipeline, working tools, public source - all of it
-    inspectable by anyone in about a minute. That is a weaker signal than
-    client testimonials but a much stronger one than a promise, and it is
-    the honest thing available. The page says plainly that this is our own
-    project, not client work.
+    First version of this page listed page counts, lines of code and
+    signal totals - facts that impress the person who wrote them and mean
+    nothing to someone deciding whether to hire us. Rewritten so every
+    section answers the only question a client actually has: what does
+    this mean for my project.
     """
-    body = f"""<span class="eyebrow">Proof, not promises</span>
+    body = f"""<span class="eyebrow">See it before you buy it</span>
 <h1>Work</h1>
-<p class="subtitle">We are new, so there is no client list to show you. Instead, here is
-everything we have built for ourselves - live, working, and open to inspection. Every
-claim on this page is something you can click and check.</p>
+<p class="subtitle">We are new, so there is no client list. What there is instead: everything
+on this site was designed and built by us, it is all live, and you can try any of it right
+now without talking to anyone. That is a harder thing to fake than a testimonial.</p>
 
 <div class="card">
 <h2>Read this first</h2>
 <p>This is our own project, not client work, and we are not going to dress it up as
-anything else. No logos of companies we have not worked with, no invented testimonials,
-no case studies about results that did not happen.</p>
-<p>What it does show is how we work: the design decisions, the code quality, the honesty
-of the copy, and whether the things we build actually run. Judge it on that.</p>
+anything else. No logos of companies we have never worked with, no invented testimonials,
+no case studies describing results that did not happen.</p>
+<p>What it does show you is the standard of the work, the judgement behind it, and whether
+the things we build actually run. That is what we are asking you to judge.</p>
 </div>
 
-<h2>This website</h2>
-<p>{stats['pages']} pages, built as static HTML with no framework, no build step and no
-third-party fonts or scripts. Loads fast, works without JavaScript for everything except
-the calculators, adapts to light and dark mode, and is designed mobile-first.</p>
-<p>The visual identity - colour system, typography, the glass treatment, the illustration
-sourcing - was designed here, not bought as a theme.
-<a href="index.html">Look around it</a>, or
-<a href="https://github.com/biznis-studio/biznis-studio.github.io" target="_blank" rel="noopener">read
-the source</a>.</p>
+<h2>A finished website, not a mockup</h2>
+<p>The site you are on is the work sample. Product pages, a blog, interactive tools,
+working contact forms, a news section that updates itself, light and dark mode, and it is
+built to be fast on a phone first.</p>
+<p><strong>What this means for you:</strong> if you hire us for a website, this is the
+standard you get - a real site that is live and working, not a design file handed over for
+somebody else to build. <a href="index.html">Have a look around it.</a></p>
 
-<h2>An automation that runs unattended</h2>
-<p>The site is not maintained by hand. A scheduled pipeline runs every day on its own:
-it collects market signals from public APIs, scores them, generates and publishes pages,
-rebuilds the sitemap and feeds, gathers a news digest from a fixed list of trusted
-sources, and audits its own output for broken links and missing metadata before
-publishing.</p>
-<div class="stats-strip">
-<div class="stat"><b>{stats['signals']:,}</b><span>signals collected from public APIs</span></div>
-<div class="stat"><b>{stats['runs']}</b><span>unattended pipeline runs</span></div>
-<div class="stat"><b>{stats['loc']:,}</b><span>lines of Python, all public</span></div>
-<div class="stat"><b>{stats['products']}</b><span>products published by it</span></div>
-</div>
-<p class="form-note">Not every run has succeeded. Failures happened, were diagnosed, and
-were fixed at the source rather than papered over - the
-<a href="https://github.com/biznis-studio/biznis-studio.github.io/actions" target="_blank" rel="noopener">outcome
-of every single run is public</a>, successes and failures alike, as is the commit that
-fixed each one. A pipeline that has never failed is usually a pipeline that has never run.</p>
+<h2>Software that runs without anyone touching it</h2>
+<p>This site largely maintains itself. Every day it gathers fresh material, publishes it,
+rebuilds its own navigation and feeds, and checks its own pages for broken links before
+anything goes live. Nobody logs in to make that happen. The
+<a href="news/index.html">Signals page</a> is the visible end of it - those headlines
+arrived on their own.</p>
+<p><strong>What this means for you:</strong> if there is something you or your team do by
+hand every week - moving data between systems, rebuilding the same report, checking a
+source for changes - this is what replacing it looks like in practice.</p>
 
-<h2>Working tools, not mockups</h2>
-<p>Two free browser calculators that do real arithmetic, store nothing, send nothing, and
-need no signup: a <a href="tools/scope-creep-cost-calculator.html">scope creep cost
-calculator</a> and a <a href="tools/freelance-rate-calculator.html">freelance rate
-calculator</a>. Open one and check the maths yourself.</p>
+<h2>Tools your customers can actually use</h2>
+<p>Two free calculators that do real work in the browser: a
+<a href="tools/scope-creep-cost-calculator.html">scope creep cost calculator</a> and a
+<a href="tools/freelance-rate-calculator.html">freelance rate calculator</a>. No signup,
+nothing stored, nothing sent anywhere. Open one and check the arithmetic yourself.</p>
+<p><strong>What this means for you:</strong> an interactive tool is one of the few things
+that gets shared and linked to on its own. If you want one for your customers - a quote
+estimator, a sizing guide, a savings calculator - these are working examples of the
+quality.</p>
 
-<h2>Digital products</h2>
-<p>{stats['products']} finished products - script kits, templates, checklists, a guide and
-an interactive calculator - each written as a complete, usable deliverable rather than a
-sample. <a href="index.html">See the catalogue</a>; most are free to download and read in
-full.</p>
+<h2>Finished deliverables, not samples</h2>
+<p>{stats['products']} completed digital products: script kits, templates, checklists, a
+guide, an interactive calculator. Each one written as something a person can pick up and
+use, not as a demonstration. Most are free and readable in full without giving us an email
+address.</p>
+<p><strong>What this means for you:</strong> you can judge the writing, the depth and the
+level of care before you ever contact us. <a href="index.html">Read any of them.</a></p>
 
-<h2>Written content</h2>
-<p>Articles written to be genuinely useful rather than to hit a keyword, with sources
-linked and no affiliate links anywhere. <a href="blog/index.html">Read the blog</a>.</p>
+<h2>A visual identity applied consistently</h2>
+<p>The logo, colour system, typography and layout rules here were designed for this
+project, then applied across every single page - including the ones generated
+automatically. Light and dark variants throughout, because roughly half of any audience
+sees the dark one.</p>
+<p><strong>What this means for you:</strong> we do not just make a logo and leave you to
+work out how to use it. You get the rules and a working stylesheet, so everything made
+later still looks like you.</p>
 
 <div class="card">
 <h2>What this does not prove</h2>
-<p>Building well for yourself is not the same as building well for a client, where the
-hard parts are understanding someone else's business, scoping honestly, and communicating
-during the work. We have not demonstrated that here, and the first client will be taking
-that on trust.</p>
-<p>What we can offer against it: a fixed price agreed in writing before anything starts,
-so the risk of a scope you did not agree to is ours, not yours.</p>
+<p>Building well for ourselves is not the same as building well for a client. The hard
+parts of client work are understanding someone else's business, scoping it honestly, and
+communicating while the work is happening. None of that is demonstrated here, and the
+first client takes it partly on trust.</p>
+<p>What we put against that: a fixed price and a written scope agreed before anything
+starts. If the work turns out harder than we estimated, that is our problem, not a
+surprise on your invoice.</p>
 </div>
 
-<p><a class="button" href="index.html#services">See what we build</a></p>"""
+<div class="stats-strip">
+<div class="stat"><b>Fixed</b><span>price agreed in writing before work starts</span></div>
+<div class="stat"><b>Yours</b><span>full rights and source files, no ongoing fees</span></div>
+<div class="stat"><b>2</b><span>revision rounds included as standard</span></div>
+<div class="stat"><b>Live</b><span>delivered working and deployed, not as a file</span></div>
+</div>
+
+<p style="margin-top:2rem"><a class="button" href="index.html#services">See what we build</a></p>"""
 
     (SITE_DIR / "work.html").write_text(page_shell(
         "Work - Biznis",
-        "Everything we have built so far: a live site, an unattended pipeline, working "
-        "tools and open source. Proof you can click and check.",
+        "Everything on this site was designed and built by us, and it is all live. "
+        "Try any of it before you talk to us.",
         body, is_index=True))
 
 
@@ -574,16 +581,18 @@ def build_index(pages: list[dict], stats: Optional[dict] = None) -> None:
     # Stats strip: real counts from the DB only - the whole point is that
     # these are honest, verifiable numbers (the repo is public), never
     # marketing-inflated ones.
-    stats_html = ""
-    if stats:
-        stats_html = (
-            '<div class="stats-strip">'
-            f'<div class="stat"><b>{stats["signals"]:,}</b><span>market signals analyzed</span></div>'
-            f'<div class="stat"><b>{stats["keywords"]}</b><span>keywords demand-scored</span></div>'
-            f'<div class="stat"><b>{stats["products"]}</b><span>products built &amp; published</span></div>'
-            '<div class="stat"><b>100%</b><span>open source, built in public</span></div>'
-            "</div>"
-        )
+    # These used to be internal counters - signals collected, keywords
+    # scored - which flatter the person who built the pipeline and mean
+    # nothing to someone deciding whether to hire us. Replaced with the
+    # terms of doing business, which is what a buyer is actually weighing.
+    stats_html = (
+        '<div class="stats-strip">'
+        '<div class="stat"><b>Fixed price</b><span>agreed in writing before any work starts</span></div>'
+        '<div class="stat"><b>You own it</b><span>full rights and source files, no ongoing fees</span></div>'
+        '<div class="stat"><b>Live, not a file</b><span>delivered working and deployed</span></div>'
+        '<div class="stat"><b>Try it first</b><span>everything we have built is public</span></div>'
+        "</div>"
+    )
 
     posts = load_posts()[:3]
     blog_section = ""
