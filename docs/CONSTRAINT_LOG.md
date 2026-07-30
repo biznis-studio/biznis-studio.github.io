@@ -73,3 +73,48 @@ immediately - don't keep working on yesterday's bottleneck out of momentum.
   rate, or conversion once visits exist) has taken its place. Don't wait
   for the full weekly Strategic Review if this resolves sooner - a
   constraint change updates this log immediately.
+
+## 2026-07-30 — constraint changed: not discovery, but *winnability*
+
+**Previous entry named discovery (0 indexed pages) as the constraint. That
+is now resolved and was not the real limit.**
+
+- **Evidence gathered, not assumed.** Gumroad: 0 sales *and 0 views* -
+  nobody reached the page, so this was never a conversion, price, copy or
+  design problem. Product pages verified live and purchasable by direct
+  test (price shown, buy button active, not disabled, no warning), which
+  also disproves the hypothesis that the failed Gumroad identity
+  verification was suppressing sales - that blocks payouts only.
+  `site:biznis-studio.github.io` on Google returns real results, indexed
+  one day ago. So: indexed, reachable, purchasable, and still zero.
+
+- **The actual constraint.** A manual SERP check for
+  "scope creep cost calculator freelance" - the query our most
+  differentiated free tool targets - returns a full first page of
+  established competitors: Sengi, Teamz Lab, AI Biz Hub, **Harvest** (a
+  major time-tracking SaaS), Invopoint, Jobbers, Agiled. Seven existing
+  calculators for the same job. A 4-day-old domain with zero backlinks
+  does not out-rank those, this year or possibly ever.
+
+- **What this exposes in the system itself.** `demand_scoring_agent`
+  measures *interest* and calls it opportunity. The competition component
+  is derived from GitHub/npm/Stack Exchange density, which iteration 3
+  already recorded as a poor proxy for consumer-content saturation. That
+  caveat now has a concrete, costly example: the pipeline happily built
+  products for a category owned by incumbents, because nothing in it ever
+  asks "could we actually rank for this?"
+
+- **Honest limit on fixing it automatically.** A winnability check needs
+  real SERP data. Scraping Google is against its terms and gets blocked;
+  proper SERP APIs are paid. So this cannot be closed inside the
+  unattended pipeline for free - it has to be a manual check during a
+  working session, exactly as done here. Recording that rather than
+  pretending an automated fix is coming.
+
+- **Consequence for strategy.** SEO cannot be the acquisition mechanism
+  for the first customer. It stays running (it is automated and costs
+  nothing) but is demoted from *the plan* to *background*. The catalogue's
+  role changes: it is no longer the thing being sold to strangers via
+  search, it is verifiable proof of capability for the services - which
+  are worth 100x per sale and are bought via outreach and portfolio, not
+  via a keyword.

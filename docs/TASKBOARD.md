@@ -1352,6 +1352,57 @@ one-by-one - so this gets wired in as a single batch.
       claims everything is useless to a buyer - the "what we do not offer"
       sections are what make the rest credible.
 
+## Done (iteration 54) — found the real cause of zero traffic, and it is not what we assumed
+- [x] User challenged the assumption directly: is the failed Gumroad
+      identity verification actually the cause of zero visits? Tested it
+      rather than reasoned about it. **No.** Product pages load for a
+      visitor, price displays, the buy button is present and not disabled,
+      no warning banner - the products are purchasable. Verification
+      blocks *payouts*, not sales or visibility. Good challenge; the
+      original framing would have sent effort at the wrong thing.
+- [x] Also disproved the next assumption: the site **is** indexed. A
+      `site:` query on Google returns real results, crawled a day earlier.
+      So: indexed, reachable, purchasable - and still zero views.
+- [x] **The actual cause, found by checking a real SERP.** Searching the
+      exact query our best free tool targets - "scope creep cost
+      calculator freelance" - returns a first page owned by established
+      competitors: Sengi, Teamz Lab, AI Biz Hub, **Harvest** (a major
+      time-tracking SaaS), Invopoint, Jobbers, Agiled. Seven existing
+      calculators for the same job. A 4-day-old domain with zero backlinks
+      does not out-rank that. Being indexed is worthless on page five.
+- [x] **This exposes a real flaw in the pipeline, not just bad luck.**
+      `demand_scoring_agent` measures interest and treats it as
+      opportunity. Its competition component comes from GitHub/npm/Stack
+      Exchange density, which iteration 3 already flagged as a poor proxy
+      for consumer-content saturation - that caveat now has a concrete,
+      expensive example. Nothing in the system ever asks "can we actually
+      rank for this?"
+- [x] Recorded the honest limit rather than promising a fix: closing that
+      gap needs real SERP data, and scraping Google violates its terms
+      while proper SERP APIs are paid. So winnability stays a manual check
+      during working sessions. Logged in `docs/CONSTRAINT_LOG.md` with the
+      full evidence chain.
+- [x] **Strategic consequence, acted on.** SEO is demoted from *the plan*
+      to *background* - it is automated and free, so it keeps running, but
+      it cannot deliver the first customer. The catalogue's role changes
+      from "product sold to strangers via search" to "verifiable proof of
+      capability" for the services, which are worth far more per sale and
+      are bought on evidence and outreach.
+- [x] Built `/work.html` as that proof: the site, the unattended pipeline,
+      the working tools, the products, the public source - each one
+      clickable and checkable. Leads with an explicit statement that this
+      is our own project and not client work, and closes with **"What this
+      does not prove"**, conceding that building well for yourself is not
+      the same as building well for a client, and offering fixed price
+      agreed in writing as the way to carry that risk for the buyer.
+      Added to the nav in first position.
+- [x] Caught myself publishing an unverified figure: I had hardcoded "85%
+      of runs completed successfully" as a guess. The real number was 92%.
+      Rather than correct a number that would silently rot, removed the
+      percentage entirely and linked the public Actions history, where
+      every run's outcome - success and failure - is visible and always
+      current.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

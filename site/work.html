@@ -2,11 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>The Practical Guide to XLSX</title>
+<title>Work - Biznis</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="A fast, practical guide to XLSX - no fluff, just what actually works.">
+<meta name="description" content="Everything we have built so far: a live site, an unattended pipeline, working tools and open source. Proof you can click and check.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234f46e5'/%3E%3Ctext x='32' y='44' font-family='Arial,sans-serif' font-size='34' font-weight='800' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
 <meta name="google-site-verification" content="wSzc38h_LgWxBpKFU09fpxDk6_tdnplhjOgWRJ23ilA">
+<link rel="canonical" href="https://biznis-studio.github.io/">
+<meta property="og:title" content="Work - Biznis">
+<meta property="og:description" content="Everything we have built so far: a live site, an unattended pipeline, working tools and open source. Proof you can click and check.">
+<meta property="og:url" content="https://biznis-studio.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://biznis-studio.github.io/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://biznis-studio.github.io/assets/og-image.png">
 <link rel="alternate" type="application/rss+xml" title="Biznis - New products, tools and articles" href="https://biznis-studio.github.io/feed.xml">
 <style>
   :root {
@@ -447,89 +457,100 @@
     .card, .product-card, .post-card, .service-card, a.button, button.button { transition: none; }
   }
 </style>
-<meta property="og:title" content="The Practical Guide to XLSX">
-<meta property="og:description" content="A fast, practical guide to XLSX - no fluff, just what actually works.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://biznis-studio.github.io/assets/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://biznis-studio.github.io/assets/og-image.png">
-<link rel="canonical" href="https://biznis-studio.github.io/products/the-practical-guide-to-xlsx.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "name": "The Practical Guide to XLSX", "description": "A fast, practical guide to XLSX - no fluff, just what actually works.", "url": "https://biznis-studio.github.io/products/the-practical-guide-to-xlsx.html", "@type": "CreativeWork"}</script>
 </head>
 <body>
 <header class="site-header">
 <div class="site-header-inner">
-<a class="brand" href="../index.html">Biznis<span>.studi<b>O</b></span></a>
+<a class="brand" href="index.html">Biznis<span>.studi<b>O</b></span></a>
 <nav>
-<a href="../work.html">Work</a>
-<a href="../index.html">Products</a>
-<a href="../tools/index.html">Tools</a>
-<a href="../news/index.html">Signals</a>
-<a href="../blog/index.html">Blog</a>
-<a class="nav-cta" href="../index.html#services">Hire us</a>
+<a href="work.html">Work</a>
+<a href="index.html">Products</a>
+<a href="tools/index.html">Tools</a>
+<a href="news/index.html">Signals</a>
+<a href="blog/index.html">Blog</a>
+<a class="nav-cta" href="#services">Hire us</a>
 </nav>
 </div>
 </header>
-<main>
-<span class="badge" style="background:#db2777">ebook</span>
-<h1>The Practical Guide to XLSX</h1>
-<p class="subtitle">A fast, practical guide to XLSX - no fluff, just what actually works.</p>
-<div class="card"><p>XLSX is the file format behind Microsoft Excel spreadsheets - and, whether you write code or not, there&#x27;s a good chance you&#x27;ve had to open, edit, or generate one. This guide covers the practical side: what the format actually is, the most common ways people work with it, and the mistakes that cause the most wasted time.</p>
-<h2>Why XLSX matters right now</h2>
-<p>XLSX has become the default way businesses exchange structured data - far beyond just &quot;spreadsheets you type numbers into.&quot; Invoices, reports, inventory exports, and data handed between departments or companies routinely show up as .xlsx files, because almost every tool on almost every computer can open one. That ubiquity is exactly why so many people end up needing to read, generate, or transform them programmatically, not just click around in them by hand.</p>
-<p>Underneath the familiar spreadsheet grid, an .xlsx file is actually a zip archive full of XML files - which is worth knowing, because it explains both why the format is so flexible (it can hold formatting, formulas, charts, multiple sheets) and why it can go wrong in ways a plain text file never would - a corrupted zip entry, a formula that only breaks in one specific spreadsheet program, or a &quot;simple&quot; file that&#x27;s secretly several megabytes of unused formatting.</p>
-<h2>The 3 most common ways people work with XLSX</h2>
-<ul>
-<li>Spreadsheet applications. Excel, Google Sheets, and LibreOffice Calc cover the vast majority of everyday XLSX work - opening, editing, formatting, basic formulas and charts. If a human is going to read or edit the file directly, this is almost always the right tool, and the free options (Google Sheets, LibreOffice) handle .xlsx just fine for most everyday use.</li>
-<li>Conversion to CSV. If you only need the raw data - not formulas, formatting, or multiple sheets - exporting to CSV first is often the simplest path, especially before feeding data into another tool or script. CSV is plain text, so it opens correctly everywhere and never has the &quot;which version of Excel made this&quot; compatibility questions XLSX sometimes does.</li>
-<li>Code libraries. When a computer needs to read or generate the file without a human opening it - a script that produces a weekly report, an app that lets users export their data - a library built for the job is the right tool: openpyxl or pandas in Python, or the very widely used &quot;xlsx&quot;/SheetJS package in JavaScript. These read and write the real structure of the file (sheets, cells, formatting) without needing Excel installed at all.</li>
-</ul>
-<h2>A step-by-step walkthrough of the simplest correct approach</h2>
-<ul>
-<li>Decide who (or what) is the actual consumer of the file. A human reading it in Excel needs different handling than a script parsing it automatically - decide this first, since it drives every choice after.</li>
-<li>If a human is reading it: keep the structure simple. One clear header row, consistent data types down each column, and a sheet name that actually describes what&#x27;s in it. Complex formatting looks nice but is the first thing that breaks when the file changes hands.</li>
-<li>If a script is reading it: check the header row matches exactly what the script expects (spelling, casing, column order) before trusting the rest of the data - mismatched headers are the single most common cause of &quot;the import silently used the wrong column.&quot;</li>
-<li>Before sharing or automating anything, open the file once yourself and scroll to the actual last row of data. Hidden blank rows, leftover formatting from deleted rows, and stray data far below the visible table are extremely common and will confuse anything that reads the file automatically.</li>
-<li>If you&#x27;re generating the file with code, test opening the actual output in a real spreadsheet application before shipping it - a file that &quot;looks right&quot; in your script&#x27;s own summary can still fail to open correctly for someone else.</li>
-</ul>
-<h2>Common mistakes and how to spot them early</h2>
-<ul>
-<li>Trusting the file extension. A file named .xlsx isn&#x27;t guaranteed to be a valid one - files get renamed, exported incorrectly, or corrupted in transit. If something reading the file throws a format error, check whether it actually is a valid XLSX before debugging anything else.</li>
-<li>Hardcoding column positions instead of column names. &quot;Column C&quot; breaks the moment someone inserts a new column upstream. Referring to columns by their header name is more work up front and far more durable.</li>
-<li>Ignoring multiple sheets. A file that looks like it has one table can quietly have several sheets - a script that only reads &quot;the first sheet&quot; can silently miss data that lives on a second or third tab.</li>
-<li>Confusing formulas with values. A cell can display a calculated number while the underlying file stores the formula, not the result - if you&#x27;re extracting data programmatically without opening the file in a real spreadsheet app first, make sure your tool is reading calculated values, not raw formula text, if that&#x27;s what you actually need.</li>
-</ul>
-<blockquote>If you only remember one thing: know whether you need the data or the spreadsheet. Data usually wants CSV. A shareable, human-editable document usually wants to stay XLSX.</blockquote>
-<h2>A short checklist summarizing the above</h2>
-<ul>
-<li>Decide up front whether a human or a script is the real consumer</li>
-<li>Keep header rows simple, consistent, and exactly matching what any script expects</li>
-<li>Scroll to the true last row before sharing or automating anything</li>
-<li>Reference columns by name, not position, wherever you can</li>
-<li>Check for multiple sheets before assuming there&#x27;s only one table</li>
-<li>Confirm whether you need calculated values or the underlying formulas</li>
-<li>Test-open any file you generate with code before sharing it further</li>
-</ul>
-<h2>Where to go deeper</h2>
-<ul>
-<li>Google Sheets and LibreOffice Calc both handle .xlsx for free and are good defaults if you don&#x27;t already have Excel.</li>
-<li>For working with XLSX in code, Python&#x27;s openpyxl and pandas libraries, and JavaScript&#x27;s SheetJS (&quot;xlsx&quot; on npm), are the most widely used and both have free, official documentation with runnable examples.</li>
-<li>If you&#x27;re unsure whether you need XLSX or CSV for a given task, the short version is: CSV for raw data exchange, XLSX for anything a human needs to open, format, or calculate in directly.</li>
-</ul></div>
-<a class="button" href="../downloads/0001-the-practical-guide-to-xlsx.pdf" download>Download ebook</a>
+<main class="wide">
+<span class="eyebrow">Proof, not promises</span>
+<h1>Work</h1>
+<p class="subtitle">We are new, so there is no client list to show you. Instead, here is
+everything we have built for ourselves - live, working, and open to inspection. Every
+claim on this page is something you can click and check.</p>
+
+<div class="card">
+<h2>Read this first</h2>
+<p>This is our own project, not client work, and we are not going to dress it up as
+anything else. No logos of companies we have not worked with, no invented testimonials,
+no case studies about results that did not happen.</p>
+<p>What it does show is how we work: the design decisions, the code quality, the honesty
+of the copy, and whether the things we build actually run. Judge it on that.</p>
+</div>
+
+<h2>This website</h2>
+<p>25 pages, built as static HTML with no framework, no build step and no
+third-party fonts or scripts. Loads fast, works without JavaScript for everything except
+the calculators, adapts to light and dark mode, and is designed mobile-first.</p>
+<p>The visual identity - colour system, typography, the glass treatment, the illustration
+sourcing - was designed here, not bought as a theme.
+<a href="index.html">Look around it</a>, or
+<a href="https://github.com/biznis-studio/biznis-studio.github.io" target="_blank" rel="noopener">read
+the source</a>.</p>
+
+<h2>An automation that runs unattended</h2>
+<p>The site is not maintained by hand. A scheduled pipeline runs every day on its own:
+it collects market signals from public APIs, scores them, generates and publishes pages,
+rebuilds the sitemap and feeds, gathers a news digest from a fixed list of trusted
+sources, and audits its own output for broken links and missing metadata before
+publishing.</p>
+<div class="stats-strip">
+<div class="stat"><b>7,642</b><span>signals collected from public APIs</span></div>
+<div class="stat"><b>33</b><span>unattended pipeline runs</span></div>
+<div class="stat"><b>4,935</b><span>lines of Python, all public</span></div>
+<div class="stat"><b>17</b><span>products published by it</span></div>
+</div>
+<p class="form-note">Not every run has succeeded. Failures happened, were diagnosed, and
+were fixed at the source rather than papered over - the
+<a href="https://github.com/biznis-studio/biznis-studio.github.io/actions" target="_blank" rel="noopener">outcome
+of every single run is public</a>, successes and failures alike, as is the commit that
+fixed each one. A pipeline that has never failed is usually a pipeline that has never run.</p>
+
+<h2>Working tools, not mockups</h2>
+<p>Two free browser calculators that do real arithmetic, store nothing, send nothing, and
+need no signup: a <a href="tools/scope-creep-cost-calculator.html">scope creep cost
+calculator</a> and a <a href="tools/freelance-rate-calculator.html">freelance rate
+calculator</a>. Open one and check the maths yourself.</p>
+
+<h2>Digital products</h2>
+<p>17 finished products - script kits, templates, checklists, a guide and
+an interactive calculator - each written as a complete, usable deliverable rather than a
+sample. <a href="index.html">See the catalogue</a>; most are free to download and read in
+full.</p>
+
+<h2>Written content</h2>
+<p>Articles written to be genuinely useful rather than to hit a keyword, with sources
+linked and no affiliate links anywhere. <a href="blog/index.html">Read the blog</a>.</p>
+
+<div class="card">
+<h2>What this does not prove</h2>
+<p>Building well for yourself is not the same as building well for a client, where the
+hard parts are understanding someone else's business, scoping honestly, and communicating
+during the work. We have not demonstrated that here, and the first client will be taking
+that on trust.</p>
+<p>What we can offer against it: a fixed price agreed in writing before anything starts,
+so the risk of a scope you did not agree to is ours, not yours.</p>
+</div>
+
+<p><a class="button" href="index.html#services">See what we build</a></p>
 </main>
-<div class="card"><h2>More free tools</h2><ul><li><a href="checklist-pdf-notion.html">Checklist (PDF + Notion)</a></li>
-<li><a href="the-practical-guide-to-automation.html">The Practical Guide to Automation</a></li>
-<li><a href="spreadsheet-pack.html">Spreadsheet Pack</a></li></ul></div>
-<footer><a class="brand" href="../index.html">Biznis<span>.studi<b>O</b></span></a>
+<footer><a class="brand" href="index.html">Biznis<span>.studi<b>O</b></span></a>
 <span>Built in public from real demand signals.</span>
-<a href="../index.html">Products</a>
-<a href="../tools/index.html">Free tools</a>
-<a href="../news/index.html">Signals</a>
-<a href="../blog/index.html">Blog</a>
-<a href="../credits.html">Photo credits</a>
+<a href="index.html">Products</a>
+<a href="tools/index.html">Free tools</a>
+<a href="news/index.html">Signals</a>
+<a href="blog/index.html">Blog</a>
+<a href="credits.html">Photo credits</a>
 <a href="https://github.com/biznis-studio/biznis-studio.github.io" target="_blank" rel="noopener">GitHub</a></footer>
 </body>
 </html>

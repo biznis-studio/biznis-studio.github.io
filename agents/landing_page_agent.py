@@ -413,6 +413,95 @@ def _product_card(p: dict) -> str:
             f'<p>{html.escape(p["meta_description"])}</p></a>')
 
 
+def build_work_page(stats: dict) -> None:
+    """Proof-of-capability page.
+
+    Services are bought on evidence, and there are no clients yet to point
+    at. What does exist is this operation's own work - a live site, a
+    scheduled pipeline, working tools, public source - all of it
+    inspectable by anyone in about a minute. That is a weaker signal than
+    client testimonials but a much stronger one than a promise, and it is
+    the honest thing available. The page says plainly that this is our own
+    project, not client work.
+    """
+    body = f"""<span class="eyebrow">Proof, not promises</span>
+<h1>Work</h1>
+<p class="subtitle">We are new, so there is no client list to show you. Instead, here is
+everything we have built for ourselves - live, working, and open to inspection. Every
+claim on this page is something you can click and check.</p>
+
+<div class="card">
+<h2>Read this first</h2>
+<p>This is our own project, not client work, and we are not going to dress it up as
+anything else. No logos of companies we have not worked with, no invented testimonials,
+no case studies about results that did not happen.</p>
+<p>What it does show is how we work: the design decisions, the code quality, the honesty
+of the copy, and whether the things we build actually run. Judge it on that.</p>
+</div>
+
+<h2>This website</h2>
+<p>{stats['pages']} pages, built as static HTML with no framework, no build step and no
+third-party fonts or scripts. Loads fast, works without JavaScript for everything except
+the calculators, adapts to light and dark mode, and is designed mobile-first.</p>
+<p>The visual identity - colour system, typography, the glass treatment, the illustration
+sourcing - was designed here, not bought as a theme.
+<a href="index.html">Look around it</a>, or
+<a href="https://github.com/biznis-studio/biznis-studio.github.io" target="_blank" rel="noopener">read
+the source</a>.</p>
+
+<h2>An automation that runs unattended</h2>
+<p>The site is not maintained by hand. A scheduled pipeline runs every day on its own:
+it collects market signals from public APIs, scores them, generates and publishes pages,
+rebuilds the sitemap and feeds, gathers a news digest from a fixed list of trusted
+sources, and audits its own output for broken links and missing metadata before
+publishing.</p>
+<div class="stats-strip">
+<div class="stat"><b>{stats['signals']:,}</b><span>signals collected from public APIs</span></div>
+<div class="stat"><b>{stats['runs']}</b><span>unattended pipeline runs</span></div>
+<div class="stat"><b>{stats['loc']:,}</b><span>lines of Python, all public</span></div>
+<div class="stat"><b>{stats['products']}</b><span>products published by it</span></div>
+</div>
+<p class="form-note">Not every run has succeeded. Failures happened, were diagnosed, and
+were fixed at the source rather than papered over - the
+<a href="https://github.com/biznis-studio/biznis-studio.github.io/actions" target="_blank" rel="noopener">outcome
+of every single run is public</a>, successes and failures alike, as is the commit that
+fixed each one. A pipeline that has never failed is usually a pipeline that has never run.</p>
+
+<h2>Working tools, not mockups</h2>
+<p>Two free browser calculators that do real arithmetic, store nothing, send nothing, and
+need no signup: a <a href="tools/scope-creep-cost-calculator.html">scope creep cost
+calculator</a> and a <a href="tools/freelance-rate-calculator.html">freelance rate
+calculator</a>. Open one and check the maths yourself.</p>
+
+<h2>Digital products</h2>
+<p>{stats['products']} finished products - script kits, templates, checklists, a guide and
+an interactive calculator - each written as a complete, usable deliverable rather than a
+sample. <a href="index.html">See the catalogue</a>; most are free to download and read in
+full.</p>
+
+<h2>Written content</h2>
+<p>Articles written to be genuinely useful rather than to hit a keyword, with sources
+linked and no affiliate links anywhere. <a href="blog/index.html">Read the blog</a>.</p>
+
+<div class="card">
+<h2>What this does not prove</h2>
+<p>Building well for yourself is not the same as building well for a client, where the
+hard parts are understanding someone else's business, scoping honestly, and communicating
+during the work. We have not demonstrated that here, and the first client will be taking
+that on trust.</p>
+<p>What we can offer against it: a fixed price agreed in writing before anything starts,
+so the risk of a scope you did not agree to is ours, not yours.</p>
+</div>
+
+<p><a class="button" href="index.html#services">See what we build</a></p>"""
+
+    (SITE_DIR / "work.html").write_text(page_shell(
+        "Work - Biznis",
+        "Everything we have built so far: a live site, an unattended pipeline, working "
+        "tools and open source. Proof you can click and check.",
+        body, is_index=True))
+
+
 def build_credits_page() -> None:
     """Photo credits. CC0/Public Domain images carry no legal attribution
     requirement, but naming the photographers who released work for free

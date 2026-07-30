@@ -196,6 +196,11 @@ def _blog_entries() -> list[dict]:
     entries += tool_entries()
     # The news page is generated fresh every run from the allowlisted
     # feeds; include it so crawlers see it, dated today.
+    entries.append({"url": "work.html",
+                    "title": "Work - Biznis",
+                    "meta_description": "Everything we have built so far: a live site, an "
+                    "unattended pipeline, working tools and open source.",
+                    "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%d")})
     entries.append({"url": "news/index.html",
                     "title": "Signals - AI, quantum, technology & economy news",
                     "meta_description": "A daily digest of AI, quantum computing, technology "

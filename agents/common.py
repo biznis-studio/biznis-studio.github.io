@@ -603,6 +603,7 @@ def site_header_html(active_is_index: bool = False) -> str:
 <div class="site-header-inner">
 <a class="brand" href="{home_href}">{BRAND_HTML}</a>
 <nav>
+<a href="{prefix}work.html">Work</a>
 <a href="{home_href}">Products</a>
 <a href="{prefix}tools/index.html">Tools</a>
 <a href="{prefix}news/index.html">Signals</a>
