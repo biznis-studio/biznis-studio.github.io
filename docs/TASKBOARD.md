@@ -1724,6 +1724,48 @@ one-by-one - so this gets wired in as a single batch.
       only people who contact us are the ones whose own system genuinely
       needs changing.
 
+## Done (iteration 64) — global gap research, verified, and the first asset built
+- [x] Fixed a real defect first: **every link on the Slovak pages went to
+      English pages.** Header and footer are now language-aware; all six
+      Slovak pages carry Slovak chrome.
+- [x] Ran a global opportunity fan-out with hard criteria: legality, and
+      the studio must be able to deliver it itself. The agent checked
+      seven candidates and, usefully, **rejected five as already
+      saturated** (EUDR GeoJSON validators, Factur-X validators, Digital
+      Product Passport, Shopify Scripts, UK employment templates) - a
+      rejection list is worth as much as a shortlist.
+- [x] Verified the winning candidate against the **primary source** rather
+      than the agent's summary. EUR-Lex, Regulation (EU) 2023/1230
+      Article 10(7): instructions may be digital, but must be reachable
+      from a marking on the machine, printable and downloadable, in a
+      language set by each member state, and **"accessible online during
+      the expected lifetime of the machinery and for at least 10 years
+      after the placing on the market"**.
+- [x] Why this fits better than anything found so far: the obligation is a
+      requirement to keep a URL alive for ~25 years. Every incumbent
+      (Quanos, kothes, EquipmentCloud, Instrktiv) sells a subscription
+      CCMS - a 30-person machine builder will neither afford that nor
+      trust it to exist in 2040. **Our hardest constraint - static files,
+      no backend - is the product's main virtue here.**
+- [x] Built the first asset: a free checker at
+      `/tools/machinery-regulation-digital-instructions.html`. It computes
+      the real obligation window from service life, restates exactly what
+      Article 10(7) demands, and - the part no subscription vendor will
+      publish - multiplies their monthly fee across the full obligation.
+      A 15-year machine on a 250 EUR/month platform shows **75,000 EUR**.
+- [x] Found and fixed a bug before shipping: an apostrophe inside a
+      single-quoted JS string broke the entire inline script silently, so
+      the tool rendered but did nothing. Caught by driving the tool and
+      reading its output rather than trusting that it built. Added a
+      parse check of every inline script as part of verification.
+- [x] Scope stated on the page: we publish documents, we are not a
+      notified body, and this is not conformity assessment or legal advice.
+- [x] Honest gap carried forward from the research: buyer-side demand for
+      this is **not yet verified**. The regulation, dates and competitor
+      landscape are confirmed; that machine builders perceive the 10-year
+      hosting as *their* problem is not. That is what the free tool is
+      for - it will show whether anyone searches for this.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

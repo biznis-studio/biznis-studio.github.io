@@ -158,7 +158,143 @@ RATE_WIDGET = """
 </script>
 """
 
+
+MACHINERY_WIDGET = """
+<div class="widget">
+  <label for="m1">Do you place machinery on the EU market (manufacture, import or rebrand)?</label>
+  <select id="m1">
+    <option value="yes">Yes</option>
+    <option value="no">No, we only use machinery</option>
+  </select>
+
+  <label for="m2">How do you supply instructions for use today?</label>
+  <select id="m2">
+    <option value="paper">Printed manual in the crate</option>
+    <option value="pdf">PDF on our website or on a USB stick</option>
+    <option value="portal">A hosted documentation portal / CCMS subscription</option>
+  </select>
+
+  <div class="widget-row">
+    <div>
+      <label for="m3">Member states you sell into</label>
+      <input id="m3" type="number" min="1" max="27" step="1" value="4">
+    </div>
+    <div>
+      <label for="m4">Expected service life of the machine (years)</label>
+      <input id="m4" type="number" min="1" max="40" step="1" value="15">
+    </div>
+  </div>
+
+  <label for="m5">If you use a subscription documentation platform, what does it cost per month? (0 if none)</label>
+  <input id="m5" type="number" min="0" step="10" value="0">
+
+  <div class="widget-out">
+    <b id="myears">&mdash;</b>
+    <span>minimum years your instructions URL must keep resolving</span>
+  </div>
+  <div id="mdetail" style="margin-top:1.2rem"></div>
+</div>
+<script>
+(function () {
+  var ids = ['m1','m2','m3','m4','m5'];
+  function val(id){ var e=document.getElementById(id); return e.value; }
+  function calc() {
+    var inScope = val('m1') === 'yes';
+    var how = val('m2');
+    var states = Math.max(1, parseInt(val('m3')) || 1);
+    var life = Math.max(1, parseInt(val('m4')) || 1);
+    var monthly = parseFloat(val('m5')) || 0;
+    var years = life + 10;
+    var parts = [];
+
+    document.getElementById('myears').textContent = years + ' years';
+
+    if (!inScope) {
+      parts.push('<p>Article 10(7) places the obligation on whoever <strong>places the machinery on the market</strong> - manufacturers, importers and anyone rebranding it. As a user you are not the duty holder, though you should expect suppliers to give you a durable link rather than a PDF.</p>');
+      document.getElementById('mdetail').innerHTML = parts.join('');
+      return;
+    }
+
+    parts.push('<h3>What the Regulation actually requires</h3>');
+    parts.push('<p>If you choose to supply instructions digitally, Article 10(7) of Regulation (EU) 2023/1230 requires you to:</p><ul>' +
+      '<li>mark <strong>on the machine itself</strong> how to reach the digital instructions</li>' +
+      '<li>present them so the user can <strong>print, download and save</strong> them</li>' +
+      '<li>keep them <strong>accessible online for the expected lifetime plus at least 10 years</strong> after the machine was placed on the market</li>' +
+      '<li>provide them in a language determined by each member state you sell into</li></ul>');
+    parts.push('<p>For your inputs that is <strong>' + years + ' years</strong> of guaranteed availability, in <strong>' + states + ' language set' + (states>1?'s':'') + '</strong>.</p>');
+
+    if (how === 'paper') {
+      parts.push('<h3>Your situation</h3><p>Paper remains allowed, so nothing forces you to change. The reason most builders move anyway is cost: reprinting and reshipping a manual in ' + states + ' languages for every unit, and reissuing it whenever anything changes. Digital removes the reprint, but replaces it with a hosting obligation you are then stuck with for ' + years + ' years.</p>');
+    } else if (how === 'pdf') {
+      parts.push('<h3>Your situation - this is the common trap</h3><p>A PDF on your website looks like it already satisfies this, and mostly it does <em>today</em>. The parts that usually do not hold up: a marking on the machine that points to a <strong>stable</strong> address, and a commitment that the same address still resolves in ' + years + ' years - through a site redesign, a CMS migration, or a change of web agency.</p><p>A URL that breaks in year six is a compliance failure discovered by whoever owns the machine, not by you.</p>');
+    } else {
+      parts.push('<h3>Your situation</h3><p>A hosted portal solves the requirement while you keep paying for it. The question worth asking is what happens to those URLs if you stop - the obligation runs for ' + years + ' years and does not end with your subscription.</p>');
+    }
+
+    if (monthly > 0) {
+      var total = monthly * 12 * years;
+      parts.push('<div class="widget-out" style="margin-top:1.2rem"><b>' + Math.round(total).toLocaleString('en-US') + ' EUR</b><span>what your current subscription costs across the ' + years + '-year obligation, at the current price</span></div>');
+      parts.push('<p class="widget-note">That is the figure worth comparing against a one-off build. It also assumes the price never rises and the vendor still exists in ' + years + ' years.</p>');
+    }
+
+    parts.push('<h3>What actually has to survive ' + years + ' years</h3><ul>' +
+      '<li><strong>A domain</strong> you control and keep renewing - not the agency one, not a platform one</li>' +
+      '<li><strong>A stable URL per machine or per model</strong>, since it is physically marked on the product</li>' +
+      '<li><strong>Files, not a running application.</strong> Anything with a database, a login or a framework needs maintaining for a decade. Plain pages and PDFs do not.</li>' +
+      '<li><strong>An archive of superseded versions</strong>, because a machine sold in 2027 needs its 2027 instructions, not the current ones</li></ul>');
+    parts.push('<p class="widget-note">This is an orientation tool covering the publication requirements of Article 10(7). It is not conformity assessment, and it does not cover the risk assessment, the essential health and safety requirements, or the technical file.</p>');
+
+    document.getElementById('mdetail').innerHTML = parts.join('');
+  }
+  ids.forEach(function(id){
+    var el = document.getElementById(id);
+    el.addEventListener('input', calc); el.addEventListener('change', calc);
+  });
+  calc();
+})();
+</script>
+"""
+
 TOOLS = [
+    {
+        "slug": "machinery-regulation-digital-instructions",
+        "title": "EU Machinery Regulation: digital instructions requirement checker",
+        "description": ("Work out how many years your instructions URL must keep resolving "
+                        "under Article 10(7), and what that costs on a subscription."),
+        "intro": ("Regulation (EU) 2023/1230 lets you supply instructions for use digitally - "
+                  "but only if the link keeps working for the machine's lifetime plus ten "
+                  "years. Most builders discover the second part later than the first."),
+        "widget": MACHINERY_WIDGET,
+        "after": ("<h2>Why the ten years is the hard part</h2>"
+                  "<p>Going digital is usually framed as a saving: no reprinting a manual in "
+                  "four languages for every unit shipped. That saving is real. What it buys is "
+                  "an obligation to keep an address alive for longer than most companies keep "
+                  "the same website.</p>"
+                  "<p>Article 10(7) is explicit that the instructions must be "
+                  "<em>accessible online during the expected lifetime of the machinery and for "
+                  "at least 10 years after the placing on the market</em>, reachable from a "
+                  "marking on the machine itself, and downloadable and printable by the user.</p>"
+                  "<h2>What that means technically</h2>"
+                  "<p>The requirement rewards the least sophisticated architecture available. A "
+                  "database, a login, a CMS or a JavaScript framework is something that must be "
+                  "patched, migrated and paid for across a decade. Static files on a domain you "
+                  "own are the opposite: nothing to maintain, nothing to expire, and cheap "
+                  "enough that nobody ever cancels it to save money.</p>"
+                  "<p>The parts that genuinely need care are version archiving - a machine sold "
+                  "in 2027 must keep <em>its</em> instructions, not the current revision - and "
+                  "making the marked URL stable enough that it survives every future redesign.</p>"
+                  "<h2>If you want this built</h2>"
+                  "<p>We build exactly this shape of thing: a static multilingual instructions "
+                  "site, per-model permanent URLs with QR assets for the machine plate, "
+                  "versioned archives, and a build pipeline that turns your existing source "
+                  "documents into both the web pages and the downloadable PDFs. You own the "
+                  "domain, the files and the pipeline - there is no subscription to cancel and "
+                  "nothing of ours that has to still exist in 2040.</p>"
+                  "<p>We publish documents. We do not perform conformity assessment, we are not "
+                  "a notified body, and this tool is not legal advice - your risk assessment and "
+                  "technical file remain yours or your consultant's.</p>"
+                  "<p><a class=\"button\" href=\"../index.html#services\">Talk to us about it</a></p>"),
+    },
     {
         "slug": "scope-creep-cost-calculator",
         "title": "Scope Creep Cost Calculator",

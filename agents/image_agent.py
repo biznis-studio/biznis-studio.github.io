@@ -111,6 +111,8 @@ QUERIES = {
     "seven-places-worth-reading": ["books library", "bookshelf books", "reading book"],
     "pricing-digital-products": ["price tag", "shopping price", "sale tag"],
     # --- tools ---
+    "machinery-regulation-digital-instructions": ["industrial machine factory floor",
+        "cnc machine manufacturing", "industrial machinery equipment"],
     "scope-creep-cost-calculator": ["calculator coins", "money calculator", "calculator"],
     "freelance-rate-calculator": ["banknotes money", "cash money", "coins currency"],
     # --- news topics ---
