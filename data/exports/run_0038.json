@@ -1,6 +1,6 @@
 {
   "run_id": 38,
-  "generated_at": "2026-07-31T05:02:02.874340+00:00",
+  "generated_at": "2026-07-31T12:21:35.528453+00:00",
   "run_status": "success",
   "signals_by_source": {
     "github": 30,
@@ -172,14 +172,14 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "productivity",
+      "term": "media-engine",
       "score": 0.3933333333333333,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "media-engine",
+      "term": "productivity",
       "score": 0.3844444444444445,
       "breadth_component": 0.2,
       "growth_component": 0.5,
