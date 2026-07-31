@@ -1,6 +1,6 @@
 {
   "run_id": 38,
-  "generated_at": "2026-07-31T18:40:01.247436+00:00",
+  "generated_at": "2026-07-31T20:24:54.537441+00:00",
   "run_status": "success",
   "signals_by_source": {
     "github": 30,
@@ -53,13 +53,6 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "checklist",
-      "score": 0.49084,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
-    },
-    {
       "term": "zendaya",
       "score": 0.48095,
       "breadth_component": 0.2,
@@ -82,10 +75,17 @@
     },
     {
       "term": "xhamster",
-      "score": 0.45208,
+      "score": 0.452405,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "invoice",
+      "score": 0.44416,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
     },
     {
       "term": "@ai-sdk/google",
@@ -104,6 +104,13 @@
     {
       "term": "@ai-sdk/gateway",
       "score": 0.4288888888888889,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "checklist",
+      "score": 0.42834,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
@@ -174,13 +181,6 @@
     {
       "term": "productivity",
       "score": 0.3933333333333333,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
-    },
-    {
-      "term": "media-engine",
-      "score": 0.3844444444444445,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
