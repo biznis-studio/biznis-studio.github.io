@@ -1615,6 +1615,40 @@ one-by-one - so this gets wired in as a single batch.
       match. Caught by checking the rendered output rather than trusting
       the patch reported success.
 
+## Done (iteration 61) — studied the official best practices and applied them
+- [x] Read Anthropic's official Claude Code best practices rather than
+      relying on my own habits, then applied the three that this project
+      was measurably losing time to.
+- [x] **"Give Claude a check it can run."** This was the biggest gap. The
+      correct rebuild sequence is nine steps with a non-obvious ordering
+      constraint, and I had been retyping it as an inline heredoc roughly
+      fifteen times in a single session - which is exactly how a step gets
+      skipped. Now `scripts/build_site.py`: one command, correct order,
+      and it ends by running the crawl audit and **exiting non-zero if the
+      audit fails**, so "do not ship" is a signal rather than a judgement
+      call.
+- [x] **Verification must hit production, not the local build.**
+      `scripts/deploy.py --expect "<text>"` triggers the pipeline, waits
+      for the run to actually finish, then fetches the live URL and
+      confirms the expected text is really there. Exit 0 means verified in
+      production - nothing weaker. Written because the live site sat
+      several changes behind for hours today while every local build
+      looked perfect, and I reported progress from the build rather than
+      from the site.
+- [x] **Wrote `CLAUDE.md`.** The project had none, so every session
+      re-derived its rules from the docs. Kept deliberately short per the
+      guidance that bloated files get ignored - only things that would
+      cause real mistakes if removed: the commands, the required env vars,
+      the four gotchas that have genuinely bitten (SEO markup wiped on
+      rebuild, `--ours` meaning upstream during a rebase, silent deploy
+      failure, the calculator page bypassing `page_shell`), the content
+      rules, and a short strategy summary pointing at the existing logs.
+- [x] Did **not** add: hooks, subagents or new governance docs. The
+      guidance is explicit that these are for things needing a hard
+      guarantee or isolated context, and the 30-day no-new-layers
+      directive still stands. The three changes above remove real,
+      measured waste; anything further would be process for its own sake.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

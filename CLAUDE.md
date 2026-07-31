@@ -1,0 +1,69 @@
+# Biznis — working notes
+
+A digital studio site (services + a product catalogue) published to GitHub
+Pages by a scheduled pipeline. Live at https://biznis-studio.github.io
+
+## Commands
+
+```bash
+python3 scripts/build_site.py            # rebuild everything (use this, not ad-hoc python)
+python3 scripts/build_site.py --fast     # skip network work (images, news fetch)
+python3 scripts/audit_site.py            # crawl-readiness check; non-zero = do not ship
+python3 scripts/deploy.py --expect "text that must appear live"
+```
+
+Required env vars for any build (CI sets them in `.github/workflows/pipeline.yml`):
+`SITE_BASE_URL`, `FORMSPREE_ENDPOINT`, `GOOGLE_SITE_VERIFICATION`, `PEXELS_API_KEY`.
+Without `SITE_BASE_URL` the build silently skips canonicals, sitemap and RSS.
+
+## Gotchas that have actually bitten
+
+- **Rebuilding a page wipes its SEO markup.** `build_page()` resets a published
+  page to its pre-`seo_agent` state. Any rebuild must set
+  `pages.seo_enhanced = 0` and re-run `seo_agent`. `build_site.py` does this;
+  hand-rolled rebuilds forget it and strip canonicals from every page.
+- **During a `git rebase`, `--ours` is UPSTREAM, not your commit.** Resolving
+  `db/biznis.sqlite3` with `--ours` once discarded newly added products while
+  leaving their HTML behind as orphans. Use `--theirs` when replaying your own
+  work, then verify: `sqlite3 db/biznis.sqlite3 "SELECT COUNT(*) FROM products
+  WHERE format='service';"`
+- **Deploy failing does not look like failure.** A push landing while the
+  pipeline runs used to fail the run and skip `deploy-pages`, leaving the live
+  site behind while local builds looked perfect. Never report a change as done
+  from a local build — verify against the live URL (`scripts/deploy.py` does).
+- **The calculator page bypasses `page_shell()`.** `site/products/free-online-calculator.html`
+  is generated from its own file, so anything added site-wide must also be added
+  in `inject_intro_into_calculator()`. It has silently missed the RSS tag and a
+  whole design revision this way.
+
+## Content rules — these are not style preferences
+
+- **Never invent evidence.** No testimonials, client logos, review counts or
+  ratings we do not have. This has been enforced since day one; breaking it
+  would invalidate the site's whole positioning.
+- **Never publish an unverified number.** A hardcoded "85% of runs succeeded"
+  was guessed once (real figure: 92%). Either compute it from a real source or
+  link to where the reader can see it themselves.
+- **Do not advertise weakness either.** "We are new, we have no clients" is not
+  honesty, it is bad marketing. State what is true and demonstrable; frame risk
+  handling (fixed price, written scope) as the guarantee it is.
+- **Every service page needs a "what we do not offer" section.** Only offer what
+  can genuinely be delivered. Boundaries are what make the rest credible.
+- **Do not mention that any of this is AI-generated or automated.** Not a
+  selling point; the owner has asked for it to stay out of visitor-facing copy.
+- **Proofread Slovak before publishing.** `/sk/` and `content/sk/`. Bad Slovak
+  destroys credibility faster than having no Slovak page at all.
+
+## Strategy context
+
+- The binding constraint is **traffic**, not conversion — Gumroad shows 0 views,
+  not merely 0 sales. Design and copy polish sit downstream of a gate that has
+  not opened.
+- English tool/calculator queries are owned by incumbents (Harvest et al).
+  **Conversational** queries ("what do I say when…") are not, and are what the
+  script catalogue answers. See `docs/CONSTRAINT_LOG.md`.
+- The strongest opportunity found: **Slovak SERPs for our services are held only
+  by small local agencies**, with paid ads running — proven demand, servable
+  market, deals worth 100x a $29 product.
+- Decisions with reasoning and review dates: `docs/DECISION_JOURNAL.md`.
+  Iteration history: `docs/TASKBOARD.md`. Do not add new governance docs.
