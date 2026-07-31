@@ -1542,6 +1542,37 @@ one-by-one - so this gets wired in as a single batch.
 - [x] Proofread the new Slovak pricing copy again and fixed further errors
       ("Súmy"→"Sumy", "Čo cenu meni"→"mení", "číslach").
 
+## Done (iteration 59) — closed a deliverability gap I had just created
+- [x] User restated the standing rule: only offer what can actually be
+      delivered. Rechecked against what had just shipped, and found a real
+      gap I had introduced an hour earlier.
+- [x] **The Slovak pricing table had no boundaries.** The English service
+      pages each carry a "what we do not offer" section; the new Slovak
+      page listed six services with prices and nothing else. A buyer
+      landing there saw commitments with no limits. Added the full list in
+      Slovak: no web apps with accounts and a database, no shop with its
+      own payment gateway, no hand illustration or character art, no
+      photography, no print/prepress, no 24/7 operations, nothing
+      requiring the client's credentials or legal identity, no automating
+      services whose terms forbid it, and a chatbot needs a paid language
+      model account in the client's own name.
+- [x] **Fixed a claim that was simply untrue**, in English as well as
+      Slovak: "you get a site you can edit, and documentation for how".
+      For a non-technical small business receiving hand-written HTML, that
+      is false - nobody is going to edit raw markup. Replaced with two
+      honest options agreed before work starts: text changes come back to
+      us at a small fixed fee, or we build a simple admin panel, which
+      costs extra and needs a hosting account in the client's name. Said
+      plainly that any agency claiming you can "just edit" hand-written
+      HTML is hoping you never try.
+- [x] Proofread the new Slovak again and fixed further grammar errors
+      ("tá čásť", "s vlastným platobným bránou" - wrong gender agreement,
+      plus two compound-word slips).
+- [x] Worth recording as a pattern: the gap appeared precisely because a
+      *new surface* was added quickly (a whole page in another language)
+      while the honesty sections lived only on the older pages. Boundaries
+      have to be part of the template, not bolted on per page.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

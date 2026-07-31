@@ -27,8 +27,13 @@ Stated plainly, because a studio that claims everything is useless to you:
   existing checkout - Gumroad, Stripe Payment Links, Lemon Squeezy - but
   the merchant account is yours, in your name, and the payment provider
   handles the money and the tax.
-- **Ongoing content updates as a retainer.** You get a site you can edit,
-  and documentation for how.
+- **Ongoing content updates as a retainer.** Two honest options instead,
+  agreed before we start: either text changes come back to us at a small
+  fixed fee per change, or we set up a simple admin panel so you can edit
+  the text yourself - that costs extra to build and needs a hosting
+  account in your name. What we will not claim is that you can "just
+  edit" hand-written HTML: you cannot, and any agency saying otherwise is
+  hoping you never try.
 
 ## Who this is for
 

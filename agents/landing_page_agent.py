@@ -616,6 +616,41 @@ v cene nie s&uacute; - nechceme ich mať cez seba, aby ste neboli na n&aacute;s 
 navrhneme, čo vynechať. Menšia vec sprav&eacute;n&aacute; poriadne je lepšia než veľk&aacute; sprav&eacute;n&aacute; polovične.</p>
 
 <div class="card">
+<h2>Čo nerob&iacute;me</h2>
+<p>Toto je t&aacute; časť, ktor&aacute; rob&iacute; zvyšok d&ocirc;veryhodn&yacute;m. Št&uacute;dio,
+ktor&eacute; tvrd&iacute;, že vie všetko, v&aacute;m je na nič.</p>
+<ul>
+<li><strong>Webov&eacute; aplik&aacute;cie s &uacute;čtami a datab&aacute;zou.</strong> Prezentačn&eacute;
+a produktov&eacute; str&aacute;nky &aacute;no. Syst&eacute;m s prihlasovan&iacute;m použ&iacute;vateľov
+nie.</li>
+<li><strong>E-shop s vlastnou platobnou br&aacute;nou.</strong> Napoj&iacute;me
+existuj&uacute;ci checkout, ale obchodn&iacute;cky &uacute;čet je v&aacute;š a peniaze aj DPH rieši
+poskytovateľ platieb.</li>
+<li><strong>Úprava obsahu &bdquo;svojpomocne&ldquo; bez dohody.</strong> Ručne p&iacute;san&yacute;
+web sa nedá len tak upravovať. Buď zmeny textu rob&iacute;me my za mal&yacute; pevn&yacute; poplatok,
+alebo v&aacute;m postav&iacute;me jednoduch&yacute; administračn&yacute; panel - to stoj&iacute;
+nav&yacute;še a potrebuje hosting na vaše meno. Dohodneme to vopred, nie potom.</li>
+<li><strong>Ručn&aacute; ilustr&aacute;cia, kresby postáv, fotografovanie.</strong> Logá a
+geometrick&uacute; vektorov&uacute; grafiku &aacute;no. Kreslen&eacute;ho maskota nie - na to si
+najmite ilustr&aacute;tora, sprav&iacute; to lepšie.</li>
+<li><strong>Tlačov&aacute; pr&iacute;prava.</strong> Rob&iacute;me digit&aacute;l. CMYK, spadávky a
+pr&iacute;prava pre tlačiareň nie s&uacute; naša parketa.</li>
+<li><strong>Nepretržit&aacute; prev&aacute;dzka a podpora 24/7.</strong> Automatiz&aacute;cie
+stav&iacute;me tak, aby bežali samé, a dostanete zdrojov&yacute; k&oacute;d aj dokument&aacute;ciu.
+Nie sme však služba s pohotovosťou.</li>
+<li><strong>Automatiz&aacute;cia toho, čo si vyžaduje vašu identitu.</strong> Čokoľvek, kde treba
+prihlasovacie &uacute;daje, pr&aacute;vo podpisovať alebo nakladať s peniazmi, vraciame človeku -
+z&aacute;merne.</li>
+<li><strong>Obch&aacute;dzanie syst&eacute;mov, ktor&eacute; si to neželaj&uacute;.</strong> Ak
+podmienky služby zakazuj&uacute; automatick&yacute; pr&iacute;stup, povieme to rovno namiesto toho,
+aby sme v&aacute;m ticho riskovali &uacute;čet.</li>
+<li><strong>Chatbot bez vlastn&eacute;ho &uacute;čtu na jazykov&yacute; model.</strong> Chatbot
+potrebuje platen&uacute; službu tretej strany. &Uacute;čet zost&aacute;va na vaše meno a plat&iacute;te
+ho priamo - nechceme v&aacute;s mať viazan&yacute;ch cez našu fakt&uacute;ru.</li>
+</ul>
+</div>
+
+<div class="card">
 <h2>Ako pracujeme</h2>
 <p><strong>1. Poviete, čo nefunguje.</strong> Konkr&eacute;tny probl&eacute;m poviete lepšie než
 zadanie - &bdquo;str&aacute;came dopyty, lebo n&aacute;s ľudia nen&aacute;jdu&ldquo; ukazuje niekam
