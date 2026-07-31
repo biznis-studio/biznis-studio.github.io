@@ -1,6 +1,6 @@
 {
   "run_id": 38,
-  "generated_at": "2026-07-31T12:26:25.103057+00:00",
+  "generated_at": "2026-07-31T12:38:30.338148+00:00",
   "run_status": "success",
   "signals_by_source": {
     "github": 30,
@@ -12,7 +12,7 @@
   "top_keywords": [
     {
       "term": "kavinsky",
-      "score": 0.64332,
+      "score": 0.58082,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"wikipedia_pageviews\"]"
@@ -58,13 +58,6 @@
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"wikipedia_pageviews\"]"
-    },
-    {
-      "term": "spreadsheet",
-      "score": 0.46417,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
     },
     {
       "term": "xlsx",
@@ -167,6 +160,13 @@
     {
       "term": "ec-sri-invoice-signer",
       "score": 0.40222222222222226,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "spreadsheet",
+      "score": 0.40167,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
