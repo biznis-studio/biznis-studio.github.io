@@ -149,3 +149,44 @@ given away.
 
 **Constraint restated:** not "SEO is unwinnable" but "we were aiming at
 the wrong half of the keyword space".
+
+## 2026-07-31 — the biggest opportunity found so far is a different market, not a different keyword
+
+User pushed back on the research being confined to one keyword family.
+Broadening it produced a materially better finding than anything in the
+English niche.
+
+**Slovak SERPs for the exact services we sell are held only by small
+local agencies.** Checked two commercial-intent queries:
+
+- *"koľko stojí webstránka pre malú firmu"* → tomarco.sk, webision.sk,
+  ravensoft.sk, velocis.sk. All small local shops. No global authority.
+- *"automatizácia procesov v malej firme ako začať"* → bizmatica.sk,
+  ui42.sk, becode.sk, eWay-CRM. Same picture. **Plus paid ads running**
+  (aidofirmy.sk), which is the useful signal: somebody is already paying
+  to acquire these customers, so buyers demonstrably exist.
+
+Compare with the English equivalents, where incumbents like Harvest own
+the first page outright.
+
+**Why this matters more than the keyword difficulty alone:**
+
+1. These are *service* enquiries worth hundreds to thousands of euros,
+   not $29 downloads. The market research incidentally surfaced real
+   Slovak pricing: one-page site from ~599 €, company site from ~999 €,
+   agency projects 1 000–5 000 €, freelancer 500–2 000 €.
+2. The operator is Slovak and can genuinely service these clients - same
+   language, timezone, jurisdiction, invoicing, and the option to meet.
+   That is a real advantage over competing in English, not a consolation.
+3. Local service clients buy on trust and proximity, which is precisely
+   the axis where a new business without a portfolio is *least*
+   disadvantaged.
+
+**Acted on:** published `/sk/` - a Slovak services page with hreflang
+alternates both ways, its own canonical, in the sitemap, cross-linked
+from the English footer.
+
+**Deliberately not done:** no prices published. The market data above
+tells us what the going rate is, but what to charge commits the owner
+publicly and is his decision, not something to infer and publish
+autonomously.

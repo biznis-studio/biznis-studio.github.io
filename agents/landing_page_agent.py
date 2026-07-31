@@ -137,6 +137,7 @@ def page_shell(title: str, meta_description: str, body_html: str, is_index: bool
 <a href="{'' if is_index else '../'}tools/index.html">Free tools</a>
 <a href="{'' if is_index else '../'}news/index.html">Signals</a>
 <a href="{'' if is_index else '../'}blog/index.html">Blog</a>
+<a href="{'' if is_index else '../'}sk/index.html">Slovensky</a>
 <a href="{'' if is_index else '../'}credits.html">Photo credits</a>
 <a href="https://github.com/biznis-studio/biznis-studio.github.io" target="_blank" rel="noopener">GitHub</a></footer>
 </body>
@@ -283,21 +284,33 @@ def inject_intro_into_calculator(html_text: str, intro_html: str, meta_descripti
     return html_text
 
 
-def contact_form_html() -> str:
+# Form labels per language. Parameterised rather than duplicating the
+# whole form for the Slovak page, so the honeypot and endpoint handling
+# can never drift between the two.
+FORM_LABELS = {
+    "en": ("Name", "Your email", "What do you need?", "Send",
+           "Goes straight to us - no account or signup needed on your end."),
+    "sk": ("Meno", "V&aacute;š e-mail", "Čo potrebujete?", "Odoslať",
+           "Chod&iacute; priamo n&aacute;m - nepotrebujete žiadny &uacute;čet ani registr&aacute;ciu."),
+}
+
+
+def contact_form_html(lang: str = "en") -> str:
     """A real contact form posting straight to Formspree - no email address
     anywhere in this page's source. The honeypot ("_gotcha") is Formspree's
     own spam-trap convention: a field hidden from real visitors via CSS
     that, if filled in, means a bot filled out every field blindly."""
+    name_l, email_l, msg_l, submit_l, note = FORM_LABELS.get(lang, FORM_LABELS["en"])
     return f"""<form class="contact-form" action="{html.escape(FORMSPREE_ENDPOINT)}" method="POST">
-<label for="name">Name</label>
+<label for="name">{name_l}</label>
 <input type="text" id="name" name="name" required>
-<label for="email">Your email</label>
+<label for="email">{email_l}</label>
 <input type="email" id="email" name="email" required>
-<label for="message">What do you need?</label>
+<label for="message">{msg_l}</label>
 <textarea id="message" name="message" required></textarea>
 <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
-<button type="submit" class="button">Send</button>
-<p class="form-note">Goes straight to us - no account or signup needed on your end.</p>
+<button type="submit" class="button">{submit_l}</button>
+<p class="form-note">{note}</p>
 </form>"""
 
 
@@ -507,6 +520,128 @@ surprise on your invoice.</p>
         "Everything on this site was designed and built by us, and it is all live. "
         "Try any of it before you talk to us.",
         body, is_index=True))
+
+
+def build_sk_page() -> None:
+    """Slovak-language services page.
+
+    Opportunity research finding: Slovak SERPs for the exact services we
+    sell ("kolko stoji webstranka", "automatizacia procesov v malej
+    firme") are held only by small local agencies - no global authority,
+    unlike the English equivalents where incumbents own everything. There
+    are also paid ads running on those queries, which means somebody is
+    already spending money to acquire these customers, so buyers exist.
+
+    Combined with the fact that these are service enquiries worth
+    hundreds to thousands of euros rather than $29 downloads, and that
+    the operator is Slovak and can actually service them - same language,
+    timezone, jurisdiction and invoicing - this is a far more realistic
+    path to first revenue than competing in English.
+
+    Deliberately no published prices: what to charge commits the owner
+    publicly and is his decision, not something to infer from market
+    research and publish autonomously.
+    """
+    body = """<div class="hero">
+<span class="eyebrow">Dizajn &middot; Web &middot; Automatiz&aacute;cia</span>
+<h1>Navrhujeme a staviame digit&aacute;lnu časť v&aacute;šho podnikania</h1>
+<p class="subtitle">Webstr&aacute;nky, firemn&aacute; identita, digit&aacute;lne produkty na mieru
+a automatiz&aacute;cia pr&aacute;ce, ktor&uacute; dnes rob&iacute;te ručne. Pevn&aacute; cena
+dohodnut&aacute; vopred, v&yacute;sledok je v&aacute;š vr&aacute;tane zdrojov&yacute;ch s&uacute;borov.</p>
+</div>
+
+<div class="stats-strip">
+<div class="stat"><b>Pevn&aacute; cena</b><span>dohodnut&aacute; p&iacute;somne pred začiatkom pr&aacute;ce</span></div>
+<div class="stat"><b>Všetko je vaše</b><span>pln&eacute; pr&aacute;va aj zdrojov&eacute; s&uacute;bory</span></div>
+<div class="stat"><b>Hotov&eacute;, nie s&uacute;bor</b><span>odovzd&aacute;vame funkčn&eacute; a nasaden&eacute;</span></div>
+<div class="stat"><b>Vysk&uacute;šajte si to</b><span>všetko, čo sme postavili, je verejn&eacute;</span></div>
+</div>
+
+<h2 class="section-title">Čo pre v&aacute;s postav&iacute;me</h2>
+
+<h2>Webstr&aacute;nky</h2>
+<p>Firemn&yacute; web, produktov&aacute; str&aacute;nka alebo landing page - navrhnut&eacute; na to,
+čo skutočne potrebujete, nie šabl&oacute;na s vložen&yacute;m logom. Rýchle načítanie,
+funkčné na mobile, so z&aacute;kladn&yacute;m SEO, aby v&aacute;s vyhľad&aacute;vače pochopili.</p>
+<p><strong>Čo to znamen&aacute; pre v&aacute;s:</strong> dostanete hotov&yacute;, nasaden&yacute;
+a funguj&uacute;ci web - nie grafick&yacute; n&aacute;vrh, ktor&yacute; mus&iacute; niekto in&yacute;
+naprogramovať.</p>
+
+<h2>Automatiz&aacute;cia a integr&aacute;cie</h2>
+<p>Ak niečo rob&iacute;te každ&yacute; t&yacute;ždeň ručne - prepisovanie &uacute;dajov medzi
+syst&eacute;mami, stavanie toho ist&eacute;ho reportu, kontrola zmien u dod&aacute;vateľa - d&aacute;
+sa to nahradiť softv&eacute;rom, ktor&yacute; bež&iacute; s&aacute;m.</p>
+<p><strong>Čo to znamen&aacute; pre v&aacute;s:</strong> &uacute;loha na dve hodiny t&yacute;ždenne
+je približne sto hod&iacute;n ročne. Ak v&aacute;m to nedok&aacute;žeme vr&aacute;tiť, povieme to
+skôr, než začneme.</p>
+
+<h2>Digit&aacute;lne produkty na mieru</h2>
+<p>Šabl&oacute;ny, kontroln&eacute; zoznamy, kalkulačky, sady scen&aacute;rov alebo intern&eacute;
+n&aacute;stroje - postaven&eacute; na v&aacute;š konkr&eacute;tny probl&eacute;m a vo vašom jazyku,
+nie generick&yacute; materi&aacute;l.</p>
+
+<h2>Dizajn a firemn&aacute; identita</h2>
+<p>Logo, farebn&yacute; a typografick&yacute; syst&eacute;m, marketingov&aacute; grafika,
+prezent&aacute;cie. Dostanete aj pravidl&aacute; použitia a funkčn&yacute; stylesheet, nie len
+obr&aacute;zok loga.</p>
+
+<h2>Chatboty</h2>
+<p>Chatbot na jednu konkr&eacute;tnu &uacute;lohu - odpovedanie na opakuj&uacute;ce sa ot&aacute;zky
+z&aacute;kazn&iacute;kov - s jasne vymedzen&yacute;m rozsahom, aby si nevym&yacute;šľal.</p>
+
+<div class="card">
+<h2>Ako pracujeme</h2>
+<p><strong>1. Poviete, čo nefunguje.</strong> Konkr&eacute;tny probl&eacute;m poviete lepšie než
+zadanie - &bdquo;str&aacute;came dopyty, lebo n&aacute;s ľudia nen&aacute;jdu&ldquo; ukazuje niekam
+konkr&eacute;tne.</p>
+<p><strong>2. Dostanete p&iacute;somn&uacute; ponuku.</strong> Čo presne dostanete, v
+ak&yacute;ch form&aacute;toch, koľko to stoj&iacute; a dokedy. Pevn&aacute; suma, dohodnut&aacute;
+predt&yacute;m, než sa začne pracovať - žiadne hodinov&eacute; &uacute;čtovanie a žiadna
+prekvapiv&aacute; fakt&uacute;ra.</p>
+<p><strong>3. Postav&iacute;me to.</strong> Uvid&iacute;te rozpracovan&uacute; verziu, nie hotov&uacute;
+vec predloženú ako fin&aacute;lnu. Dve kol&aacute; &uacute;prav s&uacute; s&uacute;časťou ceny.</p>
+<p><strong>4. Patr&iacute; to v&aacute;m.</strong> Pln&eacute; komerčn&eacute; pr&aacute;va vr&aacute;tane
+zdrojov&yacute;ch s&uacute;borov. Žiadne mesačn&eacute; poplatky a žiadna z&aacute;vislosť od n&aacute;s.</p>
+</div>
+
+<div class="card">
+<h2>&Uacute;primne: sme nov&iacute;</h2>
+<p>Nem&aacute;me zoznam klientov, ktor&yacute;m by sme sa mohli pochv&aacute;liť, a nebudeme
+predstierať opak. Žiadne cudzie log&aacute;, žiadne vymyslen&eacute; referencie.</p>
+<p>Namiesto toho si m&ocirc;žete pozrieť všetko, čo sme postavili pre seba - tento web, produkty,
+n&aacute;stroje aj syst&eacute;m, ktor&yacute; to publikuje. Je to živ&eacute; a d&aacute; sa to
+overiť za min&uacute;tu. <a href="../work.html">Pozrite si to</a>.</p>
+<p>A čo d&aacute;vame proti tomu, že prv&yacute; klient n&aacute;m d&ocirc;veruje bez referenci&iacute;:
+pevn&uacute; cenu a p&iacute;somn&yacute; rozsah dohodnut&yacute; vopred. Ak sa pr&aacute;ca uk&aacute;že
+ťažšia, než sme odhadli, je to n&aacute;š probl&eacute;m, nie prekvapenie na vašej fakt&uacute;re.</p>
+</div>
+
+<h2 class="section-title">Ozvite sa</h2>\n""" + contact_form_html("sk") + """
+<p class="form-note">Str&aacute;nka je aj <a href="../index.html">v angličtine</a>.</p>"""
+
+    if SITE_BASE_URL:
+        alt = (f'<link rel="canonical" href="{SITE_BASE_URL}/sk/">\n'
+               f'<link rel="alternate" hreflang="sk" href="{SITE_BASE_URL}/sk/">\n'
+               f'<link rel="alternate" hreflang="en" href="{SITE_BASE_URL}/">\n'
+               f'<link rel="alternate" hreflang="x-default" href="{SITE_BASE_URL}/">\n'
+               f'<meta property="og:title" content="Tvorba webstr\u00e1nok, automatiz\u00e1cia a dizajn">\n'
+               f'<meta property="og:url" content="{SITE_BASE_URL}/sk/">\n'
+               f'<meta property="og:type" content="website">\n' + OG_IMAGE_TAGS)
+    else:
+        alt = ""
+    sk_dir = SITE_DIR / "sk"
+    sk_dir.mkdir(parents=True, exist_ok=True)
+    page = page_shell(
+        "Tvorba webstr\u00e1nok, automatiz\u00e1cia a dizajn pre mal\u00e9 firmy | Biznis",
+        "Webstr\u00e1nky, automatiz\u00e1cia procesov, digit\u00e1lne produkty na mieru a firemn\u00e1 "
+        "identita pre mal\u00e9 firmy. Pevn\u00e1 cena dohodnut\u00e1 vopred.",
+        body)
+    if alt:
+        idx = page.lower().find("</head>")
+        if idx != -1:
+            page = page[:idx] + alt + page[idx:]
+    page = page.replace('<html lang="en">', '<html lang="sk">')
+    (sk_dir / "index.html").write_text(page)
 
 
 def build_credits_page() -> None:

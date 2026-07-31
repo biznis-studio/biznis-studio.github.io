@@ -1470,6 +1470,51 @@ one-by-one - so this gets wired in as a single batch.
       moments it does not cover, and says plainly that if the free scripts
       solve your problem you need nothing else from us.
 
+## Done (iteration 57) — broadened the search and found a better market
+- [x] User: do not confine the research to one family. Correct - the work
+      had narrowed to freelance client-communication queries in English.
+- [x] Widened it and found the strongest opportunity of the whole
+      exercise: **Slovak SERPs for our actual services are contested only
+      by small local agencies.** "koľko stojí webstránka pre malú firmu"
+      returns tomarco.sk, webision.sk, ravensoft.sk, velocis.sk;
+      "automatizácia procesov v malej firme" returns bizmatica.sk,
+      ui42.sk, becode.sk, eWay-CRM. No global incumbent on either - and
+      paid ads are running on the second, meaning somebody is already
+      buying these customers, so demand is proven rather than assumed.
+- [x] The strategic weight is not just lower difficulty: these are
+      service enquiries worth hundreds to thousands of euros instead of
+      $29 downloads, and the operator can actually service them - same
+      language, timezone, jurisdiction, invoicing, and the option to meet
+      in person. Local service work is bought on trust and proximity,
+      which is the one axis where a business with no portfolio is least
+      disadvantaged.
+- [x] Published `/sk/` - a Slovak services page covering all five
+      offerings, with the same honesty sections as the English site
+      ("Úprimne: sme noví", no invented references). Wired hreflang
+      alternates both directions plus x-default, its own canonical,
+      `lang="sk"`, a sitemap entry, and a cross-link from the English
+      footer, so Google serves the right language instead of treating the
+      two as duplicates.
+- [x] Refactored `contact_form_html()` to take a language rather than
+      duplicating the form - the honeypot and endpoint handling cannot
+      drift between the two versions that way.
+- [x] Proofread the Slovak and fixed six real grammar errors before
+      publishing ("stavíme"→"staviame", "čásť"→"časť", "ponúku"→"ponuku",
+      "lógá"→"logá", "závislosť na nás"→"od nás",
+      "prepísavanie"→"prepisovanie"), plus a plural-agreement error in a
+      stat tile. Bad Slovak on a Slovak page destroys credibility faster
+      than no Slovak page at all.
+- [x] Deliberately published **no prices**, despite the research
+      surfacing real market rates (one-pager from ~599 €, company site
+      from ~999 €, freelancer 500–2 000 €). What to charge commits the
+      owner publicly and is his call.
+- [x] Also drafted a **Late Payment Recovery Kit** (8 escalation scripts +
+      a payment tracker) after finding that "how to politely chase an
+      unpaid invoice freelance" is held by Reddit threads and small blogs,
+      with Google explicitly flagging that a top result was *missing* the
+      freelance angle - an underserved query with no product of ours
+      behind it.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
