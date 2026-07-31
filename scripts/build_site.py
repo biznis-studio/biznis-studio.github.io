@@ -76,6 +76,7 @@ def main(fast: bool = False) -> int:
     # 4. Everything that is not a product page.
     lpa.build_index([dict(p) for p in pages], stats=stats)
     lpa.build_sk_page()
+    lpa.build_efa_tool()
     lpa.build_work_page(stats)
     lpa.build_credits_page()
     blog_agent.run()

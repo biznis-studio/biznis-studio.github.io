@@ -1689,6 +1689,41 @@ one-by-one - so this gets wired in as a single batch.
 - [x] Used `scripts/build_site.py` for the build - first real use of the
       tooling written in the previous iteration.
 
+## Done (iteration 63) — found a real market gap and built the thing nobody sells
+- [x] Started writing another "e-faktúra 2027" explainer, then binned it.
+      User was right on both counts: it was surface-level, and it would
+      have been the forty-seventh copy of an article EY, Podnikajte,
+      Fakturix, FLOWii and others already published.
+- [x] Went deeper and found the actual gap. **Every piece of content on
+      this topic is published by a company selling invoicing software** -
+      so none of them lead with the fact that the state, under IS EFA,
+      provides a **free web application for small businesses** to create
+      and manage invoices in the required format. For a low-volume Excel
+      user that free app is the entire answer, and nobody selling software
+      has any reason to say so.
+- [x] Verified the legal facts from primary and independent sources rather
+      than from an ad: the VAT law amendment was passed by the National
+      Council on 9 Dec 2025 and signed 16 Dec 2025 - law, not a proposal.
+      From 1.1.2027 VAT payers must issue *and receive* structured XML
+      (EN 16931 / Peppol BIS); voluntary testing is running now;
+      cross-border follows 1.7.2030 under ViDA.
+- [x] Built **`/sk/efaktura-2027-test.html`** instead of an article: four
+      questions, then a concrete verdict for that specific situation -
+      what changes, what to do, and an estimated cost. Runs entirely in
+      the browser, stores nothing.
+- [x] The output most competitors would never ship: for a non-VAT payer on
+      Excel with low volume it says **"cost 0 €, you need nothing from
+      us"** and points at the state's free app. Verified by driving three
+      scenarios through the tool and reading the rendered output, not by
+      assuming the branches work.
+- [x] Why this is the right shape of asset: the obligation is a hard dated
+      deadline with real urgency (not manufactured), the SERP is held by
+      small players with paid ads running (demand proven, verified on
+      Google directly), and a decision tool is linkable and shareable in a
+      way a forty-seventh explainer is not. It also filters leads - the
+      only people who contact us are the ones whose own system genuinely
+      needs changing.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

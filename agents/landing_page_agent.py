@@ -706,6 +706,185 @@ zdrojov&yacute;ch s&uacute;borov, bez mesačn&yacute;ch poplatkov a bez viazanos
     (sk_dir / "index.html").write_text(page)
 
 
+
+EFA_WIDGET = """
+<div class="widget">
+  <label for="q1">1. Ste platiteľ DPH?</label>
+  <select id="q1">
+    <option value="ano">Áno, som platiteľ DPH</option>
+    <option value="nie">Nie, nie som platiteľ DPH</option>
+    <option value="neviem">Neviem / chystám sa ním stať</option>
+  </select>
+
+  <label for="q2">2. Ako dnes vystavujete faktúry?</label>
+  <select id="q2">
+    <option value="softver">Vo fakturačnom programe (iDoklad, SuperFaktúra, Kros…)</option>
+    <option value="excel">V Exceli, Worde alebo ručne</option>
+    <option value="system">Generuje ich môj vlastný systém alebo e-shop</option>
+    <option value="uctovnik">Robí to za mňa účtovník</option>
+  </select>
+
+  <label for="q3">3. Koľko faktúr vystavíte za mesiac?</label>
+  <select id="q3">
+    <option value="malo">Do 10</option>
+    <option value="stredne">10 až 50</option>
+    <option value="vela">Viac ako 50</option>
+  </select>
+
+  <label for="q4">4. Prepisujete údaje pre faktúru odniekiaľ ručne?</label>
+  <select id="q4">
+    <option value="nie">Nie, vznikajú rovno vo fakturácii</option>
+    <option value="ano">Áno, prepisujem ich z tabuľky, e-mailu alebo iného systému</option>
+  </select>
+
+  <div class="widget-out" id="verdict"><b id="vtitle">—</b><span id="vsub"></span></div>
+  <div id="detail" style="margin-top:1.2rem"></div>
+</div>
+<script>
+(function () {
+  var ids = ['q1','q2','q3','q4'];
+  function v(id){ return document.getElementById(id).value; }
+  function calc() {
+    var dph = v('q1'), how = v('q2'), vol = v('q3'), retype = v('q4');
+    var title, sub, parts = [];
+
+    var mustIssue = (dph === 'ano');
+    var mustReceive = true; // prijímať potrebuje vedieť prakticky každý
+
+    if (!mustIssue && dph === 'nie') {
+      title = 'Vystavovať e-faktúry nemusíte';
+      sub = 'ale prijímať ich potrebujete vedieť';
+      parts.push('<p>Podľa schválenej úpravy sa povinnosť <strong>vystavovať</strong> e-faktúry neplatiteľov DPH netýka. Ak vám ich však pošle dodávateľ, musíte ich vedieť <strong>prijať a spracovať</strong>.</p>');
+    } else if (dph === 'neviem') {
+      title = 'Najprv si overte, či ste platiteľ DPH';
+      sub = 'od toho závisí všetko ostatné';
+      parts.push('<p>Povinnosť vystavovať e-faktúry sa viaže na platiteľov DPH. Overte si to u účtovníka — je to jedna otázka a určuje, či sa vás týka celý zvyšok.</p>');
+    } else {
+      title = 'Povinnosť sa vás týka';
+      sub = 'od 1. januára 2027, vystavovanie aj prijímanie';
+      parts.push('<p>Ako platiteľ DPH budete musieť faktúry <strong>vystavovať aj prijímať</strong> v štruktúrovanom formáte (XML podľa EN 16931). PDF v e-maile prestane stačiť.</p>');
+    }
+
+    if (how === 'softver') {
+      parts.push('<h3>Čo spravte</h3><p>Pravdepodobne <strong>nič nekupujte</strong>. Napíšte svojmu dodávateľovi jednu otázku a odpoveď si nechajte písomne:</p><blockquote>Budete do konca roka 2026 podporovať vystavovanie aj prijímanie faktúr v štruktúrovanom formáte podľa EN 16931? Bude to v mojom balíku, alebo za príplatok?</blockquote><p>Ak odpoveď je áno a bez príplatku, máte hotovo.</p>');
+      parts.push('<p class="widget-note"><strong>Odhadovaný náklad:</strong> 0 € až cena vyššieho balíka vášho programu.</p>');
+    } else if (how === 'excel') {
+      parts.push('<h3>Čo spravte</h3><p>Ručne vyrobiť platné XML podľa normy nie je reálne — Excel ani Word to nespravia. Budete potrebovať nástroj.</p><p><strong>Dobrá správa, ktorú vám väčšina článkov nepovie:</strong> štát pripravuje v rámci systému IS EFA <strong>bezplatnú webovú aplikáciu pre malých podnikateľov</strong> na vytváranie a správu faktúr v predpísanom formáte, vrátane kontroly správnosti.</p>');
+      if (vol === 'malo') {
+        parts.push('<p>Pri vašom objeme faktúr je <strong>bezplatná štátna aplikácia veľmi pravdepodobne úplne postačujúca.</strong> Kupovať softvér ani si dávať niečo stavať nepotrebujete.</p>');
+        parts.push('<p class="widget-note"><strong>Odhadovaný náklad: 0 €.</strong> Od nás nepotrebujete nič.</p>');
+      } else {
+        parts.push('<p>Pri vašom objeme zvážte fakturačný program s podporou formátu — bezplatná štátna aplikácia zvládne aj toto, ale pri desiatkach faktúr mesačne oceníte automatické funkcie.</p>');
+        parts.push('<p class="widget-note"><strong>Odhadovaný náklad:</strong> 0 € (štátna aplikácia) alebo bežné predplatné fakturačného programu.</p>');
+      }
+    } else if (how === 'uctovnik') {
+      parts.push('<h3>Čo spravte</h3><p>Opýtajte sa účtovníka <strong>skôr, než čokoľvek objednáte</strong>. Časť povinnosti môže byť pokrytá tým, čo pre vás už robí. Toto je najlacnejšia otázka v celej príprave.</p>');
+      parts.push('<p class="widget-note"><strong>Odhadovaný náklad:</strong> pravdepodobne 0 € navyše. Overte, či účtovník nezdvihne cenu.</p>');
+    } else {
+      parts.push('<h3>Čo spravte</h3><p>Toto je jediný scenár, kde ide o skutočnú prácu. Vlastný systém alebo e-shop musí začať produkovať štruktúrované XML podľa normy a vedieť prijaté faktúry spracovať. To je zásah do systému, nie nastavenie.</p><p><strong>Neodkladajte to na koniec roka 2026</strong> — vtedy bude o kapacitu dodávateľov najväčší tlak a ceny podľa toho.</p>');
+      parts.push('<p class="widget-note"><strong>Odhadovaný náklad:</strong> rádovo stovky až tisíce eur podľa toho, ako je systém postavený.</p>');
+    }
+
+    if (retype === 'ano') {
+      parts.push('<h3>Ešte jedna vec, ktorá sa vám oplatí</h3><p>Uviedli ste, že údaje pre faktúru odniekiaľ prepisujete ručne. Prepis je najčastejšie miesto vzniku chýb a pri prechode na štruktúrovaný formát sa to zhorší — chybná faktúra neprejde kontrolou.</p><p>Zároveň je to presne tá časť, ktorú sa oplatí automatizovať bez ohľadu na e-faktúru. Ak prepisovanie zaberie dve hodiny týždenne, je to zhruba sto hodín ročne.</p>');
+    }
+
+    document.getElementById('vtitle').textContent = title;
+    document.getElementById('vsub').textContent = sub;
+    document.getElementById('detail').innerHTML = parts.join('');
+  }
+  ids.forEach(function(id){
+    var el = document.getElementById(id);
+    el.addEventListener('change', calc);
+  });
+  calc();
+})();
+</script>
+"""
+
+
+def build_efa_tool() -> None:
+    """Free Slovak decision tool for the 2027 e-invoicing obligation.
+
+    Built instead of another explainer article. Every piece of content on
+    this topic is published by a company selling invoicing software, so
+    none of them lead with the fact that the state provides a free web app
+    for small businesses under IS EFA - which for a low-volume Excel user
+    is the entire answer. A tool that says "you need nothing, here is why"
+    is the one thing nobody selling software will build.
+
+    The obligation starts 1 January 2027 and voluntary testing is running
+    now, so this is the window where people begin looking.
+    """
+    body = """<span class="eyebrow">Bezplatn&yacute; n&aacute;stroj</span>
+<h1>Ste pripraven&iacute; na e-fakt&uacute;ru 2027?</h1>
+<p class="subtitle">Od 1. janu&aacute;ra 2027 musia platitelia DPH vystavovať aj prij&iacute;mať
+fakt&uacute;ry v štrukt&uacute;rovanom form&aacute;te. Odpovedzte na štyri ot&aacute;zky a
+dostanete konkr&eacute;tnu odpoveď na svoju situ&aacute;ciu - vr&aacute;tane toho, či
+nepotrebujete kupovať v&ocirc;bec nič.</p>
+""" + EFA_WIDGET + """
+<div class="card">
+<h2>Pre&ccaron;o tento n&aacute;stroj vznikol</h2>
+<p>O e-fakt&uacute;re 2027 je nap&iacute;san&yacute;ch desiatky &ccaron;l&aacute;nkov. Skoro
+v&scaron;etky ich publikuj&uacute; firmy, ktor&eacute; predávaj&uacute; faktura&ccaron;n&yacute;
+softv&eacute;r - a preto sa v nich len ťažko dozviete, že <strong>&scaron;t&aacute;t
+pripravuje v r&aacute;mci syst&eacute;mu IS EFA bezplatn&uacute; webov&uacute; aplik&aacute;ciu
+pre mal&yacute;ch podnikateľov</strong> na tvorbu a spr&aacute;vu fakt&uacute;r v predp&iacute;sanom
+form&aacute;te.</p>
+<p>Pre &ccaron;asť firiem je pr&aacute;ve to cel&aacute; odpoveď. My stav&iacute;me
+automatiz&aacute;cie - a aj tak v&aacute;m to povieme, lebo predať niekomu rie&scaron;enie
+probl&eacute;mu, ktor&yacute; nem&aacute;, je r&yacute;chly sp&ocirc;sob, ako pr&iacute;sť o
+d&ocirc;veru.</p>
+<p class="form-note">Toto je orienta&ccaron;n&yacute; n&aacute;stroj, nie da&ncaron;ov&eacute;
+ani pr&aacute;vne poradenstvo. Konkr&eacute;tnu situ&aacute;ciu si potvrďte s &uacute;&ccaron;tovn&iacute;kom.
+V&scaron;etko be&zcaron;&iacute; vo va&scaron;om prehliada&ccaron;i - ni&ccaron; sa neodosiela
+a ni&ccaron; neukladáme.</p>
+</div>
+
+<h2>Čo hovor&iacute; z&aacute;kon</h2>
+<p>Novelu z&aacute;kona o DPH schv&aacute;lila N&aacute;rodn&aacute; rada 9. decembra 2025 a
+prezident ju podp&iacute;sal 16. decembra 2025. Od <strong>1. 1. 2027</strong> musia platitelia
+DPH vystavovať a prij&iacute;mať fakt&uacute;ry v &scaron;trukt&uacute;rovanom XML podľa
+eur&oacute;pskej normy <strong>EN 16931</strong> a elektronicky hl&aacute;siť vybran&eacute;
+&uacute;daje. Dobrovoľn&eacute; testovanie be&zcaron;&iacute; u&zcaron; teraz. Cezhrani&ccaron;n&eacute;
+dodania sa maj&uacute; pridať od 1. 7. 2030 v r&aacute;mci bal&iacute;ka ViDA.</p>
+
+<h2>Ak vy&scaron;lo, &zcaron;e potrebujete z&aacute;sah do syst&eacute;mu</h2>
+<p>Nie sme &uacute;&ccaron;tovn&iacute;ci ani da&ncaron;ov&iacute; poradcovia. &Ccaron;o vieme
+spraviť, je technick&aacute; &ccaron;asť: aby v&aacute;&scaron; syst&eacute;m alebo e-shop
+produkoval spr&aacute;vny form&aacute;t, aby sa prijat&eacute; fakt&uacute;ry spracovali samy
+namiesto prepisovania, alebo aby si dva syst&eacute;my kone&ccaron;ne odovzd&aacute;vali
+&uacute;daje.</p>
+<p>Automatiz&aacute;ciu jednej &uacute;lohy stav&iacute;me <strong>od 390 &euro;</strong> bez
+DPH, pevnou sumou dohodnutou vopred, so zdrojov&yacute;m k&oacute;dom pre v&aacute;s.
+<a href="index.html">Nap&iacute;&scaron;te n&aacute;m</a>, ako dnes fakt&uacute;ry vznikaj&uacute;.</p>
+
+<p class="form-note"><strong>Zdroje:</strong>
+<a href="https://e-fakturacia.finance.gov.sk/e-fakturacia/" target="_blank" rel="noopener">Ministerstvo financi&iacute; SR - Informa&ccaron;n&yacute; syst&eacute;m elektronickej fakturácie</a> &middot;
+<a href="https://www.podnikajte.sk/dan-z-pridanej-hodnoty/efaktura-povinna-elektronicka-fakturacia-od-2027" target="_blank" rel="noopener">Podnikajte.sk</a></p>
+<p><a href="index.html">&larr; Späť na slu&zcaron;by</a></p>"""
+
+    page = page_shell(
+        "Ste pripraven\u00ed na e-fakt\u00faru 2027? Bezplatn\u00fd test",
+        "Odpovedzte na \u0161tyri ot\u00e1zky a zistite, \u010do mus\u00edte spravi\u0165 pred "
+        "1. 1. 2027 - vr\u00e1tane toho, \u010di v\u00e1m sta\u010d\u00ed bezplatn\u00e1 "
+        "aplik\u00e1cia \u0161t\u00e1tu.",
+        body)
+    if SITE_BASE_URL:
+        url = f"{SITE_BASE_URL}/sk/efaktura-2027-test.html"
+        extras = (f'<link rel="canonical" href="{url}">\n'
+                  f'<meta property="og:title" content="Ste pripraven\u00ed na e-fakt\u00faru 2027?">\n'
+                  f'<meta property="og:url" content="{url}">\n'
+                  f'<meta property="og:type" content="website">\n' + OG_IMAGE_TAGS)
+        i = page.lower().find("</head>")
+        if i != -1:
+            page = page[:i] + extras + page[i:]
+    page = page.replace('<html lang="en">', '<html lang="sk">')
+    sk = SITE_DIR / "sk"
+    sk.mkdir(parents=True, exist_ok=True)
+    (sk / "efaktura-2027-test.html").write_text(page)
+
+
 def build_credits_page() -> None:
     """Photo credits. CC0/Public Domain images carry no legal attribution
     requirement, but naming the photographers who released work for free

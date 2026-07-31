@@ -200,6 +200,10 @@ def _blog_entries() -> list[dict]:
     entries += [{"url": a["url"], "title": a["title"],
                  "meta_description": a["description"], "created_at": a["date"]}
                 for a in load_sk_posts()]
+    entries.append({"url": "sk/efaktura-2027-test.html",
+                    "title": "Ste pripraven\u00ed na e-fakt\u00faru 2027? Bezplatn\u00fd test",
+                    "meta_description": "Zistite za minútu, čo musíte spraviť pred 1. 1. 2027.",
+                    "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%d")})
     entries.append({"url": "sk/index.html",
                     "title": "Tvorba webstr\u00e1nok, automatiz\u00e1cia a dizajn | Biznis",
                     "meta_description": "Webstr\u00e1nky, automatiz\u00e1cia procesov a firemn\u00e1 "
