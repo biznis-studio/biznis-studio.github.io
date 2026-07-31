@@ -89,6 +89,8 @@ QUERIES = {
     "the-practical-guide-to-xlsx": ["spreadsheet", "financial chart paper", "accounting numbers"],
     "checklist-pdf-notion": ["checklist", "notebook pen writing", "to do list"],
     "spreadsheet-pack": ["laptop desk office", "computer desk work", "office workspace"],
+    "late-payment-recovery-kit": ["overdue invoice paperwork desk",
+        "calendar deadline reminder desk", "person reviewing documents worried"],
     "invoice-pack": ["accounting desk documents", "bill payment desk", "paperwork finance desk"],
     "free-online-calculator": ["calculator", "calculator desk", "numbers math"],
     "eu-digital-seller-compliance-checklist": ["european union flag", "europe flag", "brussels building"],

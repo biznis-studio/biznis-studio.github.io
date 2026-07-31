@@ -589,6 +589,32 @@ obr&aacute;zok loga.</p>
 <p>Chatbot na jednu konkr&eacute;tnu &uacute;lohu - odpovedanie na opakuj&uacute;ce sa ot&aacute;zky
 z&aacute;kazn&iacute;kov - s jasne vymedzen&yacute;m rozsahom, aby si nevym&yacute;šľal.</p>
 
+<h2 class="section-title">Cenn&iacute;k</h2>
+<p>Ceny uv&aacute;dzame otvorene, hoci v&auml;čšina agent&uacute;r to nerob&iacute;. Je to
+r&yacute;chlejšie pre v&aacute;s aj pre n&aacute;s: hneď vid&iacute;te, či sa vôbec bav&iacute;me
+o rovnak&yacute;ch č&iacute;slach. Sumy s&uacute; <strong>&bdquo;od&ldquo;</strong> - konečn&uacute;
+cenu dostanete p&iacute;somne po tom, ako pozn&aacute;me rozsah, a už sa nemen&iacute;.</p>
+<table>
+<tr><th>Čo</th><th>Cena od</th><th>Čo cenu men&iacute;</th></tr>
+<tr><td>Jednostr&aacute;nkov&yacute; web (landing page)</td><td><strong>590 &euro;</strong></td>
+<td>množstvo obsahu, formul&aacute;re, jazykov&eacute; verzie</td></tr>
+<tr><td>Firemn&yacute; web (do 8 podstr&aacute;nok)</td><td><strong>1 190 &euro;</strong></td>
+<td>počet str&aacute;nok, blog, napojenie na extern&eacute; syst&eacute;my</td></tr>
+<tr><td>Automatiz&aacute;cia jednej &uacute;lohy</td><td><strong>390 &euro;</strong></td>
+<td>počet syst&eacute;mov, kvalita vstupn&yacute;ch d&aacute;t</td></tr>
+<tr><td>Digit&aacute;lny produkt na mieru</td><td><strong>290 &euro;</strong></td>
+<td>rozsah, či ide o text, tabuľku alebo interakt&iacute;vny n&aacute;stroj</td></tr>
+<tr><td>Logo a z&aacute;kladn&aacute; identita</td><td><strong>390 &euro;</strong></td>
+<td>počet v&yacute;stupov, šablóny, rozsah pravidiel</td></tr>
+<tr><td>Chatbot</td><td><strong>690 &euro;</strong></td>
+<td>rozsah znalost&iacute;, napojenie na vaše d&aacute;ta</td></tr>
+</table>
+<p class="form-note">Ceny s&uacute; bez DPH. Prev&aacute;dzkov&eacute; n&aacute;klady, ktor&eacute;
+plat&iacute;te priamo poskytovateľovi (dom&eacute;na, hosting, jazykov&yacute; model pri chatbote),
+v cene nie s&uacute; - nechceme ich mať cez seba, aby ste neboli na n&aacute;s viazan&iacute;.</p>
+<p><strong>Ak sa v&aacute;m rozpočet a rozsah nestret&aacute;vaj&uacute;</strong>, povieme to a
+navrhneme, čo vynechať. Menšia vec sprav&eacute;n&aacute; poriadne je lepšia než veľk&aacute; sprav&eacute;n&aacute; polovične.</p>
+
 <div class="card">
 <h2>Ako pracujeme</h2>
 <p><strong>1. Poviete, čo nefunguje.</strong> Konkr&eacute;tny probl&eacute;m poviete lepšie než

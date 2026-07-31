@@ -402,3 +402,59 @@ real decisions made so far, then kept current going forward.
 - **Review date**: Revisit in the next Strategic Review - check whether
   Customer Discovery signals actually produced a better idea than the
   keyword pipeline would have, or whether it was a detour.
+
+## D13 — Publish prices on the Slovak page (2026-07-31)
+
+**Decision:** publish "from" prices openly rather than "contact us for a
+quote". One-pager from 590 €, company site from 1 190 €, one automation
+from 390 €, custom digital product from 290 €, logo and basic identity
+from 390 €, chatbot from 690 €. Excluding VAT, with third-party running
+costs (domain, hosting, language model) explicitly excluded and paid by
+the client directly.
+
+**Reasoning:** the Slovak agencies that actually rank for these queries
+publish prices, and that is part of why they rank - the query "koľko
+stojí webstránka" *is* a price question, so a page without a price does
+not answer it. "Contact us" also reads to a buyer as "this will be
+expensive", and it wastes both sides' time on mismatched enquiries.
+
+**Positioning rationale:** market research found one-pagers from ~599 €,
+company sites from ~999 €, agencies 1 000–5 000 €, freelancers
+500–2 000 €. These sit at the lower-middle: credible, below agency rates,
+clearly above hobbyist. Pricing at the bottom would signal low quality
+and attract the worst clients; pricing at the top is not defensible
+without a portfolio.
+
+**Assumption that could be wrong:** that transparency wins more than it
+costs. It may anchor negotiations low, and it tells competitors exactly
+where we sit.
+
+**Validation:** whether enquiries arrive, and whether they arrive
+pre-qualified rather than as price-shopping. **Review:** after the first
+five enquiries, or 60 days.
+
+**Not decided autonomously without flagging:** the owner was told the
+numbers explicitly and can change any of them - they are one edit.
+
+## D14 — Release the Late Payment Recovery Kit free, not at $29 (2026-07-31)
+
+**Decision:** publish the eight-script kit and its tracker as a free
+product (tier: lead_magnet), unlike the two $29 kits.
+
+**Reasoning:** the binding constraint is that nobody arrives - the paid
+products have zero *views*, not merely zero sales. A third paid listing
+therefore changes nothing. A complete free kit is something people link
+to and recommend, which attacks the actual constraint, and it
+demonstrates quality in full, which supports the **services** - where
+revenue is 100x per sale - better than a $29 listing nobody sees.
+
+**Rejected alternative:** price it at $29 for consistency with the other
+kits. Rejected because consistency is not a business goal, and the two
+paid kits have proven that a paid listing without traffic earns nothing.
+
+**Why this is the cheap direction to be wrong in:** pricing it later is
+one edit. A linking and sharing opportunity, once the moment passes, does
+not come back.
+
+**Validation:** referring links, and whether traffic to it converts into
+service enquiries rather than product sales. **Review:** 60 days.

@@ -1515,6 +1515,33 @@ one-by-one - so this gets wired in as a single batch.
       freelance angle - an underserved query with no product of ours
       behind it.
 
+## Done (iteration 58) — both open decisions made and shipped
+- [x] Asked to decide rather than defer, so both were decided and
+      implemented, with the reasoning recorded in Decision Journal D13/D14.
+- [x] **Prices published on the Slovak page.** The agencies ranking for
+      "koľko stojí webstránka" publish prices, and that is part of why
+      they rank - the query *is* a price question, so a page without one
+      does not answer it. Set at the lower-middle of the researched market
+      (one-pager from 590 €, company site 1 190 €, automation 390 €,
+      custom product 290 €, identity 390 €, chatbot 690 €): credible,
+      below agency rates, clearly above hobbyist. Stated ex-VAT, with
+      third-party running costs excluded and paid by the client directly
+      so they are never locked to us. Added a column explaining what moves
+      each price, and a line offering to cut scope rather than quality if
+      budget and scope do not meet.
+- [x] **Late Payment Recovery Kit released free**, not at $29. The
+      constraint is that nobody arrives - the paid kits have zero *views*,
+      so a third paid listing changes nothing. A complete free kit is
+      something people link to, which attacks the real constraint, and it
+      supports the services where revenue is orders of magnitude larger.
+      Pricing it later is one edit; a missed linking opportunity does not
+      come back.
+- [x] Both decisions flagged to the owner with the actual numbers, since
+      published prices are a public commitment on his behalf - decided,
+      not hidden.
+- [x] Proofread the new Slovak pricing copy again and fixed further errors
+      ("Súmy"→"Sumy", "Čo cenu meni"→"mení", "číslach").
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
