@@ -1,6 +1,6 @@
 {
   "run_id": 39,
-  "generated_at": "2026-07-31T12:34:39.372499+00:00",
+  "generated_at": "2026-07-31T20:45:59.624930+00:00",
   "run_status": "success",
   "signals_by_source": {
     "github": 30,
@@ -60,13 +60,6 @@
       "sources_json": "[\"wikipedia_pageviews\"]"
     },
     {
-      "term": "xlsx",
-      "score": 0.459145,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
-    },
-    {
       "term": "react-spreadsheet",
       "score": 0.45751000000000003,
       "breadth_component": 0.2,
@@ -74,8 +67,15 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
+      "term": "xlsx",
+      "score": 0.454995,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
       "term": "xhamster",
-      "score": 0.45208,
+      "score": 0.452405,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"wikipedia_pageviews\"]"
@@ -172,19 +172,30 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "media-engine",
+      "term": "productivity",
       "score": 0.3933333333333333,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "productivity",
+      "term": "media-engine",
       "score": 0.3844444444444445,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     }
   ],
-  "product_ideas": []
+  "product_ideas": [
+    {
+      "id": 33,
+      "title": "Party Package: Developer Quickstart & SOP",
+      "format": "sop",
+      "demand_score": 0.2807777777777778,
+      "rationale": "Developer-tool keyword; a standard operating procedure / quickstart guide reduces onboarding friction.",
+      "status": "built",
+      "product_file_path": "data/exports/products/0033-party-package-developer-quickstart-sop.md",
+      "product_status": "draft"
+    }
+  ]
 }
