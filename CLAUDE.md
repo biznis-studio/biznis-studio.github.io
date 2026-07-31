@@ -16,6 +16,18 @@ Required env vars for any build (CI sets them in `.github/workflows/pipeline.yml
 `SITE_BASE_URL`, `FORMSPREE_ENDPOINT`, `GOOGLE_SITE_VERIFICATION`, `PEXELS_API_KEY`.
 Without `SITE_BASE_URL` the build silently skips canonicals, sitemap and RSS.
 
+## Mechanism
+
+- `scripts/build_site.py` is the only correct way to rebuild. It ends with
+  the crawl audit and exits non-zero on failure.
+- `scripts/deploy.py --expect "<text>"` is the only way to call something
+  shipped: it waits for the run and then checks the live URL.
+- A **Stop hook** (`.claude/hooks/verify_before_stop.sh`) runs the audit
+  before any turn can end and blocks with the failure if the site is
+  broken. CLAUDE.md rules are advisory; this one is enforced.
+- `/ship` and `/find-opportunities` skills encode the two repeated
+  procedures. Use them instead of retyping the steps.
+
 ## Gotchas that have actually bitten
 
 - **Rebuilding a page wipes its SEO markup.** `build_page()` resets a published
