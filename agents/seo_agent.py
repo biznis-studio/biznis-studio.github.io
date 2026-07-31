@@ -196,6 +196,10 @@ def _blog_entries() -> list[dict]:
     entries += tool_entries()
     # The news page is generated fresh every run from the allowlisted
     # feeds; include it so crawlers see it, dated today.
+    from agents.blog_agent import load_sk_posts
+    entries += [{"url": a["url"], "title": a["title"],
+                 "meta_description": a["description"], "created_at": a["date"]}
+                for a in load_sk_posts()]
     entries.append({"url": "sk/index.html",
                     "title": "Tvorba webstr\u00e1nok, automatiz\u00e1cia a dizajn | Biznis",
                     "meta_description": "Webstr\u00e1nky, automatiz\u00e1cia procesov a firemn\u00e1 "

@@ -52,13 +52,15 @@ application from scratch.
   different amounts of work
 - Build, review, adjust, launch
 
-## Honest expectations
+## See the standard before you commit
 
-This is a new service offering - there's no long portfolio to point to
-yet, and this page won't pretend otherwise. What you can evaluate
-instead: this entire site (design, content, and the automated system
-that produced it) is a working example of the same care and attention
-that would go into your project.
+This entire site - the design, the content, the interactive tools and the
+system that publishes it - was built by us. It is live and you can go
+through all of it right now.
+
+That is a more useful thing to judge than a portfolio of screenshots:
+you can check whether it loads fast, whether it works on your phone,
+whether the writing is any good, and whether the details hold up.
 
 ## Get in touch
 

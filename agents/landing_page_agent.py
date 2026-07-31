@@ -437,18 +437,9 @@ def build_work_page(stats: dict) -> None:
     """
     body = f"""<span class="eyebrow">See it before you buy it</span>
 <h1>Work</h1>
-<p class="subtitle">We are new, so there is no client list. What there is instead: everything
-on this site was designed and built by us, it is all live, and you can try any of it right
-now without talking to anyone. That is a harder thing to fake than a testimonial.</p>
-
-<div class="card">
-<h2>Read this first</h2>
-<p>This is our own project, not client work, and we are not going to dress it up as
-anything else. No logos of companies we have never worked with, no invented testimonials,
-no case studies describing results that did not happen.</p>
-<p>What it does show you is the standard of the work, the judgement behind it, and whether
-the things we build actually run. That is what we are asking you to judge.</p>
-</div>
+<p class="subtitle">The design, the products, the tools and the software that publishes all
+of it - every piece of this was built by us. It is live, it works, and you can use any of it
+right now. Judge the work directly instead of a page of logos.</p>
 
 <h2>A finished website, not a mockup</h2>
 <p>The site you are on is the work sample. Product pages, a blog, interactive tools,
@@ -496,14 +487,12 @@ work out how to use it. You get the rules and a working stylesheet, so everythin
 later still looks like you.</p>
 
 <div class="card">
-<h2>What this does not prove</h2>
-<p>Building well for ourselves is not the same as building well for a client. The hard
-parts of client work are understanding someone else's business, scoping it honestly, and
-communicating while the work is happening. None of that is demonstrated here, and the
-first client takes it partly on trust.</p>
-<p>What we put against that: a fixed price and a written scope agreed before anything
-starts. If the work turns out harder than we estimated, that is our problem, not a
-surprise on your invoice.</p>
+<h2>How we take the risk off you</h2>
+<p>A fixed price and a written scope, agreed before any work begins. If the job turns out
+harder than we estimated, that is our problem - not a revised invoice.</p>
+<p>You own the result outright, source files included, with no ongoing fees and nothing
+locking you to us. And you can see the standard of the work above before you commit to
+anything at all.</p>
 </div>
 
 <div class="stats-strip">
@@ -589,6 +578,9 @@ obr&aacute;zok loga.</p>
 <p>Chatbot na jednu konkr&eacute;tnu &uacute;lohu - odpovedanie na opakuj&uacute;ce sa ot&aacute;zky
 z&aacute;kazn&iacute;kov - s jasne vymedzen&yacute;m rozsahom, aby si nevym&yacute;šľal.</p>
 
+<h2 class="section-title">Užitočn&eacute; č&iacute;tanie</h2>
+<div class="post-list">SK_ARTICLES</div>
+
 <h2 class="section-title">Cenn&iacute;k</h2>
 <p>Ceny uv&aacute;dzame otvorene, hoci v&auml;čšina agent&uacute;r to nerob&iacute;. Je to
 r&yacute;chlejšie pre v&aacute;s aj pre n&aacute;s: hneď vid&iacute;te, či sa vôbec bav&iacute;me
@@ -666,19 +658,28 @@ zdrojov&yacute;ch s&uacute;borov. Žiadne mesačn&eacute; poplatky a žiadna z&a
 </div>
 
 <div class="card">
-<h2>&Uacute;primne: sme nov&iacute;</h2>
-<p>Nem&aacute;me zoznam klientov, ktor&yacute;m by sme sa mohli pochv&aacute;liť, a nebudeme
-predstierať opak. Žiadne cudzie log&aacute;, žiadne vymyslen&eacute; referencie.</p>
-<p>Namiesto toho si m&ocirc;žete pozrieť všetko, čo sme postavili pre seba - tento web, produkty,
-n&aacute;stroje aj syst&eacute;m, ktor&yacute; to publikuje. Je to živ&eacute; a d&aacute; sa to
-overiť za min&uacute;tu. <a href="../work.html">Pozrite si to</a>.</p>
-<p>A čo d&aacute;vame proti tomu, že prv&yacute; klient n&aacute;m d&ocirc;veruje bez referenci&iacute;:
-pevn&uacute; cenu a p&iacute;somn&yacute; rozsah dohodnut&yacute; vopred. Ak sa pr&aacute;ca uk&aacute;že
-ťažšia, než sme odhadli, je to n&aacute;š probl&eacute;m, nie prekvapenie na vašej fakt&uacute;re.</p>
+<h2>Pozrite si našu pr&aacute;cu</h2>
+<p>Tento web, produkty, n&aacute;stroje aj syst&eacute;m, ktor&yacute; to všetko publikuje -
+postavili sme to my. Je to živ&eacute;, funguje to a d&aacute; sa to overiť za min&uacute;tu.
+<a href="../work.html">Pozrite si to</a>.</p>
+<p><strong>Riziko nesieme my.</strong> Pevn&aacute; cena a p&iacute;somn&yacute; rozsah dohodnut&yacute;
+predt&yacute;m, než sa začne pracovať. Ak sa pr&aacute;ca uk&aacute;že ťažšia, než sme odhadli, je to
+n&aacute;š probl&eacute;m - nie upraven&aacute; fakt&uacute;ra. V&yacute;sledok je v&aacute;š vr&aacute;tane
+zdrojov&yacute;ch s&uacute;borov, bez mesačn&yacute;ch poplatkov a bez viazanosti.</p>
 </div>
 
 <h2 class="section-title">Ozvite sa</h2>\n""" + contact_form_html("sk") + """
 <p class="form-note">Str&aacute;nka je aj <a href="../index.html">v angličtine</a>.</p>"""
+
+    from agents.blog_agent import load_sk_posts
+    cards = "\n".join(
+        f'<a class="post-card" href="{a["slug"]}.html">'
+        f'{card_art(a["slug"], a["title"])}'
+        f'<span class="post-meta">{a["date"]}</span>'
+        f'<h3>{html.escape(a["title"])}</h3>'
+        f'<p>{html.escape(a["description"])}</p></a>'
+        for a in load_sk_posts())
+    body = body.replace("SK_ARTICLES", cards)
 
     if SITE_BASE_URL:
         alt = (f'<link rel="canonical" href="{SITE_BASE_URL}/sk/">\n'

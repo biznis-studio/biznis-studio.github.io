@@ -1573,6 +1573,48 @@ one-by-one - so this gets wired in as a single batch.
       while the honesty sections lived only on the older pages. Boundaries
       have to be part of the template, not bolted on per page.
 
+## Done (iteration 60) — Slovak content published; stopped advertising our own weakness
+- [x] User correction, and an important one: copy like "We are new, so
+      there is no client list... that is a harder thing to fake than a
+      testimonial" is not professional marketing, it puts people off, and
+      it is unclear who it is even addressed to. Correct.
+- [x] I had conflated two different things: **not lying** and **volunteering
+      your weakness in the headline**. Professional marketing does neither
+      fabricate nor confess. The hard line stays exactly where it was - no
+      invented testimonials, no logos of companies we have not worked
+      with, no fabricated numbers - but nothing obliges us to open with
+      "we have no clients".
+- [x] Rewrote every instance of it, keeping the substance and dropping the
+      apology:
+      - Work page opener → "The design, the products, the tools and the
+        software that publishes all of it - every piece of this was built
+        by us. It is live, it works, and you can use any of it right now."
+      - "What this does not prove" → **"How we take the risk off you"**:
+        same content (fixed price, written scope, we absorb an
+        underestimate, you own the result) framed as the guarantee it
+        actually is rather than as a confession.
+      - Slovak "Úprimne: sme noví" → "Pozrite si našu prácu" with the same
+        risk-transfer promise stated as a strength.
+      - Website and chatbot service pages: "this is a new service
+        offering, no long portfolio" → "See the standard before you
+        commit", pointing at the live site as a better thing to judge than
+        a portfolio of screenshots.
+- [x] Published two Slovak articles targeting the exact queries verified
+      as winnable: **"Koľko stojí webstránka pre malú firmu"** (real market
+      ranges, what actually drives price, what is never included, how to
+      spot an overpriced quote, and when you do not need a website at all)
+      and **"Automatizácia v malej firme: čo sa oplatí"** (the arithmetic
+      first, what to automate, what not to, what to ask a supplier).
+- [x] Extended `blog_agent` with Slovak article support - separate
+      directory, `lang="sk"`, own canonicals, sitemap entries - rather
+      than mixing languages in one blog index, which would give Google a
+      page it cannot classify.
+- [x] Found and fixed a bug in the same pass: the articles were built and
+      in the sitemap but **not linked from the Slovak page** - an earlier
+      patch had failed to apply silently because its anchor string did not
+      match. Caught by checking the rendered output rather than trusting
+      the patch reported success.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

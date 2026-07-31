@@ -32,11 +32,9 @@ that frustrates people.
 
 ## Honest expectations
 
-This is a new service offering, same as the website design service above
-- no long track record to point to yet. What you can evaluate instead:
-this entire site, its products and the system that publishes it were
-built by the same people offering to build yours, and all of it is
-public and inspectable.
+This entire site, its products and the system that publishes it were
+built by the same people who would build your chatbot, and all of it is
+public and inspectable - a more useful thing to judge than a slide deck.
 
 One practical point stated up front: a chatbot needs access to a language
 model, which is a paid third-party service billed per use. That account
