@@ -592,10 +592,29 @@ def format_badge_html(fmt: str) -> str:
 BRAND_HTML = "Biznis<span>.studi<b>O</b></span>"
 
 
-def site_header_html(active_is_index: bool = False) -> str:
-    """Shared sticky header. Product pages and blog pages both live one
-    directory below the root (site/products/, site/blog/), so the same
-    ../-relative links work for either; only the homepage differs."""
+def site_header_html(active_is_index: bool = False, lang: str = "en") -> str:
+    """Shared sticky header.
+
+    Slovak pages get a Slovak nav pointing at Slovak destinations. Before
+    this, /sk/ inherited the English nav, so every single link threw a
+    Slovak visitor into English content - the pages advertise services in
+    Slovak and then every click leaves the language.
+    """
+    if lang == "sk":
+        # Slovak pages all live in /sk/, so these are siblings.
+        return f"""<header class="site-header">
+<div class="site-header-inner">
+<a class="brand" href="index.html">{BRAND_HTML}</a>
+<nav>
+<a href="index.html">Slu&zcaron;by</a>
+<a href="index.html#cennik">Cenn&iacute;k</a>
+<a href="efaktura-2027-test.html">E-fakt&uacute;ra 2027</a>
+<a href="../index.html">English</a>
+<a class="nav-cta" href="index.html#kontakt">Nez&aacute;v&auml;zn&yacute; dopyt</a>
+</nav>
+</div>
+</header>"""
+
     prefix = "" if active_is_index else "../"
     home_href = f"{prefix}index.html"
     services_href = "#services" if active_is_index else "../index.html#services"

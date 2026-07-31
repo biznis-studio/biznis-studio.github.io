@@ -88,7 +88,32 @@ DOWNLOAD_LABEL_BY_FORMAT = {
     "prompt_pack": "prompts",
 }
 
-def page_shell(title: str, meta_description: str, body_html: str, is_index: bool = False) -> str:
+def footer_html(is_index: bool, lang: str) -> str:
+    """Language-matched footer. A Slovak page must not link out to English
+    pages in its own footer - the visitor came for Slovak."""
+    if lang == "sk":
+        return ('<footer><a class="brand" href="index.html">' + BRAND_HTML + '</a>'
+                '<a href="index.html">Slu&zcaron;by</a>'
+                '<a href="efaktura-2027-test.html">E-fakt&uacute;ra 2027</a>'
+                '<a href="index.html#cennik">Cenn&iacute;k</a>'
+                '<a href="../index.html">English</a>'
+                '<a href="https://github.com/biznis-studio/biznis-studio.github.io" '
+                'target="_blank" rel="noopener">GitHub</a></footer>')
+    pre = "" if is_index else "../"
+    return (f'<footer><a class="brand" href="{pre}index.html">{BRAND_HTML}</a>'
+            f'<span>Built in public from real demand signals.</span>'
+            f'<a href="{pre}index.html">Products</a>'
+            f'<a href="{pre}tools/index.html">Free tools</a>'
+            f'<a href="{pre}news/index.html">Signals</a>'
+            f'<a href="{pre}blog/index.html">Blog</a>'
+            f'<a href="{pre}sk/index.html">Slovensky</a>'
+            f'<a href="{pre}credits.html">Photo credits</a>'
+            f'<a href="https://github.com/biznis-studio/biznis-studio.github.io" '
+            f'target="_blank" rel="noopener">GitHub</a></footer>')
+
+
+def page_shell(title: str, meta_description: str, body_html: str, is_index: bool = False,
+               lang: str = "en") -> str:
     verification_tag = (
         f'<meta name="google-site-verification" content="{html.escape(GOOGLE_SITE_VERIFICATION)}">\n'
         if GOOGLE_SITE_VERIFICATION else ""
@@ -127,19 +152,11 @@ def page_shell(title: str, meta_description: str, body_html: str, is_index: bool
 {verification_tag}{index_seo_tags}{rss_link_tag}<style>{SITE_CSS}</style>
 </head>
 <body>
-{site_header_html(active_is_index=is_index)}
+{site_header_html(active_is_index=is_index, lang=lang)}
 <main{main_class}>
 {body_html}
 </main>
-<footer><a class="brand" href="{'' if is_index else '../'}index.html">{BRAND_HTML}</a>
-<span>Built in public from real demand signals.</span>
-<a href="{'' if is_index else '../'}index.html">Products</a>
-<a href="{'' if is_index else '../'}tools/index.html">Free tools</a>
-<a href="{'' if is_index else '../'}news/index.html">Signals</a>
-<a href="{'' if is_index else '../'}blog/index.html">Blog</a>
-<a href="{'' if is_index else '../'}sk/index.html">Slovensky</a>
-<a href="{'' if is_index else '../'}credits.html">Photo credits</a>
-<a href="https://github.com/biznis-studio/biznis-studio.github.io" target="_blank" rel="noopener">GitHub</a></footer>
+{footer_html(is_index, lang)}
 </body>
 </html>
 """
@@ -581,7 +598,7 @@ z&aacute;kazn&iacute;kov - s jasne vymedzen&yacute;m rozsahom, aby si nevym&yacu
 <h2 class="section-title">Užitočn&eacute; č&iacute;tanie</h2>
 <div class="post-list">SK_ARTICLES</div>
 
-<h2 class="section-title">Cenn&iacute;k</h2>
+<h2 id="cennik" class="section-title">Cenn&iacute;k</h2>
 <p>Ceny uv&aacute;dzame otvorene, hoci v&auml;čšina agent&uacute;r to nerob&iacute;. Je to
 r&yacute;chlejšie pre v&aacute;s aj pre n&aacute;s: hneď vid&iacute;te, či sa vôbec bav&iacute;me
 o rovnak&yacute;ch č&iacute;slach. Sumy s&uacute; <strong>&bdquo;od&ldquo;</strong> - konečn&uacute;
@@ -668,7 +685,7 @@ n&aacute;š probl&eacute;m - nie upraven&aacute; fakt&uacute;ra. V&yacute;sledok
 zdrojov&yacute;ch s&uacute;borov, bez mesačn&yacute;ch poplatkov a bez viazanosti.</p>
 </div>
 
-<h2 class="section-title">Ozvite sa</h2>\n""" + contact_form_html("sk") + """
+<h2 id="kontakt" class="section-title">Ozvite sa</h2>\n""" + contact_form_html("sk") + """
 <p class="form-note">Str&aacute;nka je aj <a href="../index.html">v angličtine</a>.</p>"""
 
     from agents.blog_agent import load_sk_posts
@@ -697,7 +714,7 @@ zdrojov&yacute;ch s&uacute;borov, bez mesačn&yacute;ch poplatkov a bez viazanos
         "Tvorba webstr\u00e1nok, automatiz\u00e1cia a dizajn pre mal\u00e9 firmy | Biznis",
         "Webstr\u00e1nky, automatiz\u00e1cia procesov, digit\u00e1lne produkty na mieru a firemn\u00e1 "
         "identita pre mal\u00e9 firmy. Pevn\u00e1 cena dohodnut\u00e1 vopred.",
-        body)
+        body, lang="sk")
     if alt:
         idx = page.lower().find("</head>")
         if idx != -1:
@@ -869,7 +886,7 @@ DPH, pevnou sumou dohodnutou vopred, so zdrojov&yacute;m k&oacute;dom pre v&aacu
         "Odpovedzte na \u0161tyri ot\u00e1zky a zistite, \u010do mus\u00edte spravi\u0165 pred "
         "1. 1. 2027 - vr\u00e1tane toho, \u010di v\u00e1m sta\u010d\u00ed bezplatn\u00e1 "
         "aplik\u00e1cia \u0161t\u00e1tu.",
-        body)
+        body, lang="sk")
     if SITE_BASE_URL:
         url = f"{SITE_BASE_URL}/sk/efaktura-2027-test.html"
         extras = (f'<link rel="canonical" href="{url}">\n'

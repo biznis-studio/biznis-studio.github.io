@@ -91,7 +91,7 @@ def build_sk_posts() -> int:
                 f'<p class="subtitle">{html.escape(post["description"])}</p>\n'
                 f'{markdown_lite_to_html(post["body_md"])}\n'
                 f'<p><a href="index.html">&larr; Späť na služby</a></p>\n</article>')
-        page = page_shell(post["title"], post["description"], body)
+        page = page_shell(post["title"], post["description"], body, lang="sk")
         if extras:
             i = page.lower().find("</head>")
             if i != -1:
