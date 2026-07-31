@@ -120,6 +120,10 @@ QUERIES = {
     "news-economy": ["stock market chart", "financial chart graph", "trading screen"],
     # --- homepage hero ---
     # User picked this one explicitly - do not change the query without asking.
+    "kolko-stoji-chatbot-pre-firmu": ["smartphone chat message screen",
+        "customer service headset desk", "mobile phone typing hands"],
+    "potrebuje-moja-firma-webstranku": ["small business owner shop counter",
+        "local business storefront", "person working small business"],
     "kolko-stoji-webstranka": ["laptop website design desk", "web designer working screen",
         "person planning notes laptop"],
     "automatizacia-v-malej-firme": ["gears machinery automation", "conveyor factory automation",

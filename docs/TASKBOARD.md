@@ -1649,6 +1649,46 @@ one-by-one - so this gets wired in as a single batch.
       directive still stands. The three changes above remove real,
       measured waste; anything further would be process for its own sake.
 
+## Done (iteration 62) — studied loops/graphs properly, then used them on real work
+- [x] Read the official docs on dynamic workflows (graphs) and `/goal`
+      (autonomous loops) rather than guessing. The distinction that
+      matters: a **graph** moves the plan into a script so it can fan out
+      across many items with intermediate results staying out of context;
+      a **loop** re-runs until a verifiable condition holds, judged by a
+      separate evaluator rather than the model doing the work.
+- [x] Applied it to the two things this project does repeatedly by hand:
+      - `.claude/skills/ship/` - build, audit, commit, rebase (with the
+        `--theirs` warning and a row-count check), deploy and **verify on
+        the live URL**. Encodes the sequence that has gone wrong twice.
+      - `.claude/skills/find-opportunities/` - the SERP winnability method,
+        including the classification rules and the two patterns already
+        established, so it is not re-derived each time.
+- [x] Ran a real fan-out instead of describing one: one research agent
+      across six Slovak queries at once. It reported back honestly that it
+      could **not** reach Google (EU consent wall), used DuckDuckGo, and
+      explicitly flagged that it had no ad data and no People-Also-Ask
+      data rather than inventing them. That is the standard wanted.
+- [x] Verified its most load-bearing claim myself, and **one did not
+      replicate**: it reported a `github.io` site ranking page 1 for
+      "potrebuje moja firma webstránku". On Google it is not there - that
+      was a DuckDuckGo-only result. Not repeated as fact. This is exactly
+      why a fan-out's findings get checked rather than trusted.
+- [x] What my own Google checks *did* confirm: both target SERPs are held
+      by small Slovak operators (webvista.sk, martinpavlic.sk,
+      magnetica.sk, upsight.sk / webize.sk, chatbotnamieru.sk, taibot.sk,
+      vlad-weby.sk), **paid ads are running** on the website query -
+      answering the demand question the subagent could not - and the
+      top-ranking result for the chatbot query is an editorial pricing
+      article, i.e. exactly the format to write.
+- [x] Published both, in Slovak: **"Koľko stojí chatbot pre firmu"**
+      (three price tiers, the language-model running cost most price lists
+      omit, the security point that the API key must not sit in page code,
+      and a full section on when *not* to buy one) and **"Potrebuje moja
+      firma webstránku?"** which opens by admitting we sell websites and
+      then explains when a free Google business profile is enough.
+- [x] Used `scripts/build_site.py` for the build - first real use of the
+      tooling written in the previous iteration.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
