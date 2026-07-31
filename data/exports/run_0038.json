@@ -1,6 +1,6 @@
 {
   "run_id": 38,
-  "generated_at": "2026-07-30T15:09:48.240307+00:00",
+  "generated_at": "2026-07-31T05:02:02.874340+00:00",
   "run_status": "success",
   "signals_by_source": {
     "github": 30,
@@ -10,6 +10,13 @@
     "wikipedia_pageviews": 47
   },
   "top_keywords": [
+    {
+      "term": "kavinsky",
+      "score": 0.58082,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
     {
       "term": "@editorjs/checklist",
       "score": 0.5791550000000001,
@@ -46,11 +53,11 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "spreadsheet",
-      "score": 0.468345,
+      "term": "zendaya",
+      "score": 0.48095,
       "breadth_component": 0.2,
       "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
+      "sources_json": "[\"wikipedia_pageviews\"]"
     },
     {
       "term": "xlsx",
@@ -60,13 +67,6 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "xhamster",
-      "score": 0.45847000000000004,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"wikipedia_pageviews\"]"
-    },
-    {
       "term": "react-spreadsheet",
       "score": 0.45751000000000003,
       "breadth_component": 0.2,
@@ -74,8 +74,8 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "zendaya",
-      "score": 0.45572,
+      "term": "xhamster",
+      "score": 0.45208,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"wikipedia_pageviews\"]"
@@ -86,6 +86,13 @@
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "obsession",
+      "score": 0.4353191489361703,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
     },
     {
       "term": "@ai-sdk/gateway",
@@ -102,6 +109,13 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
+      "term": "once",
+      "score": 0.42680851063829794,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
       "term": "automation",
       "score": 0.42168,
       "breadth_component": 0.2,
@@ -114,13 +128,6 @@
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
-    },
-    {
-      "term": "odyssey",
-      "score": 0.41586,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"wikipedia_pageviews\"]"
     },
     {
       "term": "calculator",
@@ -144,6 +151,13 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
+      "term": "youtube",
+      "score": 0.40978723404255324,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
       "term": "ec-sri-invoice-signer",
       "score": 0.40222222222222226,
       "breadth_component": 0.2,
@@ -151,11 +165,11 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": ".xxx",
-      "score": 0.4012765957446809,
+      "term": "spreadsheet",
+      "score": 0.40167,
       "breadth_component": 0.2,
       "growth_component": 0.5,
-      "sources_json": "[\"wikipedia_pageviews\"]"
+      "sources_json": "[\"npm_downloads\"]"
     },
     {
       "term": "productivity",
@@ -163,20 +177,6 @@
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
-    },
-    {
-      "term": "limonene",
-      "score": 0.39276595744680853,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"wikipedia_pageviews\"]"
-    },
-    {
-      "term": ".xyz",
-      "score": 0.39033,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"wikipedia_pageviews\"]"
     },
     {
       "term": "media-engine",
