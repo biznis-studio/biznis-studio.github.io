@@ -1,5 +1,21 @@
 # Biznis — working notes
 
+## Start here (any new session)
+
+Read `memory/06_Index.md` then `memory/00_Project.md` through `03_Tasks.md`
+(~1,800 tokens total) before anything else. That is the whole current state —
+do not read `docs/*.md` unless the task needs the specific detail those
+files hold (full history, full decision reasoning).
+
+**Update `memory/` after any substantive change**, same turn, not later:
+- New/changed strategic decision → append ≤5 lines to `01_Decisions.md`
+- New reusable gotcha → append ≤10 lines to `04_Lessons.md`
+- Task state changed → edit `03_Tasks.md` in place (done items become one line)
+- Never duplicate into a new file. Update an existing section instead.
+- If `docs/TASKBOARD.md` exceeds ~150KB, propose archiving older iterations
+  to `docs/TASKBOARD_ARCHIVE.md` and say so — don't do it silently.
+
+
 A digital studio site (services + a product catalogue) published to GitHub
 Pages by a scheduled pipeline. Live at https://biznis-studio.github.io
 
