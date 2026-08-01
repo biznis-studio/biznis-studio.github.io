@@ -87,5 +87,5 @@ začneme, presne preto, aby si nevymýšľal.
 kód je váš.
 
 Ak nám opíšete, na čo sa vás zákazníci pýtajú, a vyjde nám, že sa vám to
-neoplatí, povieme to. [Napíšte nám](index.html), aké otázky dostávate
+neoplatí, povieme to. [Napíšte nám](index.html#kontakt), aké otázky dostávate
 najčastejšie a koľko ich približne je.

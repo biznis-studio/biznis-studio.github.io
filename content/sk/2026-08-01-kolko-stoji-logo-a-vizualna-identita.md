@@ -80,5 +80,5 @@ ktoré sú vaše. Pevná suma dohodnutá písomne pred začiatkom.
 
 Ak nám napíšete, na čom má identita naozaj bežať — web, obaly, tlač,
 sociálne siete — a vyjde nám, že vám stačí jednoduchšie riešenie,
-povieme to. [Napíšte nám](index.html), čo firma robí a kde všade sa
+povieme to. [Napíšte nám](index.html#kontakt), čo firma robí a kde všade sa
 logo bude používať.

@@ -99,7 +99,7 @@ dokumentáciu v bežnom jazyku.
 
 Ak nám opíšete úlohu a vyjde nám, že sa neoplatí, povieme to — je to
 lacnejšie pre oboch než postaviť niečo, čo budete ľutovať.
-[Napíšte nám, čo robíte ručne](index.html), aj s odhadom, koľko to
+[Napíšte nám, čo robíte ručne](index.html#kontakt), aj s odhadom, koľko to
 zaberie času.
 
 Mimochodom, tento web je sám takým príkladom: obsah, publikovanie aj
