@@ -1882,6 +1882,31 @@ one-by-one - so this gets wired in as a single batch.
 - [x] Sitemap still shows "Couldn't fetch" as of same-day resubmission
       (expected - under 24h since resubmit, not yet a second failure).
 
+## Done (iteration 69) — ruled out a false fix, researched and declined a real one
+- [x] Researched the persistent sitemap "Couldn't fetch" status against 6
+      GitHub community threads. The most commonly cited fix (`.nojekyll`)
+      does **not** apply to us - verified `actions/upload-pages-artifact`
+      (our deploy method) never runs Jekyll processing at all, so a
+      missing `.nojekyll` file was never the cause. Did not add it just
+      because it's the popular answer. Every other commonly-cited cause
+      (content-type header, robots.txt, XML validity, sitemap size) was
+      already ruled out in iteration 68. Conclusion: genuinely
+      unexplained by any documented cause - likely a Search-Console-side
+      quirk for a brand-new low-authority domain, not a site defect.
+      Real GSC crawl activity already confirmed (1 click/2 impressions),
+      so Google is reaching the site through other paths regardless.
+- [x] Researched free Slovak business directories as a distribution
+      channel that doesn't wait on organic SEO's sandbox period.
+      Verified quality before recommending, not just existence:
+      DatabázaFiriem.com is a real, 15+ year, actively-updated directory
+      (133k listings, not a link farm) with free registration.
+      FinStat.sk is authoritative but auto-populated from state
+      registers, not something to "register" into - moot unless this
+      project is a formally registered business entity (unconfirmed).
+      Presented the DatabázaFiriem.com option with an honest cost (needs
+      an account + public business info submitted externally) - **user
+      declined** (2026-08-01). Not re-raised.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

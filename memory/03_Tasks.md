@@ -9,7 +9,8 @@
 
 ## TODO (next highest-EBV, unblocked)
 - No new verified opportunity in hand (iteration 66 fan-out found none worth building). Don't force one — watch existing assets (Machinery Reg tool, all 5 SK service articles) for real signal before the next fan-out.
-- Watch Search Console for first real *organic* impression/click data — first data point appeared (iteration 68) but was a manual `site:` check, still not real signal. Sitemap still "Couldn't fetch" as of 2026-08-01 resubmit, re-check in 24-48h.
+- Watch Search Console for first real *organic* impression/click data — first data point appeared (iteration 68) but was a manual `site:` check, still not real signal. Sitemap "Couldn't fetch" is confirmed NOT a site defect (iteration 69 ruled out every documented cause) — no more action to take there, just wait.
+- External directory listing (DatabázaFiriem.com) researched and offered — user declined 2026-08-01, don't re-raise.
 
 ## DONE (one-line, chronological — full detail in docs/TASKBOARD.md)
 - 46 iterations: pipeline, SEO, 5 monetized products, redesign, blog, Signals news bot, free tools, SK market entry, mechanism (build/deploy/hooks/skills), global opportunity research.
