@@ -1792,6 +1792,39 @@ one-by-one - so this gets wired in as a single batch.
       body plus a sitemap check before calling it done - the deploy itself
       had succeeded; the check was wrong, not the ship.
 
+## Done (iteration 66) — opportunity fan-out that honestly found nothing, and that's the right answer
+- [x] Ran a 12-candidate fan-out across two tracks: more "long-lived legal
+      obligation" niches shaped like the Machinery Regulation win (a
+      regulation that requires a URL to stay live for years - static
+      site's structural advantage over SaaS), and new Slovak
+      conversational/pricing queries adjacent to the 5 already-covered
+      services. All checked against primary sources (EUR-Lex, Slov-lex,
+      live SERPs), not summary blogs.
+- [x] Rejected all 12, each for a real reason, not a vibe: EU AI Act Art.
+      50 chatbot-disclosure obligation is genuinely novel (applies from
+      2 Aug 2026) but already saturated - multiple free generators plus
+      the EU's own official checker rank, several SK blogs published in
+      the prior 1-3 weeks; European Accessibility Act explicitly exempts
+      microenterprises (our own client base) in its primary text; SK
+      Whistleblowing channel (zákon 189/2023) is real but only applies at
+      50+ employees and is already owned by a funded SaaS
+      (whisly.sk) running paid ads; the rest (SEO pricing, custom-tool
+      pricing, maintenance retainers, invoice-reminder automation,
+      late-payment letter templates, lead-gen calculators) are each held
+      by real incumbents with fresh content or paid ads.
+- [x] One lead flagged by the agent as unverified - EPR/OZV packaging
+      registration for small e-shops - checked personally against the
+      primary source (Zákon o odpadoch 79/2015 Z.z. on Slov-lex) rather
+      than trusted secondhand. Confirmed it is an ongoing paid
+      registration + annual reporting relationship with a producer
+      responsibility organization, not a "publish once, stays live"
+      obligation - the static-site wedge does not apply. Rejected.
+- [x] Reported zero candidates rather than padding to a fake shortlist,
+      per the project's standing anti-fabrication rule. The Machinery
+      Regulation asset (iteration 64) still hasn't shown buyer-side
+      demand data yet either - the honest state is "watch what's already
+      built" this round, not "build something new for the sake of it."
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
