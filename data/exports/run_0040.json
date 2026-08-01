@@ -1,0 +1,190 @@
+{
+  "run_id": 40,
+  "generated_at": "2026-08-01T06:21:25.244804+00:00",
+  "run_status": "success",
+  "signals_by_source": {
+    "github": 30,
+    "hackernews": 50,
+    "npm_downloads": 45,
+    "stackexchange": 60,
+    "wikipedia_pageviews": 47
+  },
+  "top_keywords": [
+    {
+      "term": "@editorjs/checklist",
+      "score": 0.5791550000000001,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "mjml-invoice",
+      "score": 0.555215,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@e965/xlsx",
+      "score": 0.54918,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "kavinsky",
+      "score": 0.5311950000000001,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "@accounter/green-invoice-graphql",
+      "score": 0.5291699999999999,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "sms-segments-calculator",
+      "score": 0.52874,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "zendaya",
+      "score": 0.51923,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "automation-events",
+      "score": 0.47333,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "ceuta",
+      "score": 0.46725,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "react-spreadsheet",
+      "score": 0.45751000000000003,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "xlsx",
+      "score": 0.454995,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "multiplayer agent harness",
+      "score": 0.44466666666666665,
+      "breadth_component": 0.4,
+      "growth_component": 0.5,
+      "sources_json": "[\"github\", \"hackernews\"]"
+    },
+    {
+      "term": "harness for work",
+      "score": 0.44466666666666665,
+      "breadth_component": 0.4,
+      "growth_component": 0.5,
+      "sources_json": "[\"github\", \"hackernews\"]"
+    },
+    {
+      "term": "invoice",
+      "score": 0.44416,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "multiplayer agent",
+      "score": 0.44183500000000003,
+      "breadth_component": 0.4,
+      "growth_component": 0.5,
+      "sources_json": "[\"github\", \"hackernews\"]"
+    },
+    {
+      "term": "@ai-sdk/google",
+      "score": 0.4377777777777778,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "jean grey",
+      "score": 0.4353191489361703,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "@ai-sdk/gateway",
+      "score": 0.4288888888888889,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "checklist",
+      "score": 0.42834,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "automation",
+      "score": 0.42168,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@firebase/ai",
+      "score": 0.42000000000000004,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "obsession",
+      "score": 0.4182978723404256,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "calculator",
+      "score": 0.41499,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "productivity",
+      "score": 0.4111111111111111,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "chatgpt",
+      "score": 0.40978723404255324,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    }
+  ],
+  "product_ideas": []
+}
