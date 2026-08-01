@@ -1766,6 +1766,32 @@ one-by-one - so this gets wired in as a single batch.
       hosting as *their* problem is not. That is what the free tool is
       for - it will show whether anyone searches for this.
 
+## Done (iteration 65) — closed the last service gap in Slovak content
+- [x] Design/branding was the one service of five (web, automation, custom
+      digital products, design/branding, chatbots) with no Slovak article.
+      Ran `find-opportunities` on 6 candidate queries via a subagent first
+      (WebSearch fallback - Google's EU consent wall blocked WebFetch again,
+      same known issue), then personally re-verified the weakest signal
+      ("cena za branding firmy", where WebSearch returned Polish results)
+      with a real `google.com/search?gl=sk&hl=sk` fetch through the browser.
+- [x] Confirmed: page 1 held only by small local studios (Livora, LL
+      studio, AnimaGraf, Webovica, Concept23, Grafitek), **two paid ads
+      running** (Visual Communication, Kreativ Gang) - commercial demand
+      proven the same way it was for the chatbot/web queries. One close
+      competitor (opulon.org, a near-identical pricing article published
+      ~3 weeks earlier) noted rather than ignored - differentiated on the
+      house style's "what we don't do" + supplier-questions sections.
+- [x] Published **"Koľko stojí logo a vizuálna identita pre firmu"**:
+      four price tiers (AI generator through full identity), what pricing
+      pages omit (vector source files, IP transfer, revision counts), when
+      not to buy branding at all, and our own price (390 €).
+- [x] Shipped and verified live via `scripts/deploy.py`, but the first
+      `--expect` phrase was a bad choice (text that lives in the sitewide
+      pricing table, not the article) and the script correctly reported
+      failure. Re-verified manually with a phrase actually in the article
+      body plus a sitemap check before calling it done - the deploy itself
+      had succeeded; the check was wrong, not the ship.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
