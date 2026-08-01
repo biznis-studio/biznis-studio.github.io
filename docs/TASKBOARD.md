@@ -1857,6 +1857,31 @@ one-by-one - so this gets wired in as a single batch.
       data dependencies (keyword_agent needs signals_raw, product_agent
       needs demand_scores, etc.) and are correctly sequential already.
 
+## Done (iteration 68) — first real GSC data point, and a conversion bug it prompted us to find
+- [x] First non-zero Search Console Performance numbers appeared (1 click,
+      2 impressions, 7/27-7/29) - but the only query row shown was
+      `site:github.io`, a manual index-check operator, not organic
+      demand. Too sparse to act on; noted honestly rather than
+      over-reading 3 data points into a trend.
+- [x] Since traffic data wasn't actionable yet, audited what's fully in
+      our control regardless of volume: the path from "convinced reader"
+      to "contact form" on our own pages. Found a real bug across **all
+      5 SK service articles** - every closing CTA ("Napíšte nám",
+      "Cenník") linked to bare `index.html` instead of `#kontakt` or
+      `#cennik`. A reader who finished an article and clicked through
+      landed at the top of the page and had to scroll and hunt for the
+      form themselves.
+- [x] Checked the English side for the same pattern first - it doesn't
+      have it. EN blog posts link to specific product/tool pages, and
+      the EN homepage is a product catalogue with no contact form to
+      miss, so no fix needed there; the bug was specific to the SK
+      service-article CTAs.
+- [x] Fixed all 5 source `.md` files, rebuilt, verified the anchors landed
+      in the generated HTML for every article before shipping, deployed
+      and verified live.
+- [x] Sitemap still shows "Couldn't fetch" as of same-day resubmission
+      (expected - under 24h since resubmit, not yet a second failure).
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

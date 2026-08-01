@@ -9,9 +9,11 @@
 
 ## TODO (next highest-EBV, unblocked)
 - No new verified opportunity in hand (iteration 66 fan-out found none worth building). Don't force one — watch existing assets (Machinery Reg tool, all 5 SK service articles) for real signal before the next fan-out.
-- Watch Search Console for first real impression/click data (site is ~1 week old, data still populating; sitemap was stuck on "Couldn't fetch" since 2026-07-28, user deleted+resubmitted 2026-08-01, re-check in 24-48h).
+- Watch Search Console for first real *organic* impression/click data — first data point appeared (iteration 68) but was a manual `site:` check, still not real signal. Sitemap still "Couldn't fetch" as of 2026-08-01 resubmit, re-check in 24-48h.
 
 ## DONE (one-line, chronological — full detail in docs/TASKBOARD.md)
 - 46 iterations: pipeline, SEO, 5 monetized products, redesign, blog, Signals news bot, free tools, SK market entry, mechanism (build/deploy/hooks/skills), global opportunity research.
 - Iteration 65: closed last SK content gap (design/branding) — SERP-verified, shipped, live-verified.
 - Iteration 66: 12-candidate opportunity fan-out, all honestly rejected with primary-source evidence — no new build this round.
+- Iteration 67: applied graph/fan-out engineering pattern to market_research_agent (parallel API fetchers), lint pass on operating memory.
+- Iteration 68: found+fixed all 5 SK article CTAs linking to bare index.html instead of #kontakt/#cennik.
