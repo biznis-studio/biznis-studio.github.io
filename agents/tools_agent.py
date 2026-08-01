@@ -258,9 +258,10 @@ MACHINERY_WIDGET = """
 TOOLS = [
     {
         "slug": "machinery-regulation-digital-instructions",
-        "title": "EU Machinery Regulation: digital instructions requirement checker",
-        "description": ("Work out how many years your instructions URL must keep resolving "
-                        "under Article 10(7), and what that costs on a subscription."),
+        "title": "EU Machinery Regulation: what a 10-year instructions URL actually costs",
+        "description": ("Free calculator: how many years your instructions URL must keep "
+                        "resolving under Article 10(7), and what that costs on a subscription "
+                        "platform versus a static page you own."),
         "intro": ("Regulation (EU) 2023/1230 lets you supply instructions for use digitally - "
                   "but only if the link keeps working for the machine's lifetime plus ten "
                   "years. Most builders discover the second part later than the first."),
