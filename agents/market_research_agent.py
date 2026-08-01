@@ -10,10 +10,19 @@ Sources:
   - npm registry search popularity (npm public search API)
   - Stack Exchange active questions (Stack Exchange API v2.3)
   - GitHub trending repos (GitHub REST search API, unauthenticated)
+
+None of these five calls depends on another's result, and two of them
+(npm, Stack Exchange) were themselves looping over several independent
+per-term/per-site calls one at a time. All of it is fanned out with
+ThreadPoolExecutor - real parallel I/O, not just readability sugar - since
+the whole stage is bound by the slowest single HTTP round trip rather than
+their sum. DB writes stay single-threaded on the caller; sqlite3
+connections aren't thread-safe.
 """
 import json
 import re
 import sys
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -82,53 +91,69 @@ def fetch_wikipedia_top_pageviews(limit: int = 50) -> list[dict]:
     return []
 
 
-def fetch_npm_popularity(limit_per_term: int = 5) -> list[dict]:
+def _fetch_npm_term(term: str, limit_per_term: int) -> list[dict]:
+    data = http_get("https://registry.npmjs.org/-/v1/search", params={
+        "text": term, "size": limit_per_term,
+    })
+    if not data:
+        return []
     out = []
-    for term in NPM_SEED_TERMS:
-        data = http_get("https://registry.npmjs.org/-/v1/search", params={
-            "text": term, "size": limit_per_term,
-        })
-        if not data:
+    for obj in data.get("objects", []):
+        pkg = obj.get("package", {})
+        name = pkg.get("name")
+        if not name:
             continue
-        for obj in data.get("objects", []):
-            pkg = obj.get("package", {})
-            name = pkg.get("name")
-            if not name:
-                continue
-            score = obj.get("score", {}).get("final", 0)
-            out.append({
-                "source": "npm_downloads",
-                "signal_type": "package_popularity",
-                "term": f"{name} ({term})",
-                "metric_value": round(float(score or 0) * 100, 2),
-                "url": pkg.get("links", {}).get("npm"),
-                "payload": {"seed_term": term, **pkg},
-            })
+        score = obj.get("score", {}).get("final", 0)
+        out.append({
+            "source": "npm_downloads",
+            "signal_type": "package_popularity",
+            "term": f"{name} ({term})",
+            "metric_value": round(float(score or 0) * 100, 2),
+            "url": pkg.get("links", {}).get("npm"),
+            "payload": {"seed_term": term, **pkg},
+        })
+    return out
+
+
+def fetch_npm_popularity(limit_per_term: int = 5) -> list[dict]:
+    # One independent HTTP round trip per seed term - fan out instead of
+    # paying nine sequential round trips for one fetcher.
+    out = []
+    with ThreadPoolExecutor(max_workers=len(NPM_SEED_TERMS)) as pool:
+        for result in pool.map(lambda t: _fetch_npm_term(t, limit_per_term), NPM_SEED_TERMS):
+            out.extend(result)
+    return out
+
+
+def _fetch_stackexchange_site(site: str, limit_per_site: int) -> list[dict]:
+    data = http_get("https://api.stackexchange.com/2.3/questions", params={
+        "order": "desc", "sort": "activity", "site": site,
+        "pagesize": limit_per_site, "filter": "!9_bDDxJY5",
+    })
+    if not data:
+        return []
+    out = []
+    for q in data.get("items", []):
+        title = q.get("title")
+        if not title:
+            continue
+        title = re.sub(r"&#?\w+;", " ", title)  # strip basic HTML entities
+        out.append({
+            "source": "stackexchange",
+            "signal_type": "question",
+            "term": title,
+            "metric_value": float(q.get("score", 0)) + float(q.get("view_count", 0)) / 100.0,
+            "url": q.get("link"),
+            "payload": {"site": site, **{k: q[k] for k in q if k not in ("body",)}},
+        })
     return out
 
 
 def fetch_stackexchange_active(limit_per_site: int = 20) -> list[dict]:
     out = []
-    for site in STACKEXCHANGE_SITES:
-        data = http_get("https://api.stackexchange.com/2.3/questions", params={
-            "order": "desc", "sort": "activity", "site": site,
-            "pagesize": limit_per_site, "filter": "!9_bDDxJY5",
-        })
-        if not data:
-            continue
-        for q in data.get("items", []):
-            title = q.get("title")
-            if not title:
-                continue
-            title = re.sub(r"&#?\w+;", " ", title)  # strip basic HTML entities
-            out.append({
-                "source": "stackexchange",
-                "signal_type": "question",
-                "term": title,
-                "metric_value": float(q.get("score", 0)) + float(q.get("view_count", 0)) / 100.0,
-                "url": q.get("link"),
-                "payload": {"site": site, **{k: q[k] for k in q if k not in ("body",)}},
-            })
+    with ThreadPoolExecutor(max_workers=len(STACKEXCHANGE_SITES)) as pool:
+        for result in pool.map(lambda s: _fetch_stackexchange_site(s, limit_per_site), STACKEXCHANGE_SITES):
+            out.extend(result)
     return out
 
 
@@ -181,8 +206,23 @@ def run() -> int:
     total = 0
     per_source_counts = {}
     try:
+        # The five fetchers are independent HTTP calls with no data dependency
+        # between them - a textbook fan-out. Run them concurrently instead of
+        # one after another; DB writes stay on this thread since sqlite3
+        # connections aren't thread-safe.
+        results = {}
+        with ThreadPoolExecutor(max_workers=len(FETCHERS)) as pool:
+            future_to_fetcher = {pool.submit(fetcher): fetcher for fetcher in FETCHERS}
+            for future in as_completed(future_to_fetcher):
+                fetcher = future_to_fetcher[future]
+                try:
+                    results[fetcher.__name__] = future.result()
+                except Exception as exc:                  # one bad source must not stop the others
+                    print(f"[market_research_agent] {fetcher.__name__} FAILED: {exc}")
+                    results[fetcher.__name__] = []
+
         for fetcher in FETCHERS:
-            signals = fetcher()
+            signals = results.get(fetcher.__name__, [])
             for s in signals:
                 cur.execute(
                     """INSERT INTO signals_raw

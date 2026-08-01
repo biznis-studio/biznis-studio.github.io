@@ -20,3 +20,8 @@ State what's true; frame risk-transfer (fixed price, written scope) as a guarant
 
 **Calculator page bypasses `page_shell()`** — has its own `<style>` block, silently drifts from site-wide changes.
 Any global template/CSS change must also touch `inject_intro_into_calculator()`.
+
+**Fake-edge test for pipeline stages:** for any two sequential steps, ask if the second actually needs
+the first's output. `market_research_agent`'s 5 source fetchers (+ npm/StackExchange's internal per-term
+loops) had none — fanned out with `ThreadPoolExecutor`, ~8.98s→4.21s avg (noisy, measured not assumed).
+DB writes stay single-threaded (sqlite3 isn't thread-safe). Apply this test before adding new pipeline stages.

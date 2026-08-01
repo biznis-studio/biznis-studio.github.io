@@ -1825,6 +1825,38 @@ one-by-one - so this gets wired in as a single batch.
       demand data yet either - the honest state is "watch what's already
       built" this round, not "build something new for the sake of it."
 
+## Done (iteration 67) — studied "graph engineering", applied it to our own pipeline
+- [x] User pointed at an X article on graph/fan-out engineering (worker/
+      checker context separation, "anchors" as numbers that can't argue
+      back, and the "fake-edge test": for any two sequential steps, ask
+      whether the second actually needs the first's output - if not, it's
+      not a real dependency, run them concurrently). Applied it to our own
+      code instead of writing more content.
+- [x] Two of its three ideas were already unknowingly practiced here:
+      worker/checker separation matches `04_Lessons.md`'s "subagent
+      research must be re-verified on primary sources" (the EPR/OZV check
+      last iteration was exactly this); anchors match the standing "never
+      publish an unverified number" rule. Confirms the practice rather
+      than changing it.
+- [x] The fake-edge test found a real one: `market_research_agent.py`'s
+      five source fetchers (HN, Wikipedia, npm, Stack Exchange, GitHub)
+      ran in a sequential `for` loop despite zero data dependency between
+      them - plus two of the five (npm: 9 seed terms, Stack Exchange: 4
+      sites) looped sequentially *inside* themselves for the same reason.
+      Fanned out all of it with `ThreadPoolExecutor` (DB writes stay
+      single-threaded - sqlite3 connections aren't thread-safe).
+- [x] Measured rather than assumed, since network I/O timing is noisy and
+      the user's source material warned against topology-without-anchors:
+      3 sequential runs averaged 8.98s, 3 fully-parallel runs after the
+      fix averaged 4.21s - real signal under real variance (one outlier
+      at 9.66s from what looks like a source's rate-limit backoff), not a
+      fabricated "2x faster" headline. Output unchanged: 232 signals,
+      same per-source counts, confirmed byte-identical across runs.
+- [x] Scope stayed to what the fake-edge test actually found - did not
+      restructure the rest of `run_pipeline.py`'s stages, which have real
+      data dependencies (keyword_agent needs signals_raw, product_agent
+      needs demand_scores, etc.) and are correctly sequential already.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
