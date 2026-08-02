@@ -21,6 +21,11 @@ State what's true; frame risk-transfer (fixed price, written scope) as a guarant
 **Calculator page bypasses `page_shell()`** — has its own `<style>` block, silently drifts from site-wide changes.
 Any global template/CSS change must also touch `inject_intro_into_calculator()`.
 
+**`audit_site.py` only checked `products/*.html` + `index.html` for years.** Every `site/sk/`,
+`site/tools/`, `site/blog/`, `site/news/` page shipped unaudited despite the gate "passing".
+Widened to `site/**/*.html` (iteration 70) — immediately caught 2 real over-length meta
+descriptions. Any new site directory needs the audit's glob updated, not just the build script.
+
 **Fake-edge test for pipeline stages:** for any two sequential steps, ask if the second actually needs
 the first's output. `market_research_agent`'s 5 source fetchers (+ npm/StackExchange's internal per-term
 loops) had none — fanned out with `ThreadPoolExecutor`, ~8.98s→4.21s avg (noisy, measured not assumed).

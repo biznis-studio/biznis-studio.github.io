@@ -1907,6 +1907,47 @@ one-by-one - so this gets wired in as a single batch.
       an account + public business info submitted externally) - **user
       declined** (2026-08-01). Not re-raised.
 
+## Done (iteration 70) — ChatGPT consult, PLR site rejected, real audit coverage gap found
+- [x] Consulted ChatGPT for an outside critical read (user-initiated). Its
+      core diagnosis - distribution is the bottleneck, not production -
+      matches what iteration 66/69 already concluded independently; took
+      as confirmation, not a new insight. Evaluated every suggestion on
+      individual merit rather than adopting the list wholesale:
+      accepted (partially) the Machinery Reg tool's "checker" framing
+      critique - it was half right, the tool already computes and shows
+      the real 10-year cost, only the title/H1/meta said "checker" not
+      cost, so retitled without touching the calculation; rejected the
+      "publish case studies from completed work" suggestion as premature
+      (0 completed paid service engagements exist yet); noted "don't
+      worry about Search Console at this stage" as agreement with our
+      own prior conclusion, not new information.
+- [x] User linked a PLR (Private Label Rights) reseller course site
+      (plr.digitalguru.sk). Evaluated it plainly rather than acting on it
+      by default: it teaches buying generic pre-made content cheap and
+      reselling via paid ads, with unverified self-reported numbers
+      ("€1.4M+ sales"). Directly contradicts this project's own rules
+      (no unverified numbers, no generic/unverified content) and would
+      *increase* the production/distribution imbalance ChatGPT just
+      flagged, not fix it. Declined, explained why.
+- [x] Searched GitHub for legitimate open-source tools that could help.
+      Found `backlink-pilot` - a real tool that auto-submits a site to
+      226 external directories/awesome-lists with one command. Did not
+      install or run it: it is third-party code of unverified
+      trustworthiness performing mass unreviewed external submissions on
+      our behalf, which is out of scope even with user permission (the
+      standing rule against running untrusted downloaded code). The rest
+      of the GitHub search turned up only curated link-lists, not tools.
+- [x] User asked for zero-risk technical distribution work. Found a real,
+      previously unknown gap: `scripts/audit_site.py` - the crawl
+      audit gating every deploy - only ever checked `site/products/*.html`
+      and `site/index.html`. Every `site/sk/`, `site/tools/`, `site/blog/`
+      and `site/news/` page (exactly where the last ~10 iterations have
+      shipped) was never actually audited, just eyeballed at ship time.
+      Widened the glob to the whole site. Running it immediately found 2
+      real over-length meta descriptions it had been silently missing -
+      one introduced by this same session's own Machinery Reg retitle.
+      Fixed both, audit now passes clean against the real full site.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
