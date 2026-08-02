@@ -1,5 +1,5 @@
 title: What to say to a client about scope creep (with real wording)
-description: The exact sentences for telling a client something is out of scope - without sounding difficult, losing the work, or starting an argument about what was included.
+description: The exact sentences for telling a client something is out of scope - without sounding difficult, losing the work, or starting an argument over scope.
 ---
 The hard part of scope creep was never noticing it. You noticed the third
 "quick favour" weeks ago. The hard part is the sentence you have to type

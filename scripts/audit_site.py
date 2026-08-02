@@ -1,13 +1,20 @@
 """Crawl-readiness audit for the generated site.
 
-Checks every page under site/ for the kind of gap that's easy to miss
-manually: missing/empty <title>, missing or badly-sized meta description,
-missing canonical link, invalid JSON-LD, and broken internal links. Run
-this after any change to the page templates or SEO injection logic, or
-periodically as a standalone health check - it caught two real bugs the
-first time it ran ad hoc (see docs/TASKBOARD.md iteration 27): a missing
-homepage canonical/OG tag, and (separately) a missing RSS discovery link
-across all 14 product pages.
+Checks every *.html page under site/ (recursively - all of site/products/,
+site/sk/, site/tools/, site/blog/, site/news/, plus the homepage) for the
+kind of gap that's easy to miss manually: missing/empty <title>, missing
+or badly-sized meta description, missing canonical link, invalid JSON-LD,
+and broken internal links. Run this after any change to the page
+templates or SEO injection logic, or periodically as a standalone health
+check - it caught two real bugs the first time it ran ad hoc (see
+docs/TASKBOARD.md iteration 27): a missing homepage canonical/OG tag, and
+(separately) a missing RSS discovery link across all 14 product pages.
+
+Originally scoped to just site/products/*.html and site/index.html - that
+left every site/sk/, site/tools/, site/blog/ and site/news/ page unaudited
+even as most new content started shipping there. Widened to check the
+whole site (iteration 70) after it missed two real over-length meta
+descriptions in exactly those directories.
 
 Exit code is non-zero if any issue is found, so this can be wired into CI
 later without extra glue.
@@ -22,7 +29,7 @@ SITE_DIR = ROOT / "site"
 
 
 def audit(site_dir: Path) -> list[tuple[str, str]]:
-    files = sorted(site_dir.glob("products/*.html")) + [site_dir / "index.html"]
+    files = sorted(site_dir.rglob("*.html"))
     existing = {str(p.relative_to(site_dir)) for p in site_dir.rglob("*") if p.is_file()}
     issues = []
 
