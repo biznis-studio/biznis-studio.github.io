@@ -1,6 +1,6 @@
 {
   "run_id": 44,
-  "generated_at": "2026-08-02T11:09:55.429033+00:00",
+  "generated_at": "2026-08-03T16:01:55.365436+00:00",
   "run_status": "success",
   "signals_by_source": {
     "github": 30,
@@ -12,10 +12,17 @@
   "top_keywords": [
     {
       "term": "@editorjs/checklist",
-      "score": 0.5791550000000001,
+      "score": 0.5958300000000001,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "summerslam",
+      "score": 0.593545,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
     },
     {
       "term": "mjml-invoice",
@@ -32,158 +39,151 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "@accounter/green-invoice-graphql",
-      "score": 0.5291699999999999,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
-    },
-    {
-      "term": "sms-segments-calculator",
-      "score": 0.52874,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
-    },
-    {
       "term": "ceuta",
-      "score": 0.517985,
+      "score": 0.548565,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"wikipedia_pageviews\"]"
     },
     {
       "term": "zendaya",
-      "score": 0.50009,
+      "score": 0.54174,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"wikipedia_pageviews\"]"
     },
     {
-      "term": "@ai-sdk/gateway",
-      "score": 0.49417500000000003,
+      "term": "sms-segments-calculator",
+      "score": 0.5412399999999999,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@accounter/green-invoice-graphql",
+      "score": 0.53583,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
       "term": "react-spreadsheet",
-      "score": 0.45751000000000003,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
-    },
-    {
-      "term": "xlsx",
-      "score": 0.454995,
+      "score": 0.5200100000000001,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
       "term": "@ai-sdk/google",
-      "score": 0.45332,
+      "score": 0.51582,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "@firebase/ai",
-      "score": 0.44666,
+      "term": "xlsx",
+      "score": 0.51332,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
       "term": "checklist",
-      "score": 0.42834,
+      "score": 0.49084,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
       "term": "automation",
-      "score": 0.42168,
+      "score": 0.48418,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
-    },
-    {
-      "term": "odyssey",
-      "score": 0.4182978723404256,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"wikipedia_pageviews\"]"
     },
     {
       "term": "calculator",
-      "score": 0.41499,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
-    },
-    {
-      "term": "productivity",
-      "score": 0.4111111111111111,
+      "score": 0.47749,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
       "term": "automation-events",
-      "score": 0.41083,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
-    },
-    {
-      "term": "jean grey",
-      "score": 0.40313,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"wikipedia_pageviews\"]"
-    },
-    {
-      "term": "media-engine",
-      "score": 0.40222222222222226,
+      "score": 0.46667,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
       "term": "spreadsheet",
-      "score": 0.40167,
+      "score": 0.46417,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "ec-sri-invoice-signer",
+      "term": "invoice",
+      "score": 0.44416,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@ai-sdk/gateway",
+      "score": 0.42000000000000004,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "media-engine",
+      "score": 0.4111111111111111,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@firebase/ai",
+      "score": 0.40222222222222226,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "odyssey",
+      "score": 0.40177,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "appium",
+      "score": 0.39751,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@ant-design/colors",
       "score": 0.3933333333333333,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "melilla",
+      "term": "obsession",
       "score": 0.39276595744680853,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"wikipedia_pageviews\"]"
     },
     {
-      "term": "@ai-sdk/react",
+      "term": "@flarehr/cars-calculator",
       "score": 0.3844444444444445,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
-    },
-    {
-      "term": "petal",
-      "score": 0.3842553191489362,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"wikipedia_pageviews\"]"
     }
   ],
   "product_ideas": []
