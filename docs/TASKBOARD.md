@@ -1987,6 +1987,42 @@ one-by-one - so this gets wired in as a single batch.
       CLAUDE.md explicitly requires proofreading Slovak before
       publishing; this is exactly the class of error that rule exists for.
 
+## Done (iteration 72) — user asked for a language switcher; found a broken hreflang behind it
+- [x] User asked whether the site should have a settable EN/SK language
+      switcher so visitors don't have to click around. Investigated the
+      real state before building anything, and the question turned out to
+      sit on top of two actual defects.
+- [x] **Defect 1, the visible one the user felt:** the language link was
+      one-way. `/sk/` had "English" in the nav on every page, but the
+      English side only offered "Slovensky" down in the footer - a Slovak
+      speaker landing on an English page had to scroll the entire page to
+      find their own language. Added to the English nav; verified on all
+      32 English pages, including `free-online-calculator.html`, which
+      bypasses `page_shell()` (it takes the shared header, so the
+      documented gotcha didn't bite this time - checked rather than
+      assumed).
+- [x] **Defect 2, invisible and worse:** hreflang existed only on
+      `/sk/index.html`. Verified against Google's own documentation
+      before acting: *"If two pages don't both point to each other, the
+      tags will be ignored."* So the annotation has been silently
+      discarded since /sk/ launched - Google was serving neither language
+      preferentially to anyone. Homepage now carries the identical
+      reciprocal block, checked byte-for-byte against /sk/'s.
+- [x] Pushed back on the literal request where it would have hurt, with
+      reasons rather than preference: **no auto-detect/redirect** by
+      browser language (Google prefers an explicit selector, and on a site
+      whose whole current bottleneck is getting indexed, auto-redirecting
+      Googlebot risks hiding a version entirely); **no per-page
+      translation switcher**, because EN and SK are not translations -
+      English is the product catalogue, Slovak is the services offering,
+      and there is no Slovak "Freelance Scope Creep Defense Kit" to point
+      at. A switcher promising one would land people on a 404.
+- [x] Corrected `blog_agent`'s docstring, which claimed SK articles were
+      rendered "with hreflang-correct markup" - they have never had any
+      hreflang, and correctly shouldn't, having no English counterpart.
+      A docstring asserting a property the code doesn't have is the kind
+      of thing a future session would trust and build on.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

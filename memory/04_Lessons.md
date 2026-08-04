@@ -21,6 +21,12 @@ State what's true; frame risk-transfer (fixed price, written scope) as a guarant
 **Calculator page bypasses `page_shell()`** — has its own `<style>` block, silently drifts from site-wide changes.
 Any global template/CSS change must also touch `inject_intro_into_calculator()`.
 
+**hreflang must be reciprocal or Google ignores it entirely.** Google: "if two pages don't both
+point to each other, the tags will be ignored." `/sk/` carried it alone for weeks = dead markup.
+Only `/` ↔ `/sk/` are annotated as alternates; SK articles correctly have none (no EN counterpart —
+hreflang naming a non-existent alternate is worse than none). Never auto-redirect by browser
+language: Google prefers an explicit selector, and it can hide a version from Googlebot.
+
 **Slovak quotes: `„text“`, never `„text"`.** All 5 SK articles shipped with a straight ASCII
 closing quote (13 occurrences) before anyone noticed. Grep `content/sk/*.md` for `"` before shipping —
 zero is the only correct count. Watch for quotes spanning a line break; scripted fixes miss those.
