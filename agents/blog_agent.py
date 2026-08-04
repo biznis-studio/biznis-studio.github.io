@@ -69,6 +69,55 @@ def load_sk_posts() -> list[dict]:
     return posts
 
 
+# Every Slovak article used to link only back to sk/index.html, so each one
+# had exactly one inbound link and none pointed at each other - five isolated
+# pages instead of one topic cluster, which is the opposite of what a
+# zero-authority domain needs. These pairs are curated rather than computed:
+# with this few articles a similarity score would be noise, and a wrong
+# "related" link is worse than none. Anything not listed falls back to the
+# most recent other articles, so new posts are covered without a code change.
+SK_RELATED: dict[str, list[str]] = {
+    # "should I even?" and "what does it cost?" are the same decision, twice.
+    "kolko-stoji-webstranka": ["potrebuje-moja-firma-webstranku",
+                               "kolko-stoji-logo-a-vizualna-identita",
+                               "kolko-stoji-chatbot-pre-firmu"],
+    "potrebuje-moja-firma-webstranku": ["kolko-stoji-webstranka",
+                                        "kolko-stoji-logo-a-vizualna-identita"],
+    # a chatbot is a form of automation, and the automation piece sets the
+    # arithmetic that decides whether either is worth buying at all.
+    "kolko-stoji-chatbot-pre-firmu": ["automatizacia-v-malej-firme",
+                                      "kolko-stoji-webstranka"],
+    "automatizacia-v-malej-firme": ["kolko-stoji-chatbot-pre-firmu",
+                                    "efaktura-2027-test"],
+    "kolko-stoji-logo-a-vizualna-identita": ["kolko-stoji-webstranka",
+                                             "potrebuje-moja-firma-webstranku"],
+}
+
+# Pages in site/sk/ that are not markdown articles but are valid link targets.
+SK_EXTRA_TARGETS = {
+    "efaktura-2027-test": "Ste pripraven&iacute; na e-fakt&uacute;ru 2027? Bezplatn&yacute; test",
+}
+
+
+def _sk_related_html(slug: str, posts: list[dict], limit: int = 3) -> str:
+    """A short 'read next' block. Curated pairs first, recent posts after."""
+    titles = {p["slug"]: html.escape(p["title"]) for p in posts}
+    titles.update(SK_EXTRA_TARGETS)
+    picked = [s for s in SK_RELATED.get(slug, []) if s in titles]
+    for p in posts:                       # fill remaining slots, newest first
+        if len(picked) >= limit:
+            break
+        if p["slug"] != slug and p["slug"] not in picked:
+            picked.append(p["slug"])
+    picked = picked[:limit]
+    if not picked:
+        return ""
+    items = "\n".join(
+        f'<li><a href="{s}.html">{titles[s]}</a></li>' for s in picked)
+    return (f'<div class="card">\n<h2>Ďalej čítajte</h2>\n'
+            f'<ul>\n{items}\n</ul>\n</div>')
+
+
 def build_sk_posts() -> int:
     """Render Slovak articles into site/sk/ with hreflang-correct markup."""
     from agents.landing_page_agent import OG_IMAGE_TAGS, page_shell
@@ -90,6 +139,7 @@ def build_sk_posts() -> int:
                 f'<h1>{html.escape(post["title"])}</h1>\n'
                 f'<p class="subtitle">{html.escape(post["description"])}</p>\n'
                 f'{markdown_lite_to_html(post["body_md"])}\n'
+                f'{_sk_related_html(post["slug"], posts)}\n'
                 f'<p><a href="index.html">&larr; Späť na služby</a></p>\n</article>')
         page = page_shell(post["title"], post["description"], body, lang="sk")
         if extras:

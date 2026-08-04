@@ -874,7 +874,12 @@ namiesto prepisovania, alebo aby si dva syst&eacute;my kone&ccaron;ne odovzd&aac
 &uacute;daje.</p>
 <p>Automatiz&aacute;ciu jednej &uacute;lohy stav&iacute;me <strong>od 390 &euro;</strong> bez
 DPH, pevnou sumou dohodnutou vopred, so zdrojov&yacute;m k&oacute;dom pre v&aacute;s.
-<a href="index.html">Nap&iacute;&scaron;te n&aacute;m</a>, ako dnes fakt&uacute;ry vznikaj&uacute;.</p>
+<a href="index.html#kontakt">Nap&iacute;&scaron;te n&aacute;m</a>, ako dnes fakt&uacute;ry vznikaj&uacute;.</p>
+<p>Ne&ccaron;akajte v&scaron;ak z&aacute;zraky od automatiz&aacute;cie sam-o-sebe: opl&aacute;ca sa
+len tam, kde je &uacute;loha dostato&ccaron;ne &ccaron;ast&aacute;. Ako si to spo&ccaron;&iacute;tať,
+rozp&iacute;sali sme v &ccaron;l&aacute;nku
+<a href="automatizacia-v-malej-firme.html">Automatiz&aacute;cia v malej firme: &ccaron;o sa
+opl&aacute;ca a &ccaron;o je strata &ccaron;asu</a>.</p>
 
 <p class="form-note"><strong>Zdroje:</strong>
 <a href="https://e-fakturacia.finance.gov.sk/e-fakturacia/" target="_blank" rel="noopener">Ministerstvo financi&iacute; SR - Informa&ccaron;n&yacute; syst&eacute;m elektronickej fakturácie</a> &middot;

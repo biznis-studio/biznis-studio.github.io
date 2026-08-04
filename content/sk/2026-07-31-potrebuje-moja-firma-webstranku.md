@@ -1,4 +1,4 @@
-title: Potrebuje moja firma webstránku? Úprimná odpoveď vrátane „nie"
+title: Potrebuje moja firma webstránku? Úprimná odpoveď vrátane „nie“
 description: Kedy sa web naozaj oplatí, kedy vám stačí profil na Googli za nula eur, a ako spoznať, že vám niekto predáva web, ktorý nepotrebujete.
 ---
 Väčšina článkov na túto otázku napíše, že web potrebuje každý. Píšu ich
@@ -38,7 +38,7 @@ odpovedajú.
 nájde. Neexistujúci web je pri rozhodovaní mínus — nie preto, že by web
 niečo dokazoval, ale preto, že jeho absencia vyvoláva otázku.
 
-**Keď potrebujete filtrovať dopyty.** Ceny a jasne napísané „čo nerobíme"
+**Keď potrebujete filtrovať dopyty.** Ceny a jasne napísané „čo nerobíme“
 ušetria hovory, ktoré nikam nevedú. Toto je najviac podceňovaný prínos webu.
 
 ## Ako spoznať, že vám predávajú viac, než potrebujete
@@ -48,7 +48,7 @@ ušetria hovory, ktoré nikam nevedú. Toto je najviac podceňovaný prínos web
 - **Je v tom redakčný systém, ktorý nikdy nepoužijete.** Ak obsah meníte
   dvakrát do roka, systém pre desať redaktorov je náklad navyše — a niečo,
   čo treba aktualizovať, inak sa stane bezpečnostnou dierou.
-- **Mesačný poplatok bez definície.** Hosting a údržba áno. „Správa webu"
+- **Mesačný poplatok bez definície.** Hosting a údržba áno. „Správa webu“
   bez zoznamu toho, čo obsahuje, nie.
 - **Doména alebo hosting na meno dodávateľa.** Toto je najdôležitejšia veta
   v článku: **doména aj hosting majú byť na vaše meno.** Inak nevlastníte

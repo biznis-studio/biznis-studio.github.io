@@ -42,7 +42,7 @@ od nuly — za ďalšie peniaze, u iného dodávateľa.
 majú prejsť na vás písomne. Bez toho technicky nemáte právo ho meniť ani
 používať mimo dohodnutého rozsahu.
 
-**Koľko konceptov a koľko kôl úprav.** „Návrh loga" bez čísla môže
+**Koľko konceptov a koľko kôl úprav.** „Návrh loga“ bez čísla môže
 znamenať jeden koncept a žiadnu úpravu, alebo päť konceptov a tri kolá.
 Rozdiel v cene aj v tom, čo dostanete, je veľký.
 
@@ -68,7 +68,7 @@ peniaze idú skôr do webu alebo viditeľnosti než do dizajnu loga.
 - **Prejdú na mňa autorské práva písomne?** Bez toho logo nie je právne
   vaše na použitie, ako chcete.
 - **Koľko konceptov a koľko kôl úprav je v cene?** Malo by to byť
-  číslo, nie „podľa dohody".
+  číslo, nie „podľa dohody“.
 - **Dostanem pravidlá použitia, alebo len obrázok?** Rozdiel medzi
   logom a identitou je práve v tomto.
 

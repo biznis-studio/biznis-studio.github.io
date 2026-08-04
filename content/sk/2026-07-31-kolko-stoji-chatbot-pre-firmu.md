@@ -69,7 +69,7 @@ Presvedčiť nerozhodnutého zákazníka je iná disciplína.
 ## Na čo sa pýtať dodávateľa
 
 - **Čo bude chatbot robiť, keď nebude vedieť?** Správna odpoveď je „odovzdá
-  to človeku". Zlá odpoveď je „on si poradí" — to znamená, že si vymyslí.
+  to človeku“. Zlá odpoveď je „on si poradí“ — to znamená, že si vymyslí.
 - **Kde bude bežať a na koho meno je účet za jazykový model?**
 - **Čo presne bude vedieť?** Musí byť jasne vymedzené, z čoho čerpá.
   Chatbot bez vymedzenia je riziko, nie funkcia.

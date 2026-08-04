@@ -1,7 +1,7 @@
 title: Automatizácia v malej firme: čo sa oplatí a čo je strata času
 description: Ako spoznať úlohu, ktorú sa oplatí automatizovať, koľko to reálne stojí, a prečo väčšina malých firiem začína na nesprávnom mieste.
 ---
-Väčšina článkov o automatizácii začne slovom „digitalizácia" a skončí
+Väčšina článkov o automatizácii začne slovom „digitalizácia“ a skončí
 ponukou systému za tisíce eur. Tento začne aritmetikou, lebo tá rozhodne
 za vás.
 
@@ -28,7 +28,9 @@ Nie to najviditeľnejšie, ale to najnudnejšie a najopakovanejšie:
 
 **Prepisovanie údajov medzi dvomi miestami.** Objednávka príde
 e-mailom, niekto ju prepíše do tabuľky, potom do fakturačného systému.
-Každý prepis je čas aj miesto na preklep.
+Každý prepis je čas aj miesto na preklep. Ak fakturujete ručne, oplatí
+sa to riešiť spolu s prechodom na povinnú elektronickú fakturáciu —
+[či sa vás od roku 2027 týka, si viete overiť tu](efaktura-2027-test.html).
 
 **Pravidelný report.** Ak niekto každý pondelok skladá tie isté čísla z
 tých istých zdrojov, je to úloha pre stroj — vrátane odoslania.
@@ -85,7 +87,7 @@ svoju faktúru, nie na vašu firmu.
 
 - **Kde to bude bežať a kto to platí?** Automatizácia potrebuje niekde
   bežať. Účet má byť na vaše meno, nie na jeho.
-- **Čo sa stane, keď to spadne?** Odpoveď „nespadne" je zlá odpoveď.
+- **Čo sa stane, keď to spadne?** Odpoveď „nespadne“ je zlá odpoveď.
   Správna znie: dozviete sa to, a takto sa to opraví.
 - **Dostanem zdrojový kód?** Ak nie, kupujete si závislosť.
 - **Čo zostane manuálne?** Poctivá odpoveď obsahuje aj to, čo

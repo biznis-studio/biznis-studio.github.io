@@ -1,7 +1,7 @@
 title: Koľko stojí webstránka pre malú firmu (a za čo presne platíte)
 description: Reálne ceny na slovenskom trhu, čo cenu naozaj zdvíha, čo v nej nikdy nie je zahrnuté a podľa čoho poznáte predraženú ponuku.
 ---
-Na otázku „koľko stojí web" nedostanete priamu odpoveď takmer nikde, a má
+Na otázku „koľko stojí web“ nedostanete priamu odpoveď takmer nikde, a má
 to jednoduchý dôvod: dodávateľ nechce povedať číslo skôr, než zistí, koľko
 ste ochotní zaplatiť. Tento článok to robí opačne.
 
@@ -20,7 +20,7 @@ nepotrebujete.
 - **Freelancer:** približne 500 – 2 000 €
 - **Šablónové riešenia s predplatným:** od zhruba 20 – 40 € mesačne
 
-Rozdiel medzi 600 € a 3 000 € nie je „kvalita dizajnu". Je to takmer vždy
+Rozdiel medzi 600 € a 3 000 € nie je „kvalita dizajnu“. Je to takmer vždy
 rozsah — počet stránok, množstvo textu, ktorý niekto musí napísať, a to,
 či sa web na niečo napája.
 
@@ -38,7 +38,7 @@ lacnejších než tri, ktoré vyzerajú každá inak.
 newsletter. Každé napojenie je samostatná práca a samostatné miesto, kde
 sa niečo môže pokaziť.
 
-**Jazykové verzie.** Druhý jazyk nie je „len preklad" — je to zdvojený
+**Jazykové verzie.** Druhý jazyk nie je „len preklad“ — je to zdvojený
 obsah, zdvojené testovanie a rozhodnutia o SEO.
 
 **E-shop.** Iná kategória. Ak predávate cez web, počítajte s rádovo vyššou
@@ -71,7 +71,7 @@ nepotrebuje redakčný systém pre desať redaktorov.
 hodinová sadzba prenesením rizika na vás — nepresný odhad platíte vy.
 
 **Mesačný poplatok bez jasnej protihodnoty.** Hosting a údržba áno.
-„Správa webu" bez definície toho, čo obsahuje, nie.
+„Správa webu“ bez definície toho, čo obsahuje, nie.
 
 **Nikto sa vás nepýtal, čo má web dosiahnuť.** Ponuka, ktorá príde bez
 otázok, je cenník, nie návrh riešenia.
