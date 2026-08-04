@@ -19,7 +19,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from agents.common import card_art
+from agents.common import canonical_url, card_art
 from agents.landing_page_agent import OG_IMAGE_TAGS, SITE_BASE_URL, page_shell
 
 TOOLS_DIR = Path(__file__).resolve().parent.parent / "site" / "tools"
@@ -343,7 +343,7 @@ TOOLS = [
 def _head_extras(title: str, description: str, path: str) -> str:
     if not SITE_BASE_URL:
         return ""
-    url = f"{SITE_BASE_URL}/{path}"
+    url = canonical_url(SITE_BASE_URL, path)
     return (
         f'<link rel="canonical" href="{html.escape(url)}">\n'
         f'<meta property="og:title" content="{html.escape(title)}">\n'

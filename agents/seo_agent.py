@@ -36,6 +36,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import requests
 
+from agents.common import canonical_url
 from core.db import get_connection, init_db
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -98,7 +99,7 @@ FAQS_BY_FORMAT = {
 
 
 def _abs_url(relative_path: str) -> Optional[str]:
-    return f"{SITE_BASE_URL}/{relative_path}" if SITE_BASE_URL else None
+    return canonical_url(SITE_BASE_URL, relative_path) if SITE_BASE_URL else None
 
 
 def extract_checklist_steps(page_html: str) -> list[str]:

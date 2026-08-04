@@ -25,7 +25,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from agents.common import card_art, markdown_lite_to_html, site_header_html
+from agents.common import (canonical_url, card_art, markdown_lite_to_html,
+                            site_header_html)
 from agents.landing_page_agent import OG_IMAGE_TAGS, page_shell
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -200,7 +201,7 @@ def _head_extras(title: str, description: str, path: str) -> str:
     so they get their head tags at build time instead."""
     if not SITE_BASE_URL:
         return ""
-    url = f"{SITE_BASE_URL}/{path}"
+    url = canonical_url(SITE_BASE_URL, path)
     return (
         f'<link rel="canonical" href="{html.escape(url)}">\n'
         f'<meta property="og:title" content="{html.escape(title)}">\n'

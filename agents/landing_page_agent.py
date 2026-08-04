@@ -113,7 +113,17 @@ def footer_html(is_index: bool, lang: str) -> str:
 
 
 def page_shell(title: str, meta_description: str, body_html: str, is_index: bool = False,
-               lang: str = "en") -> str:
+               lang: str = "en", canonical_path: str = "") -> str:
+    """Render a full page.
+
+    `is_index` means "lives at the site root, uses the wide layout" - it is
+    NOT a claim to be the homepage. `work.html` and `credits.html` are also
+    root-level, and for a long time sharing this flag handed them the
+    homepage's canonical URL, which tells Google they are duplicates of /
+    and should not be indexed in their own right. `canonical_path` is the
+    page's own path below the site root ("" for the homepage itself), and
+    is what the canonical/OG URLs are built from.
+    """
     verification_tag = (
         f'<meta name="google-site-verification" content="{html.escape(GOOGLE_SITE_VERIFICATION)}">\n'
         if GOOGLE_SITE_VERIFICATION else ""
@@ -124,21 +134,23 @@ def page_shell(title: str, meta_description: str, body_html: str, is_index: bool
     # right here rather than post-hoc.
     index_seo_tags = ""
     if is_index and SITE_BASE_URL:
-        index_seo_tags = (
-            f'<link rel="canonical" href="{SITE_BASE_URL}/">\n'
-            # These three must mirror the block in build_sk_page() exactly.
-            # hreflang is only honoured when BOTH pages point at each other -
-            # "if two pages don't both point to each other, the tags will be
-            # ignored" (Google, Localized versions of your pages). /sk/ has
-            # carried this annotation since it launched while the homepage
-            # never pointed back, so Google was discarding it entirely and
-            # neither language was being served preferentially to anyone.
+        page_url = f"{SITE_BASE_URL}/{canonical_path}"
+        # Only the real homepage is the English side of the language pair.
+        # These three lines must mirror build_sk_page()'s block exactly:
+        # hreflang is honoured only when BOTH pages point at each other -
+        # "if two pages don't both point to each other, the tags will be
+        # ignored" (Google, Localized versions of your pages).
+        hreflang_tags = (
             f'<link rel="alternate" hreflang="sk" href="{SITE_BASE_URL}/sk/">\n'
             f'<link rel="alternate" hreflang="en" href="{SITE_BASE_URL}/">\n'
             f'<link rel="alternate" hreflang="x-default" href="{SITE_BASE_URL}/">\n'
-            f'<meta property="og:title" content="{html.escape(title)}">\n'
+        ) if not canonical_path else ""
+        index_seo_tags = (
+            f'<link rel="canonical" href="{page_url}">\n'
+            + hreflang_tags
+            + f'<meta property="og:title" content="{html.escape(title)}">\n'
             f'<meta property="og:description" content="{html.escape(meta_description)}">\n'
-            f'<meta property="og:url" content="{SITE_BASE_URL}/">\n'
+            f'<meta property="og:url" content="{page_url}">\n'
             f'<meta property="og:type" content="website">\n'
             + OG_IMAGE_TAGS
         )
@@ -535,7 +547,7 @@ anything at all.</p>
         "Work - Biznis",
         "Everything on this site was designed and built by us, and it is all live. "
         "Try any of it before you talk to us.",
-        body, is_index=True))
+        body, is_index=True, canonical_path="work.html"))
 
 
 def build_sk_page() -> None:
@@ -950,7 +962,7 @@ spending anyone else's bandwidth either.</p>
     (SITE_DIR / "credits.html").write_text(page_shell(
         "Photo credits - Biznis",
         "Credits for the CC0 and public domain photography used across this site.",
-        body, is_index=True))
+        body, is_index=True, canonical_path="credits.html"))
 
 
 def build_index(pages: list[dict], stats: Optional[dict] = None) -> None:

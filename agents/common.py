@@ -30,6 +30,23 @@ def slugify(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
+def canonical_url(base: str, path: str) -> str:
+    """Absolute canonical URL for a site-relative path, directory form.
+
+    `/blog/`, never `/blog/index.html`. Four separate call sites - the
+    sitemap, the RSS feed, the blog/tools/news canonical tags and the
+    IndexNow submission - each built this string by hand and drifted apart:
+    /sk/ declared `/sk/` as its canonical while the sitemap listed
+    `/sk/index.html`, handing Google two URLs for one page and telling it
+    the one in the sitemap was the wrong one. Everything that needs an
+    absolute URL for a page goes through here now.
+    """
+    path = path.lstrip("/")
+    if path.endswith("index.html"):
+        path = path[: -len("index.html")]
+    return f"{base.rstrip('/')}/{path}"
+
+
 # Shared visual design system for every generated page (landing_page_agent.py's
 # non-calculator pages + index, blog_agent.py's blog pages, and
 # content_agent.py's calculator tool) so the whole site reads as one

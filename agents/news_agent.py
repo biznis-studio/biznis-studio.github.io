@@ -36,7 +36,7 @@ from typing import Optional
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from agents.common import now_iso
+from agents.common import canonical_url, now_iso
 from core.db import get_connection, init_db
 
 USER_AGENT = ("biznis-news-agent/1.0 (+https://biznis-studio.github.io; "
@@ -270,7 +270,7 @@ Last checked {updated}.</p>
             "from primary sources and established publications.")
     page = page_shell(title, desc, body, is_index=False)
     if SITE_BASE_URL:
-        url = f"{SITE_BASE_URL}/news/index.html"
+        url = canonical_url(SITE_BASE_URL, "news/index.html")
         extras = (
             f'<link rel="canonical" href="{url}">\n'
             f'<meta property="og:title" content="{title}">\n'
