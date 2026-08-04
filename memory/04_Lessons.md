@@ -21,6 +21,18 @@ State what's true; frame risk-transfer (fixed price, written scope) as a guarant
 **Calculator page bypasses `page_shell()`** — has its own `<style>` block, silently drifts from site-wide changes.
 Any global template/CSS change must also touch `inject_intro_into_calculator()`.
 
+**`page_shell(is_index=True)` means "root-level + wide layout", NOT "is the homepage".**
+`work.html`/`credits.html` share it and once inherited the homepage's canonical (= "don't index me")
+and its hreflang. Pass `canonical_path="work.html"` for any new root-level page that isn't `/`.
+
+**All absolute URLs go through `agents.common.canonical_url()`** — directory form (`/sk/`, not
+`/sk/index.html`). Four call sites (sitemap, RSS, canonical tags, IndexNow) built them by hand and
+drifted; the sitemap ended up advertising a URL the page itself disclaimed.
+
+**When adding an audit check, run it against the BROKEN site first.** A green run on already-fixed
+output proves nothing. Doing this caught a bug in the check itself (unconditional `index.html` slice
+mangled shorter filenames, hiding the very bug it was written for).
+
 **hreflang must be reciprocal or Google ignores it entirely.** Google: "if two pages don't both
 point to each other, the tags will be ignored." `/sk/` carried it alone for weeks = dead markup.
 Only `/` ↔ `/sk/` are annotated as alternates; SK articles correctly have none (no EN counterpart —

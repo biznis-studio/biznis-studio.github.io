@@ -2023,6 +2023,44 @@ one-by-one - so this gets wired in as a single batch.
       A docstring asserting a property the code doesn't have is the kind
       of thing a future session would trust and build on.
 
+## Done (iteration 73) — swept for what the audit can't see, found two real SEO bugs
+- [x] The hreflang bug in iteration 72 passed every audit for weeks, so
+      the question became: what *other* classes of error is the audit
+      blind to? Swept 39 pages for eight of them rather than assuming.
+- [x] **Bug 1 - `work.html` and `credits.html` canonicalised to the
+      homepage**, not to themselves. That tells Google they are duplicates
+      of `/` and should not be indexed in their own right - two real pages
+      excluded from search by their own markup. Root cause:
+      `page_shell()`'s `is_index` flag was quietly doing two unrelated
+      jobs, "root-level page, wide layout" and "this page IS the
+      homepage". Both pages wanted the first and silently got the second.
+      Iteration 72's hreflang addition rode in on the same flag and made
+      it worse (both pages started claiming to be the English side of the
+      language pair). Split the concerns: `canonical_path` names each
+      page's own URL; the hreflang pair is emitted only for the real
+      homepage.
+- [x] **Bug 2 - the sitemap advertised a URL the page itself disclaims.**
+      `/sk/` declared `/sk/` canonical while the sitemap listed
+      `/sk/index.html`. Four call sites (sitemap, RSS feed, canonical
+      tags, IndexNow) each built absolute URLs by hand and had drifted
+      apart. Unified behind `agents.common.canonical_url()`, directory
+      form throughout. Sitemap, canonicals, OG tags and the feed now
+      agree exactly, with zero orphan sitemap entries.
+- [x] Then closed the hole properly rather than just fixing the instances:
+      added both checks to `audit_site.py` - canonical must point at the
+      page itself, and hreflang must be reciprocal. **Verified the new
+      checks actually fire by running them against the unfixed site
+      first** (2 canonical + 4 hreflang failures, exit 1) instead of
+      trusting a green run on already-fixed output. That run also exposed
+      a bug in my own check: an unconditional `index.html` slice mangled
+      shorter filenames, so `work.html` matched the homepage and hid the
+      exact bug the check was written for. Fixed before relying on it.
+- [x] Swept and confirmed genuinely clean, so they're ruled out rather
+      than unexamined: img alt text, `<html lang>` vs directory, exactly
+      one h1 per page, unique titles and meta descriptions, og:url vs
+      canonical agreement, and inline `<script>` syntax (the apostrophe
+      class of silent breakage from iteration 64) via `node --check`.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)
