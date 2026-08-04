@@ -599,6 +599,16 @@ def site_header_html(active_is_index: bool = False, lang: str = "en") -> str:
     this, /sk/ inherited the English nav, so every single link threw a
     Slovak visitor into English content - the pages advertise services in
     Slovak and then every click leaves the language.
+
+    The language link sits in the nav in BOTH directions. It used to be
+    one-way: /sk/ had "English" in the nav, but the English side only
+    offered "Slovensky" down in the footer, so a Slovak speaker landing on
+    an English page had to scroll the whole page to find their language.
+    Note this is a language *entry point*, not a page-level translation
+    switcher - the two sides are different content for different audiences
+    (English: the product catalogue; Slovak: the services offering), so
+    there is no per-page counterpart to link to and claiming otherwise
+    would send people to a page that does not exist.
     """
     if lang == "sk":
         # Slovak pages all live in /sk/, so these are siblings.
@@ -609,7 +619,7 @@ def site_header_html(active_is_index: bool = False, lang: str = "en") -> str:
 <a href="index.html">Slu&zcaron;by</a>
 <a href="index.html#cennik">Cenn&iacute;k</a>
 <a href="efaktura-2027-test.html">E-fakt&uacute;ra 2027</a>
-<a href="../index.html">English</a>
+<a href="../index.html" lang="en" hreflang="en">English</a>
 <a class="nav-cta" href="index.html#kontakt">Nez&aacute;v&auml;zn&yacute; dopyt</a>
 </nav>
 </div>
@@ -627,6 +637,7 @@ def site_header_html(active_is_index: bool = False, lang: str = "en") -> str:
 <a href="{prefix}tools/index.html">Tools</a>
 <a href="{prefix}news/index.html">Signals</a>
 <a href="{prefix}blog/index.html">Blog</a>
+<a href="{prefix}sk/index.html" lang="sk" hreflang="sk">Slovensky</a>
 <a class="nav-cta" href="{services_href}">Hire us</a>
 </nav>
 </div>

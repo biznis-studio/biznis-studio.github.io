@@ -126,6 +126,16 @@ def page_shell(title: str, meta_description: str, body_html: str, is_index: bool
     if is_index and SITE_BASE_URL:
         index_seo_tags = (
             f'<link rel="canonical" href="{SITE_BASE_URL}/">\n'
+            # These three must mirror the block in build_sk_page() exactly.
+            # hreflang is only honoured when BOTH pages point at each other -
+            # "if two pages don't both point to each other, the tags will be
+            # ignored" (Google, Localized versions of your pages). /sk/ has
+            # carried this annotation since it launched while the homepage
+            # never pointed back, so Google was discarding it entirely and
+            # neither language was being served preferentially to anyone.
+            f'<link rel="alternate" hreflang="sk" href="{SITE_BASE_URL}/sk/">\n'
+            f'<link rel="alternate" hreflang="en" href="{SITE_BASE_URL}/">\n'
+            f'<link rel="alternate" hreflang="x-default" href="{SITE_BASE_URL}/">\n'
             f'<meta property="og:title" content="{html.escape(title)}">\n'
             f'<meta property="og:description" content="{html.escape(meta_description)}">\n'
             f'<meta property="og:url" content="{SITE_BASE_URL}/">\n'

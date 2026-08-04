@@ -119,7 +119,14 @@ def _sk_related_html(slug: str, posts: list[dict], limit: int = 3) -> str:
 
 
 def build_sk_posts() -> int:
-    """Render Slovak articles into site/sk/ with hreflang-correct markup."""
+    """Render Slovak articles into site/sk/.
+
+    Deliberately no hreflang here, despite what this docstring used to
+    claim: these articles have no English counterpart to point at, and
+    hreflang naming a page that isn't an actual alternate is worse than
+    none. Only the two section homepages (/ and /sk/) are annotated as
+    alternates of each other.
+    """
     from agents.landing_page_agent import OG_IMAGE_TAGS, page_shell
     posts = load_sk_posts()
     if not posts:
