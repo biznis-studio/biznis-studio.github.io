@@ -21,6 +21,12 @@ State what's true; frame risk-transfer (fixed price, written scope) as a guarant
 **Calculator page bypasses `page_shell()`** — has its own `<style>` block, silently drifts from site-wide changes.
 Any global template/CSS change must also touch `inject_intro_into_calculator()`.
 
+**Build gates fail only on what WE control.** External-link checking lives in
+`scripts/check_links.py`, never in `audit_site.py` — a gate that fails because someone else's server
+is briefly down gets routed around. Treat its output as advisory: 403 usually = bot-blocking
+(Pexels), 502 = transient (indiehackers). Confirm with 2+ clients before changing a citation; a
+correct source we can't reach is still better than a worse one we can.
+
 **`page_shell(is_index=True)` means "root-level + wide layout", NOT "is the homepage".**
 `work.html`/`credits.html` share it and once inherited the homepage's canonical (= "don't index me")
 and its hreflang. Pass `canonical_path="work.html"` for any new root-level page that isn't `/`.

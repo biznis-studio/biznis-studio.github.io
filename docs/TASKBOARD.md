@@ -2061,6 +2061,43 @@ one-by-one - so this gets wired in as a single batch.
       canonical agreement, and inline `<script>` syntax (the apostrophe
       class of silent breakage from iteration 64) via `node --check`.
 
+## Done (iteration 74) — checked the links nothing had ever checked
+- [x] `audit_site.py` skips http(s) links by design, so no check had ever
+      confirmed our cited sources still resolve. Swept the 14 hand-placed
+      external links, excluding the ~85 auto-generated news headlines
+      (they churn daily; including them would bury the ones that matter).
+- [x] **All 3 Gumroad links verified 200** - the only paths to revenue on
+      the entire site, and nothing had ever verified them.
+- [x] Found the primary government source on the e-faktúra tool,
+      `e-fakturacia.finance.gov.sk`, hangs indefinitely from here.
+      Confirmed with three independent clients before believing it: curl
+      with a real Chrome UA (60s), an actual browser (300s), and urllib
+      (ConnectionResetError). DNS resolves and `www.finance.gov.sk`
+      itself returns 200, so it is that specific vhost, not the domain.
+- [x] **Deliberately did not swap the link out.** Search engines still
+      index it as the current official IS EFA page, and a global outage
+      is indistinguishable from our own network being blocked - replacing
+      a correct citation with a worse one because we couldn't reach it
+      would be a downgrade, not a fix. Added the Ministry's own press
+      release on the E-faktúra system alongside it instead: verified
+      reachable, and verified to genuinely be an MF SR page on this exact
+      topic (its body text wouldn't extract, so it is cited only as an
+      official source, not as backing for any specific claim). The page
+      no longer rests its credibility on one link.
+- [x] Built `scripts/check_links.py` and **deliberately kept it out of
+      the build gate**. Gates must only fail on things we control;
+      blocking a deploy because someone else's server is briefly down
+      makes the gate untrustworthy, and people route around gates they
+      don't trust. Its own first run proves the point - indiehackers.com
+      returned a transient 502 and Pexels a bot-blocking 403, neither a
+      real problem.
+- [x] Checked the two pending GSC items rather than leaving them open:
+      sitemap still "Couldn't fetch" 24h after resubmission (second
+      failure, every documented cause already ruled out in iteration 69 -
+      nothing further to do from our side), and the Page Indexing report
+      still returns "Processing data, please check again in a day or so".
+      Stopped poking it; there is no signal there yet to act on.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

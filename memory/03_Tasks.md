@@ -9,6 +9,7 @@
 
 ## TODO (next highest-EBV, unblocked)
 - No new verified opportunity in hand (iteration 66 fan-out found none worth building). Don't force one — watch existing assets (Machinery Reg tool, all 5 SK service articles) for real signal before the next fan-out.
+- Sitemap "Couldn't fetch" persisted through a 2nd submission (2026-08-02, 24h after resubmit). Every documented cause ruled out (iteration 69); Page Indexing still "Processing data". Nothing further to do — stop re-checking until GSC has real data.
 - Watch Search Console for first real *organic* impression/click data — first data point appeared (iteration 68) but was a manual `site:` check, still not real signal. Sitemap "Couldn't fetch" is confirmed NOT a site defect (iteration 69 ruled out every documented cause) — no more action to take there, just wait.
 - External directory listing (DatabázaFiriem.com) researched and offered — user declined 2026-08-01, don't re-raise.
 
