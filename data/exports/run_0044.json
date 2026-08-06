@@ -1,6 +1,6 @@
 {
   "run_id": 44,
-  "generated_at": "2026-08-04T12:32:43.106922+00:00",
+  "generated_at": "2026-08-06T12:33:17.537383+00:00",
   "run_status": "success",
   "signals_by_source": {
     "github": 30,
@@ -10,13 +10,6 @@
     "wikipedia_pageviews": 47
   },
   "top_keywords": [
-    {
-      "term": "summerslam",
-      "score": 0.61236,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"wikipedia_pageviews\"]"
-    },
     {
       "term": "@editorjs/checklist",
       "score": 0.5791550000000001,
@@ -40,52 +33,59 @@
     },
     {
       "term": "@accounter/green-invoice-graphql",
-      "score": 0.53583,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
-    },
-    {
-      "term": "sms-segments-calculator",
-      "score": 0.52874,
+      "score": 0.5424899999999999,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
       "term": "zendaya",
-      "score": 0.50009,
+      "score": 0.531685,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"wikipedia_pageviews\"]"
     },
     {
-      "term": "react-spreadsheet",
-      "score": 0.46417,
+      "term": "sms-segments-calculator",
+      "score": 0.51542,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
+      "term": "limonene",
+      "score": 0.48866,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
       "term": "xlsx",
-      "score": 0.454995,
+      "score": 0.459145,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "react-spreadsheet",
+      "score": 0.45751000000000003,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
       "term": "@ai-sdk/google",
-      "score": 0.4288888888888889,
+      "score": 0.45332,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "ceuta",
-      "score": 0.428645,
+      "term": "@ai-sdk/gateway",
+      "score": 0.4288888888888889,
       "breadth_component": 0.2,
       "growth_component": 0.5,
-      "sources_json": "[\"wikipedia_pageviews\"]"
+      "sources_json": "[\"npm_downloads\"]"
     },
     {
       "term": "checklist",
@@ -95,6 +95,13 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
+      "term": "youtube",
+      "score": 0.42680851063829794,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
       "term": "calculator",
       "score": 0.42168,
       "breadth_component": 0.2,
@@ -102,7 +109,7 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "media-engine",
+      "term": "@firebase/ai",
       "score": 0.42000000000000004,
       "breadth_component": 0.2,
       "growth_component": 0.5,
@@ -116,14 +123,7 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "obsession",
-      "score": 0.4182978723404256,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"wikipedia_pageviews\"]"
-    },
-    {
-      "term": "@ai-sdk/gateway",
+      "term": "productivity",
       "score": 0.4111111111111111,
       "breadth_component": 0.2,
       "growth_component": 0.5,
@@ -131,13 +131,20 @@
     },
     {
       "term": "automation-events",
-      "score": 0.40417,
+      "score": 0.41083,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "@ant-design/colors",
+      "term": ".xyz",
+      "score": 0.40308,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "@ai-sdk/react",
       "score": 0.40222222222222226,
       "breadth_component": 0.2,
       "growth_component": 0.5,
@@ -145,13 +152,13 @@
     },
     {
       "term": "spreadsheet",
-      "score": 0.39501000000000003,
+      "score": 0.40167,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "@firebase/ai",
+      "term": "media-engine",
       "score": 0.3933333333333333,
       "breadth_component": 0.2,
       "growth_component": 0.5,
@@ -174,13 +181,6 @@
     {
       "term": "appium",
       "score": 0.376685,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
-    },
-    {
-      "term": "@ai-sdk/react",
-      "score": 0.37555555555555553,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
