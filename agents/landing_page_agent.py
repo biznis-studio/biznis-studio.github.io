@@ -905,6 +905,7 @@ opl&aacute;ca a &ccaron;o je strata &ccaron;asu</a>.</p>
 
 <p class="form-note"><strong>Zdroje:</strong>
 <a href="https://e-fakturacia.finance.gov.sk/e-fakturacia/" target="_blank" rel="noopener">Ministerstvo financi&iacute; SR - Informa&ccaron;n&yacute; syst&eacute;m elektronickej fakturácie</a> &middot;
+<a href="https://www.mfsr.sk/sk/media/tlacove-spravy/nova-web-stranka-15.html" target="_blank" rel="noopener">MF SR - tla&ccaron;ov&aacute; spr&aacute;va k syst&eacute;mu E-fakt&uacute;ra</a> &middot;
 <a href="https://www.podnikajte.sk/dan-z-pridanej-hodnoty/efaktura-povinna-elektronicka-fakturacia-od-2027" target="_blank" rel="noopener">Podnikajte.sk</a></p>
 <p><a href="index.html">&larr; Späť na slu&zcaron;by</a></p>"""
 
