@@ -204,7 +204,13 @@ MACHINERY_WIDGET = """
     var states = Math.max(1, parseInt(val('m3')) || 1);
     var life = Math.max(1, parseInt(val('m4')) || 1);
     var monthly = parseFloat(val('m5')) || 0;
-    var years = life + 10;
+    // Art. 10(7)(c): "during the expected lifetime ... AND for at least 10
+    // years after the placing on the market". Both windows start at the
+    // placing on the market, so they overlap - the obligation is whichever
+    // is longer, not the sum. This read life + 10 until 2026-08-02, which
+    // overstated a 15-year machine by a decade and its subscription cost
+    // by 67%. Verified against the EUR-Lex primary text, not a summary.
+    var years = Math.max(life, 10);
     var parts = [];
 
     document.getElementById('myears').textContent = years + ' years';
@@ -219,7 +225,7 @@ MACHINERY_WIDGET = """
     parts.push('<p>If you choose to supply instructions digitally, Article 10(7) of Regulation (EU) 2023/1230 requires you to:</p><ul>' +
       '<li>mark <strong>on the machine itself</strong> how to reach the digital instructions</li>' +
       '<li>present them so the user can <strong>print, download and save</strong> them</li>' +
-      '<li>keep them <strong>accessible online for the expected lifetime plus at least 10 years</strong> after the machine was placed on the market</li>' +
+      '<li>keep them <strong>accessible online for the expected lifetime of the machine, and in any case for at least 10 years</strong> after it was placed on the market</li>' +
       '<li>provide them in a language determined by each member state you sell into</li></ul>');
     parts.push('<p>For your inputs that is <strong>' + years + ' years</strong> of guaranteed availability, in <strong>' + states + ' language set' + (states>1?'s':'') + '</strong>.</p>');
 
@@ -263,8 +269,9 @@ TOOLS = [
                         "under Article 10(7), and what that costs on a subscription versus a "
                         "static page you own."),
         "intro": ("Regulation (EU) 2023/1230 lets you supply instructions for use digitally - "
-                  "but only if the link keeps working for the machine's lifetime plus ten "
-                  "years. Most builders discover the second part later than the first."),
+                  "but only if the link keeps working for the machine's whole expected "
+                  "lifetime, and never less than ten years. Most builders discover the "
+                  "second part later than the first."),
         "widget": MACHINERY_WIDGET,
         "after": ("<h2>Why the ten years is the hard part</h2>"
                   "<p>Going digital is usually framed as a saving: no reprinting a manual in "
