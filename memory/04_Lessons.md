@@ -21,6 +21,13 @@ State what's true; frame risk-transfer (fixed price, written scope) as a guarant
 **Calculator page bypasses `page_shell()`** — has its own `<style>` block, silently drifts from site-wide changes.
 Any global template/CSS change must also touch `inject_intro_into_calculator()`.
 
+**`node --check` proves a script PARSES, never that it's RIGHT.** The Machinery tool computed the
+Art. 10(7) window as `life + 10` for weeks — the law says lifetime AND ≥10y, both from placing on
+market, so it's `max(life, 10)`. Overstated a 15y machine by a decade and the cost by 67%. The page
+quoted the law correctly the whole time; only the calculator misread the sentence above it.
+**Quoting a source correctly ≠ implementing it correctly.** Test calculators by executing them
+against a stubbed DOM with hand-computed expected values, including boundaries.
+
 **Build gates fail only on what WE control.** External-link checking lives in
 `scripts/check_links.py`, never in `audit_site.py` — a gate that fails because someone else's server
 is briefly down gets routed around. Treat its output as advisory: 403 usually = bot-blocking

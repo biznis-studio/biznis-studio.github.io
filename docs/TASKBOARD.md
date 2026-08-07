@@ -1753,6 +1753,11 @@ one-by-one - so this gets wired in as a single batch.
       Article 10(7) demands, and - the part no subscription vendor will
       publish - multiplies their monthly fee across the full obligation.
       A 15-year machine on a 250 EUR/month platform shows **75,000 EUR**.
+      **Correction (iteration 75):** that figure was wrong. The tool
+      computed the window as life + 10 when Article 10(7)(c) means
+      whichever of the two is longer. The correct answer for that example
+      is 15 years and **45,000 EUR**. Left the original line intact rather
+      than quietly editing it, so the error stays visible in the record.
 - [x] Found and fixed a bug before shipping: an apostrophe inside a
       single-quoted JS string broke the entire inline script silently, so
       the tool rendered but did nothing. Caught by driving the tool and
@@ -2097,6 +2102,39 @@ one-by-one - so this gets wired in as a single batch.
       nothing further to do from our side), and the Page Indexing report
       still returns "Processing data, please check again in a day or so".
       Stopped poking it; there is no signal there yet to act on.
+
+## Done (iteration 75) — the tools were never checked for being *right*, only for parsing
+- [x] Spotted the real gap in iteration 73's sweep: `node --check` proves
+      a script parses, never that it computes the right answer. The
+      project's hardest rule is "never publish an unverified number", and
+      three calculators had been publishing numbers nobody had verified.
+- [x] **Found a genuine legal error on the Machinery tool.** It computed
+      the obligation window as `life + 10`. Article 10(7)(c) of Regulation
+      (EU) 2023/1230, checked against the EUR-Lex primary text rather than
+      any summary, requires instructions be accessible "during the
+      expected lifetime of the machinery or related product **and** for at
+      least 10 years after the placing on the market". Both windows start
+      at the placing on the market, so they overlap - the obligation is
+      whichever is longer, not the sum. Corrected to `Math.max(life, 10)`.
+- [x] The error was not small and not in our favour: a 15-year machine
+      showed 25 years and 75,000 EUR against the correct 15 years and
+      45,000 EUR. We overstated a legal duty by a decade and a
+      competitor's cost by 67% - on the one page whose entire credibility
+      rests on getting a regulation right, and while telling readers what
+      the Regulation "actually requires".
+- [x] The sharpest detail: **the page's own prose quoted the Regulation
+      correctly the whole time.** Only the calculator misread the very
+      sentence printed above it. Verbatim quoting is not the same as
+      correctly implementing what was quoted, and nothing in the pipeline
+      compares the two.
+- [x] Verified the fix by executing the real widget code against a stubbed
+      DOM instead of reading it: 15y->15/45,000, 5y->10/30,000 (floor
+      applies), 10y->10 (boundary), 30y->30/36,000. Ran the same harness
+      over the other two calculators - scope-creep and freelance-rate are
+      both arithmetically correct and needed no change.
+- [x] Corrected the iteration-64 TASKBOARD entry that cited 75,000 EUR as
+      a selling point, annotating it rather than silently rewriting it so
+      the error stays visible in the record.
 
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
