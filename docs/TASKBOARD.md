@@ -1772,6 +1772,13 @@ one-by-one - so this gets wired in as a single batch.
       for - it will show whether anyone searches for this.
 
 ## Done (iteration 65) — closed the last service gap in Slovak content
+- [x] **Correction (iteration 76): the claim below is wrong.** Design/
+      branding was not the *only* uncovered service - "Digitálny produkt
+      na mieru" (290 EUR in the pricing table) had no article then and
+      still has none. That is deliberate, not an oversight: iteration 66
+      SERP-checked custom-tool pricing and rejected it as held by real
+      incumbents with fresh 2026 content. Left the original wording
+      below rather than rewriting it, so the mistake stays visible.
 - [x] Design/branding was the one service of five (web, automation, custom
       digital products, design/branding, chatbots) with no Slovak article.
       Ran `find-opportunities` on 6 candidate queries via a subagent first
@@ -2135,6 +2142,34 @@ one-by-one - so this gets wired in as a single batch.
 - [x] Corrected the iteration-64 TASKBOARD entry that cited 75,000 EUR as
       a selling point, annotating it rather than silently rewriting it so
       the error stays visible in the record.
+
+## Done (iteration 76) — price consistency verified, and a false claim in our own records
+- [x] Continued the content-correctness sweep that iteration 75 started
+      (as opposed to the markup sweep, which is exhausted). Next class:
+      **do our own prices agree across the site?** A published price that
+      contradicts another published price is a credibility problem and a
+      potential dispute with a real customer, and nothing had checked it.
+- [x] Extracted every euro figure from every Slovak page and compared the
+      ones we present as *our* prices against the canonical pricing table
+      on `/sk/`. **All consistent:** automation 390, chatbot 690, logo
+      390, websites 590 / 1 190, each matching the table exactly. The
+      other figures on those pages are competitor market ranges, which is
+      what they are presented as. No change needed - a clean result that
+      is now established rather than assumed.
+- [x] The check surfaced something else: the pricing table has **six**
+      line items, and only **five** articles exist. "Digitálny produkt na
+      mieru" (290 EUR) has no Slovak article.
+- [x] That gap is deliberate - iteration 66 SERP-checked custom-tool
+      pricing and rejected it as held by real incumbents with fresh 2026
+      content. **But our records claimed otherwise:** iteration 65 stated
+      design/branding was "the one service of five" without an article,
+      and `memory/03_Tasks.md` said "all 5 SK service articles". Both
+      would have told a future session that coverage was complete.
+- [x] Corrected both, and recorded *why* there is no article rather than
+      just noting the gap - a bare gap invites someone to close it by
+      writing for a query we already know we would lose. Annotated the
+      iteration-65 entry instead of rewriting it, same as the 75,000 EUR
+      correction, so the mistake stays visible in the record.
 
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
