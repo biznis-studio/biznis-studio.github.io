@@ -2171,6 +2171,51 @@ one-by-one - so this gets wired in as a single batch.
       iteration-65 entry instead of rewriting it, same as the 75,000 EUR
       correction, so the mistake stays visible in the record.
 
+## Done (iteration 77) — a day of falsification, closed with a negative result
+- [x] User rejected the previous week's output as "pure AI average" and set
+      a quality bar: own thesis, own findings, tools that decide rather
+      than calculate, and a flagship that would hurt to have copied.
+      Agreed rather than defended - five Slovak articles shared one
+      template with the numbers swapped, and correctness work (canonical,
+      hreflang, arithmetic) cannot produce demand no matter how much of it
+      is done.
+- [x] Designed one flagship candidate instead of producing more: a
+      self-collected dataset on machinery documentation availability, on
+      the reasoning that a daily pipeline can build a longitudinal dataset
+      a competitor cannot copy in a weekend.
+- [x] Ran it as a **falsification experiment** under the user's protocol:
+      pre-registered decision thresholds, a mandatory UNKNOWN category,
+      unit of analysis fixed in advance, and a stop rule. Full record in
+      **`docs/RESEARCH_LOG.md` (RL-1)**.
+- [x] Six approaches, six failures, each for a specific reason: Wayback
+      all-PDF (population was marketing material); Wayback docs-only
+      (failures cluster per manufacturer, so per-document aggregation is
+      the wrong statistic); hand-picked frame (selection bias); systematic
+      Wikidata frame (11 of 199 yielded data); static accessibility census
+      (64.7% UNKNOWN); rendered calibration (84% of eligible UNKNOWNs
+      resolved - the stop rule fired, UNKNOWN was an instrument artifact).
+- [x] **The protocol earned its keep.** An early pass produced 64.1%,
+      which would have read as "64% of manufacturers' documentation is
+      unavailable" - false, driven by brochures and by three defects in
+      our own classifier, none of which crashed anything. It was only
+      caught because the protocol forced segmentation and an UNKNOWN
+      category. A favourite hypothesis (dead documentation subdomains =
+      "the problem is URL infrastructure") also died: 0% HOST_GONE in the
+      systematic frame, it was an artifact of hand-picking large firms.
+- [x] Verified and kept: 9 manufacturers (12 domains) publish at a direct
+      public URL, re-verified 12/12. Recorded honestly as validation of
+      one positive class, not of the classifier - and as too thin (~12
+      URLs) to seed an observatory.
+- [x] Closed the line. **Machinery Regulation removed from flagship
+      candidates** - not for lack of interest but because no cheap, open,
+      representative data source exists. None of RL-1's numbers may become
+      site content; they describe our instruments, not any market.
+- [x] Adopted the day's real output as a standing rule: work runs
+      `observable property -> population -> measurement -> falsification ->
+      dataset -> product`, never `topic -> content -> tool -> SEO -> look
+      for evidence`. Future flagship candidates must pass the 7-point
+      filter in `docs/RESEARCH_LOG.md`.
+
 ## Milestones
 - **M1 — Discovery loop proven with real data** ✅ (iteration 1)
 - **M2 — First real product file exists and is reviewable by the user** ✅ (iteration 2 — see `data/exports/products/`)

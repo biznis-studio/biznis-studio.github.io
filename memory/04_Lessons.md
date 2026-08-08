@@ -21,6 +21,20 @@ State what's true; frame risk-transfer (fixed price, written scope) as a guarant
 **Calculator page bypasses `page_shell()`** — has its own `<style>` block, silently drifts from site-wide changes.
 Any global template/CSS change must also touch `inject_intro_into_calculator()`.
 
+**Order of work (RL-1, binding).** Not `topic → content → tool → SEO → look for evidence`.
+Instead: `observable property → population → measurement → falsification → dataset → product`.
+A measurable property and a defensible route to the data must exist BEFORE any thesis, article,
+tool or business model. Flagship candidates must pass the 7-point filter in `docs/RESEARCH_LOG.md`.
+
+**Never publish a number without a mandatory UNKNOWN category and pre-registered thresholds.**
+RL-1 nearly shipped "64% of manufacturers' documentation is unavailable" — false, driven by
+marketing PDFs and our own classifier defects. Segmentation only happened because the protocol
+forced it. Classifier defects produce confident wrong output without ever crashing.
+
+**Machinery Regulation is OUT as a flagship candidate** (RL-1, 2026-08-02) — no cheap, open,
+representative data source exists. The existing free tool stays and is correct; do not add any
+claim about industry behaviour to it. Do not turn RL-1's negative results into site content.
+
 **`node --check` proves a script PARSES, never that it's RIGHT.** The Machinery tool computed the
 Art. 10(7) window as `life + 10` for weeks — the law says lifetime AND ≥10y, both from placing on
 market, so it's `max(life, 10)`. Overstated a 15y machine by a decade and the cost by 67%. The page
