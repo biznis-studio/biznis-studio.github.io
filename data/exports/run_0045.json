@@ -1,6 +1,6 @@
 {
   "run_id": 45,
-  "generated_at": "2026-08-05T12:29:43.693067+00:00",
+  "generated_at": "2026-08-08T08:08:59.265483+00:00",
   "run_status": "success",
   "signals_by_source": {
     "github": 30,
@@ -11,13 +11,6 @@
   },
   "top_keywords": [
     {
-      "term": "summerslam",
-      "score": 0.60597,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"wikipedia_pageviews\"]"
-    },
-    {
       "term": "@editorjs/checklist",
       "score": 0.5791550000000001,
       "breadth_component": 0.2,
@@ -25,32 +18,25 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
+      "term": "@e965/xlsx",
+      "score": 0.55584,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
       "term": "mjml-invoice",
-      "score": 0.555215,
+      "score": 0.548555,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
       "term": "@accounter/green-invoice-graphql",
-      "score": 0.54918,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
-    },
-    {
-      "term": "@e965/xlsx",
       "score": 0.5424899999999999,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
-    },
-    {
-      "term": "zendaya",
-      "score": 0.52562,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"wikipedia_pageviews\"]"
     },
     {
       "term": "sms-segments-calculator",
@@ -60,18 +46,25 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "@ai-sdk/gateway",
-      "score": 0.500835,
+      "term": "zendaya",
+      "score": 0.506155,
       "breadth_component": 0.2,
       "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
+      "sources_json": "[\"wikipedia_pageviews\"]"
     },
     {
-      "term": "@ai-sdk/google",
-      "score": 0.46001,
+      "term": "primetime",
+      "score": 0.49044,
       "breadth_component": 0.2,
       "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "limonene",
+      "score": 0.46313,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
     },
     {
       "term": "xlsx",
@@ -88,8 +81,15 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "@firebase/ai",
-      "score": 0.44,
+      "term": "@ai-sdk/google",
+      "score": 0.45332,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@ai-sdk/gateway",
+      "score": 0.4288888888888889,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
@@ -109,11 +109,11 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "odyssey",
-      "score": 0.4182978723404256,
+      "term": "@firebase/ai",
+      "score": 0.42000000000000004,
       "breadth_component": 0.2,
       "growth_component": 0.5,
-      "sources_json": "[\"wikipedia_pageviews\"]"
+      "sources_json": "[\"npm_downloads\"]"
     },
     {
       "term": "automation",
@@ -137,14 +137,7 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": ".xyz",
-      "score": 0.40308,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"wikipedia_pageviews\"]"
-    },
-    {
-      "term": "productivity",
+      "term": "media-engine",
       "score": 0.40222222222222226,
       "breadth_component": 0.2,
       "growth_component": 0.5,
@@ -158,14 +151,21 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "ec-sri-invoice-signer",
+      "term": "chatgpt",
+      "score": 0.4012765957446809,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "@ant-design/colors",
       "score": 0.3933333333333333,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "media-engine",
+      "term": "ec-sri-invoice-signer",
       "score": 0.3844444444444445,
       "breadth_component": 0.2,
       "growth_component": 0.5,
@@ -179,11 +179,11 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": ".xxx",
-      "score": 0.37574468085106383,
+      "term": "appium",
+      "score": 0.376685,
       "breadth_component": 0.2,
       "growth_component": 0.5,
-      "sources_json": "[\"wikipedia_pageviews\"]"
+      "sources_json": "[\"npm_downloads\"]"
     }
   ],
   "product_ideas": []
