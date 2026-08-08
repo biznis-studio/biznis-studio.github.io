@@ -566,26 +566,86 @@ def build_sk_page() -> None:
     timezone, jurisdiction and invoicing - this is a far more realistic
     path to first revenue than competing in English.
 
-    Deliberately no published prices: what to charge commits the owner
-    publicly and is his decision, not something to infer from market
-    research and publish autonomously.
+    Repositioned 2026-08-08 around the operator's own strategic decision:
+    the primary offering is now turning a company's EXISTING Microsoft 365
+    Copilot into a structured work system for one specific process, rather
+    than the previous generic web/design/automation menu.
+
+    Why this framing and not "an AI agent for X": Microsoft ships its own
+    Factory Operations Agent and AppSource already carries 8D/CAPA
+    solutions, so competing head-on with an agent loses. Positioning
+    Copilot as part of our delivery stack rather than as the competitor is
+    the only framing found that does not require beating anyone - see
+    docs/RESEARCH_LOG.md.
+
+    This is sold as a service, not a product, and that is deliberate
+    (B6 in the business gate). Nothing on this page claims a capability
+    that would require software we have not built: the deliverable is
+    knowledge structuring, workflow design and configuration inside the
+    customer's own tenant.
+
+    The existing services stay on the page rather than being deleted -
+    they are real revenue paths and the whole Slovak article cluster links
+    into them.
+
+    NOT VALIDATED YET: no customer interview has happened. The B10
+    protocol in docs/RESEARCH_LOG.md still governs. Prices below were set
+    by Claude as a starting point and are the owner's to confirm.
     """
     body = """<div class="hero">
-<span class="eyebrow">Dizajn &middot; Web &middot; Automatiz&aacute;cia</span>
-<h1>Navrhujeme a staviame digit&aacute;lnu časť v&aacute;šho podnikania</h1>
-<p class="subtitle">Webstr&aacute;nky, firemn&aacute; identita, digit&aacute;lne produkty na mieru
-a automatiz&aacute;cia pr&aacute;ce, ktor&uacute; dnes rob&iacute;te ručne. Pevn&aacute; cena
-dohodnut&aacute; vopred, v&yacute;sledok je v&aacute;š vr&aacute;tane zdrojov&yacute;ch s&uacute;borov.</p>
+<span class="eyebrow">Firemn&aacute; AI &middot; Microsoft 365 &middot; Copilot</span>
+<h1>M&aacute;te Copilot. Pou&zcaron;&iacute;vate ho na p&iacute;sanie mailov.</h1>
+<p class="subtitle">Firmy platia za Microsoft 365 Copilot a vyu&zcaron;&iacute;vaj&uacute; zlomok
+toho, čo vie. Nie preto, &zcaron;e by bol slab&yacute; - ale preto, &zcaron;e nepozn&aacute;
+va&scaron;e postupy, va&scaron;u hist&oacute;riu ani va&scaron;e pravidl&aacute;. Postav&iacute;me nad n&iacute;m
+&scaron;trukt&uacute;ru pre jeden konkr&eacute;tny proces, aby prestal byť osobn&yacute;m
+asistentom a začal byť pracovn&yacute;m n&aacute;strojom.</p>
 </div>
 
 <div class="stats-strip">
-<div class="stat"><b>Pevn&aacute; cena</b><span>dohodnut&aacute; p&iacute;somne pred začiatkom pr&aacute;ce</span></div>
-<div class="stat"><b>Všetko je vaše</b><span>pln&eacute; pr&aacute;va aj zdrojov&eacute; s&uacute;bory</span></div>
-<div class="stat"><b>Hotov&eacute;, nie s&uacute;bor</b><span>odovzd&aacute;vame funkčn&eacute; a nasaden&eacute;</span></div>
-<div class="stat"><b>Vysk&uacute;šajte si to</b><span>všetko, čo sme postavili, je verejn&eacute;</span></div>
+<div class="stat"><b>Va&scaron;e d&aacute;ta zost&aacute;vaj&uacute; u v&aacute;s</b><span>pracujeme vo va&scaron;om Microsoft 365, ni&ccaron; sa nevyv&aacute;&zcaron;a</span></div>
+<div class="stat"><b>&Zcaron;iadny nov&yacute; softv&eacute;r</b><span>pou&zcaron;&iacute;vame to, čo u&zcaron; m&aacute;te a m&aacute;te schv&aacute;len&eacute;</span></div>
+<div class="stat"><b>Jeden proces, nie cel&aacute; firma</b><span>začneme t&yacute;m, ktor&yacute; st&aacute;le bol&iacute;</span></div>
+<div class="stat"><b>Odovzd&aacute;me to v&aacute;m</b><span>vr&aacute;tane dokument&aacute;cie, nie ste na n&aacute;s viazan&iacute;</span></div>
 </div>
 
-<h2 class="section-title">Čo pre v&aacute;s postav&iacute;me</h2>
+<h2 class="section-title">Pre&ccaron;o Copilot vo firm&aacute;ch nedodr&zcaron;&iacute;, čo sľubuje</h2>
+<p>Copilot vie odpovedať len z toho, k čomu m&aacute; pr&iacute;stup a čomu rozumie.
+V be&zcaron;nej firme naraz&iacute; na tri veci:</p>
+<ul>
+<li><strong>Znalosť nie je zap&iacute;san&aacute;.</strong> Najd&ocirc;le&zcaron;itej&scaron;ie vie
+sk&uacute;sen&yacute; človek z hlavy. V dokumentoch to nie je, tak&zcaron;e to nen&aacute;jde ani AI.</li>
+<li><strong>Informácie s&uacute; roztr&uacute;sen&eacute;.</strong> Postup v SharePointe, hist&oacute;ria
+pr&iacute;padov v Exceli, rozhodnutie v Teams chate, d&aacute;ta v ERP. Človek to
+pospája za p&ocirc;l dňa. Copilot bez &scaron;trukt&uacute;ry to nepospája v&ocirc;bec.</li>
+<li><strong>Nikto mu nepovedal, ako sa to u v&aacute;s rob&iacute;.</strong> Bez postupu
+d&aacute;va v&scaron;eobecn&uacute; odpoveď namiesto tej va&scaron;ej.</li>
+</ul>
+<p>Preto dnes v&yacute;sledok z&aacute;vis&iacute; od toho, ako dobre vie konkr&eacute;tny
+zamestnanec formulovať ot&aacute;zku. To nie je syst&eacute;m, to je n&aacute;hoda.</p>
+
+<h2 class="section-title">&Ccaron;o pre v&aacute;s urob&iacute;me</h2>
+<p>Vyberieme <strong>jeden proces</strong>, ktor&yacute; sa vo va&scaron;ej firme opakuje a
+stoj&iacute; st&aacute;le rovnak&uacute; pr&aacute;cu - napr&iacute;klad rie&scaron;enie reklam&aacute;cie,
+pr&iacute;pravu ponuky, spracovanie objedn&aacute;vky, zapracovanie nov&eacute;ho človeka -
+a postav&iacute;me okolo neho &scaron;trukt&uacute;ru:</p>
+<ol>
+<li><strong>Zmapujeme, kde znalosť naozaj je</strong> - a hlavne kde ch&yacute;ba.
+V&yacute;stupom je aj zoznam vec&iacute;, ktor&eacute; nikde zap&iacute;san&eacute; nie s&uacute;.</li>
+<li><strong>Usporiadame ju tak, aby sa v nej dalo hľadať</strong> - kateg&oacute;rie,
+&scaron;trukt&uacute;ra pr&iacute;padu, prepojenia medzi zdrojmi.</li>
+<li><strong>Nastav&iacute;me postup</strong> - čo m&aacute; syst&eacute;m spraviť v ktorom kroku,
+čo m&aacute; dohľadať, na čo m&aacute; upozorniť, kedy m&aacute; povedať &bdquo;toto nem&aacute;m&ldquo;.</li>
+<li><strong>Overíme v&yacute;stup na va&scaron;ich re&aacute;lnych, u&zcaron; uzavret&yacute;ch pr&iacute;padoch</strong>
+- porovnanie s t&yacute;m, ako to dopadlo v skutočnosti.</li>
+<li><strong>Odovzd&aacute;me to aj s dokument&aacute;ciou</strong>, aby to vedel udr&zcaron;iavať
+v&aacute;&scaron; človek, nie len my.</li>
+</ol>
+<p class="form-note"><strong>Pozn&aacute;mka k bezpe&ccaron;nosti:</strong> pracujeme vo va&scaron;om
+prostred&iacute; Microsoft 365. Va&scaron;e d&aacute;ta z neho neodch&aacute;dzaj&uacute; a nepotrebujeme
+ich kop&iacute;rovať k n&aacute;m.</p>
+
+<h2 class="section-title">Ostatn&eacute; slu&zcaron;by</h2>
 
 <h2>Webstr&aacute;nky</h2>
 <p>Firemn&yacute; web, produktov&aacute; str&aacute;nka alebo landing page - navrhnut&eacute; na to,
@@ -627,6 +687,14 @@ o rovnak&yacute;ch č&iacute;slach. Sumy s&uacute; <strong>&bdquo;od&ldquo;</str
 cenu dostanete p&iacute;somne po tom, ako pozn&aacute;me rozsah, a už sa nemen&iacute;.</p>
 <table>
 <tr><th>Čo</th><th>Cena od</th><th>Čo cenu men&iacute;</th></tr>
+<tr><td><strong>Posudok jedn&eacute;ho procesu</strong> + uk&aacute;&zcaron;ka na va&scaron;om re&aacute;lnom pr&iacute;pade</td>
+<td><strong>490 &euro;</strong></td>
+<td>pevn&aacute; cena; ak vyjde, &zcaron;e sa nasadenie neopl&aacute;ca, povieme to</td></tr>
+<tr><td><strong>Nasadenie jedn&eacute;ho procesu</strong> do v&aacute;&scaron;ho Microsoft 365</td>
+<td><strong>2 400 &euro;</strong></td>
+<td>počet zdrojov d&aacute;t, stav dokument&aacute;cie, počet krokov procesu</td></tr>
+<tr><td>Ka&zcaron;d&yacute; ďal&scaron;&iacute; proces</td><td><strong>1 400 &euro;</strong></td>
+<td>lacnej&scaron;&iacute;, lebo &scaron;trukt&uacute;ra u&zcaron; existuje</td></tr>
 <tr><td>Jednostr&aacute;nkov&yacute; web (landing page)</td><td><strong>590 &euro;</strong></td>
 <td>množstvo obsahu, formul&aacute;re, jazykov&eacute; verzie</td></tr>
 <tr><td>Firemn&yacute; web (do 8 podstr&aacute;nok)</td><td><strong>1 190 &euro;</strong></td>
@@ -651,6 +719,20 @@ navrhneme, čo vynechať. Menšia vec sprav&eacute;n&aacute; poriadne je lepšia
 <p>Toto je t&aacute; časť, ktor&aacute; rob&iacute; zvyšok d&ocirc;veryhodn&yacute;m. Št&uacute;dio,
 ktor&eacute; tvrd&iacute;, že vie všetko, v&aacute;m je na nič.</p>
 <ul>
+<li><strong>Nesľubujeme, &zcaron;e AI nahrad&iacute; ľud&iacute;.</strong> Nevieme to a nikto to
+zatiaľ vierohodne nepreuk&aacute;zal. Sľubujeme, &zcaron;e prestanete robiť ručne
+dohľad&aacute;vanie a prepisovanie - nie &zcaron;e prestanete potrebovať odborn&iacute;kov.</li>
+<li><strong>Nedostaneme z Copilota to, čo vo firme nie je zap&iacute;san&eacute;.</strong>
+Ak znalosť existuje len v hlave jedn&eacute;ho človeka, prv&yacute; krok je spísať ju -
+a to je pr&aacute;ca, ktor&uacute; mus&iacute;te spraviť vy. My na ňu uk&aacute;&zcaron;eme,
+neurob&iacute;me ju za v&aacute;s.</li>
+<li><strong>Nepred&aacute;vame licencie Microsoft 365 ani Copilot</strong> a nie sme
+partner Microsoftu. Pracujeme s t&yacute;m, čo u&zcaron; m&aacute;te.</li>
+<li><strong>Nenahr&aacute;dzame v&aacute;&scaron; QMS, ERP ani &zcaron;iadny riadiaci syst&eacute;m.</strong>
+Postavíme vrstvu nad nimi, nie namiesto nich.</li>
+<li><strong>Nerob&iacute;me audit, certifik&aacute;ciu ani posudzovanie zhody</strong> a
+v&yacute;stup n&aacute;&scaron;ho syst&eacute;mu nie je odborn&yacute; ani pr&aacute;vny posudok.
+Zodpovednosť za rozhodnutie zost&aacute;va na va&scaron;om človeku.</li>
 <li><strong>Webov&eacute; aplik&aacute;cie s &uacute;čtami a datab&aacute;zou.</strong> Prezentačn&eacute;
 a produktov&eacute; str&aacute;nky &aacute;no. Syst&eacute;m s prihlasovan&iacute;m použ&iacute;vateľov
 nie.</li>
@@ -725,7 +807,7 @@ zdrojov&yacute;ch s&uacute;borov, bez mesačn&yacute;ch poplatkov a bez viazanos
                f'<link rel="alternate" hreflang="sk" href="{SITE_BASE_URL}/sk/">\n'
                f'<link rel="alternate" hreflang="en" href="{SITE_BASE_URL}/">\n'
                f'<link rel="alternate" hreflang="x-default" href="{SITE_BASE_URL}/">\n'
-               f'<meta property="og:title" content="Tvorba webstr\u00e1nok, automatiz\u00e1cia a dizajn">\n'
+               f'<meta property="og:title" content="Vyu\u017eite firemn\u00fd Copilot naplno">\n'
                f'<meta property="og:url" content="{SITE_BASE_URL}/sk/">\n'
                f'<meta property="og:type" content="website">\n' + OG_IMAGE_TAGS)
     else:
@@ -733,9 +815,9 @@ zdrojov&yacute;ch s&uacute;borov, bez mesačn&yacute;ch poplatkov a bez viazanos
     sk_dir = SITE_DIR / "sk"
     sk_dir.mkdir(parents=True, exist_ok=True)
     page = page_shell(
-        "Tvorba webstr\u00e1nok, automatiz\u00e1cia a dizajn pre mal\u00e9 firmy | Biznis",
-        "Webstr\u00e1nky, automatiz\u00e1cia procesov, digit\u00e1lne produkty na mieru a firemn\u00e1 "
-        "identita pre mal\u00e9 firmy. Pevn\u00e1 cena dohodnut\u00e1 vopred.",
+        "Vyu\u017eite firemn\u00fd Copilot naplno | Biznis",
+        "Firmy platia za Microsoft 365 Copilot a pou\u017e\u00edvaj\u00fa zlomok toho, \u010do vie. "
+        "Postav\u00edme nad n\u00edm \u0161trukt\u00faru pre jeden proces. D\u00e1ta zost\u00e1vaj\u00fa u v\u00e1s.",
         body, lang="sk")
     if alt:
         idx = page.lower().find("</head>")
