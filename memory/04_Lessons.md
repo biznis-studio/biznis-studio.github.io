@@ -28,6 +28,14 @@ money already spent on it, a named know-how holder, a named budget owner. Ask ab
 they describe the work — after the pitch everything is contaminated. Thresholds pre-registered in
 `docs/RESEARCH_LOG.md` so warm responses can't be rationalised into validation.
 
+**Copilot extensibility facts (verified 2026-08-08, docs updated 2026-07-29).** Marketplace
+distribution ONLY via Agents Toolkit (declarative or custom engine); Agent Builder and Copilot
+Studio declarative are org-catalog only; Copilot Studio multi-tenant is PREVIEW. Omitting
+`items_by_url`/`items_by_sharepoint_ids`/`connections` makes the agent search the WHOLE tenant —
+so one package installs anywhere, no per-customer build. `instructions` capped at **8,000 chars**
+(the whole methodology budget). No manifest parameterisation except localization keys. Details in
+`docs/ARCHITECTURE_COPILOT_LAYER.md`; schema read was 1.5, latest is 1.8 — re-verify.
+
 **STRATEGY (2026-08-08, supersedes data-moat goal):** build a profitable AI-enabled service where
 proprietary WORKFLOW, execution and customer integration are the moat — not owning public data.
 Sequence: `PROBLEM → PAYMENT → WORKFLOW → AI AUTOMATION → PRODUCTISATION`. Opening question is
