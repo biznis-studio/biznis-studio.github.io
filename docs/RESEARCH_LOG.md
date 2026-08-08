@@ -270,6 +270,69 @@ Do not reopen RL-3 by relaxing Q0. Reopen it only if a *specific* system
 is identified where the Q0 seven-point test can actually be passed on
 evidence.
 
+---
+
+## Strategic pivot (2026-08-08) — supersedes the data-moat objective
+
+RL-1 to RL-3 produced a precise negative: **do not build a business case
+on finding a public dataset nobody else has.** That is removed from the
+decision architecture.
+
+**New objective:**
+
+> Build a profitable AI-enabled service where proprietary workflow,
+> execution capability and customer integration create the moat — not
+> exclusive ownership of public data.
+
+**New sequencing:**
+
+    PROBLEM -> PAYMENT -> WORKFLOW -> AI AUTOMATION -> PRODUCTISATION
+
+never `AI -> application -> look for a problem`.
+
+**Opening question** — no longer "what data can we own?" but:
+
+> What repeated corporate work does someone today pay a person, an agency
+> or an internal department to do, which AI can turn into a standardised
+> service with materially better economics?
+
+The search space is far larger than RL-3's, because the target is no
+longer "something nobody has". It is **something most customers do badly,
+expensively or manually**, which we can do more cheaply and more
+consistently.
+
+### BUSINESS GATE (all eight, before a single article or line of product)
+
+1. **Real paid problem** — a concrete loss of time, money, risk or
+   opportunity. Not "it would be interesting to know X".
+2. **Substantially automatable** — AI must take over a significant share
+   of the work. A 10% assist to an expert is not a foundation.
+3. **Low marginal human cost per case** — otherwise it is an AI agency
+   producing manual work slightly cheaper. This is the margin.
+4. **Objectively checkable output** — a document, standard, database,
+   rule or benchmark to verify the result against.
+5. **Immediately usable** — report, audit, monitoring, decision, alert,
+   action plan, documentation, workflow. Not an "insight".
+6. **Service first, product later** — deliver manually with AI behind it,
+   learn what customers actually buy, automate the repeating parts. No
+   six months of SaaS before the first customer.
+7. **Route to recurring revenue** — a one-off audit may be the entry
+   product; the goal is monitoring, periodic review, updates, workflow.
+8. **Why not just use ChatGPT/Claude directly?** The hardest question.
+   "We have a better prompt" is not an answer. It must be a specialised
+   workflow, systems integration, automatic input collection, result
+   validation, a domain model, an audit trail, templates and methodology,
+   monitoring, or automatic execution of the next step.
+
+**AI is not the product. AI is the production mechanism.**
+
+### Standing warning carried over from RL-1
+
+Having domain knowledge in an area is **not** a reason to build a product
+for it. Verify the economics of a specific repeated task first. Turning a
+topic into a product before checking who pays is precisely the failure
+mode RL-1 documented.
+
 ### Filter for any future flagship candidate
 
 A candidate must satisfy all seven:

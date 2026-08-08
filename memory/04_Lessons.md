@@ -21,6 +21,14 @@ State what's true; frame risk-transfer (fixed price, written scope) as a guarant
 **Calculator page bypasses `page_shell()`** — has its own `<style>` block, silently drifts from site-wide changes.
 Any global template/CSS change must also touch `inject_intro_into_calculator()`.
 
+**STRATEGY (2026-08-08, supersedes data-moat goal):** build a profitable AI-enabled service where
+proprietary WORKFLOW, execution and customer integration are the moat — not owning public data.
+Sequence: `PROBLEM → PAYMENT → WORKFLOW → AI AUTOMATION → PRODUCTISATION`. Opening question is
+"what repeated corporate work does someone already pay for that AI can standardise with far better
+economics?" Every candidate must pass the 8-point BUSINESS GATE in `docs/RESEARCH_LOG.md` — Q8
+("why not just use ChatGPT directly?") is the hardest; "better prompt" is not an answer.
+**AI is not the product, AI is the production mechanism.**
+
 **Q5 and Q6 are in tension (RL-3).** A dataset moat requires nobody else holds the history; a
 business case requires someone would pay for it. But series get collected BECAUSE they have
 recognised value — so anything worth paying for is usually already sold (verified across 8 state
