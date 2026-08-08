@@ -326,6 +326,127 @@ consistently.
 
 **AI is not the product. AI is the production mechanism.**
 
+### Working concept (2026-08-08) — AI Operational Knowledge System
+
+Not a brand. A concept to be tested and discarded if it fails B1–B10.
+
+> Turn a company's existing documents, experience and working data into an
+> AI-assisted work system that retains know-how, guides the worker through
+> the process, and automates repeating expert work.
+
+**Positioning — this is the part that changes everything.** Not "we sell
+you AI that handles complaints" (which puts us head-to-head with
+Microsoft's own Factory Operations Agent and with QMS vendors) but:
+
+> we take the AI you already own in Microsoft 365 and turn it from an
+> individual assistant into a standardised work system for a specific
+> business activity.
+
+Microsoft supplies the platform; we supply methodology, workflow, domain
+configuration and the way it is actually used. A company using Excel for
+accounting is not competing with Microsoft. **Copilot is part of our
+stack, not our competitor.** This is the first framing today where Q8
+has an answer that does not require beating anyone.
+
+Shape:
+
+    company data -> structured knowledge model -> AI workflow
+      -> Copilot/agents -> decision/action -> feedback
+
+First domain: Quality. First workflow: complaints / 8D. The same engine
+then applies to maintenance, production, purchasing, logistics, HSE,
+engineering, customer service, internal audit, training.
+
+**The intended moat** is not unique data (RL-3 closed that route). It is
+workflow architecture + deployment methodology + domain modules +
+accumulated implementation knowledge. Not uncopyable — and it does not
+need to be. Productised deployment + domain expertise + distribution +
+trust + recurring revenue is a sufficient combination for a profitable
+business; it does not have to be a Google-grade technical moat.
+
+**Strongest economic argument** is not productivity but **know-how
+retention**: turnover, onboarding time, and dependence on individuals are
+costs a CFO can already quantify. "Your know-how stops walking out of the
+door" beats "we are faster".
+
+### BUSINESS GATE v2 (B1–B10) — supersedes Q1–Q8 for this concept
+
+| | Gate |
+|---|---|
+| B1 | **Pain** — is the problem expensive enough? |
+| B2 | **Frequency** — does it recur often enough? |
+| B3 | **AI leverage** — can AI remove a significant share of the manual work? |
+| B4 | **Microsoft fit** — buildable inside what the company already runs? |
+| B5 | **Standardisation** — can 60–80% transfer between customers? |
+| B6 | **Buyer** — a named person with budget and a reason to buy? |
+| B7 | **Deployment** — first implementation without months of integration? |
+| B8 | **Recurring value** — reason to pay again next year? |
+| B9 | **Competitive position** — is the value more than what Microsoft or a QMS vendor already ships? |
+| B10 | **Customer evidence** — can we reach 5–10 relevant people and find out whether they consider this budget-worthy? |
+
+**B10 is now the binding constraint, not more desk research.** Today
+established that a theoretically attractive mechanism is not enough. The
+next experiment is conversations, not a crawler.
+
+### B10 interview protocol — pre-registered, same discipline as RL-1..RL-3
+
+Customer interviews are extremely good at confirming whatever the
+interviewer hopes. A warm "that sounds useful" is the interview
+equivalent of the 64.1% figure: pleasant, quotable and worthless. The
+same guardrails apply.
+
+**Ask about the past, never about the future.** Intentions are free;
+behaviour is evidence.
+
+- ✅ "Walk me through the last complaint you handled. What did you have
+  to look up, and where?"
+- ✅ "How long did it take, and how much of that was finding information
+  rather than solving the problem?"
+- ✅ "When [experienced person] left, what specifically got harder?"
+- ✅ "What have you already tried or bought to fix this?"
+- ❌ "Would you use a system that…" — unfalsifiable, always yes
+- ❌ "Would you pay for…" — hypothetical money is always available
+- ❌ Any question that describes our concept before they describe their problem
+
+**Never pitch before they have described the work.** The moment the
+concept is on the table, everything afterwards is contaminated. Describe
+it only at the end, and only to ask what they would *stop doing*.
+
+**Pre-registered pass criteria — written before the first interview, so
+warm responses cannot be rationalised into validation:**
+
+| Signal | Counts as evidence |
+|---|---|
+| Named a specific recurring task and estimated its time cost unprompted | strong |
+| Has already paid someone (internal or external) to reduce this | strong |
+| Named the person who holds the know-how and what happens without them | strong |
+| Volunteered a budget line or an owner for it | strong |
+| "Sounds interesting", "we should look at that", "send me info" | **zero** |
+| Enthusiasm without a named task, cost or owner | **zero** |
+
+**Decision thresholds, fixed in advance (n = 5–10):**
+
+- **0–1 strong signals** → the pain is not budget-worthy. Drop the
+  concept; do not reformulate it and re-interview.
+- **2–4** → real but not yet a business. Narrow to whichever single
+  workflow produced the signals and re-test.
+- **5+** → proceed to B6/B7: identify the named buyer and design the
+  smallest deliverable that can be sold.
+
+**Also test B9 in the room, not at a desk.** Ask directly: *"Has a
+Microsoft partner already pitched you something like this?"* The
+competitive set is not Microsoft itself — it is the thousands of partners
+selling Copilot adoption and deployment. Five candidate spaces have
+already been found occupied today by assuming they were empty; this one
+gets checked with the customer rather than assumed either way.
+
+**Conflict-of-interest boundary — non-negotiable.** The obvious first
+contacts are the operator's employer and its direct competitors. The
+employer's internal materials, data and cases are not an input to this
+business, and interviewing inside a competitor about processes learned at
+the employer is a real professional risk, not a formality. Interviews
+must stay at the level of the operator's own professional expertise.
+
 ### Standing warning carried over from RL-1
 
 Having domain knowledge in an area is **not** a reason to build a product

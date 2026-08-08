@@ -21,6 +21,13 @@ State what's true; frame risk-transfer (fixed price, written scope) as a guarant
 **Calculator page bypasses `page_shell()`** — has its own `<style>` block, silently drifts from site-wide changes.
 Any global template/CSS change must also touch `inject_intro_into_calculator()`.
 
+**Customer interviews confirm whatever you hope.** "Sounds interesting / send me info" = ZERO
+evidence. Only these count: a named recurring task with an estimated time cost given unprompted,
+money already spent on it, a named know-how holder, a named budget owner. Ask about the PAST
+(last time it happened), never the future ("would you use..."). Never describe the concept before
+they describe the work — after the pitch everything is contaminated. Thresholds pre-registered in
+`docs/RESEARCH_LOG.md` so warm responses can't be rationalised into validation.
+
 **STRATEGY (2026-08-08, supersedes data-moat goal):** build a profitable AI-enabled service where
 proprietary WORKFLOW, execution and customer integration are the moat — not owning public data.
 Sequence: `PROBLEM → PAYMENT → WORKFLOW → AI AUTOMATION → PRODUCTISATION`. Opening question is

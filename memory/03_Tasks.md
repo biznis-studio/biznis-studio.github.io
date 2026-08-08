@@ -8,7 +8,8 @@
 - Gumroad payout: identity verification failed (does not block sales, only payout).
 
 ## TODO (next highest-EBV, unblocked)
-- Flagship search is OPEN but reset to zero: find a DATA MECHANISM first, story second. Candidate must pass the 7-point filter in `docs/RESEARCH_LOG.md`. Machinery Regulation is excluded (RL-1).
+- **BLOCKED ON USER — B10 customer interviews (5–10).** Working concept: AI Operational Knowledge System (Copilot as our stack, not competitor; Quality/8D as first workflow). Protocol, pre-registered pass criteria and thresholds in `docs/RESEARCH_LOG.md`. Claude cannot do this step. Nothing else in this direction should be built until it returns evidence.
+- Data-moat flagship search is CLOSED (RL-3, negative). Do not reopen by relaxing Q0.
 - No new verified opportunity in hand (iteration 66 fan-out found none worth building). Don't force one — watch existing assets (Machinery Reg tool, the 5 SK articles) for real signal before the next fan-out. NB: 5 articles ≠ full service coverage — "Digitálny produkt na mieru" (290 €) has no article **on purpose** (iteration 66 SERP-rejected custom-tool pricing as incumbent-held). Don't "close" that gap without re-checking the SERP first.
 - Sitemap "Couldn't fetch" persisted through a 2nd submission (2026-08-02, 24h after resubmit). Every documented cause ruled out (iteration 69); Page Indexing still "Processing data". Nothing further to do — stop re-checking until GSC has real data.
 - Watch Search Console for first real *organic* impression/click data — first data point appeared (iteration 68) but was a manual `site:` check, still not real signal. Sitemap "Couldn't fetch" is confirmed NOT a site defect (iteration 69 ruled out every documented cause) — no more action to take there, just wait.
