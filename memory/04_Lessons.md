@@ -28,6 +28,15 @@ money already spent on it, a named know-how holder, a named budget owner. Ask ab
 they describe the work — after the pitch everything is contaminated. Thresholds pre-registered in
 `docs/RESEARCH_LOG.md` so warm responses can't be rationalised into validation.
 
+**A15 FAIL — the closed knowledge loop is NOT buildable today.** Every declarative agent capability
+is read-only. Writing needs actions; the only in-tenant write path (Power Automate) is documented by
+Microsoft as *"might not run reliably and might not return results"* with *"no workaround available"*.
+Our backend works but data then leaves the tenant. Custom engine agents (the other marketplace path)
+don't run in Outlook/Word/Excel/PowerPoint and don't support sensitivity labels. Government tenants
+can't publish via Agents Toolkit at all. **What survives: intelligent work with EXISTING know-how;
+capture becomes a human-save step.** Say this plainly to customers — it is less than "AI builds your
+knowledge base".
+
 **Copilot: two risks that change the SALES story, not just architecture (verified 2026-08-08).**
 (1) Purview-encrypted content may be INVISIBLE to agents — *"encryption can exclude programmatic
 access, thus limiting the agent from accessing the content"*. The documents worth reasoning over

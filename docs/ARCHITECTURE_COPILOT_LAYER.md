@@ -22,7 +22,58 @@ or **FAIL** (documented as not possible). UNKNOWN is never read as YES.
 | A12 | EU data stays in the EU | EU B2B sale | **VERIFIED WITH EXCEPTION** — Copilot is an EU Data Boundary service, **but** *"Models provided by Anthropic as a subprocessor are currently excluded from the EU Data Boundary"* | Must be disclosed, not glossed. A German or Slovak enterprise will ask |
 | A13 | Our agent is inside Microsoft's trust boundary | procurement | **FAIL** — Microsoft tells customers *"check the privacy statement and terms of use of the agent"*; admins see required permissions and data access before enabling | The agent is a **separate** trust boundary and will be scrutinised. Favours Option C (no egress) |
 | A14 | The agent can read all tenant content | product value | **FAIL** — *"For content accessed through agents… encryption can exclude programmatic access, thus limiting the agent from accessing the content"* | **Purview-labelled/encrypted documents may be invisible to the agent** — and quality/HR documents are exactly what gets labelled |
-| A15 | Agent can write knowledge back into the tenant without a backend | **G6 — the "know-how stays" promise** | **UNKNOWN** | Blocks the main business argument; verify next |
+| A15 | Agent can write knowledge back into the tenant without a backend | **G6 — the "know-how stays" promise** | **FAIL — STRUCTURAL BLOCKER** | The closed knowledge loop is not buildable today as a distributable, in-tenant product |
+| A16 | Captured knowledge needs human validation before publication | avoids "digital landfill" | **DESIGN REQUIREMENT, not a platform question** | Must exist in any version; see below |
+| A17 | Custom engine agents are a viable alternative marketplace path | fallback for A15 | **FAIL** — not supported in Outlook, Word, Excel, PowerPoint or Edge; *"Sensitivity labels aren't supported"*; no proactive notifications | Teams/Copilot chat only — loses the Office surface entirely |
+| A18 | Public sector is addressable | market size | **FAIL** — in Microsoft 365 Government tenants, publishing via Agents Toolkit and authenticated custom actions are unsupported | Government excluded from the market |
+
+### A15 — the evidence, and why no workaround is proposed
+
+Microsoft's own Known Issues page (updated 2026-07-29), under the heading
+**"Power Automate Flows aren't fully supported as actions in declarative
+agents"**:
+
+> "Power Automate Flows as actions in declarative agents might not run
+> reliably and might not return results."
+>
+> **Workaround:** "Currently, no workaround for the issue that the flows
+> might not return results is available."
+
+Power Automate was the only path that kept writes **inside** the tenant.
+The remaining options both fail a requirement:
+
+| Write path | In-tenant | Distributable | Reliable |
+|---|---|---|---|
+| Power Automate flow | ✅ | ❌ tenant-specific trigger URL | ❌ per Microsoft |
+| Our backend | ❌ data leaves | ✅ | ✅ |
+| Native agent capability | — | — | **does not exist** — every declarative capability is read-only |
+
+Per the stop rule: this is a **STRUCTURAL BLOCKER**, recorded rather than
+engineered around.
+
+### What this does to the product definition
+
+The hoped-for loop — *existing know-how → Copilot finds and uses it →
+user solves the task → result is stored → next user benefits* — cannot be
+delivered today as one distributable product that keeps data in the
+tenant. The last two steps are the ones that break.
+
+**What survives is the first half**, and it is still a product:
+intelligent work *with existing* know-how — retrieval, classification,
+comparison against similar past cases, drafting to the company's own
+standards. Capture becomes a **human-in-the-loop** step: the agent
+proposes the record, a person saves it through normal Microsoft 365 means.
+
+That is weaker than the original vision and must be said plainly to any
+customer. It is also honest, buildable, and exactly what the website
+currently promises.
+
+**A16 is unaffected by this and remains mandatory.** Even in the
+human-save version, no AI output may become "company knowledge" without
+validation. The lifecycle stays: *proposal → human validation →
+classification → approval → publication → reuse*. Without it the product
+manufactures a digital landfill with an authoritative tone, which is
+worse than no product.
 
 **Two findings here change the sales story, not just the architecture:**
 
