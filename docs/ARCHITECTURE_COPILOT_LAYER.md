@@ -1,5 +1,44 @@
 # AI Workforce Layer for Microsoft 365 Copilot — architecture findings
 
+## CRITICAL ASSUMPTIONS REGISTER
+
+Built before the architecture, per the research protocol. Status is
+**VERIFIED** (quoted Microsoft docs), **UNKNOWN** (docs do not answer),
+or **FAIL** (documented as not possible). UNKNOWN is never read as YES.
+
+| # | Assumption | Why critical | Status | Consequence |
+|---|---|---|---|---|
+| A1 | One package distributable to many tenants via marketplace | G3, G9, G10 | **VERIFIED** — but only via Agents Toolkit; Agent Builder & Copilot Studio declarative are org-catalog only | Low-code paths excluded from a product |
+| A2 | Package can be tenant-agnostic (no per-customer build) | G3, G8 | **VERIFIED** — omitting `items_by_url`/`items_by_sharepoint_ids`/`connections` searches the whole tenant | Unscoped default is the productisable design |
+| A3 | Copilot enforces the user's existing permissions | **G2 — the entire security proposition** | **VERIFIED** — *"only surfaces organizational data to which individual users have at least view permissions"*; *"Semantic Index honors the user identity-based access boundary"* | Permission-aware retrieval is a platform guarantee, not our build |
+| A4 | Connector content is also permission-trimmed | G2 | **VERIFIED** — *"Data from Graph connectors can be returned… if the user has permission to access that information"* | External data inherits the same model |
+| A5 | Customer data is not used to train models | enterprise sale | **VERIFIED** — *"Prompts, responses, and data accessed through Microsoft Graph aren't used to train foundation LLMs"* | Strong, quotable procurement argument |
+| A6 | Enough room for domain methodology in the agent | product substance | **FAIL** — `instructions` capped at **8,000 characters** | Methodology must live in knowledge or actions, not the agent |
+| A7 | Manifest can be parameterised per tenant | G3 | **FAIL** — only localization keys `[[key]]`, and unknown properties invalidate the document | No templating; unscoped or per-customer build, nothing between |
+| A8 | Action endpoint bindable per tenant | G2 + G7 together | **FAIL** — `spec.url` fixed in package; MCP URL *"MUST be a valid absolute URL"* | **G2 and G7 cannot both pass** — see §4 fork |
+| A9 | Credentials configurable per tenant | G2 | **VERIFIED** — `OAuthPluginVault`/`ApiKeyPluginVault` + `reference_id`, explicitly so secrets stay out of the manifest | Per-tenant auth is fine; per-tenant endpoints are not |
+| A10 | Human-in-the-loop must be built by us | scope | **FAIL (in our favour)** — native `confirmation` + AdaptiveCard + `isNonConsequential` | Do not build; use the platform |
+| A11 | Copilot licence needed by every user | market size | **VERIFIED** — non-WebSearch capabilities need a Copilot licence or metered usage | Market limited to Copilot-licensed orgs |
+| A12 | EU data stays in the EU | EU B2B sale | **VERIFIED WITH EXCEPTION** — Copilot is an EU Data Boundary service, **but** *"Models provided by Anthropic as a subprocessor are currently excluded from the EU Data Boundary"* | Must be disclosed, not glossed. A German or Slovak enterprise will ask |
+| A13 | Our agent is inside Microsoft's trust boundary | procurement | **FAIL** — Microsoft tells customers *"check the privacy statement and terms of use of the agent"*; admins see required permissions and data access before enabling | The agent is a **separate** trust boundary and will be scrutinised. Favours Option C (no egress) |
+| A14 | The agent can read all tenant content | product value | **FAIL** — *"For content accessed through agents… encryption can exclude programmatic access, thus limiting the agent from accessing the content"* | **Purview-labelled/encrypted documents may be invisible to the agent** — and quality/HR documents are exactly what gets labelled |
+| A15 | Agent can write knowledge back into the tenant without a backend | **G6 — the "know-how stays" promise** | **UNKNOWN** | Blocks the main business argument; verify next |
+
+**Two findings here change the sales story, not just the architecture:**
+
+- **A14** is the most under-appreciated risk in this whole document. The
+  documents most worth reasoning over — procedures, customer
+  requirements, HR material — are the ones an enterprise is most likely
+  to have encrypted with sensitivity labels. If programmatic access is
+  excluded, the agent cannot see them. This must be tested against a real
+  labelled tenant before promising anything.
+- **A13** means our own privacy terms become a procurement artifact. An
+  agent that provably moves nothing out of the tenant (Option C) clears
+  that review trivially. Option A does not.
+
+---
+
+
 Decision document. **Scope of verification is deliberately narrow and deep
 rather than broad and shallow**: the load-bearing questions that decide
 product-vs-consultancy were verified against Microsoft's own current

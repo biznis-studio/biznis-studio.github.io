@@ -28,6 +28,15 @@ money already spent on it, a named know-how holder, a named budget owner. Ask ab
 they describe the work — after the pitch everything is contaminated. Thresholds pre-registered in
 `docs/RESEARCH_LOG.md` so warm responses can't be rationalised into validation.
 
+**Copilot: two risks that change the SALES story, not just architecture (verified 2026-08-08).**
+(1) Purview-encrypted content may be INVISIBLE to agents — *"encryption can exclude programmatic
+access, thus limiting the agent from accessing the content"*. The documents worth reasoning over
+(procedures, customer requirements, HR) are exactly what enterprises label. Test on a real labelled
+tenant before promising anything. (2) Our agent is a SEPARATE trust boundary — Microsoft tells
+customers to check the agent's own privacy terms, and admins see its required permissions before
+enabling. An agent that moves nothing out of the tenant clears that review; one with a backend
+does not. Full register in `docs/ARCHITECTURE_COPILOT_LAYER.md`.
+
 **Copilot extensibility facts (verified 2026-08-08, docs updated 2026-07-29).** Marketplace
 distribution ONLY via Agents Toolkit (declarative or custom engine); Agent Builder and Copilot
 Studio declarative are org-catalog only; Copilot Studio multi-tenant is PREVIEW. Omitting
