@@ -113,11 +113,53 @@ on a server. If that server is ours, customer data leaves the tenant and
 the central security selling point is weakened. If it is the customer's,
 we are back to per-customer integration work.
 
-**UNKNOWN — requires technical validation.** Whether an API plugin's
-server URL can be bound per tenant at install time, or whether it is
-fixed in the package. This decides whether "our backend" and "data stays
-in tenant" can both be true. **This is now the single most important open
-question.**
+**RESOLVED 2026-08-08** against plugin manifest schema 2.4 (docs updated
+2026-07-01). The answer splits, and the split is the central design fork.
+
+**FACT — the endpoint URL is fixed in the package.** There is no
+per-tenant override:
+- OpenAPI runtime: `spec.url` is *"The URL to fetch the OpenAPI
+  specification"*, an absolute URL.
+- MCP runtime: `spec.url` is *"The URL of the MCP server. **MUST be a
+  valid absolute URL**"*.
+
+**FACT — credentials, by contrast, are NOT in the package.** `auth.type`
+is one of `None`, `OAuthPluginVault`, `ApiKeyPluginVault`, and:
+
+> "The `reference_id` value is acquired independently when providing the
+> necessary authentication configuration values. This mechanism exists to
+> **prevent the need for storing secret values in the plugin manifest**."
+
+So per-tenant *credentials* are supported; per-tenant *endpoints* are not.
+
+### The fork this creates
+
+| Option | One package for all? | Customer data leaves tenant? | G7 real automation |
+|---|---|---|---|
+| **A.** Actions → our multi-tenant backend | ✅ | ⚠️ yes, to us | ✅ |
+| **B.** Actions → customer's own endpoint | ❌ per-customer build | ✅ no | ✅ |
+| **C.** No actions at all — knowledge + instructions only | ✅ | ✅ no | ❌ retrieval + drafting only |
+
+A and B are mutually exclusive with the two things we have been selling
+simultaneously ("one product" and "your data never leaves"). **C is the
+only option where both hold**, and it is also the only one needing no
+backend at all.
+
+### Two platform primitives we do not have to build
+
+**FACT.** Human-in-the-loop is native: `confirmation` renders an
+AdaptiveCard before a function runs, and `isNonConsequential` governs
+whether "Always Allow" is offered. Section 27 of the brief (HITL design)
+is largely a platform feature, not our work.
+
+**FACT.** `security_info.data_handling` is a **required** declaration per
+function, from `GetPublicData`, `GetPrivateData`, `DataTransform`,
+`DataExport`, `ResourceStateUpdate`. Data-egress behaviour is declared and
+surfaced for risk assessment by the platform itself.
+
+**FACT.** `RemoteMCPServer` is a supported runtime type in schema 2.4, so
+MCP is a first-class integration path — but bound by the same fixed-URL
+constraint above.
 
 ---
 
@@ -138,12 +180,12 @@ dependency and shrinks the market to Copilot-licensed organisations.
 | Gate | Result | Basis |
 |---|---|---|
 | G1 Technical feasibility | ✅ PASS | Agents Toolkit path is GA and documented |
-| G2 Data security | ⚠️ CONDITIONAL | holds for knowledge (stays in tenant); undecided for actions (§4) |
+| G2 Data security | ✅ PASS **in Option C** | knowledge stays in tenant; ❌ FAILS in Option A (data flows to our backend) |
 | G3 Distribution | ✅ PASS | marketplace via Agents Toolkit; unscoped manifest installs anywhere |
 | G4 Tenant isolation | ✅ PASS | agent runs in tenant, retrieval is permission-trimmed |
 | G5 More than plain Copilot | ⚠️ UNPROVEN | plausible via instructions+actions, but 8k limit is severe; no evidence yet |
 | G6 Knowledge value | ❓ UNKNOWN | knowledge capture back into tenant not yet verified |
-| G7 Real automation | ⚠️ DEPENDS ON §4 | without actions it is retrieval + drafting only |
+| G7 Real automation | ❌ FAIL **in Option C** | no actions = retrieval + drafting only. Passes only in A or B, each of which breaks a different promise |
 | G8 Core vs config | ✅ PASS | unscoped package = core; scoping/actions = config |
 | G9 Economics | ⚠️ LIKELY PASS | marginal cost low *if* unscoped default is good enough |
 | G10 Microsoft dependency | ❌ HIGH RISK | see §7 |
@@ -201,8 +243,34 @@ lifecycle, domain packs, tenant management, billing, an evaluation
 framework. Every one of those is justified only after G5 is proven, and
 each would be a month of work spent before knowing whether anyone wants it.
 
-### Open questions blocking a full design
+### The strategic consequence of the fork
 
-1. Can an API plugin's server URL be bound per tenant? (§4 — decides G2/G7)
-2. Can the agent write knowledge back into the tenant? (decides G6)
-3. Does schema 1.8 change any of the above?
+G2 and G7 **cannot both pass in one product**. That is not a gap in the
+design, it is a property of the platform:
+
+- Sell "your data never leaves your tenant" → no backend → **no real
+  automation**, only retrieval and drafting.
+- Sell real automation → a backend → **data leaves**, and the security
+  argument that made the offer sellable weakens.
+
+The website currently promises Option C ("we work inside your Microsoft
+365, your data does not leave"). That is honest and buildable. It is also
+strictly less than "AI does the work" — and the copy correctly does not
+claim otherwise.
+
+**This is the question to put to customers, not to resolve at a desk:**
+is retrieval + guided drafting, with no data leaving the tenant, worth
+paying for on its own? If yes, Option C is a real product with excellent
+economics and no backend. If customers only value it once it *acts*, the
+security proposition has a price, and that price must be quantified
+before any backend is written.
+
+### Remaining open questions
+
+1. Can the agent write knowledge back into the tenant (SharePoint list,
+   Dataverse) without a backend? Decides G6 and whether Option C can
+   deliver know-how retention at all.
+2. Does schema 1.8 change any of the above? (1.5/2.4 were read; 1.8 is
+   current.)
+3. Does Partner Center certification impose requirements that push toward
+   a backend regardless?
