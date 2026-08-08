@@ -359,6 +359,79 @@ Verify before designing the commercial model.
 
 ---
 
+## 7c. Validation plan (adopted 2026-08-08) — G5 becomes an experiment
+
+Product unit is no longer "an AI platform". It is:
+
+> **1 process → 1 narrow agent → 1 concrete user problem → 1 measurable result**
+
+First candidate: an **8D Agent**, not a "Quality Agent" — 8D has a
+defined structure, so the output is checkable against a standard (which
+is also why it suits the rubric below).
+
+### Four steps, in order
+
+1. **Choose one process** — by frequency, administrative burden,
+   availability of company know-how, measurability, **and a checkable
+   output**. Not by technical interest.
+2. **Measure the baseline** — how the same task is done today, timed, at
+   the customer.
+3. **Build the minimal agent** — no backend, no Ollama, no database, no
+   platform. Native Microsoft 365 / Copilot stack only.
+4. **Run A/B** — vanilla Copilot vs our process agent.
+
+**Stop rule:** if the agent shows no measurable advantage, it is not
+rescued with more features. That would be a return to the behaviour this
+project spent the day correcting.
+
+### Three design corrections the A/B test needs
+
+As sketched, the test would produce a result we could not trust. Three
+confounds must be handled *before* running it, not explained afterwards:
+
+**1. The same person doing the same task twice will be faster the second
+time**, whatever the tool. That is a learning effect, not a product
+effect. Fix: either **between-subjects** (different, experience-matched
+people in A and B), or **counterbalanced order using different but
+equivalent cases**. Deciding this after seeing results invalidates them.
+
+**2. Whoever scores the output must not know which condition produced
+it.** If we grade our own agent's work, the rubric measures our
+expectations. Fix: a domain expert scores anonymised outputs, with the
+rubric written and agreed **before** any output exists.
+
+**3. With 5–10 participants there will be no statistical significance,
+and pretending otherwise would repeat RL-1's mistake.** Fix: pre-register
+a **decision** threshold rather than a p-value. For example: *the agent
+must win on time in at least 7 of 10 matched pairs, and score no worse on
+the quality rubric.* Written down before the first run.
+
+### Claim discipline (binding)
+
+| Stage | Permitted wording |
+|---|---|
+| Before any pilot | "We propose to measure whether the agent reduces time and administrative effort on this specific process." |
+| After a pilot | "At customer X, on process Y, we measured …" |
+| **Never** | "Our solution saves companies 40% of their time." |
+
+A saving measured at one customer is not a general claim until the sample
+and method support one.
+
+### The honest dependency
+
+Steps 1, 2 and 4 all require **a real organisation** with Copilot
+licences, real cases and willing participants. Only step 3 can be done
+alone. This is the same blocker as B10, and the same
+conflict-of-interest boundary applies: the employer's own materials and
+cases are not an input, and a direct competitor is not a safe venue.
+
+**Packaging note.** Whether one package can carry several agents is a
+cheap technical question that should be settled before pricing — but it
+is not a reason to delay the first prototype. One agent for one process
+is the right first build regardless of how distribution later shakes out.
+
+---
+
 ## 8. Verdict
 
 **PIVOT — not BUILD, not KILL.**

@@ -8,6 +8,7 @@
 - Gumroad payout: identity verification failed (does not block sales, only payout).
 
 ## TODO (next highest-EBV, unblocked)
+- **BLOCKED ON USER — needs a real organisation.** Product unit is now `1 process → 1 narrow agent → 1 measurable result` (first candidate: 8D Agent, not "Quality Agent"). Plan: choose process → measure baseline → build minimal agent (native M365 only, no backend) → A/B vs vanilla Copilot. Steps 1/2/4 need a real company with Copilot; only step 3 can be done alone. Architecture + A/B design in `docs/ARCHITECTURE_COPILOT_LAYER.md`. **Claim rule: no "saves X%" before a pilot, ever.**
 - **BLOCKED ON USER — B10 customer interviews (5–10).** Working concept: AI Operational Knowledge System (Copilot as our stack, not competitor; Quality/8D as first workflow). Protocol, pre-registered pass criteria and thresholds in `docs/RESEARCH_LOG.md`. Claude cannot do this step. Nothing else in this direction should be built until it returns evidence.
 - Data-moat flagship search is CLOSED (RL-3, negative). Do not reopen by relaxing Q0.
 - No new verified opportunity in hand (iteration 66 fan-out found none worth building). Don't force one — watch existing assets (Machinery Reg tool, the 5 SK articles) for real signal before the next fan-out. NB: 5 articles ≠ full service coverage — "Digitálny produkt na mieru" (290 €) has no article **on purpose** (iteration 66 SERP-rejected custom-tool pricing as incumbent-held). Don't "close" that gap without re-checking the SERP first.

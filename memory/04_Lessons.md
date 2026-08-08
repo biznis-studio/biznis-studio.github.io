@@ -28,6 +28,12 @@ money already spent on it, a named know-how holder, a named budget owner. Ask ab
 they describe the work — after the pitch everything is contaminated. Thresholds pre-registered in
 `docs/RESEARCH_LOG.md` so warm responses can't be rationalised into validation.
 
+**A/B tests need their confounds fixed BEFORE running** (same discipline as RL-1's pre-registration):
+same person doing the task twice is faster regardless of tool (learning effect → between-subjects or
+counterbalanced with equivalent cases); whoever scores must not know which condition produced the
+output; with n=5–10 there is no significance, so pre-register a DECISION threshold (e.g. "wins on
+time in ≥7 of 10 pairs, no worse on the rubric"), not a p-value.
+
 **ARCHITECTURE PRINCIPLE (adopted 2026-08-08):** *Copilot generates and prepares. The human
 decides. Microsoft 365 stores.* No customer data owned, no AI infra run, no backend for sensitive
 content. Ollama / customer-hosted runtimes are OUT — they solve inference while the blocker is the
