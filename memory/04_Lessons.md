@@ -28,6 +28,15 @@ money already spent on it, a named know-how holder, a named budget owner. Ask ab
 they describe the work — after the pitch everything is contaminated. Thresholds pre-registered in
 `docs/RESEARCH_LOG.md` so warm responses can't be rationalised into validation.
 
+**ARCHITECTURE PRINCIPLE (adopted 2026-08-08):** *Copilot generates and prepares. The human
+decides. Microsoft 365 stores.* No customer data owned, no AI infra run, no backend for sensitive
+content. Ollama / customer-hosted runtimes are OUT — they solve inference while the blocker is the
+write path, and they reintroduce per-customer endpoints and infra, forfeiting the licence,
+security approval, marketplace distribution and zero-infra economics that justified the idea.
+**The 8k instruction cap means agents must be PER-PROCESS, not per-department** — a Domain Pack is
+a set of narrow agents. ROI claims need a baseline measured AT that customer (that's what the paid
+assessment is for); never generalise one customer's time saving.
+
 **A15 FAIL — the closed knowledge loop is NOT buildable today.** Every declarative agent capability
 is read-only. Writing needs actions; the only in-tenant write path (Power Automate) is documented by
 Microsoft as *"might not run reliably and might not return results"* with *"no workaround available"*.

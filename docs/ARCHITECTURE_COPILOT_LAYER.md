@@ -302,6 +302,63 @@ consultancy-with-a-product, not a software moat.
 
 ---
 
+## 7b. Architecture principle (adopted 2026-08-08)
+
+> **Copilot generates and prepares. The human decides. Microsoft 365 stores.**
+
+    Microsoft 365 Copilot → our domain agent → company know-how
+      → structured result → human validation → SharePoint / Teams / existing M365 process
+
+We own no customer data, run no AI infrastructure for the customer, and
+need no backend for sensitive content. A15's failure is accepted rather
+than engineered around; the automatic write layer is revisited only if a
+real customer says the human-save step is insufficient.
+
+**Ollama and any customer-hosted runtime are explicitly out of scope.**
+Not because they are bad, but because they solve inference while the
+blocker is the write path, and because a customer-hosted component
+reintroduces per-customer endpoints, per-customer networking and
+per-customer infrastructure — forfeiting the existing licence, the
+existing security approval, marketplace distribution and zero-infra
+economics that made this idea worth pursuing at all.
+
+### The product boundary
+
+| Layer | Contents |
+|---|---|
+| **CORE PLATFORM** | agent framework, process templates, knowledge governance, workflow patterns, validation, instruction architecture, evaluation, onboarding methodology |
+| **DOMAIN PACKS** | Quality, HR, Maintenance, Production, Purchasing, Sales, Engineering, Finance |
+| **CUSTOMER CONFIGURATION** | SharePoint sites, documents, permissions, terminology, org structure, specific workflows |
+
+### Three consequences of today's findings that constrain this design
+
+**1. A "department agent" will not fit. Agents must be per-process.**
+`instructions` is capped at 8,000 characters (A6). A single Quality Agent
+covering complaints, 8D, CAPA, FMEA, work procedures and lessons learned
+has roughly 1,300 words for all six. It does not fit.
+
+**Consequence:** a Domain Pack is **a set of narrow per-process agents**,
+not one departmental agent. That is better anyway — narrower agents are
+more accurate, easier to evaluate, and can be sold and adopted one at a
+time — but it must be designed that way from the start, not discovered
+later.
+
+**2. The ROI claim requires a measured baseline, or it is a fabricated
+number.** "This takes 47 minutes today, 12 with the agent" is exactly the
+right sales argument *and* exactly the kind of figure this project's
+rules forbid unless measured. The 47 must be timed at that customer,
+before deployment. That is precisely what the paid assessment is for —
+the entry product and the evidence-gathering step are the same activity.
+Never publish a time saving measured at one customer as a general claim.
+
+**3. UNKNOWN — packaging of multiple agents.** Whether one Microsoft 365
+app package can carry several declarative agents, or whether each needs
+its own marketplace listing, is not yet verified. It determines pricing
+granularity (per pack vs per agent) and the admin's install burden.
+Verify before designing the commercial model.
+
+---
+
 ## 8. Verdict
 
 **PIVOT — not BUILD, not KILL.**
