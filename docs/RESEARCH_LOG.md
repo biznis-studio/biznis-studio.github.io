@@ -408,9 +408,42 @@ behaviour is evidence.
 - ❌ "Would you pay for…" — hypothetical money is always available
 - ❌ Any question that describes our concept before they describe their problem
 
-**Never pitch before they have described the work.** The moment the
-concept is on the table, everything afterwards is contaminated. Describe
-it only at the end, and only to ask what they would *stop doing*.
+**Never pitch before they have described the work** — *within a single
+interview*. Once the concept is on the table, everything said afterwards
+in that conversation is contaminated. Describe it at the end, and only to
+ask what they would *stop doing*.
+
+**Correction (raised by the operator, and correct):** "never show
+anything" cannot validate a solution that does not exist yet. You cannot
+test what nobody can try, and pure problem-interviews only prove the pain
+is real — never that this particular answer sells. A protocol that
+forbids showing is not rigorous, it is stuck.
+
+**The circle breaks by changing what is measured, not by refusing to
+show.** Show the thing. Just never accept words as the result.
+
+    Stage 1  problem interview, no pitch      -> is the pain real and costly?
+    Stage 2  show a worked example            -> does our answer land?
+    Stage 3  ask for something that costs them -> is it budget-worthy?
+
+**Stage 2 is a demonstration, not a product.** Take one real, closed case
+and put beside it the output a structured workflow would produce. Days of
+work, not months. Nothing is built, nothing is integrated, and the
+customer sees a concrete result instead of a description.
+
+**Stage 3 is the only real evidence.** Enthusiasm is free; commitment is
+not. Never ask "would you pay?" — ask for something with a cost attached:
+
+| Ask | What it proves |
+|---|---|
+| "Give us one of your real closed cases to run this on" | they will spend their time |
+| "Who else should see this?" — and they actually introduce | reputational stake |
+| "Can we do a paid pilot on one workflow?" | budget exists and they own it |
+| A signed LOI or a scheduled internal presentation | it has entered their process |
+| "Send me more info" / "let's stay in touch" | **nothing** |
+
+A demo that produces admiration and no commitment is a failed test, not a
+promising lead. That distinction is the whole point.
 
 **Pre-registered pass criteria — written before the first interview, so
 warm responses cannot be rationalised into validation:**
@@ -430,8 +463,12 @@ warm responses cannot be rationalised into validation:**
   concept; do not reformulate it and re-interview.
 - **2–4** → real but not yet a business. Narrow to whichever single
   workflow produced the signals and re-test.
-- **5+** → proceed to B6/B7: identify the named buyer and design the
-  smallest deliverable that can be sold.
+- **5+** → proceed to Stage 2: build the worked example and show it.
+
+Stage 3 threshold, also fixed in advance: **at least 2 of the 5–10
+contacts must give a costly commitment** (real case, introduction, paid
+pilot, scheduled internal presentation). Fewer than 2 means the demo
+impressed and did not sell — which is a fail, however warm the room was.
 
 **Also test B9 in the room, not at a desk.** Ask directly: *"Has a
 Microsoft partner already pitched you something like this?"* The
