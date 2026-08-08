@@ -21,6 +21,13 @@ State what's true; frame risk-transfer (fixed price, written scope) as a guarant
 **Calculator page bypasses `page_shell()`** — has its own `<style>` block, silently drifts from site-wide changes.
 Any global template/CSS change must also touch `inject_intro_into_calculator()`.
 
+**Q5 and Q6 are in tension (RL-3).** A dataset moat requires nobody else holds the history; a
+business case requires someone would pay for it. But series get collected BECAUSE they have
+recognised value — so anything worth paying for is usually already sold (verified across 8 state
+classes: Wayback, CT logs, Shodan, SecurityTrails, self-archiving registers, flight/hotel price
+APIs, Semrush/Ahrefs, governments). A proprietary-dataset flagship is structurally unavailable to
+us. Don't reopen without a specific system that passes the Q0 7-point test on evidence.
+
 **Order of work (RL-1, binding).** Not `topic → content → tool → SEO → look for evidence`.
 Instead: `observable property → population → measurement → falsification → dataset → product`.
 A measurable property and a defensible route to the data must exist BEFORE any thesis, article,
