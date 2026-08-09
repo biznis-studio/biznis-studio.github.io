@@ -544,3 +544,106 @@ against Microsoft Learn on **2026-08-09**.
 3. Marketplace/Partner Center certification requirements for an agent that
    declares `EmailActions` (write scope is likely to raise review bar).
 4. Cross-tenant usage telemetry for §23 observability without data egress.
+
+---
+
+## 10. THE FOUR UNKNOWNS — verified 2026-08-09
+
+Protocol: FACT / INFERENCE / PARTIALLY VERIFIED / UNKNOWN. Source + date on every
+claim. No "probably".
+
+### U1 — Can one app package carry multiple declarative agents? **CLOSED: NO**
+
+**FACT.** The app manifest schema constrains `copilotAgents.declarativeAgents` to
+`"minItems": 1, "maxItems": 1`, with the description *"Currently, only one
+declarative agent per application is supported."* Identical across every manifest
+version from **1.19 through 1.29 and `prev`** — this is not a rollout artifact.
+`customEngineAgents` carries the same 1/1 limit, and a `oneOf` means an app
+declares one or the other, never both.
+Source: [root.copilotAgents](https://learn.microsoft.com/en-us/microsoft-365/extensibility/schema/root-copilot-agents), verified 2026-08-09.
+
+**Consequence.** **One package = one agent.** "Domain packs" cannot be SKUs inside
+a product; each is its own app package, its own listing, its own install. A
+nine-domain platform is nine packages. This is the packaging fact the whole
+commercial model has to be built on, and it is settled.
+
+### U2 — Does `worker_agents` cross the publisher boundary? **PARTIALLY VERIFIED**
+
+**FACT.** Connection is by *title ID* only. The manifest carries no publisher,
+tenant or ownership field for a worker agent.
+**FACT.** The feature is documented explicitly for cross-team integration:
+*"Integrate with agents developed externally… Each development team can focus on
+the capabilities and quality of their agent."*
+**FACT.** The tenant registry recognises **"External partner-built agents — built
+by trusted non-Microsoft developers and published for broader or public
+availability"** as a first-class agent type.
+**UNKNOWN.** No sentence in the documentation states whether a worker agent may
+belong to a *different publisher* than the calling agent. "Different development
+team" is not the same claim as "different ISV". Do not treat this as YES.
+Sources: [connected agents](https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/declarative-agent-connected-agent), [agent registry](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-registry), verified 2026-08-09.
+
+**This must be settled by experiment, not by reading.** Publish two agents under
+one publisher, connect them, then attempt a connection to an agent published by a
+different identity. It is a half-day test and it decides whether the CORE agent
+can orchestrate anything the customer already owns.
+
+#### N2 is materially softened — admin can preinstall
+
+**FACT.** During ZIP upload the admin chooses, separately: *"Under **Publish**,
+select the users or groups who can install the agent"* and *"Under **Deploy**
+(optional), select the users or groups who will have the agent **preinstalled**."*
+So yesterday's reading — "every user must install every connected agent by
+hand" — was too pessimistic. **An admin can push all nine agents silently.**
+
+**FACT, and it bites instead.** *"Administrators can pin up to three agents"* and
+*"If a user has more than three pinned agents, users don't see agents with lower
+priority."*
+**Consequence.** The constraint is not installation, it is **discoverability: three
+pinned slots**. A nine-domain product cannot put nine agents in front of a user.
+That argues for **one CORE agent pinned, dispatching to worker agents** — which
+makes U2 the load-bearing question of the entire architecture.
+
+### U3 — Marketplace requirements for write/action permissions? **PARTIALLY VERIFIED**
+
+**FACT.** Certification policy sections that apply: **1140.6 Publisher
+attestation**, **4000 Microsoft 365 Application Compliance**, **1140.3.2 API, MCP
+servers and Bot Infrastructure**, **1140.5.1 Manifest and metadata**, **1140.1.4
+Access to services** (*"must clearly disclose what services they access and obtain
+appropriate user consent"*), and **1010.3 Responsible AI** (*"Agents must comply
+with Responsible AI standards and must pass tests for RAI"*).
+**UNKNOWN.** Whether declaring `EmailActions`/`MeetingActions` specifically raises
+the review bar above a read-only agent. The retrieved policy text was truncated at
+exactly the sub-sections that would say so (1140.3.2, 4000).
+Source: [certification policies](https://learn.microsoft.com/en-us/legal/marketplace/certification-policies), verified 2026-08-09 — **re-fetch required**.
+
+**Consequence, already actionable.** Publisher attestation and the App Compliance
+Program are not paperwork at the end; they are a **product requirement from day
+one** — privacy policy, terms of use, data-handling declaration and an RAI test
+pass. Our own privacy terms become a procurement artifact (this restates A13).
+
+### U4 — Cross-tenant telemetry without customer data egress? **UNKNOWN, and the
+honest answer is probably "usage yes, value no"**
+
+**FACT.** Tenant-side reporting exists and belongs to the **customer's admin**, not
+to us: the Microsoft 365 Copilot Agents usage report counts *"the distinct number
+of apps with a declarative agent element… with at least one active user"*.
+**FACT.** Publisher-side analytics exist — Developer Portal **Analytics**, and
+Partner Center **Insights → Usage** — and show *"active usage across various host
+products"*.
+**UNKNOWN.** Granularity (per-tenant vs aggregate), latency, and whether anything
+beyond install/active-user counts is exposed.
+**INFERENCE (flagged as inference).** Every metric named in the documentation is an
+*adoption* metric. Nothing in it measures task outcome, retrieval success,
+hallucination or time saved.
+Sources: [Copilot agent usage report](https://learn.microsoft.com/en-us/microsoft-365/admin/activity-reports/microsoft-365-copilot-agents), [Developer Portal analytics](https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/build-and-test/analyze-your-apps-usage-in-developer-portal), [Partner Center usage report](https://learn.microsoft.com/en-us/partner-center/insights/view-usage-report), verified 2026-08-09.
+
+**Consequence, and it is a scale problem.** We can see **whether** the product is
+used. We cannot see **whether it worked**. Everything in §23 that justifies the
+price — time saved, avoided expensive steps, error rate — is measurable only
+inside the customer, with their people. That is per-customer human work, which is
+exactly the linear cost §18/G9 forbids.
+
+**This does not kill the product, but it fixes the shape of the pitch.** Value
+proof is a *paid onboarding deliverable* run once per customer, not a dashboard we
+operate forever. Design it as a repeatable two-week measurement kit the customer
+executes, not a service we staff.
