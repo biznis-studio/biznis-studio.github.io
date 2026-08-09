@@ -494,3 +494,53 @@ before any backend is written.
    current.)
 3. Does Partner Center certification impose requirements that push toward
    a backend regardless?
+
+---
+
+## 9. RE-VERIFICATION 2026-08-09 — schema 1.8 invalidates part of this document
+
+The register above was built against **declarative agent schema 1.5**. Versions
+1.6–1.8 added primitives that bear directly on the broadened brief
+(organisation-wide layer, domain packs, workflow, automation). Re-verified
+against Microsoft Learn on **2026-08-09**.
+
+| ID | Fact | Status | Source | Architectural consequence |
+|----|------|--------|--------|---------------------------|
+| N1 | `worker_agents` — a declarative agent can call other declarative agents; Copilot Chat brokers; the user does not pick the sub-agent | **PREVIEW** (1.8 reference says "This capability is in preview"; added in schema 1.6) | [declarative-agent-connected-agent](https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/declarative-agent-connected-agent) | This is the mechanism "domain packs" needs. Preview → per §2 of the brief it may not be an MVP foundation. |
+| N2 | **"Users must install each connected agent before they can use them."** | **VERIFIED** | same | **Kills "one install, many domains."** A 7-domain product is 7 installs per user, not one. Straight into deployment economics (§19). |
+| N3 | Agent-to-agent communication is **text only**; no files, no images | **VERIFIED** | same | A worker agent cannot hand back a structured record. Orchestration is prompt-passing, not a workflow bus. |
+| N4 | Adaptive cards from a connected agent are **not shown to the user**; the calling agent receives only the card's data | **VERIFIED** | same | **Human-in-the-loop breaks through delegation.** Approval UX must live in the agent the user is actually talking to. |
+| N5 | Declarative agents can connect **only to other declarative agents** | **VERIFIED** | same | Copilot Studio / custom engine agents are not composable this way. |
+| N6 | `EmbeddedKnowledge` — knowledge files shipped **inside the app package** (max 10 files, 1 MB each; docx/pptx/xlsx/txt/pdf) | **DOCUMENTED BUT NOT ENABLED** — the 1.8 `sensitivity_label` note states "Embedded Files are not enabled yet" | [declarative-agent-manifest-1.8](https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/declarative-agent-manifest-1.8) | If enabled, the CORE product ships its own methodology with **zero customer configuration** — the single biggest productisation unlock available. Track this. Do not build on it yet. |
+| N7 | `EmailActions` — native **write** operations: triage, supervised send, delete, inbox rules, auto-reply, folder management | **VERIFIED** (1.8) | same | **Partially reverses A15/G7.** Real actions with **no backend** — so "data stays in the tenant" and "it acts" are no longer strictly exclusive, within email/calendar. |
+| N8 | `MeetingActions` — scheduling, time-finding polls, time insights | **VERIFIED** (1.8) | same | Same as N7 for calendar. |
+| N9 | `editorial_answers` — up to 300 curated Q&A pairs matched by semantic similarity with tunable thresholds | **VERIFIED** (1.8) | same | A governance/accuracy primitive we would otherwise have built. USE MICROSOFT. |
+| N10 | `default_response_mode` — `Auto` / `Quick response` / `Think deeper`, set in the manifest | **VERIFIED** (1.8) | same | Directly addresses the field report that the agent is "reliable only when GPT-5.6 is selected": reasoning mode is declarable, not left to the user. |
+| N11 | `instructions` still capped at **8,000 characters** in 1.8 | **VERIFIED** | same | The constraint that defines the CORE/CONFIG split is unchanged. |
+| N12 | `actions` array now holds **1–10** plugin objects, and a plugin manifest may be **inlined** in the agent manifest | **VERIFIED** (1.8) | same | Fewer files to distribute; action count is bounded. |
+
+### What this does to earlier conclusions
+
+- **A15 / G7 are no longer a clean FAIL.** They are FAIL *for arbitrary write-back
+  to SharePoint/Dataverse*, but **PASS for email and calendar actions** natively.
+  The honest statement is now: *the agent can act where Microsoft has shipped an
+  action capability, and nowhere else.*
+- **"One package, many domains" is refuted (N2).** Domain packs are separately
+  installed agents. Deployment economics must be recomputed per domain, not per
+  customer.
+- **N4 is the most under-appreciated new risk.** A product whose whole safety
+  story is "human approves before anything happens" cannot route approvals
+  through a worker agent — the user never sees the card.
+- **N6 is the one to watch.** If embedded knowledge ships, the customer-
+  configuration burden for the CORE product drops to near zero and G4/G9/G10
+  改善 materially. It is not available today.
+
+### Still UNKNOWN after this pass
+
+1. Whether one app package may declare **multiple** declarative agents (distinct
+   from N2, which is about *installing* connected agents).
+2. Whether `worker_agents` works across **publishers/tenants** or only within
+   agents the same user installed.
+3. Marketplace/Partner Center certification requirements for an agent that
+   declares `EmailActions` (write scope is likely to raise review bar).
+4. Cross-tenant usage telemetry for §23 observability without data egress.
