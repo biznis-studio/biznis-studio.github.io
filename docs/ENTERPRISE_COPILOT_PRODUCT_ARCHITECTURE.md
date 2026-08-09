@@ -1,9 +1,9 @@
 # Enterprise Copilot Product Architecture
 
-**Status:** register complete, architecture partially derived.
-**Sections 1–6 and the economic gate (14a) are written. Sections 7–13, 15–19 are
-deliberately not written yet** — they must be derived from an agreed register,
-not drafted alongside it. Section 20 lists the gates the derivation must pass.
+**Status:** register agreed 2026-08-09; architecture derived from it.
+Part I (§1–6, §14a) is evidence and constraint. Part II (§7–19) is design, and
+every decision cites the assumptions it follows from. Anything not derivable is
+labelled **DESIGN ASSUMPTION** and carries no factual status.
 
 Supersedes nothing. `ARCHITECTURE_COPILOT_LAYER.md` remains the evidence log;
 this document is the product decision record built on top of it.
@@ -267,8 +267,18 @@ Amortising onboarding over an assumed 3-year life:
 h  ≤  3 · A · (1 − g) / r
 ```
 
-**Worked example, all inputs ASSUMPTION and the owner's to set:**
-A = 6 000 €/yr, g = 0.80, r = 60 €/h → **h ≤ 60 hours**, once, per customer.
+**This is a parametric model, not a finding.** *A*, *g* and *r* are **BUSINESS
+ASSUMPTIONS** — not facts, not derived from the register, and not yet calibrated
+against any customer's willingness to pay or any timed deployment. They must be
+recalibrated from real pricing and real onboarding cost before the gate binds.
+
+**Illustrative substitution only:** A = 6 000 €/yr, g = 0.80, r = 60 €/h →
+h_max ≈ 60 hours.
+
+> **h_max is a hard ceiling, never a target.** A product that lands at 40–60
+> hours has not been productised — it has had its first implementation. The
+> design target is **10–20 hours**, and every decision in §10 and §12 is judged
+> against that number, not against the ceiling.
 
 That must cover: tenant assessment, the Purview probe (B4), knowledge mapping and
 configuration (A12 — unavoidable), permissions, testing, baseline measurement
@@ -310,22 +320,365 @@ same variable: onboarding hours.**
 
 ---
 
-## Sections not yet written — and why
 
-7 Product architecture · 8 CORE vs domain capabilities · 9 Federation and
-orchestration · 10 Knowledge architecture · 11 Automation model ·
-12 Deployment and onboarding · 13 Packaging and marketplace model ·
-15 ROI/evaluation architecture · 16 Telemetry and privacy ·
-17 Failure modes · 18 MVP · 19 Validation plan.
+---
 
-These are design, and design derived from an unagreed register is how the last
-document acquired conclusions that schema 1.8 later demolished. They will be
-written once §4 is accepted, each as FACT → CONSTRAINT → DESIGN DECISION with no
-step that cites an assumption not in the register.
+# PART II — Architecture derived from the register
+
+Every decision below cites the assumptions it follows from. Where a decision
+cannot be derived, it is labelled **DESIGN ASSUMPTION** and carries no factual
+status. Nothing here cites an assumption absent from §4.
+
+---
+
+## 7. Product architecture — five layers, deliberately not collapsed
 
 **One deliberate non-decision:** the number of user-visible agents is *not* fixed
-here. C2 (three pinned slots) is a discoverability constraint and nothing more.
-Five distinct questions must stay separate in §7 and must not be collapsed:
-what the user *sees*, what the admin *deploys*, what is *installed*, what a parent
-can *call*, and what is a *separate commercial product*. Conflating them is how
-"three pinned slots" would silently become "a three-agent architecture".
+by C2. Three pinned slots is a discoverability constraint and nothing more. These
+five questions are distinct and must never be conflated:
+
+| Layer | Governed by | Cardinality |
+|---|---|---|
+| **L1 Commercial product** — what is bought | A1 (one package = one agent) | 1 agent = 1 listing = 1 price |
+| **L2 Installed** — present in the tenant | C1 (admin *publishes* and *deploys*) | Unbounded; admin can preinstall silently |
+| **L3 Visible** — what the user sees pinned | C2 (max 3 pinned; beyond that, unseen) | ≤ 3 promoted, rest discoverable on demand |
+| **L4 Callable** — what a parent can invoke | A7 (PREVIEW), A8 (cross-publisher OK) | Bounded by acquisition (C3), not by slots |
+| **L5 Entry point** — whom the user addresses | A14 (approval lives here) | Exactly 1 per conversation |
+
+**FACT (C2 is about L3 only) → CONSTRAINT: installation count and visibility
+count are independent → DESIGN DECISION: optimise L3 for attention and L2 for
+coverage.** A tenant may hold nine installed agents while promoting one. "Three
+slots" never becomes "three agents".
+
+### Whether there is a single CORE agent — derived, not chosen
+
+**FACT (A7): delegation is PREVIEW. FACT (P7): preview may not be depended on.
+FACT (A9, A10): parent and every worker must independently carry value.**
+
+**CONSTRAINT:** an architecture whose value requires delegation is (a) unshippable
+today and (b) unpublishable even when delegation ships, because the parent would
+lack standalone value.
+
+**DESIGN DECISION:** **the MVP is exactly one agent, with no workers.** Federation
+is a v2 capability added to an already-valuable agent, never the reason it exists.
+Whether a dedicated "CORE orchestrator" agent is ever created remains **open** —
+A9 makes a pure router unpublishable, so if one appears it must itself be a
+useful agent that also routes. That is a decision for v2, on evidence.
+
+---
+
+## 8. CORE vs domain — and the budget nobody has costed
+
+**FACT (A3): 8,000 characters of `instructions`, total.**
+**FACT (A12): knowledge cannot ship in the package.**
+
+**CONSTRAINT — the one that shapes the product:** CORE governance and domain
+procedure **share one 8,000-character budget**. They are not separate stores.
+
+| Element | Ships where | Owner | Reusable across customers |
+|---|---|---|---|
+| Governance rules, evidence discipline, output contract, escalation, refusal behaviour | `instructions` (A3) | **Us — this is the IP** | Fully |
+| Domain procedure — the ordered questions, discriminators, cost ordering | `instructions` (A3) | Us | Per domain |
+| Curated exact answers | `editorial_answers`, ≤300 pairs (A17) | Us or customer | Partly |
+| Reasoning depth | `default_response_mode` (A18) | Us | Fully |
+| Corpus — cases, SOPs, records | Tenant knowledge (A4, A12) | **Customer** | Never |
+
+**Evidence for the budget split (measured, not estimated):** the 8D diagnostic
+agent built 2026-08-08 used **4,213 characters** for governance *and* one domain
+procedure combined — roughly 2,000 governance / 2,200 domain, leaving ~47 %
+headroom.
+**INFERENCE:** one domain per agent fits comfortably; two or three domains in one
+agent would consume the budget and degrade both. This supports A1's grain
+(one agent = one domain) on quality grounds, not only packaging grounds.
+
+**DESIGN DECISION:** CORE is a **written specification plus a reusable instruction
+block**, not a software component. It is versioned, tested and inserted into every
+domain agent's `instructions` at build time.
+
+---
+
+## 9. Federation and orchestration
+
+**FACT (A13): text only. FACT (A14): a worker's Adaptive Card never reaches the
+user. FACT (A11): absent workers must degrade gracefully.**
+
+**CONSTRAINT:** delegation is prompt-passing between context windows, not a
+workflow bus, and it cannot carry consent.
+
+**DESIGN DECISIONS:**
+1. **A strict text contract.** A worker returns a fixed, ordered, labelled block
+   the parent parses positionally. Anything richer requires an action (A6), not a
+   worker.
+2. **Workers are read-and-recommend only.** No worker may hold a consequential
+   action. Derived directly from A14 — a user cannot approve what they cannot see.
+3. **Degradation is specified per prompt, not global.** Each conversation starter
+   that depends on a worker declares its fallback behaviour (A11).
+4. **The parent's listing enumerates every worker it may call** and instructs
+   acquisition (C3, SVG Must-fix).
+
+---
+
+## 10. Knowledge architecture — and the finding that decides the ceiling
+
+**The single most important derivation in this document.**
+
+**FACT (A4):** omitting the scoping nodes searches the whole organisation, and SVG
+makes **leaving them empty the required multi-tenant pattern** (Must fix).
+
+**CONSTRAINT:** enumerating SharePoint sites, libraries and connectors per
+customer is **not merely unnecessary — it is contrary to the prescribed design.**
+
+**DESIGN DECISION:** **onboarding does not map the tenant.** No one walks hundreds
+of SharePoint sites. The agent is unscoped; retrieval precision is recovered
+through `instructions` (A3) and `editorial_answers` (A17), not through
+configuration.
+
+This removes what looked like the dominant onboarding cost. **The remaining cost
+driver is different and harder: whether the customer's knowledge exists in
+written form at all.**
+
+### The six knowledge classes
+
+| Class | Lives | Owner | Ships with product | Update path | Onboarding cost |
+|---|---|---|---|---|---|
+| **K1 Our distributed IP** — governance + domain procedure | `instructions` (A3) | Us | **Yes** | Package version | **0 h** |
+| **K2 Public/domain methodology** — 8D, IATF, standard practice | `instructions` if compact; else customer document | Us (as written form) | Yes, as procedure | Package version | **0 h** |
+| **K3 Customer know-how** — SOPs, lessons learned, case history | Tenant (A4, A12) | Customer | **No** (A12) | Customer's own document lifecycle | **The variable** |
+| **K4 Process data** — records, tickets, measurements | Tenant / connectors (A4) | Customer | No | Live | ~0 h if already in M365 |
+| **K5 Dynamic sources** — external systems | Copilot connectors (A4) | Customer | No | Live | Excluded from MVP |
+| **K6 Sensitive content** — labelled, encrypted | May be **invisible** (B4) | Customer | No | — | Probe, then exclude or unlabel |
+
+**K3 is the product's real subject and its real risk.** If a customer's know-how
+is written, onboarding is configuration and the 10–20 h target is plausible. If it
+lives in people's heads, onboarding becomes knowledge *creation* — which is
+valuable, chargeable, and **not productisable at 10–20 hours**.
+
+**DESIGN DECISION (gating):** **a written-knowledge assessment is the first
+qualifying step of every sale.** Customers whose K3 is unwritten are sold a
+separate, fixed-price knowledge-structuring engagement *first*, and are not
+counted as product deployments until it completes. This keeps *h* honest instead
+of hiding creation work inside onboarding.
+
+**DESIGN ASSUMPTION (not derivable, must be tested in §19):** that a useful
+fraction of target customers already hold K3 in written form. If they do not, the
+product is a knowledge-structuring consultancy with an agent attached, and §38 of
+the brief rejects that.
+
+---
+
+## 11. Action architecture — two paths that must never merge
+
+**FACT (D1): consequential actions require explicit permission before execution.
+FACT (D2): mechanism prescribed — `isConsequential` / `readOnlyHint` / custom CTA.
+FACT (D3): confirmation must name the operation. FACT (D4): completion needs a
+tracking ID or source link. FACT (A14): worker cards are invisible to the user.**
+
+**Path A — the only path that may change anything:**
+```
+retrieve (A4) → reason (A18) → draft → user confirmation (D1-D3) → native action (A16) → receipt (D4)
+```
+Runs **only** in the entry-point agent (L5). Uses native capabilities only; the
+MVP hosts nothing (§6).
+
+**Path B — everything a worker may do:**
+```
+worker → retrieve → reason → recommendation (text, A13)
+```
+Terminates in text. **No worker holds an action.**
+
+**CONSTRAINT → DESIGN DECISION:** the two paths are separated at the manifest
+level — worker agents ship with no `actions` array at all (A6). This makes the
+rule structural rather than behavioural, so it cannot be violated by a prompt.
+
+**FACT (D5): bulk destructive operations are not to be supported** — excluded by
+policy and by P3.
+
+---
+
+## 12. Onboarding as a subsystem, not an implementation
+
+**Treated as a product component with its own spec, versioning and regression
+tests.** Justification: §14a makes *h* the binding variable; an uninstrumented
+process cannot be held to a number.
+
+Derived from A4 (no tenant mapping), B4 (silent failure), E4 (baseline is human),
+A12 (knowledge config irreducible):
+
+| Step | Derived from | Automatable | Target |
+|---|---|---|---|
+| 1. Licence + capability check | B8 | **Yes** — scripted | 0.5 h |
+| 2. **Purview probe** — labelled-document retrieval test with a documented expected answer | B4 | **Yes** — fixed test prompt | 0.5 h |
+| 3. Written-knowledge assessment (K3 present? in what form?) | §10 | Partly — checklist | 2 h |
+| 4. Knowledge placement — customer moves K3 into M365; **no scoping** | A4, A12 | Customer-performed | 2–6 h |
+| 5. Install + admin deploy + pin | C1, C2 | **Yes** — admin wizard | 0.5 h |
+| 6. Acceptance test — fixed scenario set with expected discriminators | §15 | **Yes** — scripted | 1 h |
+| 7. Baseline measurement | E4 | **No** — customer-executed | 3–6 h |
+| 8. Handover + training | — | Partly — recorded | 2 h |
+
+**Derived total: 11.5–18.5 h**, inside the 10–20 h design target and well under
+h_max. **This is a derivation, not a measurement** — steps 4 and 7 are estimates
+and are exactly where reality will differ. §19 measures them.
+
+**DESIGN DECISION:** steps 1, 2, 5 and 6 ship as **tooling**, not as a checklist —
+a script and a fixed test-prompt set. Steps 4 and 7 are **customer-performed**
+under our method. Only step 3 and part of 8 are inherently ours.
+
+**Failure of this section is failure of the business** (§14a). Any step that
+cannot be automated or shifted to the customer must be priced separately and
+excluded from *h*.
+
+---
+
+## 13. Packaging and marketplace model
+
+**FACT (A1):** 1 agent = 1 package = 1 listing.
+**FACT (C4):** must clear "differentiated value beyond Copilot" — qualifying
+routes are *workflows not easily achieved via Copilot*, *significant time
+reduction*, or *specialised orchestration / fine-tuned models*.
+**FACT (C5):** publisher attestation, App Compliance, RAI validation; RAI failure
+blocks publication.
+**FACT (A19):** Agents Toolkit is the only marketplace path.
+
+**DESIGN DECISIONS:**
+- **Each domain agent is its own commercial product** with its own price. No
+  suite exists at platform level; any bundle is our own commercial construct.
+- **The qualifying claim is route 1** — *a workflow not easily achieved via
+  Copilot*: a governed procedure that refuses to conclude without discriminating
+  evidence and emits an auditable record. Route 2 (time reduction) is unavailable
+  to us until §19 measures it; claiming it now would violate P5.
+- **Compliance artefacts are built in sprint 1**: privacy statement, terms,
+  data-handling declaration, RAI test pass.
+- Agent Builder is prototyping only; the shipped artefact is Toolkit-built (A19).
+
+---
+
+## 15. Evaluation and ROI architecture
+
+**FACT (E4 / INFERENCE): platform telemetry measures adoption, never outcome.**
+
+**CONSTRAINT:** value proof cannot be automated from telemetry and is therefore
+human work per customer — the cost §14a limits.
+
+**DESIGN DECISION: a Measurement Kit, executed by the customer, sold once.**
+Not a dashboard we operate. Contents:
+- N closed historical cases with known outcomes
+- A/B: half run with the agent, half with unmodified Copilot (the correct control
+  — "before we had anything" confounds the comparison)
+- Two primary metrics: **steps to a confirmed conclusion**, and **count of
+  expensive verifications avoided** (the latter converts to currency)
+- Secondary: escalations, rework, output completeness against the required record
+- Recorded by the customer's own people, on their own cases
+
+**Regression suite (ours, automated):** every agent version runs a fixed scenario
+set asserting: correct discriminator asked first, no conclusion without evidence,
+no invented item outside knowledge, graceful degradation (A11), refusal on
+out-of-scope. Derived from A17 (curated pairs make expected answers testable).
+
+**P5 binds absolutely:** no percentage is published, quoted internally, or put in
+a deck before a Measurement Kit returns it.
+
+---
+
+## 16. Telemetry and privacy
+
+**FACT (E1): tenant usage reporting belongs to the customer's admin.
+FACT (E2): publisher analytics show adoption by host product.
+UNKNOWN (E3): granularity. FACT (B3): prompts and Graph data are not training
+inputs.**
+
+**DESIGN DECISIONS:**
+- **We collect nothing ourselves.** Adoption comes from Partner Center; outcome
+  comes from the customer's Measurement Kit, shared only if they choose.
+- **No product telemetry endpoint exists** — consistent with §6 (host nothing) and
+  P2. This is also a sales asset: there is no data-flow diagram to argue about.
+- Commitments in contracts reference only metrics we can actually obtain; E3 is
+  UNKNOWN, so no granularity is promised.
+
+---
+
+## 17. Failure modes and graceful degradation
+
+| Mode | Derived from | Behaviour required |
+|---|---|---|
+| Worker not acquired | A11 (Must fix) | Named fallback per prompt; state plainly what is unavailable and what remains possible |
+| **Labelled content invisible** | B4 | **Silent — the dangerous one.** Probe at onboarding; agent instructed to state when it found no grounding rather than answer from model knowledge |
+| Knowledge absent or stale | §10 K3 | Agent must say "not in the knowledge I have" and name what would resolve it; never infer |
+| No licence | B8 | Non-WebSearch capabilities unavailable; degradation is Microsoft's, message must be anticipated in onboarding |
+| Model-mode drift | A18 | `Think deeper` declared; sensitivity to model choice treated as an instruction defect, not a user setting |
+| Action fails after confirmation | D4 | Receipt must still be produced, carrying the failure and the way forward |
+
+**Cross-cutting rule, derived from B4 + P5:** the agent must distinguish *"I found
+nothing"* from *"nothing exists"*. Conflating them is how silent invisibility
+becomes confident error.
+
+---
+
+## 18. MVP architecture
+
+Everything below is forced by the register; nothing is chosen for interest.
+
+| Decision | Derived from |
+|---|---|
+| **One agent, one domain, no workers** | A7 PREVIEW + P7; A9/A10 |
+| **Unscoped knowledge** | A4 (prescribed multi-tenant pattern) |
+| **No hosted component, no actions in v1** | §6; B7/C6 obligations; D-path A deferred |
+| **`Think deeper` declared** | A18 |
+| **`editorial_answers` for the twenty highest-frequency exact questions** | A17 |
+| **Governance + one domain procedure ≤ 8,000 characters** | A3, measured at 4,213 |
+| **Onboarding tooling for steps 1, 2, 5, 6** | §12, §14a |
+| **Measurement Kit** | E4, §15 |
+| **Compliance artefacts** | C5 |
+
+**Explicitly excluded from v1:** federation, connectors (K5), native write actions
+(A16 — deferred until C7 is resolved), any dashboard, any backend.
+
+**The MVP's single differentiating claim (C4 route 1):** a procedure that will not
+conclude without discriminating evidence, and that emits an auditable record of
+what was excluded and why. Plain Copilot does not do this, and cannot be made to
+do it by prompting alone.
+
+---
+
+## 19. Validation — a falsification experiment, not a pilot
+
+**Purpose: cheapest possible refutation of the whole model.** Not a demo. A demo
+proves the agent can talk; this must prove the *business* stands.
+
+**What it tests, traced to the register.** Nothing here is exploratory; each
+dimension attacks a specific open item:
+
+| Dimension | Tests |
+|---|---|
+| Onboarding time *h* | **§14a** (the binding gate) and the §12 derivation — steps 4 and 7 are estimates, and this is where they meet reality |
+| Work benefit | The **DESIGN ASSUMPTION in §10** (that target customers hold K3 in written form) and **C4 route 2** (time reduction), which P5 forbids claiming until measured |
+| Willingness to pay | **G5, G9** — the register cannot settle either; no documentation answers what a buyer will do |
+| User acceptance | **A18/§17** — whether reliability holds without the user choosing a model, and whether degradation (A11, B4) is tolerable in practice |
+
+**Setup:** one narrow domain agent · one real corporate knowledge corpus · real
+historical tasks with known outcomes · one real tenant · timed onboarding.
+
+**Pre-registered thresholds — set before any data is seen:**
+
+| Dimension | Refuted if | Supported if |
+|---|---|---|
+| **Onboarding time** *h* | > 40 h | ≤ 20 h |
+| **Work benefit** | < 10 % improvement on the §15 primary metrics | ≥ 25 % |
+| **Willingness to pay** | Declines at any price covering §14a | Signs, or pays a deposit |
+| **User acceptance** | Abandoned within 4 weeks | Voluntary continued use without prompting |
+
+**The stated failure combinations — all are negative results, not setbacks:**
+- Works technically, onboarding 55 h → **negative** (economics)
+- Onboarding 12 h, saves 3 % → **negative** (no value)
+- Saves 35 %, will not pay → **negative** (no business)
+- Low onboarding **and** measurable benefit **and** willingness to pay →
+  **the first real evidence the product exists**
+
+**Order matters:** measure the baseline **before** the agent is installed.
+Retrospective baselines are unfalsifiable, and P5 forbids reporting one.
+
+**Stop rule:** if two of four dimensions refute, stop and revise the architecture
+— do not re-run with adjusted thresholds. Thresholds are fixed at pre-registration.
+
+**Honest dependency:** this requires a real organisation, real users, and a real
+buying decision. It is the one part of this document that cannot be produced at a
+desk, and it is the only part that can turn any of it into evidence.
