@@ -647,3 +647,104 @@ exactly the linear cost §18/G9 forbids.
 proof is a *paid onboarding deliverable* run once per customer, not a dashboard we
 operate forever. Design it as a repeatable two-week measurement kit the customer
 executes, not a service we staff.
+
+---
+
+## 11. U2 AND U3 CLOSED — Agent Store validation guidelines, verified 2026-08-09
+
+Source for this whole section: [Agent Store Validation Guidelines](https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/appsource/prepare/review-copilot-validation-guidelines)
+(aligned to commercial marketplace policy **1140.9**), verified 2026-08-09.
+This document is agent-specific and answers what the general certification
+policy did not. No experiment is needed for U2 — it is settled in writing.
+
+### U2 — cross-publisher `worker_agents`: **FACT — YES, explicitly permitted**
+
+> *"If a parent agent references a worker agent published by a **different
+> publisher**, the parent agent publisher remains responsible for handling
+> integration issues, user experience gaps, and graceful failure behavior."*
+
+The store policy not only permits it, it assigns liability for it. The planned
+half-day A→B experiment is **cancelled as a feasibility test** — the question is
+answered. (A functional smoke test before shipping remains sensible, but it is
+QA, not research.)
+
+**But the same section imposes four Must-fix rules that constrain the architecture
+far more than the boundary question did:**
+
+| Rule (all *Must fix*) | Architectural consequence |
+|---|---|
+| *"Only declarative agents can be referenced within `worker_agent`. Custom engine agents are currently not supported."* | Confirms N5. No Copilot Studio agent in the chain. |
+| *"The description and disclaimer must clearly list all referenced worker agents and explicitly instruct users to acquire them where required."* | The CORE listing must advertise every domain pack it can call. No silent bundling. |
+| *"The agent must provide **meaningful standalone value, independent of any worker agents**."* | **A thin CORE orchestrator that is worthless without domain packs fails validation.** CORE must be a useful product on its own. |
+| *"**Each referenced worker agent must independently meet the minimum value bar** and provide meaningful functionality on its own."* | Domain packs cannot be dumb knowledge containers. Each must be sellable alone. |
+| *"Any prompt that depends on a worker agent must **fail gracefully** if the worker agent has not been acquired."* | Degradation path is a build requirement, not polish. |
+
+**This is the single most useful finding so far.** The intended shape — thin CORE
+that routes into knowledge-only domain packs — is **not publishable**. The
+publishable shape is a **federation of individually valuable agents**, one of
+which happens to be able to call the others.
+
+### U3 — write / action requirements: **FACT, and largely settled**
+
+**Consequential actions.** *"Consequential actions that mutate a system must
+require explicit user permission before execution."* [Must fix] Mechanism is
+prescribed:
+- API plugin action → `isConsequential: true`
+- MCP server action → `readOnlyHint: false`
+- or a custom CTA that clearly states the action
+
+**Confirmation content is specified, not left to us.** Confirmation text must name
+the operation (*"Do you want to proceed with creating a new order?"* passes;
+*"Do you want to proceed?"* fails). Completion must be reported as a card
+containing *"details of the action, way forward, and must have a **source link or
+a tracking ID** for the user to verify the action"*. [Must fix]
+
+*"Highly consequential tasks such as bulk delete mustn't be supported."*
+[Good-to-fix]
+
+**INFERENCE (flagged).** The guidelines specify confirmation duties for *plugin
+and MCP* actions. They do not separately name `EmailActions`/`MeetingActions`.
+Absence of a statement is **not** permission to skip confirmation — and is not a
+higher bar either. Treat native write capabilities as in scope for the same
+disclosure duty until Microsoft says otherwise. **Still UNKNOWN**: whether
+declaring them changes review depth.
+
+### Two findings that were not on anyone's list — and one kills a plan
+
+**FACT — the store enforces our G8 as a gate.** *"Agents should be designed to
+complete enterprise workflows and must deliver **differentiated value beyond what
+Copilot offers**"* [Must fix], satisfied by one of: workflows not easily achieved
+via Copilot; significantly reducing time to complete workflows; or specialised
+orchestration / fine-tuned models. "Better instructions" is not on that list.
+
+**FACT — `EmbeddedKnowledge` is unusable for a marketplace product.**
+> *"The Dataverse, **file embedding**, sensitivity label, and scenario model
+> capabilities are **restricted to be used in the LOB scenario only**."* [Must fix]
+
+**This reverses the hope recorded in N6.** Shipping methodology inside the app
+package is available only for line-of-business (own-organisation) agents, not for
+a distributed product. The zero-configuration productisation route is closed;
+knowledge must live in the customer's tenant and be configured there.
+
+**FACT — tenant-wide access is the prescribed multi-tenant pattern.**
+> *"To grant multi-tenant agent access to all tenant data for email, Teams
+> messages, Teams Meeting, ODSP, and Graph connector capabilities, **leave the
+> nodes for them empty** in the declarative agent."* [Must fix]
+
+This confirms A2 and elevates it from "possible" to "required practice".
+
+**FACT — operational bars that apply to any action backend.** 99.9% availability;
+response time ≤9s at p99, ≤5s at p75, ≤2s at p50; HTTPS TLS 1.2+; no URL
+redirection; *"calls must be served from the same domain or subdomain as the root
+domain verified for the developer"*.
+
+### Consequence for the product shape
+
+1. **Federation, not orchestration-with-dumb-workers.** CORE must stand alone;
+   every domain pack must stand alone. That is a harder product, and a better one
+   — each pack is independently sellable.
+2. **Three pinned slots** (§10) plus mandatory standalone value means the realistic
+   go-to-market is **one strong agent first**, with worker delegation as expansion,
+   not a nine-pack launch.
+3. **No embedded knowledge** ⇒ every customer needs knowledge configured in their
+   tenant ⇒ onboarding effort is irreducible and must be priced, not wished away.
