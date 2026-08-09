@@ -147,3 +147,14 @@ descriptions. Any new site directory needs the audit's glob updated, not just th
 the first's output. `market_research_agent`'s 5 source fetchers (+ npm/StackExchange's internal per-term
 loops) had none — fanned out with `ThreadPoolExecutor`, ~8.98s→4.21s avg (noisy, measured not assumed).
 DB writes stay single-threaded (sqlite3 isn't thread-safe). Apply this test before adding new pipeline stages.
+
+**A11 (Copilot licence gate) confirmed in the field, 2026-08-08.** Without an M365 Copilot licence,
+Agent Builder offers *only* "Add specific URL" — SharePoint/OneDrive grounding is a paid capability.
+So the free Copilot Chat tier cannot carry a knowledge-backed agent at all: the product's addressable
+market is licensed tenants only, not "anyone with M365". Two consequences worth remembering:
+(a) the 8,000-char `instructions` cap makes an instructions-only fallback structurally limited — the
+34 compressed decision trees are 13.5k chars, so ALL of them never fit, regardless of how terse the
+procedure gets. A fallback must therefore carry the *universal* procedure and openly disclaim the
+per-case catalogue, not silently cover a subset (5 of 34 fit — confident on 5, blind on 29).
+(b) the one available option (public URL) is a data-exfiltration path for internal engineering
+know-how, never a workaround. Say so explicitly when a customer hits this.

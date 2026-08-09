@@ -93,6 +93,6 @@ Kvôli úplnosti: my začíname na **590 € za jednostránkový web** a
 dohodnutá písomne pred začiatkom práce, dve kolá úprav v cene, a všetko
 vrátane zdrojových súborov patrí vám.
 
-[Celý cenník a čo do neho nepatrí](index.html#cennik) nájdete na hlavnej stránke
+[Celý cenník a čo do neho nepatrí](index.html#cennik-sluzby) nájdete na hlavnej stránke
 — vrátane zoznamu vecí, ktoré nerobíme, aby ste nestrácali čas dopytom,
 ktorý by sme aj tak museli odmietnuť.

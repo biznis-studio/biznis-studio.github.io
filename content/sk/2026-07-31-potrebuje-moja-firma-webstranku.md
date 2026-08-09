@@ -76,6 +76,6 @@ začiatkom, dve kolá úprav v cene, doména aj hosting na vaše meno, zdrojové
 súbory vaše.
 
 Ak nám napíšete, čo robíte a čo od webu čakáte, a vyjde nám, že vám stačí
-profil na Googli, povieme to. [Cenník aj zoznam vecí, ktoré nerobíme](index.html#cennik),
+profil na Googli, povieme to. [Cenník aj zoznam vecí, ktoré nerobíme](index.html#cennik-sluzby),
 je na hlavnej stránke — aby ste nestrácali čas dopytom, ktorý by sme aj tak
 museli odmietnuť.
