@@ -64,12 +64,29 @@ products that already own the workflow.
 **Companies with a modern eQMS:** we are redundant or a very hard sell. Their
 platform already holds the spine and is adding the AI.
 
-**Companies without one** — and this is most mid-size manufacturers — run quality
-on **Excel, email and SharePoint**. They will not buy a six-figure eQMS. They
-already pay for Microsoft 365.
+**Companies without one** — run quality on **Excel, email and SharePoint**.
 
-**That is the only segment where any of this makes sense**, and it reframes the
-product from what we have been saying:
+**CORRECTED 2026-08-10, twice.**
+
+*"They will not buy a six-figure eQMS"* was invented. Current listings show eQMS
+packages from roughly **€9–20 per user per month**. The price ceiling is far
+lower than assumed and every figure in §14a built on the old number is void.
+
+*"Companies without an eQMS are our segment"* is **one hypothesis among several**,
+not a finding. The absence of an eQMS may not be the problem at all. Competing
+explanations, none tested:
+
+- weak use of an eQMS they already own
+- shortage of experienced quality staff
+- high turnover taking know-how with it
+- genuinely difficult processes with many recurring defect types
+- time pressure on 8D from customers
+
+**The Constellium combination — complex process + recurring defects + experienced
+people gone + 8D deadlines — may be a far better segment signal than "no eQMS".**
+Both remain hypotheses.
+
+A possible reframing, held loosely:
 
 > Not *"an enterprise AI productivity layer over Copilot"*.
 > **Complaint investigation for manufacturers who run quality on Excel and email
@@ -78,8 +95,9 @@ product from what we have been saying:
 The Microsoft-native argument finally has a real basis — not *"they already have
 Copilot"*, but **"they already have Microsoft 365 and nothing else"**.
 
-**This also changes who we compete with:** not Intelex and ETQ, but the
-spreadsheet — and the eQMS vendors' entry-level tiers, which are unexamined.
+**This also changes who we compete with:** not Intelex and ETQ at enterprise
+scale, but the spreadsheet and the **€9–20/user/month tiers**. That is the price
+ceiling, and it is the number §14a must be rebuilt on.
 
 ---
 
@@ -104,8 +122,19 @@ spreadsheet — and the eQMS vendors' entry-level tiers, which are unexamined.
    cases, against an AI that ranks probabilities? Untested. It is now the single
    claim the product rests on.
 
-**Point 4 is the whole product.** It is also the one thing we have partial
-evidence for, from three real complaints on 2026-08-10.
+**Point 4 is the whole product** — but it was still framed too narrowly, as
+*"our discriminator is better"*. The stronger and more testable form, adopted
+2026-08-10:
+
+> Can an AI-guided diagnostic procedure **reduce the number and cost of
+> observations** required to identify a manufacturing root cause, compared with
+> conventional RCA and with generic Copilot?
+
+That is not "we know more causes". It is **control of the information sequence**
+— which single next observation removes the most hypotheses for the least cost.
+It belongs to differential diagnosis, information gain and cost-sensitive
+testing, and it is falsifiable **without any tenant**. Specified in
+`docs/EXP_01_DIAGNOSTIC_EFFICIENCY.md`.
 
 ---
 
