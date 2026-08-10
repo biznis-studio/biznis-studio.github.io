@@ -879,3 +879,48 @@ One process (complaint / 8D), one real tenant, from empty to a working case.
 automatable parts are automated, the product is an implementation service and
 must be priced and staffed as one. That is a legitimate outcome, and it is
 better learned in one deployment than in ten.
+
+---
+
+## 29. Correction — what the agent actually is, stated without dressing
+
+Raised by the owner 2026-08-10, and correct. The §24 write-up and the plain
+-language explanation both described reminders, "similar cases surfaced
+automatically", enforced closure rules and knowledge write-back **as if the agent
+did them**. It does none of it. The evidence was already in this document and was
+not applied.
+
+### Two hard limits, from the schema and the record
+
+| | Fact | Source |
+|---|---|---|
+| **The agent cannot initiate anything** | Manifest 1.8 defines only `instructions`, `capabilities`, `conversation_starters`, `actions`, `behavior_overrides`, `disclaimer`, `sensitivity_label`, `editorial_answers`, `worker_agents`, `user_overrides`. **There is no trigger, no schedule, no event.** Proactive notifications are documented as unsupported for custom engine agents. | DA-1.8; known-issues |
+| **The agent cannot write** | A15 recorded as **FAIL — structural blocker**. Only `EmailActions`/`MeetingActions` write, and only to mail and calendar. No list, no document, no catalogue. | A15, A16 |
+
+**Therefore, today, with no tenant runtime, every arrow in the loop of §27 is a
+human.** The agent reads what a person pastes in, reasons, and prints text. That
+is the whole of it.
+
+### What this does to the product claim
+
+The capabilities that carry most of the value — case state, deadlines, reminders,
+"this happened before", refusing closure without evidence, knowledge accumulating
+— are **Power Automate and SharePoint**. Ordinary M365 application work. **Not
+AI.**
+
+**The honest description of the product is therefore:**
+
+> A case-management application on the customer's own Power Platform, with an AI
+> advisor inside it that helps reason about the case.
+
+The AI is one component and probably the smaller part of the value. The spine is
+unglamorous workflow software.
+
+**Two consequences that must not be softened:**
+
+1. **The competitive set changes.** This competes with QMS and CAPA modules, not
+   with "Copilot adoption partners". C4's differentiation bar is now measured
+   against products that already do case management well.
+2. **The demo we ran is not the product.** Nine scenarios and three real
+   complaints validated the *reasoning*. They say nothing about the part that
+   holds the value, because that part does not exist yet.
