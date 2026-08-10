@@ -682,3 +682,91 @@ Retrospective baselines are unfalsifiable, and P5 forbids reporting one.
 **Honest dependency:** this requires a real organisation, real users, and a real
 buying decision. It is the one part of this document that cannot be produced at a
 desk, and it is the only part that can turn any of it into evidence.
+
+---
+
+# PART III — Course correction 2026-08-09
+
+## 21. The wrong turn, named
+
+**What was built:** a procedure in `instructions` plus a knowledge document.
+**What that is:** a well-made prompt with an attachment.
+**What C4 says about it:** the store's qualifying routes for "differentiated
+value beyond Copilot" are *workflows not easily achieved via Copilot*,
+*significant time reduction*, or *specialised orchestration / fine-tuned models*.
+Better instructions is not among them. **We built the thing the register already
+said would not qualify.**
+
+**The specific error was mine and it is identifiable.** In §4 of the earlier
+evidence log the fork was framed as *no backend* versus *our backend*. That
+framing silently deleted a third option that the original brief listed
+explicitly: **the customer's own Power Platform**. Power Automate and SharePoint
+in the customer's tenant are not our backend — they are inside the boundary P2
+protects. By collapsing "automation" into "our server", every subsequent
+derivation was pushed toward instructions-only, and instructions-only is where we
+ended up.
+
+## 22. New facts — verified 2026-08-09
+
+Source: [Known Issues in Microsoft 365 Copilot Extensibility](https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/known-issues).
+
+| ID | Fact | Status | Consequence |
+|----|------|--------|-------------|
+| F1 | *"Power Automate Flows as actions in declarative agents might not run reliably and might not return results."* And: *"Currently, **no workaround** for the issue that the flows might not return results is available."* | **FACT** | The obvious route — declarative agent triggers a flow — is documented as unreliable **with no workaround**. It cannot carry a product. |
+| F2 | Declarative agent SharePoint knowledge is limited to **files**; list items are not supported | **PARTIALLY VERIFIED** — stated on a Microsoft Q&A page, not on a reference page. Re-verify. | A SharePoint **list** cannot serve as a case register the agent reads natively. |
+| F3 | *"This issue can occur when the signed-in user doesn't have a Microsoft 365 Copilot license… grounded retrieval **fails silently** and triggers the generic runtime error."* | **FACT** | Confirms B8 and adds a second silent-failure mode beside B4. Onboarding must probe both. |
+| F4 | Copilot Studio agents can use **agent flows** as tools | **FACT** | The stateful path exists — but Copilot Studio declarative agents are org-catalog only (A19), so it is **not marketplace-distributable**. |
+
+## 23. The structural fork this creates
+
+**FACT (F1, F2, A19, D7) → CONSTRAINT:** the two things cannot be combined today.
+
+| | **Distributable** (declarative agent, marketplace) | **Stateful** (Copilot Studio + Power Platform) |
+|---|---|---|
+| State, case lifecycle | ✗ | ✓ |
+| Knowledge written back | ✗ (D7 UNKNOWN) | ✓ (customer's SharePoint/Dataverse) |
+| Reliable automation | ✗ (F1, no workaround) | ✓ (agent flows) |
+| One artefact, many tenants | ✓ | ✗ (A19 — org catalog only) |
+| Data leaves tenant | ✗ | ✗ |
+
+**This is a STRUCTURAL BLOCKER in the §35 sense** and it is not to be worked
+around by relaxing either column.
+
+**DESIGN DECISION — the product is the right-hand column.** The domain layer as
+briefed (state, memory, workflow, knowledge retention) is real, buildable today,
+and stays entirely inside the customer's tenant. It is **not an app on a
+marketplace**. It is an **implementable system**: templates, flows, lists,
+method, and a repeatable deployment.
+
+## 24. What changes, and what does not
+
+**Does not change:** the reasoning layer. The procedure, the cost-ordered triage,
+the discriminators, the refusal rules, the 8D output contract — all of it is the
+core IP and it is validated (9/9 on the scenario suite, 2026-08-09). It is a
+*component*, not the product.
+
+**Changes:** what surrounds it.
+
+| Missing piece | Where it lives | Why the agent alone cannot do it |
+|---|---|---|
+| **Case store** — one row per complaint, with state D0–D8, owner, deadline, evidence gathered | SharePoint list / Dataverse in the tenant | Copilot has a conversation, not a case (F2) |
+| **Lifecycle** — create, remind, escalate, close, effectiveness check | Power Automate in the tenant | F1 blocks the agent from driving it; a flow can drive itself |
+| **Knowledge loop** — closed case proposes a new cause + its discriminator, a human approves it into the catalogue | Flow + approval + list | This is the whole "know-how stays" claim, and it is currently done by hand |
+
+**The knowledge loop already ran once today, manually.** A cause missing from the
+catalogue — damage from crane-and-strap lifting — surfaced only because a human
+corrected a wrong conclusion in conversation, and it was then added by hand. That
+loop is the product. Automating it is the work.
+
+## 25. Consequence for the economics
+
+Per-tenant implementation means §14a is no longer one gate among several — it is
+**the** business. Every customer is a deployment, not an install.
+
+Two things follow immediately:
+1. The MVP in §18 (one declarative agent, no state) is now correctly understood
+   as **the reasoning component of the system**, not as the product. It stays,
+   because it is validated and cheap.
+2. **G3 (repeatable distribution) drops from PASS to CONDITIONAL**, and G9/G10
+   now rest entirely on how much of the deployment can be templated. That is the
+   next thing to measure, and it is measurable at Constellium without a customer.
