@@ -158,3 +158,14 @@ procedure gets. A fallback must therefore carry the *universal* procedure and op
 per-case catalogue, not silently cover a subset (5 of 34 fit — confident on 5, blind on 29).
 (b) the one available option (public URL) is a data-exfiltration path for internal engineering
 know-how, never a workaround. Say so explicitly when a customer hits this.
+
+
+**Pattern transfer is the failure mode the procedure exists to prevent — and Claude did it, 2026-08-10.**
+Diagnosed Žilina/2853 as a possible design-stiffness limit and prescribed a two-measurement test, on the
+basis of **two lines** in a morning report. The pattern came from AMARI/2650, where 12 of 16 pieces were
+borderline. Owner rejected it in one sentence: if the section were at its stiffness limit the profile
+could not be produced at all — it would fail constantly, not intermittently, and would have been caught
+at first-article. Correct, and the deeper error was carrying a pattern from a case with data to a case
+without any. **When a defect description is two lines, the honest output is "not enough to diagnose",
+not a hypothesis that happens to fit a neighbouring case.** This is exactly what plain Copilot does and
+exactly what the procedure is supposed to block.
