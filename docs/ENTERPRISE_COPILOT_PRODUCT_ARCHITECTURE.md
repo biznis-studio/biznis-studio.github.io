@@ -729,14 +729,23 @@ Source: [Known Issues in Microsoft 365 Copilot Extensibility](https://learn.micr
 | One artefact, many tenants | ✓ | ✗ (A19 — org catalog only) |
 | Data leaves tenant | ✗ | ✗ |
 
-**This is a STRUCTURAL BLOCKER in the §35 sense** and it is not to be worked
-around by relaxing either column.
+**CORRECTION 2026-08-09, same day.** The first draft of this section read *"the
+two cannot be combined"*. That was an overclaim and it is withdrawn. The facts
+support a narrower statement, and the difference matters:
 
-**DESIGN DECISION — the product is the right-hand column.** The domain layer as
-briefed (state, memory, workflow, knowledge retention) is real, buildable today,
-and stays entirely inside the customer's tenant. It is **not an app on a
-marketplace**. It is an **implementable system**: templates, flows, lists,
-method, and a repeatable deployment.
+> **A single universal marketplace artefact probably cannot deliver a full
+> stateful workflow across tenants without customer-side implementation.**
+
+That is not the same as "distributable and stateful are mutually exclusive". It
+locates the problem in **one artefact serving all tenants unconfigured** — which
+is a productisation question, not a physics one. A distributable core plus a
+tenant-side runtime plus an automated configuration step may well deliver both.
+Whether it does is an **empirical question about how much of the configuration
+can be automated**, and it is answered by measurement, not by reasoning.
+
+**DESIGN DECISION — decompose before concluding.** The architecture splits into
+three layers (§26). No verdict on G3/G9/G10 is issued until the third layer has
+been built once and timed.
 
 ## 24. What changes, and what does not
 
@@ -770,3 +779,103 @@ Two things follow immediately:
 2. **G3 (repeatable distribution) drops from PASS to CONDITIONAL**, and G9/G10
    now rest entirely on how much of the deployment can be templated. That is the
    next thing to measure, and it is measurable at Constellium without a customer.
+
+
+---
+
+## 26. The three layers — and the only question that matters now
+
+### A · Distributable core — our IP, identical for every customer
+
+- Domain model: what a case *is* (fields, states, transitions)
+- Decision engine: the cost-ordered triage, discriminators, evidence rules
+- Taxonomy: defect categories and their cause structure
+- Playbooks: the 8D lifecycle as a defined sequence, not a document template
+- Agent instructions (§8) — validated 9/9 on the scenario suite
+- Validation rules: what may not be concluded, and on what evidence
+- Knowledge model: how a cause, its mechanism and its **discriminator** are stored
+
+**Ships as:** a solution package plus a knowledge import. No customer data in it.
+
+### B · Tenant runtime — the customer's own platform, never ours
+
+- SharePoint Lists or Dataverse: case register and knowledge catalogue
+- Power Automate: lifecycle, deadlines, reminders, approvals, effectiveness checks
+- Power Apps or list forms: the working surface
+- Entra identity: owners, approvers, permission trimming (B1)
+- Customer documents: the corpus (K3)
+- State and audit trail
+
+**Runs entirely inside the tenant.** P2 holds without argument, because nothing
+of ours is in the data path.
+
+### C · Configuration and implementation package — the whole business question
+
+- Provisioning the objects in the tenant (lists, columns, views, flows)
+- Mapping customer data and terminology
+- Configuring the workflow to their process
+- Importing the domain knowledge
+- Testing and handover
+
+**THE DECISIVE QUESTION:** how much of C can be automated and standardised so
+that the next customer is a **repeatable deployment**, not a **new project**?
+
+| If C lands at | Then the business is |
+|---|---|
+| 3–5 person-days, mostly scripted | a scalable product with an implementation step |
+| 40 person-days of process modelling and bespoke flows | a productised implementation service |
+
+**Both are real businesses. They are not the same business**, and they have
+different pricing, different hiring, and different ceilings. §14a decides which
+one this is, and it decides it by measurement.
+
+### What is genuinely automatable, stated in advance so it can be scored
+
+| C activity | Expected automatability | Why |
+|---|---|---|
+| Create lists, columns, choices, views | **High** — provisioning template | Declarative, no customer specifics |
+| Import knowledge catalogue (115 causes) | **High** — data import | Our artefact |
+| Deploy flows | **High** — solution import | Declarative |
+| Map owners, approvers, deadlines | **Medium** — admin wizard over Entra groups | Structure exists, values differ |
+| Customer terminology and defect taxonomy | **Low** | K3 — this is the customer's knowledge, and §10 already said so |
+| Connect their document corpus | **Medium** — unscoped by default (A4) | Configuration is minimal by design |
+
+**Pre-registered expectation (DESIGN ASSUMPTION, to be scored against reality):**
+the first four rows are ≥80 % scriptable; the taxonomy row is where the days go.
+
+## 27. The real differentiator, stated plainly
+
+> case → investigation → evidence → cause → action → outcome → new know-how →
+> approval → catalogue → next case
+
+Copilot can help a person solve one complaint. **This loop makes the organisation
+better at the next one.** That is a different category of value, and it is the
+reason the product is not "a better Copilot".
+
+It also explains why the diagnostic agent alone felt thin: it is one arc of the
+loop, and the loop is what compounds.
+
+**Evidence that the loop is real and currently manual:** on 2026-08-09 a cause
+missing from the catalogue — damage from crane-and-strap lifting — surfaced only
+because a human corrected a wrong conclusion in conversation. It was added by
+hand. The customer's internal investigation later confirmed that mechanism. One
+case improved the catalogue, entirely through human effort, with no mechanism to
+guarantee it happens next time. **Automating that is the product.**
+
+## 28. Next step — proof of concept, measured
+
+One process (complaint / 8D), one real tenant, from empty to a working case.
+
+**What is being measured, not demonstrated:**
+
+| Metric | Why |
+|---|---|
+| **Person-hours for C**, split by the activity table in §26 | Answers G3/G9/G10 |
+| Which C activities needed a human, and for what | Tells us what to automate next |
+| Time from case created to case closed, with and without the system | The value claim |
+| Whether the knowledge loop closes without being pushed | The differentiator in §27 |
+
+**Stop condition:** if C cannot be brought under the §14a ceiling *after* the
+automatable parts are automated, the product is an implementation service and
+must be priced and staffed as one. That is a legitimate outcome, and it is
+better learned in one deployment than in ten.
