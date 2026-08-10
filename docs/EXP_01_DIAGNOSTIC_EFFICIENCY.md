@@ -52,14 +52,32 @@ Nothing gathered during the original investigation.
 
 ## 3. Arms
 
-| Arm | Who / what | Note |
-|---|---|---|
-| **1 · Conventional** | experienced quality engineer, fishbone/5-Why, no AI | the real benchmark, not a straw man |
-| **2 · Generic Copilot** | plain, no instructions, no catalogue | what a company gets today for free |
-| **3 · Our procedure** | instructions + catalogue | the claim |
+**Reframed 2026-08-10.** The first version pitted the tool against the
+experienced engineer, as a contest. That is the wrong question and it would have
+produced a useless answer — of course an experienced engineer investigates well.
+**The purpose is not to beat anyone. It is to make the work easier and to let it
+be done by someone who is not the senior specialist.**
 
-**Arms must not share an operator on the same case.** A person who has run arm 3
-on a case cannot run arm 1 on it.
+The real problem is the one in front of us: **the experienced people left.**
+So the question is whether their method survives their absence.
+
+| Arm | Who | What it represents |
+|---|---|---|
+| **1 · Senior, no tool** | experienced quality engineer, fishbone/5-Why | **how it used to be** — today's quality and today's cost |
+| **2 · Junior, no tool** | someone with under ~2 years in the role | **what actually happens now** when the senior is gone. The real baseline. |
+| **3 · Junior, with tool** | same experience level as arm 2, instructions + catalogue | **the claim** |
+| **4 · Senior, with tool** *(optional)* | | does it help the person who is already good, or only slow them down? |
+| **5 · Plain Copilot** *(cheap control)* | no instructions | what a company gets free today |
+
+**The primary comparison is arm 3 against arm 1.** Not to beat it — **to reach
+it.** If a junior with the tool investigates roughly as well as a senior without
+one, the method has transferred, and that is the whole proposition.
+
+**Arm 2 measures the pain.** The gap between arms 1 and 2 is what the departure
+of experienced people costs today. If that gap is small, there is no problem to
+solve and no product — regardless of how well arm 3 performs.
+
+**Arms must not share an operator on the same case.**
 
 **Contamination warning, and it is serious.** Claude built the catalogue from
 this company's data and has seen several of these complaints. **Claude must not
@@ -117,20 +135,29 @@ observations.
 
 Fixed before any data is seen.
 
+**Gate zero — is there a problem at all?**
+
+| Arm 1 vs arm 2 | Meaning |
+|---|---|
+| Gap **small** (junior ≈ senior) | **Stop.** Losing experienced people costs little here. Nothing to sell. |
+| Gap **large** (junior much worse or much more expensive) | The problem is real and worth measuring |
+
+Everything below is only read if the gap is large.
+
 | Comparison | Refuted if | Supported if |
 |---|---|---|
-| Arm 3 vs arm 1 (experienced human) | cost to correct cause **≥** arm 1 | **≤ 60 %** of arm 1 |
-| Arm 3 vs arm 2 (plain Copilot) | accuracy not higher **and** cost not lower | accuracy higher **and** cost lower |
-| Wasted expensive observations | arm 3 ≥ arm 1 | arm 3 **< half** of arm 1 |
-| Correctness | arm 3 below arm 1 | arm 3 **≥** arm 1 |
+| **Arm 3 vs arm 1** — did the method transfer? | arm 3 closes **< 40 %** of the arm 1–2 gap | arm 3 closes **≥ 70 %** of the gap in both accuracy and cost |
+| Arm 3 vs arm 2 — what the tool adds | no improvement over the junior alone | clear improvement in both |
+| Wasted expensive observations | arm 3 ≥ arm 2 | arm 3 **< half** of arm 2 |
+| Arm 4 vs arm 1 — does it hinder the expert? | senior is **slower** with the tool | senior no slower, ideally faster |
 
-**The decisive comparison is arm 3 against arm 1, not against arm 2.** Beating
-plain Copilot proves only that instructions help. **Beating an experienced
-quality engineer on cost while matching accuracy is the product.**
+**Arm 4 matters more than it looks.** A tool that helps juniors but irritates the
+people who decide whether to buy it does not get adopted.
 
-**And the outcome that ends it:** if arm 1 is as fast, as cheap and as accurate,
-the concept is dropped. An experienced person doing this well already is not a
-market — it is a reason there is no market.
+**The outcome that ends it is now different, and better.** Not *"the senior is
+good"* — the senior was always good. It ends if the **gap between senior and
+junior is small**, because then experience is not what makes the difference, and
+transferring it is worth nothing.
 
 ---
 
@@ -143,6 +170,28 @@ market — it is a reason there is no market.
 - Fewer than 20 usable cases
 - Arm 1 operated by someone inexperienced — that is a straw man and the result
   would be worthless in the direction we would most like it to fail
+
+---
+
+## 7b. On "saving personnel cost" — say it accurately
+
+The internal goal is real: the same work done by someone less senior, and less of
+it. That is what makes it worth paying for.
+
+**But it must not be said that way to the people running the test.** An
+investigation whose participants believe it is measuring whether they can be
+replaced does not produce clean data, and the belief is not even accurate — what
+is being measured is whether **method** transfers, not whether people are
+redundant.
+
+This is also consistent with what we already commit to publicly: *we do not
+promise AI replaces people.* The defensible version, internally and externally:
+
+> The same case handled correctly by whoever happens to have it — not only by the
+> one person who has done it for fifteen years.
+
+That claim is honest, it is what the experiment measures, and it happens to be
+what has commercial value.
 
 ---
 
