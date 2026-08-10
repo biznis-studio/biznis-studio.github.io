@@ -43,6 +43,25 @@ reach Dataverse tables directly. **Three arms, not two:**
 **Arm A is tested first.** If the platform already does this, building B is
 waste, and finding that out after building it is the expensive order.
 
+**T0 — arm A capability check, before any other test.** The existence of a
+Dataverse MCP server does **not** establish that the exact thing we need works:
+`CaseNumber` → **one** record, deterministically, with permission trimming, in a
+structured output format, at acceptable latency. Confirm each of those four in
+the **current** Copilot Studio UI and documentation at the time of the
+experiment — not from this document, which will age.
+
+Record the outcome as one of:
+
+| Outcome | Meaning | Next |
+|---|---|---|
+| **Available** | all four confirmed | run T1–T8 on arm A |
+| **Unavailable** | the mechanism does not offer key-based single-record retrieval, or no permission trimming | arm A is **not applicable** — this is *not* a failure of arm A, and must not be recorded as one; go to arm B |
+| **Uncertain** | documentation ambiguous | test empirically; ambiguity is not a pass |
+
+The distinction between *unavailable* and *failed* matters: one says the platform
+does not offer this path, the other says it offers it and it does not work. They
+lead to different architectures.
+
 ---
 
 ## 2. Explicitly not tested here
@@ -94,6 +113,13 @@ Thresholds are fixed before any data is seen. They are not adjusted afterwards.
 | | *T6 in a trial environment tests the **mechanism** only. The security boundary that matters — real groups, real roles, real inheritance — exists only in the production tenant. **T6 is run twice**: once in the trial as a smoke test, once in the production tenant before any claim is made.* | | | |
 | **T7** | **Non-existent case** | Ask for `C-2026-99999` | states it does not exist, **5/5** | invents one, or silently returns the nearest match |
 | **T8** | **Unavailable source** | Break the connection, ask | states the failure, **5/5** | fabricates an answer from context |
+
+**T7 and T8 are not minor.** In a system meant to be deterministic, *"I don't
+know"* is worth more than a correct answer. If a non-existent case returns a
+similar one, or a broken connection returns something reconstructed from context,
+then every other passing test is unreliable — because the user cannot tell the
+difference between a real answer and a plausible one. **A silent near-match is
+the worst possible failure mode**, and neither T3 nor T6 would catch it.
 
 **T3 and T6 are blocking.** Either one failing stops the architecture regardless
 of everything else:
