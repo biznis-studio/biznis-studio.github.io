@@ -924,3 +924,38 @@ unglamorous workflow software.
 2. **The demo we ran is not the product.** Nine scenarios and three real
    complaints validated the *reasoning*. They say nothing about the part that
    holds the value, because that part does not exist yet.
+
+
+---
+
+## 30. A15 withdrawn · runtime chosen · cost model corrected — 2026-08-10
+
+**A15 is withdrawn.** "Agent cannot write back — structural blocker" was true of
+one configuration (a declarative agent shipping no `actions`) and was generalised
+into a platform limit. Write-back is available through API plugin actions and
+through Copilot Studio agent flows. What remains open is which runtime and which
+mechanism, and how it deploys per tenant — architecture, not impossibility.
+
+**Runtime decided: Copilot Studio agent + Power Platform, per-tenant.**
+Rationale, in order of weight:
+1. `spec.url` is fixed in the package (A8), so an action pointing at each
+   customer's own data cannot be distributed. Distributability — the sole
+   advantage of the declarative/Toolkit path — fails exactly where it is needed.
+2. Agent flows give reliable automation; the declarative path's Power Automate
+   actions are documented unreliable with no workaround (F1).
+3. Deployment is per-tenant anyway (§23–26), so org-catalog-only costs nothing.
+
+**Storage decided:** Dataverse for state, SharePoint for evidence. Detailed in
+`DATA_MODEL_v0.1.md`. The earlier "case = document in a library" model is
+discarded — it was chosen to work around a limit that no longer justifies it.
+
+**Cost model corrected, and §14a must be recomputed.** No longer
+*M365 Copilot + our product*, but:
+
+> M365 Copilot **+ Copilot Studio capacity + Power Platform / Dataverse** + our
+> deployment + our IP
+
+Agent flows consume Copilot Studio capacity per action, and exhausted capacity
+can make an agent unavailable. **Recurring platform cost per customer is now a
+line item, not a rounding error**, and it must be priced before anything is
+offered.
