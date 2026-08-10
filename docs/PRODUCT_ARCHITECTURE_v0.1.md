@@ -1,5 +1,58 @@
 # Product Architecture v0.1 — AI-assisted complaint investigation
 
+> ## ⛔ STATUS: REJECTED FOR IMPLEMENTATION — 2026-08-10
+>
+> Owner's audit against current Microsoft documentation. Verdict accepted.
+>
+> **The load-bearing decision C-3 was wrong as stated.** "Agent knowledge =
+> files, not list items" is false as a claim about the Microsoft agent platform:
+> Copilot Studio documents SharePoint Lists as a knowledge source (that page is
+> marked **preview**). It is narrowly true only for the **declarative agent**,
+> whose knowledge-source list does not include SharePoint Lists and whose
+> SharePoint capability searches *"files, folders, or sites"*. **Two runtimes
+> were conflated.**
+>
+> **C-2 was too absolute.** "The agent cannot write" describes *our* configuration,
+> which ships no `actions`. Manifest 1.8 supports API plugins, and Microsoft
+> documents agents performing real-time operations through them. An implementation
+> choice was presented as a platform limit.
+>
+> **F3 "blocks closure" is not achievable as written.** A flow reacts to a change;
+> it cannot refuse one. Correct formulation: *validates closure conditions and
+> prevents a case from remaining in an invalid closed state* — by revert,
+> approval gate, column validation, or permissions. Which of those, a PoC decides.
+>
+> **C-6 stands technically but is not accepted architecturally.** Unscoped means
+> the whole organisation's SharePoint and OneDrive. Least privilege argues for a
+> dedicated site.
+>
+> **§6 "Copilot cannot be [2],[3a],[4],[5]" is overbroad** and follows from C-2.
+>
+> ### The finding that supersedes the argument, verified 2026-08-10
+>
+> The declarative-agent knowledge documentation states that for **structured,
+> frequently changing content** the correct mechanism is an **API plugin backed
+> by an OpenAPI specification**, which *"allows the agent to query the underlying
+> data source directly"* — explicitly instead of relying on indexed content.
+>
+> A case register is exactly that. So the storage question is not
+> *file vs list*; it is **knowledge vs action**, and Microsoft's own guidance
+> answers it: **action**.
+>
+> This removes component **[3b]** entirely and removes the reason for
+> "case = document". It also re-binds the old constraint **A8**: an API plugin's
+> `spec.url` is fixed in the package, so a plugin pointing at each customer's own
+> SharePoint **cannot be distributed** — it is viable only in a per-tenant
+> deployment.
+>
+> **Nothing below is to be implemented.** The runtime decision comes first:
+> Microsoft 365 declarative agent (Agents Toolkit) vs Copilot Studio agent. Their
+> knowledge, action and workflow capabilities differ, and v0.1 was drawn around
+> the limits of one of them without having chosen it.
+> Superseded by `PRODUCT_ARCHITECTURE_v0.2.md` once that decision is made.
+
+---
+
 **Status:** first technical architecture. Every component names its technology,
 its owner, where its data sits, and how it talks to the others. Where a human is
 required because the platform provides no path, that is drawn as a component, not
