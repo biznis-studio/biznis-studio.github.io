@@ -25,13 +25,23 @@ A pass here means *buildable*. It means nothing about the other two.
 
 ## 1. The decision this settles
 
-> Does a Copilot Studio **action** return the **exact, current, complete** state
-> of one named case — or must we fall back on semantic retrieval, which is the
-> wrong instrument for a database lookup?
+> By which mechanism does the agent obtain the **exact, current, complete** state
+> of one named case?
 
-**If it passes:** the case is fetched by action, knowledge is reserved for the
-catalogue, and the architecture has a real foundation.
-**If it fails:** the proposed architecture is rebuilt, not patched.
+**Amended 2026-08-10.** The first version asked only *action vs knowledge*. That
+presupposed our own design — that a custom `GetCase()` action is the answer — and
+would have steered the experiment toward the thing we invented. Microsoft
+documents a **Dataverse MCP server in Copilot Studio** through which an agent can
+reach Dataverse tables directly. **Three arms, not two:**
+
+| Arm | Mechanism | If this wins |
+|---|---|---|
+| **A · Native** | Dataverse MCP / built-in Dataverse access | **We build no action at all.** A chunk of assumed work — and of assumed IP — disappears. |
+| **B · Action** | Custom `GetCase()` API plugin | Our original assumption; costs build and maintenance |
+| **C · Knowledge** | Dataverse table as knowledge source | Simplest, and probably wrong for a lookup — to be shown, not asserted |
+
+**Arm A is tested first.** If the platform already does this, building B is
+waste, and finding that out after building it is the expensive order.
 
 ---
 
@@ -52,13 +62,15 @@ Adding any of these makes the result unreadable.
 | `Case` table | 20 rows, real or realistic, per `DATA_MODEL_v0.1.md` §2.1 |
 | `Cause` table | 5 rows is enough for T5 |
 | `CauseAssessment` | empty at start |
-| Agent | Copilot Studio agent, no knowledge sources at all — **isolates the action** |
-| Action | `GetCase(CaseNumber) → structured record` |
-| Second action | `CreateCauseAssessment(Case, Cause, Verdict, DecidedByObservation)`, marked consequential |
+| Agent | Copilot Studio agent. **One arm enabled at a time** — never two, or the result cannot be attributed |
+| Arm A | Dataverse MCP / native access configured to the `Case` table |
+| Arm B | `GetCase(CaseNumber) → structured record` |
+| Arm C | `Case` table added as Dataverse knowledge |
+| Write test | `CreateCauseAssessment(Case, Cause, Verdict, DecidedByObservation)`, marked consequential |
 
-**Deliberate design:** knowledge sources are switched **off** during T1–T4. If the
-agent has both, a correct answer proves nothing — we would not know which path
-produced it.
+**Deliberate design:** exactly one arm is enabled at a time, and during T1–T4 all
+other sources are **off**. If the agent has two paths, a correct answer proves
+nothing — we would not know which produced it.
 
 **Case numbers must include a substring trap.** Among the 20, include
 `C-2026-00417` and `C-2026-01417`, and `2334` and `12334`. Semantic retrieval
@@ -79,6 +91,7 @@ Thresholds are fixed before any data is seen. They are not adjusted afterwards.
 | **T4** | **Latency** | 20 calls, measure end to end | **p95 ≤ 8 s** | p95 > 8 s |
 | **T5** | **Write-back** | Agent creates a `CauseAssessment` | row created with all four fields correct **and** the user is asked to confirm before the write | writes without confirmation, or writes wrong values |
 | **T6** | **Permissions** ⚠️ | User without rights to case X asks for X | refusal or empty, **no field values leaked**, in **5/5** attempts | any leakage of any field |
+| | *T6 in a trial environment tests the **mechanism** only. The security boundary that matters — real groups, real roles, real inheritance — exists only in the production tenant. **T6 is run twice**: once in the trial as a smoke test, once in the production tenant before any claim is made.* | | | |
 | **T7** | **Non-existent case** | Ask for `C-2026-99999` | states it does not exist, **5/5** | invents one, or silently returns the nearest match |
 | **T8** | **Unavailable source** | Break the connection, ask | states the failure, **5/5** | fabricates an answer from context |
 
@@ -93,18 +106,23 @@ of everything else:
 
 ---
 
-## 5. Second run — the comparison
+## 5. Running the three arms
 
-Repeat **T1 and T3 only**, with the action removed and the `Case` table added as
-Dataverse **knowledge** instead.
+**T1 and T3 are run against all three arms.** T2, T4, T5, T7, T8 only against
+whichever arm passes T1 and T3.
 
-**Purpose:** to establish with evidence, not assumption, that semantic retrieval
-is the wrong instrument here. **Expected — and recorded as a prediction so it can
-be wrong:** knowledge passes T1 partially and fails the substring traps, and
-fails T3 because indexing is not immediate.
+**Predictions, recorded in advance so they can be wrong:**
 
-If knowledge passes both, the design assumption *"action for the case, knowledge
-for the catalogue"* was unnecessary and the architecture simplifies.
+| Arm | T1 substring traps | T3 freshness |
+|---|---|---|
+| A native | pass | pass |
+| B action | pass | pass |
+| C knowledge | **fail** | **fail** — indexing is not immediate |
+
+**If A passes:** arm B is not built. The custom action was our invention, not a
+requirement, and dropping it removes build, maintenance and one deployment step.
+**If C passes both:** the whole *action-for-the-case* assumption was unnecessary
+and the architecture simplifies further than we expected.
 
 ---
 
@@ -132,12 +150,29 @@ measurement of §14a, and that data is as valuable as the pass/fail.
 
 ---
 
-## 8. Blocking prerequisite
+## 8. POC-00 — provisioning, and it is its own test
 
-A tenant with Copilot Studio, Dataverse and rights to create tables, actions and
-an agent. **We do not currently have one.** The Copilot account used on
-2026-08-09/10 is not a work tenant — the interface offered "Buy Microsoft 365",
-and SharePoint and OneDrive for Business were not reachable.
+The environment is not a prerequisite to be arranged and forgotten. **Whether it
+can be stood up at all, and in how long, is the first measurement of §14a.**
+Record the time for each step.
 
-Until that exists, this specification cannot be executed, and **no further
-architecture should be written on top of it.**
+| # | Step | Note |
+|---|---|---|
+| 1 | Obtain a **Copilot Studio trial** | availability can be restricted by an administrator |
+| 2 | Create a **Trial Power Platform environment** | trial environments expire after ~30 days and take the agents and data with them — **the POC must finish inside that window, and nothing of value may live only there** |
+| 3 | Enable the **Dataverse datastore** at creation | Copilot Studio requires a Dataverse datastore for a full agent |
+| 4 | Confirm the environment appears in the Copilot Studio switcher | if it does not, stop here — nothing downstream will work |
+| 5 | Create the `Case` table | minimum columns per `DATA_MODEL_v0.1.md` §2.1 |
+| 6 | Create one record | |
+| 7 | Confirm the record can be read deterministically by **arm A** | the cheapest possible go/no-go |
+| 8 | Only then run POC-01 | |
+
+**Environment choice, decided:**
+
+| Environment | POC-01 | T6 | Verdict |
+|---|---|---|---|
+| Copilot Studio trial + own Dataverse environment | ✅ | mechanism only | **start here** — no IT dependency |
+| M365 Developer tenant | maybe | artificial | **only after** confirming the subscription actually carries the Copilot Studio entitlements and capacity; an E5 developer subscription is not evidence that it does |
+| Constellium production | later | **real** | for T6 and for deployment measurement, once the mechanism is proven |
+
+**Until step 4 passes, no further architecture is written.**
