@@ -27,7 +27,8 @@ these models rot: two copies, one gets updated, nobody knows which is true.
 
 ## 2. Dataverse — four tables
 
-Three are obvious. **The fourth is the product.**
+Four tables plus `Evidence`. `CauseAssessment` is the load-bearing one —
+see §8 before calling it differentiation.
 
 ### 2.1 `Case` — the complaint
 
@@ -54,7 +55,7 @@ State machine and everything a flow drives from.
 | Column | Note |
 |---|---|
 | `Name` · `Category` | |
-| **`Discriminator`** | **how to confirm *this* one rather than the one that looks the same — the core IP** |
+| **`Discriminator`** | how to confirm *this* one rather than the one that looks the same |
 | `Mechanism` · `Prevention` · `Detection` · `Priority` | |
 | `Status` | Approved / Proposed / Rejected |
 | `SourceCase` | lookup → `Case` — which case produced it |
@@ -94,7 +95,7 @@ unanswerable that are worth money:
 The chain is therefore **Cause → CauseAssessment → deciding Observation →
 Evidence**, never CauseAssessment → Evidence.
 
-### 2.4 `CauseAssessment` — **the table that is the product**
+### 2.4 `CauseAssessment` — the decision trajectory
 
 For a case, for each candidate cause: is it excluded, confirmed, or still open —
 **and which observation decided it.**
