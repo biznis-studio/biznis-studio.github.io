@@ -8,10 +8,13 @@ počas smeny.
 
 `$ARGUMENTS` je opis prípadu. Ak je prázdny, spýtaj sa naň.
 
-> **Toto pravidlo existuje kvôli konkrétnemu zlyhaniu.** 2026-08-10 bola príčina
-> určená z dvoch riadkov popisu prenesením vzoru z iného prípadu — v písanej
-> úvahe, mimo procedúry. Slabší model v Copilote, ktorý procedúru bežal, tú chybu
-> neurobil. **Rozdiel nebol v modeli, ale v tom, či sa bežali kroky.**
+> **Prečo procedúra a nie voľná úvaha.** 2026-08-10 bola príčina určená z dvoch
+> riadkov popisu prenesením vzoru z iného prípadu — a vyhlásená za záver. Slabší
+> model v Copilote, ktorý kroky bežal, tú chybu neurobil. **Rozdiel nebol
+> v modeli, ale v tom, či sa procedúra vykonávala.**
+>
+> Chyba nebola v tom, že sa použil podobný prípad. Bola v tom, že sa použil ako
+> **odpoveď namiesto otázky**. Pozri KROK 0.
 
 ---
 
@@ -23,8 +26,19 @@ nie opis vady.
 **Ak je zadanie jedna či dve vety a neobsahuje nič rozlišujúce: NEDIAGNOSTIKUJ.**
 Povedz, že to nestačí, a spýtaj sa na prvú vec podľa kroku 2.
 
-**Nikdy nepreberaj vysvetlenie z iného prípadu preto, že sa naň podobá.**
-Podobnosť nie je dôkaz. Ak ti niečo pripomína iný prípad, povedz to ako otázku.
+**Podobné prípady používaj — sú na to.** Budujeme databázu znalostí a skúsenosť
+z minulého prípadu je jej celý zmysel. Rozhoduje ale, **v akom postavení** vstúpi:
+
+| | |
+|---|---|
+| ❌ **Záver z podobnosti** | *„vyzerá to ako prípad X, takže príčinou je Y"* |
+| ✅ **Hypotéza s rozlíšením** | *„podobný prípad skončil na Y. Rozhodne to toto pozorovanie: Z."* |
+
+Podobný prípad teda **vždy ponúkni** — ale ako kandidáta do zoznamu, spolu
+s pozorovaním, ktoré ho potvrdí alebo vylúči. Nikdy ako hotový záver.
+
+**To je zároveň rozdiel oproti bežným nástrojom.** Tie z histórie vyrobia
+*„tri najpravdepodobnejšie príčiny"*. My z nej vyrobíme **ďalšiu otázku**.
 
 ## KROK 1 — kde je materiál?
 
@@ -74,8 +88,9 @@ Nehádaj.**
 - Uviesť príčinu, ktorá **nie je v katalógu**. Ak nič nesedí, povedz to a navrhni,
   aké pozorovanie by rozhodlo. Ak sa potvrdí, patrí to do tabuľky — pozri nižšie.
 - Označiť príčinu za potvrdenú **na základe pravdepodobnosti alebo podobnosti**.
-  Potvrdená je len vtedy, keď existuje pozorovanie, ktoré ju odlišuje od
-  ostatných. Inak: *„zúžené na tieto dve, rozhodne ich toto meranie"*.
+  Podobný prípad smie príčinu **navrhnúť**, nikdy nie potvrdiť. Potvrdená je len
+  vtedy, keď existuje pozorovanie, ktoré ju odlišuje od ostatných. Inak:
+  *„zúžené na tieto dve, rozhodne ich toto meranie"*.
 - **Navrhnúť opatrenie skôr, než je príčina potvrdená.** Ani keď sa pýta priamo.
 - Uviesť čísla, percentá alebo úspory, ktoré nemáš od používateľa.
 - Vysypať všetky možnosti naraz. **Jedna otázka.**
@@ -86,6 +101,13 @@ Nehádaj.**
 - Pri každom závere povedz, **o čo sa opiera**. Bez toho ho nevyslov.
 
 ---
+
+## Lessons learned — pri každom prípade
+
+Ak z minulosti poznáš podobný prípad, **povedz to nahlas** aj s tým, ako dopadol
+a čím sa to vtedy rozhodlo. Aj keď sa nakoniec ukáže iná príčina — vtedy je to
+o to cennejšie, lebo vieš, **čím sa tie dva prípady odlišujú**, a to je nové
+rozlíšenie do katalógu.
 
 ## Uzavretie
 
