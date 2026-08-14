@@ -169,3 +169,18 @@ at first-article. Correct, and the deeper error was carrying a pattern from a ca
 without any. **When a defect description is two lines, the honest output is "not enough to diagnose",
 not a hypothesis that happens to fit a neighbouring case.** This is exactly what plain Copilot does and
 exactly what the procedure is supposed to block.
+
+
+**A structural gate cannot catch a missing decision rule — 2026-08-14, quality-packs v0.2.0.**
+Adding the category "Nevhodné balenie" next to the existing "Poškodené balenie" passed every gate check
+(each cause covered by a tree step, no invented causes, no duplicates) and was still broken: a technician
+with a packaging complaint faced two valid trees and nothing said which to enter. **The gate guards
+consistency; only the acceptance set guards behaviour.** Fixed with a ROZCESTNÍK first step in both trees
+(damaged packaging / damaged profiles / both), scenario S12, and a gate check that cross-category
+references point at a category that exists (verified by deliberately breaking one).
+Corollary, and it cost a rejected design: a heuristic gate for "confusably named categories" fires 7 times
+on this catalogue with 1 true positive. **A gate people learn to ignore is worse than no gate** — do not
+ship a check whose false positives outnumber its finds.
+Also recorded: `tests/vysledky/` was empty, i.e. the 12-scenario acceptance set has never been run once,
+and 0.2.0 shipped without it despite the CI reminder. Claude must not run it — it tests the customer's
+Copilot with the pack attached, so a Claude-side "12/12" would be an invented number.
