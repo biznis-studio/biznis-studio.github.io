@@ -199,3 +199,18 @@ The non-obvious part was a **rule collision** the change created: KROK 0 forbids
 discriminating observation, KROK 4 demands always offering something. Resolution, now scenario S13
 (blocking): with an observation → offer the labelled hypothesis; without one → offer **questions, not
 causes**. Without S13 the new rule would have silently disabled the old one.
+
+
+**Novice and expert fail in opposite directions — 2026-08-15, quality-packs v0.4.0.**
+Owner's requirement: the tool must correctly guide an experienced AND an inexperienced quality engineer.
+The gap was not "explain more". It was that **a decision tree only knows YES and NO, so "I don't know"
+has nowhere to go** — and an inexperienced user will guess rather than admit it, producing a cause
+resting on nothing. Rule added: "neviem" never branches, the cause is marked **NEOVERENÁ** and stays in
+play (not excluded), every question states **where the answer is found**, and unfamiliar terms
+(nedolisok, bearing, puller, PCG) are explained inside the question. 8D must list what stayed unverified —
+unverified is not excluded.
+The expert's risk is the mirror image: **they already have an answer and are looking for confirmation**
+(this is what AMARI/2650 was). So skipped steps must be named along with the basis for skipping — a
+silently skipped step is an assumption wearing the costume of a fact — and the tool offers the observation
+that would **refute** their hypothesis, not confirm it.
+Scenarios S14 (blocking) and S15 cover the two directions; threshold now 15/15.
