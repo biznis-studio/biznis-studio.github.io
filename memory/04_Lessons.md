@@ -184,3 +184,18 @@ ship a check whose false positives outnumber its finds.
 Also recorded: `tests/vysledky/` was empty, i.e. the 12-scenario acceptance set has never been run once,
 and 0.2.0 shipped without it despite the CI reminder. Claude must not run it — it tests the customer's
 Copilot with the pack attached, so a Claude-side "12/12" would be an invented number.
+
+
+**"Not in the catalogue" is not an answer — owner's rule, 2026-08-15, quality-packs v0.3.0.**
+Until 0.2.1 the pack said "neuvedieš príčinu, ktorá nie je v tomto dokumente" and S7 treated the dead
+end as the correct response. Owner overruled it: when the catalogue has no match, propose the most
+probable explanation from professional/scientific knowledge of aluminium extrusion, **say plainly that
+it is outside the catalogue**, and if information is missing, define the **cheapest** questions.
+Implemented as KROK 4 with a mandatory label — `HYPOTÉZA MIMO KATALÓGU — … Opiera sa o: … Mechanizmus: …
+Rozhodne to: … Vyvráti to: …` — so it can never be mistaken for a catalogue cause. **The confirmation bar
+did not move: only an observation confirms, never probability.** Fabricated citations, studies, authors
+or figures stay banned; name the mechanism instead.
+The non-obvious part was a **rule collision** the change created: KROK 0 forbids diagnosing without a
+discriminating observation, KROK 4 demands always offering something. Resolution, now scenario S13
+(blocking): with an observation → offer the labelled hypothesis; without one → offer **questions, not
+causes**. Without S13 the new rule would have silently disabled the old one.
