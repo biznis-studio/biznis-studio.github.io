@@ -62,7 +62,8 @@ skipped under pressure.
 
 ## Start here (any new session)
 
-Read `memory/06_Index.md`, then `memory/00_Project.md` through `03_Tasks.md`,
+Read **`STATE.md`** (what is open right now, and what the anchors actually say),
+then `memory/06_Index.md`, then `memory/00_Project.md` through `03_Tasks.md`,
 then **`memory/07_Constraints.md`** — the short imperative list of what has
 already gone wrong. `04_Lessons.md` is the archive behind it and is read only
 when a specific incident matters. That is the whole current state —
