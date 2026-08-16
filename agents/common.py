@@ -644,7 +644,9 @@ def site_header_html(active_is_index: bool = False, lang: str = "en") -> str:
 
     prefix = "" if active_is_index else "../"
     home_href = f"{prefix}index.html"
-    services_href = "#services" if active_is_index else "../index.html#services"
+    # "Hire us" viedlo na #services - zoznam sluzieb bez formulara, takze
+    # navstevnik, ktory chcel napisat, nemal kam kliknut. Vedie na formular.
+    services_href = "#kontakt" if active_is_index else "../index.html#kontakt"
     return f"""<header class="site-header">
 <div class="site-header-inner">
 <a class="brand" href="{home_href}">{BRAND_HTML}</a>
@@ -726,7 +728,18 @@ _ITALIC_RE = re.compile(r"(?<!\*)\*([^*\n]+?)\*(?!\*)")
 # [text](https://...) or [text](../relative/path.html). Applied after
 # html.escape(), so brackets/parens are still literal characters. Only
 # http(s) and site-relative .html targets - no javascript: etc.
-_LINK_RE = re.compile(r"\[([^\]]+)\]\((https?://[^)\s]+|[a-zA-Z0-9_./#-]+\.html(?:#[\w-]*)?)\)")
+# Interne odkazy sa pisu aj adresarovo ("/sk/#kontakt") a ako holy anchor
+# ("#kontakt"). Do 2026-08-16 vzor pripustal len http(s) alebo .html, takze
+# CTA na konci prave publikovaneho clanku zostalo ako holy text "[Napiste
+# nam](/sk/#kontakt)". Odkaz, ktory sa ticho nevyrenderuje, je horsi nez
+# ziadny - vyzera ako chyba autora.
+_LINK_RE = re.compile(
+    r"\[([^\]]+)\]\("
+    r"(https?://[^)\s]+"                       # absolutne
+    r"|[a-zA-Z0-9_./#-]+\.html(?:#[\w-]*)?"    # subor .html
+    r"|/[a-zA-Z0-9_/-]*/(?:#[\w-]*)?"          # adresar, napr. /sk/ alebo /sk/#kontakt
+    r"|#[\w-]+"                                # holy anchor
+    r")\)")
 
 
 def _link_sub(match: "re.Match[str]") -> str:

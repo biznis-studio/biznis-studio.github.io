@@ -119,6 +119,22 @@ def _sk_related_html(slug: str, posts: list[dict], limit: int = 3) -> str:
             f'<ul>\n{items}\n</ul>\n</div>')
 
 
+def _sk_contact_html() -> str:
+    """Formular priamo pod clankom.
+
+    Do 2026-08-16 clanok koncil odkazom "Napiste nam" - a ten sa navyse ani
+    nevyrenderoval. Citatel, ktoreho text presvedcil, musel odkaz najst,
+    kliknut a hladat sekciu. Kazdy taky krok je miesto, kde odide.
+    """
+    from agents.landing_page_agent import FORMSPREE_ENDPOINT, contact_form_html
+    if not FORMSPREE_ENDPOINT:
+        return ""
+    return ('<h2 id="kontakt" class="section-title">Napíšte nám</h2>\n'
+            '<p>Stačí krátky popis toho, čo vás trápi. Odpíšeme, čo by sme '
+            'spravili, za koľko a čo by sme k tomu potrebovali od vás.</p>\n'
+            + contact_form_html("sk"))
+
+
 def build_sk_posts() -> int:
     """Render Slovak articles into site/sk/.
 
@@ -147,6 +163,7 @@ def build_sk_posts() -> int:
                 f'<h1>{html.escape(post["title"])}</h1>\n'
                 f'<p class="subtitle">{html.escape(post["description"])}</p>\n'
                 f'{markdown_lite_to_html(post["body_md"])}\n'
+                f'{_sk_contact_html()}\n'
                 f'{_sk_related_html(post["slug"], posts)}\n'
                 f'<p><a href="index.html">&larr; Späť na služby</a></p>\n</article>')
         page = page_shell(post["title"], post["description"], body, lang="sk")

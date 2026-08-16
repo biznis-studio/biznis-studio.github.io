@@ -83,5 +83,5 @@ kontrola, ktorá beží pri každej ďalšej zmene.
 Nie preto, aby ste mali AI. Preto, aby čas, ktorý ušetrí, zostal
 ušetrený.
 
-[Napíšte nám](/sk/#kontakt) — posudok jedného procesu má pevnú cenu
-a ak z neho vyjde, že sa nasadenie neoplatí, povieme to.
+Posudok jedného procesu má pevnú cenu — a ak z neho vyjde, že sa
+nasadenie neoplatí, povieme to. Formulár je hneď pod článkom.

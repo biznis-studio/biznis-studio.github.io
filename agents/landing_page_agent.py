@@ -541,7 +541,10 @@ anything at all.</p>
 <div class="stat"><b>Live</b><span>delivered working and deployed, not as a file</span></div>
 </div>
 
-<p style="margin-top:2rem"><a class="button" href="index.html#services">See what we build</a></p>"""
+<p style="margin-top:2rem"><a class="button" href="index.html#services">See what we build</a></p>
+<h2 id="kontakt" class="section-title">Tell us what you need</h2>
+<p>A short description is enough to start. We reply with what we would do, what it costs, and what we would need from you.</p>"""
+    body += contact_form_html() if FORMSPREE_ENDPOINT else ""
 
     (SITE_DIR / "work.html").write_text(page_shell(
         "Work - Biznis",
@@ -1149,7 +1152,10 @@ catalogue of ready-made tools you can use today.</p>
 {paid_section}
 <h2 class="section-title">Free downloads</h2>
 <div class="product-grid">{free_cards}</div>
-{blog_section}"""
+{blog_section}
+<h2 id="kontakt" class="section-title">Tell us what you need</h2>
+<p>A short description is enough to start. We reply with what we would do, what it costs, and what we would need from you.</p>
+""" + (contact_form_html() if FORMSPREE_ENDPOINT else "") + """"""
     SITE_DIR.mkdir(parents=True, exist_ok=True)
     (SITE_DIR / "index.html").write_text(page_shell(
         "Biznis - Design, Websites, Custom Digital Products & Automation",

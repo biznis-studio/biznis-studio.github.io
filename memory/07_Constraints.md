@@ -78,6 +78,16 @@ the gate and delete it from here** (`CLAUDE.md` lists what is enforced).
   goes. Without this the pack only ever grows.
 - **Don't use a model for what ordinary code already knows.**
 
+## Contact must be reachable
+
+- **Every page a visitor can be convinced on carries the form itself** — not a
+  link to it. Homepage, work page, and every article. Until 2026-08-16 the
+  English homepage and the "Hire us" destination had **no form at all**.
+- **"Hire us" points at the form**, never at a list of services.
+- **A CTA that does not render is worse than none** — it reads as the author's
+  mistake. The link syntax supports `http(s)`, `*.html`, directory paths
+  (`/sk/#kontakt`) and bare anchors; anything else silently stays plain text.
+
 ## Publishing
 
 - **A published article without a hero image is an unfinished article.**
