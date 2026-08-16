@@ -619,7 +619,11 @@ asistentom a začal byť pracovn&yacute;m n&aacute;strojom.</p>
 </div>
 
 {{IMG:sk-copilot-vrstva|Firemná AI nad Microsoft 365}}
+<section class="band">
+<div class="band-head">
 <h2 class="section-title">Pre&ccaron;o Copilot vo firm&aacute;ch nedodr&zcaron;&iacute;, čo sľubuje</h2>
+</div>
+<div class="band-body">
 <p>Copilot vie odpovedať len z toho, k čomu m&aacute; pr&iacute;stup a čomu rozumie.
 V be&zcaron;nej firme naraz&iacute; na tri veci:</p>
 <ul>
@@ -633,8 +637,14 @@ d&aacute;va v&scaron;eobecn&uacute; odpoveď namiesto tej va&scaron;ej.</li>
 </ul>
 <p>Preto dnes v&yacute;sledok z&aacute;vis&iacute; od toho, ako dobre vie konkr&eacute;tny
 zamestnanec formulovať ot&aacute;zku. To nie je syst&eacute;m, to je n&aacute;hoda.</p>
+</div>
+</section>
 
+<section class="band">
+<div class="band-head">
 <h2 class="section-title">&Ccaron;o pre v&aacute;s urob&iacute;me</h2>
+</div>
+<div class="band-body">
 <p>Vyberieme <strong>jeden proces</strong>, ktor&yacute; sa vo va&scaron;ej firme opakuje a
 stoj&iacute; st&aacute;le rovnak&uacute; pr&aacute;cu - napr&iacute;klad rie&scaron;enie reklam&aacute;cie,
 pr&iacute;pravu ponuky, spracovanie objedn&aacute;vky, zapracovanie nov&eacute;ho človeka -
@@ -654,8 +664,14 @@ v&aacute;&scaron; človek, nie len my.</li>
 <p class="form-note"><strong>Pozn&aacute;mka k bezpe&ccaron;nosti:</strong> pracujeme vo va&scaron;om
 prostred&iacute; Microsoft 365. Va&scaron;e d&aacute;ta z neho neodch&aacute;dzaj&uacute; a nepotrebujeme
 ich kop&iacute;rovať k n&aacute;m.</p>
+</div>
+</section>
 
+<section class="band">
+<div class="band-head">
 <h2 class="section-title">Ako zist&iacute;te, &zcaron;e odpoveď je spr&aacute;vna</h2>
+</div>
+<div class="band-body">
 <p>Toto je d&ocirc;vod, prečo AI vo firm&aacute;ch zost&aacute;va pri mailoch. Nie preto,
 &zcaron;e by nevedela viac - ale preto, &zcaron;e <strong>nikto nevie overiť, či je
 odpoveď spr&aacute;vna</strong>. Čo sa ned&aacute; skontrolovať, tomu firma nezver&iacute;
@@ -678,8 +694,14 @@ z nich, verzia sa nevyd&aacute;va.</li>
 Postup nap&iacute;&scaron;e tie&zcaron; ktokoľvek. To, čo obvykle chýba, je d&ocirc;kaz,
 &zcaron;e to funguje - a &zcaron;e to funguje <strong>aj po zmene</strong>, ktor&uacute;
 o pol roka urob&iacute; niekto in&yacute;.</p>
+</div>
+</section>
 
+<section class="band">
+<div class="band-head">
 <h2 class="section-title">Ostatn&eacute; slu&zcaron;by</h2>
+</div>
+<div class="band-body">
 
 {{IMG:custom-website-design-development|Webstránky}}
 <h2>Webstr&aacute;nky</h2>
@@ -714,8 +736,14 @@ obr&aacute;zok loga.</p>
 <h2>Chatboty</h2>
 <p>Chatbot na jednu konkr&eacute;tnu &uacute;lohu - odpovedanie na opakuj&uacute;ce sa ot&aacute;zky
 z&aacute;kazn&iacute;kov - s jasne vymedzen&yacute;m rozsahom, aby si nevym&yacute;šľal.</p>
+</div>
+</section>
 
+<section class="band">
+<div class="band-head">
 <h2 class="section-title">Užitočn&eacute; č&iacute;tanie</h2>
+</div>
+<div class="band-body">
 <div class="post-list">SK_ARTICLES</div>
 
 <h2 id="cennik" class="section-title">Cenn&iacute;k</h2>
@@ -808,6 +836,8 @@ predt&yacute;m, než sa začne pracovať. Ak sa pr&aacute;ca uk&aacute;že ťaž
 n&aacute;š probl&eacute;m - nie upraven&aacute; fakt&uacute;ra. V&yacute;sledok je v&aacute;š vr&aacute;tane
 zdrojov&yacute;ch s&uacute;borov, bez mesačn&yacute;ch poplatkov a bez viazanosti.</p>
 </div>
+</div>
+</section>
 
 <h2 id="kontakt" class="section-title">Ozvite sa</h2>\n""" + contact_form_html("sk") + """
 <p class="form-note">Str&aacute;nka je aj <a href="../index.html">v angličtine</a>.</p>"""
@@ -846,7 +876,7 @@ zdrojov&yacute;ch s&uacute;borov, bez mesačn&yacute;ch poplatkov a bez viazanos
         "Vyu\u017eite firemn\u00fd Copilot naplno | Biznis",
         "Firmy platia za Microsoft 365 Copilot a pou\u017e\u00edvaj\u00fa zlomok toho, \u010do vie. "
         "Postav\u00edme nad n\u00edm \u0161trukt\u00faru pre jeden proces. D\u00e1ta zost\u00e1vaj\u00fa u v\u00e1s.",
-        body, lang="sk")
+        body, lang="sk", wide=True)
     if alt:
         idx = page.lower().find("</head>")
         if idx != -1:

@@ -140,7 +140,27 @@
     font-weight: 700; box-shadow: var(--shadow);
   }
   main { max-width: 720px; margin: 0 auto; padding: 3rem 1.25rem 4rem; }
+  /* Dve urovne rozlozenia, nie jedna. Landing stranka ma sirku 1080 pre
+     komponenty (karty, mriezky, tabulky, obrazky), ale suvisly text sa v nej
+     drzi citatelnej miery ~720. Text sa NECENTRUJE - vsetko zdiela tu istu
+     lavu os, inak sa stranka rozpadne na dve zarovnania. Overene 2026-08-16:
+     centrovany textovy stlpec v sirokom plasti pusobil ako chaos. */
   main.wide { max-width: 1080px; }
+  /* PAS (band): sekcia so suvislym textom v sirokom plasti. Nadpis vlavo,
+     text vpravo - sirka je vyuzita a nevznika mrtva tretina, ktora vzniknuty
+     pri obycajnom obmedzeni miery textu. Pod 900px sa pas zlozi pod seba.
+     Vzniklo 2026-08-16: majitel spravne namietol, ze text zarovnany vlavo
+     v sirokom kontajneri necha vpravo prazdno. */
+  .band { display: grid; gap: 0.6rem 2.75rem; margin-top: 2.6rem; }
+  .band > .band-head > h2 { margin-top: 0; }
+  .band > .band-body > :first-child { margin-top: 0; }
+  .band > .band-body > p, .band > .band-body > ul, .band > .band-body > ol {
+    max-width: 68ch;
+  }
+  @media (min-width: 900px) {
+    main.wide .band { grid-template-columns: minmax(200px, 300px) 1fr; }
+    main.wide .band > .band-head { position: sticky; top: 5.5rem; align-self: start; }
+  }
   h1 {
     font-size: clamp(2.1rem, 5vw, 2.7rem); font-weight: 800; letter-spacing: -0.035em;
     margin: 0 0 0.5rem; line-height: 1.12; text-wrap: balance;
@@ -350,7 +370,12 @@
   .widget-out b { display: block; font-size: 1.9rem; font-weight: 800; letter-spacing: -0.02em; }
   .widget-out span { font-size: 0.85rem; opacity: 0.92; }
   .widget-note { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.9rem; }
-  .post-list { display: grid; gap: 1.15rem; margin-top: 1.25rem; }
+  /* Bez grid-template-columns je to jeden stlpec. V sirokom plasti z toho
+     vznikne lista cez celu sirku a stranka vyzera poloprazdna. */
+  .post-list {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 1.15rem; margin-top: 1.25rem;
+  }
   .post-meta {
     font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
     color: var(--brand);

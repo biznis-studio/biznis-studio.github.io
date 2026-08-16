@@ -140,7 +140,27 @@
     font-weight: 700; box-shadow: var(--shadow);
   }
   main { max-width: 720px; margin: 0 auto; padding: 3rem 1.25rem 4rem; }
+  /* Dve urovne rozlozenia, nie jedna. Landing stranka ma sirku 1080 pre
+     komponenty (karty, mriezky, tabulky, obrazky), ale suvisly text sa v nej
+     drzi citatelnej miery ~720. Text sa NECENTRUJE - vsetko zdiela tu istu
+     lavu os, inak sa stranka rozpadne na dve zarovnania. Overene 2026-08-16:
+     centrovany textovy stlpec v sirokom plasti pusobil ako chaos. */
   main.wide { max-width: 1080px; }
+  /* PAS (band): sekcia so suvislym textom v sirokom plasti. Nadpis vlavo,
+     text vpravo - sirka je vyuzita a nevznika mrtva tretina, ktora vzniknuty
+     pri obycajnom obmedzeni miery textu. Pod 900px sa pas zlozi pod seba.
+     Vzniklo 2026-08-16: majitel spravne namietol, ze text zarovnany vlavo
+     v sirokom kontajneri necha vpravo prazdno. */
+  .band { display: grid; gap: 0.6rem 2.75rem; margin-top: 2.6rem; }
+  .band > .band-head > h2 { margin-top: 0; }
+  .band > .band-body > :first-child { margin-top: 0; }
+  .band > .band-body > p, .band > .band-body > ul, .band > .band-body > ol {
+    max-width: 68ch;
+  }
+  @media (min-width: 900px) {
+    main.wide .band { grid-template-columns: minmax(200px, 300px) 1fr; }
+    main.wide .band > .band-head { position: sticky; top: 5.5rem; align-self: start; }
+  }
   h1 {
     font-size: clamp(2.1rem, 5vw, 2.7rem); font-weight: 800; letter-spacing: -0.035em;
     margin: 0 0 0.5rem; line-height: 1.12; text-wrap: balance;
@@ -350,7 +370,12 @@
   .widget-out b { display: block; font-size: 1.9rem; font-weight: 800; letter-spacing: -0.02em; }
   .widget-out span { font-size: 0.85rem; opacity: 0.92; }
   .widget-note { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.9rem; }
-  .post-list { display: grid; gap: 1.15rem; margin-top: 1.25rem; }
+  /* Bez grid-template-columns je to jeden stlpec. V sirokom plasti z toho
+     vznikne lista cez celu sirku a stranka vyzera poloprazdna. */
+  .post-list {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 1.15rem; margin-top: 1.25rem;
+  }
   .post-meta {
     font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
     color: var(--brand);
@@ -486,7 +511,7 @@
 </nav>
 </div>
 </header>
-<main>
+<main class="wide">
 <div class="hero">
 <span class="eyebrow">Firemn&aacute; AI &middot; Microsoft 365 &middot; Copilot</span>
 <h1>M&aacute;te Copilot. Pou&zcaron;&iacute;vate ho na p&iacute;sanie mailov.</h1>
@@ -505,7 +530,11 @@ asistentom a začal byť pracovn&yacute;m n&aacute;strojom.</p>
 </div>
 
 <img class="card-art" src="../assets/img/sk-copilot-vrstva.jpg" alt="Firemná AI nad Microsoft 365" loading="lazy" decoding="async" width="800" height="450">
+<section class="band">
+<div class="band-head">
 <h2 class="section-title">Pre&ccaron;o Copilot vo firm&aacute;ch nedodr&zcaron;&iacute;, čo sľubuje</h2>
+</div>
+<div class="band-body">
 <p>Copilot vie odpovedať len z toho, k čomu m&aacute; pr&iacute;stup a čomu rozumie.
 V be&zcaron;nej firme naraz&iacute; na tri veci:</p>
 <ul>
@@ -519,8 +548,14 @@ d&aacute;va v&scaron;eobecn&uacute; odpoveď namiesto tej va&scaron;ej.</li>
 </ul>
 <p>Preto dnes v&yacute;sledok z&aacute;vis&iacute; od toho, ako dobre vie konkr&eacute;tny
 zamestnanec formulovať ot&aacute;zku. To nie je syst&eacute;m, to je n&aacute;hoda.</p>
+</div>
+</section>
 
+<section class="band">
+<div class="band-head">
 <h2 class="section-title">&Ccaron;o pre v&aacute;s urob&iacute;me</h2>
+</div>
+<div class="band-body">
 <p>Vyberieme <strong>jeden proces</strong>, ktor&yacute; sa vo va&scaron;ej firme opakuje a
 stoj&iacute; st&aacute;le rovnak&uacute; pr&aacute;cu - napr&iacute;klad rie&scaron;enie reklam&aacute;cie,
 pr&iacute;pravu ponuky, spracovanie objedn&aacute;vky, zapracovanie nov&eacute;ho človeka -
@@ -540,8 +575,14 @@ v&aacute;&scaron; človek, nie len my.</li>
 <p class="form-note"><strong>Pozn&aacute;mka k bezpe&ccaron;nosti:</strong> pracujeme vo va&scaron;om
 prostred&iacute; Microsoft 365. Va&scaron;e d&aacute;ta z neho neodch&aacute;dzaj&uacute; a nepotrebujeme
 ich kop&iacute;rovať k n&aacute;m.</p>
+</div>
+</section>
 
+<section class="band">
+<div class="band-head">
 <h2 class="section-title">Ako zist&iacute;te, &zcaron;e odpoveď je spr&aacute;vna</h2>
+</div>
+<div class="band-body">
 <p>Toto je d&ocirc;vod, prečo AI vo firm&aacute;ch zost&aacute;va pri mailoch. Nie preto,
 &zcaron;e by nevedela viac - ale preto, &zcaron;e <strong>nikto nevie overiť, či je
 odpoveď spr&aacute;vna</strong>. Čo sa ned&aacute; skontrolovať, tomu firma nezver&iacute;
@@ -564,8 +605,14 @@ z nich, verzia sa nevyd&aacute;va.</li>
 Postup nap&iacute;&scaron;e tie&zcaron; ktokoľvek. To, čo obvykle chýba, je d&ocirc;kaz,
 &zcaron;e to funguje - a &zcaron;e to funguje <strong>aj po zmene</strong>, ktor&uacute;
 o pol roka urob&iacute; niekto in&yacute;.</p>
+</div>
+</section>
 
+<section class="band">
+<div class="band-head">
 <h2 class="section-title">Ostatn&eacute; slu&zcaron;by</h2>
+</div>
+<div class="band-body">
 
 <img class="card-art" src="../assets/img/custom-website-design-development.jpg" alt="Webstránky" loading="lazy" decoding="async" width="800" height="450">
 <h2>Webstr&aacute;nky</h2>
@@ -600,8 +647,14 @@ obr&aacute;zok loga.</p>
 <h2>Chatboty</h2>
 <p>Chatbot na jednu konkr&eacute;tnu &uacute;lohu - odpovedanie na opakuj&uacute;ce sa ot&aacute;zky
 z&aacute;kazn&iacute;kov - s jasne vymedzen&yacute;m rozsahom, aby si nevym&yacute;šľal.</p>
+</div>
+</section>
 
+<section class="band">
+<div class="band-head">
 <h2 class="section-title">Užitočn&eacute; č&iacute;tanie</h2>
+</div>
+<div class="band-body">
 <div class="post-list"><a class="post-card" href="overovanie-vam-zoberie-uspory.html"><img class="card-art" src="../assets/img/overovanie-vam-zoberie-uspory.jpg" alt="AI vám ušetrí čas. Overovanie vám ho zoberie späť" loading="lazy" decoding="async" width="800" height="450"><span class="post-meta">2026-08-16</span><h3>AI vám ušetrí čas. Overovanie vám ho zoberie späť</h3><p>Firmy hlásia úsporu z AI a zároveň nemajú menej práce. Dôvod má už aj meno — verifikačná ekonomika. Čo s tým vie firma spraviť konkrétne.</p></a>
 <a class="post-card" href="kolko-stoji-logo-a-vizualna-identita.html"><img class="card-art" src="../assets/img/kolko-stoji-logo-a-vizualna-identita.jpg" alt="Koľko stojí logo a vizuálna identita pre firmu" loading="lazy" decoding="async" width="800" height="450"><span class="post-meta">2026-08-01</span><h3>Koľko stojí logo a vizuálna identita pre firmu</h3><p>Reálne ceny loga a firemnej identity na slovenskom trhu, prečo AI generátor za 20 € niekedy stačí a inokedy nie, a kedy je branding zbytočný náklad.</p></a>
 <a class="post-card" href="automatizacia-v-malej-firme.html"><img class="card-art" src="../assets/img/automatizacia-v-malej-firme.jpg" alt="Automatizácia v malej firme: čo sa oplatí a čo je strata času" loading="lazy" decoding="async" width="800" height="450"><span class="post-meta">2026-07-31</span><h3>Automatizácia v malej firme: čo sa oplatí a čo je strata času</h3><p>Ako spoznať úlohu, ktorú sa oplatí automatizovať, koľko to reálne stojí, a prečo väčšina malých firiem začína na nesprávnom mieste.</p></a>
@@ -699,6 +752,8 @@ predt&yacute;m, než sa začne pracovať. Ak sa pr&aacute;ca uk&aacute;že ťaž
 n&aacute;š probl&eacute;m - nie upraven&aacute; fakt&uacute;ra. V&yacute;sledok je v&aacute;š vr&aacute;tane
 zdrojov&yacute;ch s&uacute;borov, bez mesačn&yacute;ch poplatkov a bez viazanosti.</p>
 </div>
+</div>
+</section>
 
 <h2 id="kontakt" class="section-title">Ozvite sa</h2>
 <form class="contact-form" action="https://formspree.io/f/xykrlrjz" method="POST">
