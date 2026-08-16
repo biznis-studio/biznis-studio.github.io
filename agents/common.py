@@ -481,9 +481,16 @@ SITE_CSS = """
        the logo on a 375px-wide screen - narrow the spacing instead of
        letting flexbox wrap mid-word. */
     .site-header-inner { padding: 0.7rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
-    .site-header nav { gap: 0.65rem; flex-wrap: wrap; }
-    .site-header nav a { font-size: 0.78rem; white-space: nowrap; }
-    .site-header nav a.nav-cta { padding: 0.4rem 0.75rem; }
+    .site-header nav { gap: 0.15rem 0.5rem; flex-wrap: wrap; }
+    /* Merane 2026-08-16 na 375px: odkazy v navigacii mali vysku 21px a CTA
+       33px. Odporucanie pre dotykovy terc je ~44px, takze sa do nich cez
+       palec trafi len s namahou. Vyska sa robi zvislym paddingom, nie
+       vacsim pismom - to by sa zas zalamovalo. */
+    .site-header nav a {
+      font-size: 0.78rem; white-space: nowrap;
+      padding: 0.62rem 0.35rem; display: inline-flex; align-items: center;
+    }
+    .site-header nav a.nav-cta { padding: 0.62rem 0.95rem; }
     .widget-row { grid-template-columns: 1fr; }
     .news-item { flex-wrap: wrap; gap: 0.35rem 0.8rem; }
     .news-item .news-date { margin-left: 0 !important; }
