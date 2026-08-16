@@ -214,3 +214,19 @@ The expert's risk is the mirror image: **they already have an answer and are loo
 silently skipped step is an assumption wearing the costume of a fact — and the tool offers the observation
 that would **refute** their hypothesis, not confirm it.
 Scenarios S14 (blocking) and S15 cover the two directions; threshold now 15/15.
+
+
+**The acceptance set found a real design defect on its first proper run — 2026-08-15, v0.4.0 → v0.4.1.**
+S7 failed: given an anodising defect, the model listed four out-of-catalogue causes, tagged them
+`NEOVERENÁ`, and **never said they were not from the catalogue**. Cause was the pack's design, not the
+model: v0.4.0 introduced two labels side by side without distinguishing them — `NEOVERENÁ` (is in the
+catalogue, not yet verified) and `MIMO KATALÓGU` (not in the catalogue at all). The model reached for the
+wrong one, defeating the whole point of labelling. Fixed in 0.4.1 with an explicit contrast section, the
+combined form `MIMO KATALÓGU, NEOVERENÁ`, and a standing rule that one does not substitute for the other.
+Re-run passed.
+**Second finding, about the test set itself:** S7's original input was one sentence practically identical
+to S13's but with the opposite expected output, so S7 could never have passed. When a rule is added, its
+scenario must be re-checked against neighbouring scenarios — **a scenario for the new rule must contain a
+genuinely discriminating observation, or it silently tests the older rule instead.**
+Run status: 6 of 15, all five blocking scenarios pass on model "Automaticky" (not GPT-5.6). S1/S2 passed
+on 0.2.1 and do not carry over — the pack changed materially since.
