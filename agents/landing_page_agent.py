@@ -609,6 +609,7 @@ asistentom a začal byť pracovn&yacute;m n&aacute;strojom.</p>
 <div class="stat"><b>Odovzd&aacute;me to v&aacute;m</b><span>vr&aacute;tane dokument&aacute;cie, nie ste na n&aacute;s viazan&iacute;</span></div>
 </div>
 
+{{IMG:sk-copilot-vrstva|Firemná AI nad Microsoft 365}}
 <h2 class="section-title">Pre&ccaron;o Copilot vo firm&aacute;ch nedodr&zcaron;&iacute;, čo sľubuje</h2>
 <p>Copilot vie odpovedať len z toho, k čomu m&aacute; pr&iacute;stup a čomu rozumie.
 V be&zcaron;nej firme naraz&iacute; na tri veci:</p>
@@ -671,6 +672,7 @@ o pol roka urob&iacute; niekto in&yacute;.</p>
 
 <h2 class="section-title">Ostatn&eacute; slu&zcaron;by</h2>
 
+{{IMG:custom-website-design-development|Webstránky}}
 <h2>Webstr&aacute;nky</h2>
 <p>Firemn&yacute; web, produktov&aacute; str&aacute;nka alebo landing page - navrhnut&eacute; na to,
 čo skutočne potrebujete, nie šabl&oacute;na s vložen&yacute;m logom. Rýchle načítanie,
@@ -679,6 +681,7 @@ funkčné na mobile, so z&aacute;kladn&yacute;m SEO, aby v&aacute;s vyhľad&aacu
 a funguj&uacute;ci web - nie grafick&yacute; n&aacute;vrh, ktor&yacute; mus&iacute; niekto in&yacute;
 naprogramovať.</p>
 
+{{IMG:automation-integrations|Automatizácia a integrácie}}
 <h2>Automatiz&aacute;cia a integr&aacute;cie</h2>
 <p>Ak niečo rob&iacute;te každ&yacute; t&yacute;ždeň ručne - prepisovanie &uacute;dajov medzi
 syst&eacute;mami, stavanie toho ist&eacute;ho reportu, kontrola zmien u dod&aacute;vateľa - d&aacute;
@@ -687,11 +690,13 @@ sa to nahradiť softv&eacute;rom, ktor&yacute; bež&iacute; s&aacute;m.</p>
 je približne sto hod&iacute;n ročne. Ak v&aacute;m to nedok&aacute;žeme vr&aacute;tiť, povieme to
 skôr, než začneme.</p>
 
+{{IMG:tailored-digital-product|Digitálne produkty na mieru}}
 <h2>Digit&aacute;lne produkty na mieru</h2>
 <p>Šabl&oacute;ny, kontroln&eacute; zoznamy, kalkulačky, sady scen&aacute;rov alebo intern&eacute;
 n&aacute;stroje - postaven&eacute; na v&aacute;š konkr&eacute;tny probl&eacute;m a vo vašom jazyku,
 nie generick&yacute; materi&aacute;l.</p>
 
+{{IMG:design-branding-visual-identity|Dizajn a firemná identita}}
 <h2>Dizajn a firemn&aacute; identita</h2>
 <p>Logo, farebn&yacute; a typografick&yacute; syst&eacute;m, marketingov&aacute; grafika,
 prezent&aacute;cie. Dostanete aj pravidl&aacute; použitia a funkčn&yacute; stylesheet, nie len
@@ -807,6 +812,14 @@ zdrojov&yacute;ch s&uacute;borov, bez mesačn&yacute;ch poplatkov a bez viazanos
         f'<p>{html.escape(a["description"])}</p></a>'
         for a in load_sk_posts())
     body = body.replace("SK_ARTICLES", cards)
+
+    # Obrazky k sekciam sluzieb. Do 2026-08-16 mala SK stranka styri obrazky a
+    # vsetky boli nahlady clankov dole - samotne sluzby ziadny, kym anglicka
+    # domovska ich mala 22. Fotky pritom v repozitari uz boli, len sa tu
+    # nepouzivali. depth=1, lebo stranka sedi v /sk/.
+    body = re.sub(r"\{\{IMG:([a-z0-9\-]+)\|([^}]+)\}\}",
+                  lambda m: card_art(m.group(1), m.group(2), depth=1),
+                  body)
 
     if SITE_BASE_URL:
         alt = (f'<link rel="canonical" href="{SITE_BASE_URL}/sk/">\n'
