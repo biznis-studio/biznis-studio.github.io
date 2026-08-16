@@ -32,6 +32,26 @@ Preto sa AI nepustí k ničomu, čo má následok. Toto je skutočný strop. Nie
 schopnosti modelu — **dôvera**. A dôvera nevzniká tým, že model je lepší; vzniká
 tým, že sa dá skontrolovať.
 
+## 2b. Ostrejšia formulácia toho istého (2026-08-16)
+
+Karpathy: klasické počítače automatizujú to, čo vieš **špecifikovať** — LLM
+automatizujú to, čo vieš **overiť**. Preto sú modely „zubaté": špičkové tam,
+kde existuje overiteľná odpoveď, slabé v nejednoznačnom.
+
+**Z toho plynie presnejšia veta o probléme, než sme mali:**
+
+> Firmy nevyužívajú AI na 5 % preto, že je slabá, ale preto, že **svoju prácu
+> nemajú v overiteľnej podobe.**
+
+A teda aj presnejšia veta o tom, čo predávame: **nie znalosť do AI, ale prevod
+firemného rozhodovania do overiteľnej podoby.** To je vec, ktorá odomkne
+všetko ostatné — a je to zhoda naprieč piatimi nezávislými zdrojmi
+(`docs/RESEARCH_12_UCTOV.md`).
+
+**Kvalifikačné sito, ktoré z toho vypadne:** *vieme pred začiatkom povedať, čo
+by dokázalo, že odpoveď je nesprávna?* Ak nie, pack nepredávame — nedá sa
+odovzdať ani obhájiť.
+
 ## 3. Čo predávame
 
 **Vrstvu, ktorá tie tri veci odstráni — do AI, ktorú firma už má.**
