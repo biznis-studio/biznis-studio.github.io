@@ -194,14 +194,19 @@ SITE_CSS = """
     font-size: clamp(2.1rem, 5vw, 2.7rem); font-weight: 800; letter-spacing: -0.035em;
     margin: 0 0 0.5rem; line-height: 1.12; text-wrap: balance;
   }
+  /* h2/h3 nemali line-height, takze dedili 1.65 z <body> - riadkovanie pre
+     odsek, nie pre nadpis. Viacriadkovy nadpis v karte sa tym roztiahol a
+     lamal sa nevyvazene ("Vase data / zostavaju u / vas" na tri riadky).
+     Zistene meranim 2026-08-16, nie odhadom. */
   h2 {
     font-size: 1.3rem; font-weight: 750; margin-top: 2.4rem; letter-spacing: -0.015em;
+    line-height: 1.22; text-wrap: balance;
   }
   main > h2::after, .card > h2:first-child::after {
     content: ""; display: block; width: 44px; height: 3px; border-radius: 3px;
     background: var(--gradient); margin-top: 0.45rem;
   }
-  h3 { font-size: 1.05rem; font-weight: 700; }
+  h3, h4 { font-size: 1.05rem; font-weight: 700; line-height: 1.25; text-wrap: balance; }
   .subtitle { color: var(--text-muted); margin: 0 0 1.75rem; font-size: 1.08rem; text-wrap: pretty; }
   .eyebrow {
     display: inline-flex; align-items: center; gap: 0.5rem;
@@ -284,6 +289,7 @@ SITE_CSS = """
     display: block; font-size: 1.55rem; font-weight: 800; letter-spacing: -0.02em;
     background: var(--gradient); -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
+   line-height: 1.15;
   }
   .stat span { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
   .product-grid {

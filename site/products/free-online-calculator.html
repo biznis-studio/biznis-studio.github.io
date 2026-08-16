@@ -141,14 +141,33 @@
     font-size: clamp(2.1rem, 5vw, 2.7rem); font-weight: 800; letter-spacing: -0.035em;
     margin: 0 0 0.5rem; line-height: 1.12; text-wrap: balance;
   }
+  /* h2/h3 nemali line-height, takze dedili 1.65 z <body>
+<header class="site-header">
+<div class="site-header-inner">
+<a class="brand" href="../index.html">Biznis<span>.studi<b>O</b></span></a>
+<nav>
+<a href="../work.html">Work</a>
+<a href="../index.html">Products</a>
+<a href="../tools/index.html">Tools</a>
+<a href="../news/index.html">Signals</a>
+<a href="../blog/index.html">Blog</a>
+<a href="../sk/index.html" lang="sk" hreflang="sk">Slovensky</a>
+<a class="nav-cta" href="../index.html#kontakt">Hire us</a>
+</nav>
+</div>
+</header> - riadkovanie pre
+     odsek, nie pre nadpis. Viacriadkovy nadpis v karte sa tym roztiahol a
+     lamal sa nevyvazene ("Vase data / zostavaju u / vas" na tri riadky).
+     Zistene meranim 2026-08-16, nie odhadom. */
   h2 {
     font-size: 1.3rem; font-weight: 750; margin-top: 2.4rem; letter-spacing: -0.015em;
+    line-height: 1.22; text-wrap: balance;
   }
   main > h2::after, .card > h2:first-child::after {
     content: ""; display: block; width: 44px; height: 3px; border-radius: 3px;
     background: var(--gradient); margin-top: 0.45rem;
   }
-  h3 { font-size: 1.05rem; font-weight: 700; }
+  h3, h4 { font-size: 1.05rem; font-weight: 700; line-height: 1.25; text-wrap: balance; }
   .subtitle { color: var(--text-muted); margin: 0 0 1.75rem; font-size: 1.08rem; text-wrap: pretty; }
   .eyebrow {
     display: inline-flex; align-items: center; gap: 0.5rem;
@@ -231,6 +250,7 @@
     display: block; font-size: 1.55rem; font-weight: 800; letter-spacing: -0.02em;
     background: var(--gradient); -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
+   line-height: 1.15;
   }
   .stat span { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
   .product-grid {
@@ -460,20 +480,6 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Do I need to install anything?", "acceptedAnswer": {"@type": "Answer", "text": "No - it runs directly in your browser. Nothing is uploaded or stored."}}, {"@type": "Question", "name": "Is my data saved anywhere?", "acceptedAnswer": {"@type": "Answer", "text": "No. All calculations happen locally in your browser; nothing is sent to a server."}}, {"@type": "Question", "name": "Is it free to use?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, no signup required."}}]}</script>
 </head>
 <body>
-<header class="site-header">
-<div class="site-header-inner">
-<a class="brand" href="../index.html">Biznis<span>.studi<b>O</b></span></a>
-<nav>
-<a href="../work.html">Work</a>
-<a href="../index.html">Products</a>
-<a href="../tools/index.html">Tools</a>
-<a href="../news/index.html">Signals</a>
-<a href="../blog/index.html">Blog</a>
-<a href="../sk/index.html" lang="sk" hreflang="sk">Slovensky</a>
-<a class="nav-cta" href="../index.html#kontakt">Hire us</a>
-</nav>
-</div>
-</header>
 <main>
 <span class="badge" style="background:#2563eb">calculator</span>
 <h1>Percentage & Markup Calculator</h1>
