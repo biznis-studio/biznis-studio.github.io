@@ -203,16 +203,51 @@ nie zlyhanie — vráť čiastkový výsledok a napíš, čo by chýbalo do konc
    nič zabiť a ekosystém len rastie. *Jeden súbor, hodina práce.*
 2. **U1 — vyhodnotenie sľubov.** Cron, ktorý raz týždenne vypíše, čo je po
    termíne a nesplnilo. **Prvý mechanizmus, ktorý vie povedať „toto zabi".**
-3. **Snímanie S1–S3 automaticky do `STATE.md`.** Fakty zvonku, denne, bez
-   toho, aby sa niekto pýtal.
+3. **Inbound dráha:** dopyt → kvalifikácia → návrh → ponuka → follow-up →
+   termín. Jediná časť akvizície, ktorá sa smie automatizovať.
 4. **Kontrolór v čistom kontexte** pre publikovaný text (tvrdenia, slovenčina).
 5. **Fan out výroby** — až keď je uzol dôveryhodný. Skôr je to rýchlejšia cesta
    k šíreniu chýb.
+6. **Snímanie S1–S6** — až posledné. Kým sú kotvy prázdne, je to telemetria
+   ničoho.
 
 **Bod 1 a 2 sú to celé.** Zvyšok je zrýchlenie; tieto dva sú jediné, ktoré
 menia to, že systém vie len povyšovať.
 
 ---
+
+## 6b. Korekcie po oponentúre (ChatGPT, 2026-08-16)
+
+Dve vecné opravy, ktoré prijímam, a jedna, ktorú neprijímam.
+
+**PRIJATÉ — snímanie je dnes divadlo.** Šesť senzorov vyzerá ako observability
+vrstva, ale bez objemu je to *„telemetria ničoho"*. Pri nule impresií a nule
+predajov meria šesť uzlov ticho a vracia zelené fajky. **Presúva sa z bodu 3
+poradia na koniec** — zapína sa až vtedy, keď je čo snímať.
+
+**PRIJATÉ — ablácia je zatiaľ predčasná.** Pri sérii 0 → 0 → 0 nehovorí
+vypnutie pravidla nič. *(S jednou výhradou: ablácia proti akceptačnej sade je
+riadené meranie, nie trhové dáta — takže predčasná je preto, že sme sadu ešte
+ani raz neodbehli celú, nie preto, že by závisela od trhu.)*
+
+**PRIJATÉ — preformulovanie cieľa.** „Celá firma autonómna" je architektonický
+cieľ, nie obchodný, a dá sa splniť dokonale pri firme bez zákazníkov. Nahrádza
+sa tvrdším:
+
+> **Minimalizovať počet ľudských rozhodnutí potrebných na dosiahnutie jedného
+> merateľného obchodného výsledku.**
+
+**NEPRIJATÉ — „odstrániť človeka z uzla ROZHODNUTIE".** V tom uzle sedia veci,
+ktoré sa automatizovať nesmú: záväzok voči zákazníkovi, výdavok, odoslaná
+správa. Automatizovať sa dá **výber spomedzi vopred schválených možností**
+s registrovanou hypotézou — nie samotné rozhodnutie vstúpiť do záväzku.
+Hranica zostáva tam, kde vzniká záväzok.
+
+**Zhoda v tom podstatnom:** akvizícia **outbound sa automatizovať nesmie** —
+agent optimalizovaný na „získaj zákazníkov" prirodzene skončí pri cold maile,
+scrapingu a DM, a bude sa pritom považovať za úspešný. **Inbound sa
+automatizovať dá ďaleko:** dopyt → kvalifikácia → návrh → cenová ponuka →
+follow-up → termín.
 
 ## 7. Čo tento návrh nerieši a treba to povedať
 
