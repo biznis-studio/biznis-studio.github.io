@@ -25,7 +25,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from agents.common import (canonical_url, card_art, markdown_lite_to_html,
+from agents.common import (_typografia, canonical_url, card_art, markdown_lite_to_html,
                             site_header_html)
 from agents.landing_page_agent import OG_IMAGE_TAGS, page_shell
 
@@ -175,8 +175,8 @@ def build_sk_posts() -> int:
                       f'<meta property="og:type" content="article">\n' + OG_IMAGE_TAGS)
         body = (f'<article class="post">\n{card_art(post["slug"], post["title"])}\n'
                 f'<span class="post-meta">{post["date"]}</span>\n'
-                f'<h1>{html.escape(post["title"])}</h1>\n'
-                f'<p class="subtitle">{html.escape(post["description"])}</p>\n'
+                f'<h1>{_typografia(html.escape(post["title"]))}</h1>\n'
+                f'<p class="subtitle">{_typografia(html.escape(post["description"]))}</p>\n'
                 f'{markdown_lite_to_html(post["body_md"])}\n'
                 f'{_sk_contact_html()}\n'
                 f'{_sk_related_html(post["slug"], posts)}\n'
@@ -262,8 +262,8 @@ def build_post(post: dict) -> None:
     body = f"""<article class="post">
 {card_art(post["slug"], post["title"])}
 <span class="post-meta">Blog · {_display_date(post["date"])}</span>
-<h1>{html.escape(post["title"])}</h1>
-<p class="subtitle">{html.escape(post["description"])}</p>
+<h1>{_typografia(html.escape(post["title"]))}</h1>
+<p class="subtitle">{_typografia(html.escape(post["description"]))}</p>
 {markdown_lite_to_html(post["body_md"])}
 {_en_contact_html()}
 <p><a href="index.html">&larr; All posts</a></p>

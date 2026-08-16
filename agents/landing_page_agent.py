@@ -334,9 +334,9 @@ def inject_intro_into_calculator(html_text: str, intro_html: str, meta_descripti
 # can never drift between the two.
 FORM_LABELS = {
     "en": ("Name", "Your email", "What do you need?", "Send",
-           "Goes straight to us - no account or signup needed on your end."),
+           "Goes straight to us \u2014 no account or signup needed on your end."),
     "sk": ("Meno", "V&aacute;š e-mail", "Čo potrebujete?", "Odoslať",
-           "Chod&iacute; priamo n&aacute;m - nepotrebujete žiadny &uacute;čet ani registr&aacute;ciu."),
+           "Chod&iacute; priamo n&aacute;m \u2014 nepotrebujete žiadny &uacute;čet ani registr&aacute;ciu."),
 }
 
 

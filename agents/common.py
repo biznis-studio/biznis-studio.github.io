@@ -787,6 +787,49 @@ def _link_sub(match: "re.Match[str]") -> str:
     return f'<a href="{href}"{extra}>{text}</a>'
 
 
+def _typografia(escaped_text: str) -> str:
+    """Typograficke upravy, ktore rozhoduju o tom, ci text vyzera profesionalne.
+
+    Zistene auditom 2026-08-16 naprieč vsetkymi clankami: slovenske mali 30-42
+    jednopismenovych predloziek, ktore mohli zostat na konci riadku (v slovencine
+    chyba), anglicke mali 8-28 rovnych uvodzoviek namiesto typografickych, a
+    vsetky pouzivali spojovnik " - " tam, kde patri pomlcka.
+
+    Bezi na UZ ESCAPOVANOM texte, takze &amp;, &lt; a &quot; su uz entity - preto
+    sa uvodzovky hladaju ako &quot;, nie ako ".
+    """
+    # 1) Nezalomitelna medzera za jednopismenovym slovom (a, i, k, o, s, u, v, z).
+    #    V slovencine nesmie takato predlozka alebo spojka zostat na konci riadku.
+    #    Opakuje sa, kym sa text meni: "a k tomu" ma dostat nezalomitelnu
+    #    medzeru pri OBOCH slovach, ale po prvej nahrade uz "k" nema pred sebou
+    #    medzeru, ale entitu - jeden prechod by ho preskocil.
+    for _ in range(4):
+        novy = re.sub(r"(^|[\s(\u201e]|&nbsp;)([aikosuvzAIKOSUVZ])\s+",
+                      lambda m: f"{m.group(1)}{m.group(2)}&nbsp;", escaped_text)
+        if novy == escaped_text:
+            break
+        escaped_text = novy
+
+    # 2) Spojovnik pouzity ako pomlcka -> skutocna pomlcka.
+    escaped_text = escaped_text.replace(" - ", " \u2014 ")
+
+    # 3) Rovne uvodzovky -> typograficke. Otvaracia je ta, pred ktorou je
+    #    zaciatok, medzera alebo zatvorka; ostatne su zatvaracie.
+    out, otvorena = [], True
+    i = 0
+    while i < len(escaped_text):
+        if escaped_text.startswith("&quot;", i):
+            pred = out[-1] if out else " "
+            if otvorena or pred in " ([\u2014\n":
+                out.append("\u201c"); otvorena = False
+            else:
+                out.append("\u201d"); otvorena = True
+            i += 6
+        else:
+            out.append(escaped_text[i]); i += 1
+    return "".join(out)
+
+
 def _inline_emphasis(escaped_text: str) -> str:
     """Convert **bold**, *italic* and [text](url) links to real markup,
     applied *after* html.escape() so the punctuation (not HTML-special) is
@@ -794,6 +837,7 @@ def _inline_emphasis(escaped_text: str) -> str:
     escaped text. Found this gap by shipping content that used *italic*
     emphasis and seeing literal asterisks on the live page; link support
     added for the blog, which curates external resources."""
+    escaped_text = _typografia(escaped_text)
     escaped_text = _LINK_RE.sub(_link_sub, escaped_text)
     escaped_text = _BOLD_RE.sub(r"<strong>\1</strong>", escaped_text)
     escaped_text = _ITALIC_RE.sub(r"<em>\1</em>", escaped_text)
@@ -855,11 +899,11 @@ def markdown_lite_to_html(md_text: str) -> str:
         if stripped.startswith("### "):
             flush()
             close_list()
-            out.append(f"<h3>{html.escape(stripped[4:])}</h3>")
+            out.append(f"<h3>{_typografia(html.escape(stripped[4:]))}</h3>")
         elif stripped.startswith("## "):
             flush()
             close_list()
-            out.append(f"<h2>{html.escape(stripped[3:])}</h2>")
+            out.append(f"<h2>{_typografia(html.escape(stripped[3:]))}</h2>")
         elif stripped.startswith("# "):
             flush()
             close_list()
