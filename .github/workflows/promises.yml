@@ -1,0 +1,54 @@
+name: Kontrola sľubov
+
+# Aktívum, ktoré nesplnilo svoj sľub, sa má stiahnuť. Doteraz to nešlo:
+# systém vedel len povyšovať — článok, stránka ani služba sa nedali zabiť,
+# lebo nebolo podľa čoho. Toto je jediné miesto, kde niekto povie "toto už
+# neplatí", a beží samo, nie keď si niekto spomenie.
+on:
+  schedule:
+    - cron: "0 6 * * 1"       # pondelok ráno
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  kontrola:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Vyhodnotiť sľuby
+        id: check
+        run: |
+          set +e
+          VYSTUP=$(python3 scripts/check_promises.py)
+          KOD=$?
+          echo "$VYSTUP"
+          {
+            echo "vystup<<KONIEC"
+            echo "$VYSTUP"
+            echo "KONIEC"
+          } >> "$GITHUB_OUTPUT"
+          echo "kod=$KOD" >> "$GITHUB_OUTPUT"
+          echo "### Kontrola sľubov" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          echo "$VYSTUP" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          exit 0
+
+      # Rozhodnutie je ľudské — automat ho nikdy nespraví sám. Založí frontu.
+      - name: Založiť issue, keď je čo rozhodnúť
+        if: steps.check.outputs.kod != '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VYSTUP: ${{ steps.check.outputs.vystup }}
+        run: |
+          NAZOV="Sľuby po termíne — $(date -u +%Y-%m-%d)"
+          TELO=$(printf '%s\n\n---\n\nPri každom bode rozhodni jedno:\n\n- **splnil** → nastav nový `datum_kontroly` v `state/promises.json`\n- **nesplnil** → nastav `"stav": "zabite"` a aktívum stiahni\n\nBez rozhodnutia zostáva v systéme niečo, čo si nezaslúžilo miesto.\n' "$VYSTUP")
+          gh issue create --title "$NAZOV" --body "$TELO" --label "rozhodnutie" 2>/dev/null \
+            || gh issue create --title "$NAZOV" --body "$TELO"
