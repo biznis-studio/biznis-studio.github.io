@@ -47,6 +47,18 @@ the gate and delete it from here** (`CLAUDE.md` lists what is enforced).
 - **Re-read only the delta.** After sending a message, read what changed, not
   the whole transcript.
 
+## Autonomy needs a leash made of measurement
+
+- **A measurable success condition is what licenses a long unattended run.**
+  *"Improve it"* drifts by step forty; *"cut p95 by 30% without changing the
+  outputs"* can run for hours because the agent can check itself at every step.
+  If the condition cannot be stated, work in short supervised steps instead.
+- **Set a budget before starting: steps, wall-clock, cost.** Running out of
+  budget is information, not failure — report the partial result and what it
+  would take to finish.
+- **Produce auditable artifacts, not assurances:** what was run, the diff, the
+  test output, the cost. "It's done" is not a result.
+
 ## Can it take done back?
 
 - **A system that can only promote is a burndown chart with extra steps.**

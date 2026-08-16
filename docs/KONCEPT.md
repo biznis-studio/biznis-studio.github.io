@@ -97,6 +97,25 @@ Asistent na mieru je konfigurácia. Toto je **výrobná linka**:
 To znamená, že to **vydrží po odovzdaní**. Konfigurácia sa rozpadne pri prvej
 zmene, ktorú urobí niekto iný. Toto sa nerozpadne ticho — brána spadne.
 
+## 4b. Odpoveď na námietku „načo to kupovať, keď sa modely každý mesiac zlepšujú"
+
+Doplnené 2026-08-16. Je to prvá otázka, ktorú položí každý technicky zdatný
+zákazník, a doteraz sme na ňu nemali vetu.
+
+**Vrstva prežije model.** Keď príde lepší model, nemeníme na nej nič — znalosť,
+postup, brána a akceptačná sada zostávajú a fungujú **lepšie**. Nestaviame okolo
+jedného modelu, staviame to, čo z každého modelu spraví použiteľný nástroj.
+
+Pre zákazníka to má konkrétny dopad, ktorý pozná z praxe: **Microsoft mu model
+pod Copilotom vymení bez opýtania.** Dnes to znamená, že sa mu správanie ticho
+zmení a nikto nevie, či k lepšiemu. S touto vrstvou to znamená, že sa pustí
+akceptačná sada a **vidno to na číslach.**
+
+To je zároveň odpoveď na pozorovanie z 8. 8., že vtedy bol postup spoľahlivý len
+pri jednom konkrétnom modeli. Úlohou vrstvy nie je diktovať model — je držať
+správanie rovnaké naprieč tým, čo tenant práve podáva, a **dať vedieť, keď ho
+nedrží.**
+
 ## 5. Čo je dnes dokázané a čo nie
 
 **Dokázané, existuje a beží:**
