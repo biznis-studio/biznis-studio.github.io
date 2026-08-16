@@ -357,7 +357,14 @@
   .widget-out b { display: block; font-size: 1.9rem; font-weight: 800; letter-spacing: -0.02em; }
   .widget-out span { font-size: 0.85rem; opacity: 0.92; }
   .widget-note { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.9rem; }
-  .post-list { display: grid; gap: 1.15rem; margin-top: 1.25rem; }
+  /* Mala 'display: grid' bez stlpcov, cize jeden stlpec. Pri 720px to
+     preslo, po zosirokom na 1080 (2026-08-16) bola z kazdej karty clanku
+     lista cez celu sirku so 135 znakmi na riadok. Rovnake stlpce ako
+     .product-grid, aby sa karty spravali rovnako v oboch jazykoch. */
+  .post-list {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.15rem; margin-top: 1.25rem;
+  }
   .post-meta {
     font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
     color: var(--brand);

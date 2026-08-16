@@ -357,7 +357,14 @@
   .widget-out b { display: block; font-size: 1.9rem; font-weight: 800; letter-spacing: -0.02em; }
   .widget-out span { font-size: 0.85rem; opacity: 0.92; }
   .widget-note { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.9rem; }
-  .post-list { display: grid; gap: 1.15rem; margin-top: 1.25rem; }
+  /* Mala 'display: grid' bez stlpcov, cize jeden stlpec. Pri 720px to
+     preslo, po zosirokom na 1080 (2026-08-16) bola z kazdej karty clanku
+     lista cez celu sirku so 135 znakmi na riadok. Rovnake stlpce ako
+     .product-grid, aby sa karty spravali rovnako v oboch jazykoch. */
+  .post-list {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.15rem; margin-top: 1.25rem;
+  }
   .post-meta {
     font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
     color: var(--brand);
@@ -558,7 +565,7 @@ unedited, linking straight back to the people who wrote them.</p>
 <p>We deliberately show only the headline, the publisher, and the date. Article text is never
 copied or republished here: every link goes to the original source, where it belongs.</p>
 <p class="form-note"><strong>Sources:</strong> Ars Technica, European Central Bank, IEEE Spectrum, MIT Technology Review, Nature, Phys.org (Quantum), US Federal Reserve, arXiv (cs.AI), arXiv (cs.LG), arXiv (quant-ph).<br>
-Last checked August 16, 2026 at 18:40 UTC.</p>
+Last checked August 16, 2026 at 18:41 UTC.</p>
 </div>
 </main>
 <footer><a class="brand" href="../index.html">Biznis<span>.studi<b>O</b></span></a><span>Built in public from real demand signals.</span><a href="../index.html">Products</a><a href="../tools/index.html">Free tools</a><a href="../news/index.html">Signals</a><a href="../blog/index.html">Blog</a><a href="../sk/index.html">Slovensky</a><a href="../credits.html">Photo credits</a><a href="https://github.com/biznis-studio/biznis-studio.github.io" target="_blank" rel="noopener">GitHub</a></footer>

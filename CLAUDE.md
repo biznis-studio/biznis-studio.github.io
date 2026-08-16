@@ -127,6 +127,28 @@ Without `SITE_BASE_URL` the build silently skips canonicals, sitemap and RSS.
   in `inject_intro_into_calculator()`. It has silently missed the RSS tag and a
   whole design revision this way.
 
+## Design rules — design carries the same weight as content
+
+**Owner, 2026-08-16: the design of the site matters as much as what it says.**
+We sell websites; ours is the reference. A page whose text is right and whose
+layout is wrong loses the reader before the argument lands — and it argues
+against us in the one place a prospect can check our work.
+
+- **Both language versions get the same treatment.** Same container width, same
+  type scale, same components. `/sk/` ran at 720px while `/` ran at 1080px for
+  weeks and nobody noticed until the owner looked. If a fix lands on one, check
+  the other in the same turn.
+- **Judge design by measuring, not by reading CSS.** Container width, characters
+  per line (aim 45-75), heading line-height, tap-target height at 375px,
+  horizontal overflow. Every design defect found so far was invisible in the
+  source and obvious in a measurement.
+- **Beware the browser cache when verifying.** A measurement once said a fix had
+  not applied when the deployed CSS was already correct.
+- Headings are not paragraphs: give every heading level an explicit
+  `line-height` (~1.15-1.25). Missing ones inherit body 1.65 and sprawl.
+- A grid needs `grid-template-columns`. `display: grid` alone is one column,
+  which only looks acceptable until the container gets wider.
+
 ## Content rules — these are not style preferences
 
 - **Never invent evidence.** No testimonials, client logos, review counts or

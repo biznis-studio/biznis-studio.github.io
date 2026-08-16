@@ -88,6 +88,14 @@ the gate and delete it from here** (`CLAUDE.md` lists what is enforced).
   mistake. The link syntax supports `http(s)`, `*.html`, directory paths
   (`/sk/#kontakt`) and bare anchors; anything else silently stays plain text.
 
+## Design
+
+- **Design carries the same weight as content** (owner, 2026-08-16). We sell
+  websites; ours is the reference a prospect checks.
+- **Measure, don't read CSS:** container width, characters per line (45-75),
+  heading line-height, tap targets at 375px, horizontal overflow.
+- **Fix both language versions in the same turn**, then verify both.
+
 ## Publishing
 
 - **A published article without a hero image is an unfinished article.**
