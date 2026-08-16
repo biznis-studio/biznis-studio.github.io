@@ -43,8 +43,7 @@ skipped under pressure.
 Read `memory/06_Index.md`, then `memory/00_Project.md` through `03_Tasks.md`,
 then **`memory/07_Constraints.md`** — the short imperative list of what has
 already gone wrong. `04_Lessons.md` is the archive behind it and is read only
-when a specific incident matters
-(~1,800 tokens total) before anything else. That is the whole current state —
+when a specific incident matters. That is the whole current state —
 do not read `docs/*.md` unless the task needs the specific detail those
 files hold (full history, full decision reasoning).
 
@@ -116,8 +115,11 @@ Without `SITE_BASE_URL` the build silently skips canonicals, sitemap and RSS.
 - **Do not advertise weakness either.** "We are new, we have no clients" is not
   honesty, it is bad marketing. State what is true and demonstrable; frame risk
   handling (fixed price, written scope) as the guarantee it is.
-- **Every service page needs a "what we do not offer" section.** Only offer what
-  can genuinely be delivered. Boundaries are what make the rest credible.
+- **State the boundaries — but never as a list of what the customer will not get**
+  (owner, 2026-08-16: nobody is won over by being told what they are missing).
+  Same substance, positive form: *"we work with the licences you already have"*,
+  not *"we don't sell licences"*. The section is called
+  **"Rozsah máte napísaný ešte pred podpisom"**.
 - **Do not mention that any of this is AI-generated or automated.** Not a
   selling point; the owner has asked for it to stay out of visitor-facing copy.
 - **Proofread Slovak before publishing.** `/sk/` and `content/sk/`. Bad Slovak
