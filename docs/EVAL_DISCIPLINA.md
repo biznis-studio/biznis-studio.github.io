@@ -78,6 +78,52 @@ modelov, nie správnosť.
 
 ---
 
+## 3b. Hodnotenie vracia SMEROVANIE, nie známku
+
+Doplnené 2026-08-16 (Ichigo, *Graph Engineering*). Dve veci, ktoré menia tvar
+výstupu z hodnotenia:
+
+**a) Najprv deterministická kontrola, až potom model.** *Nepoužívaj model na to,
+čo vie obyčajný kód.* Či odpoveď obsahuje povinný štítok, či menuje príčinu
+mimo katalógu, či navrhla opatrenie — to je hľadanie reťazca, nie úsudok.
+Model nech rieši len to, čo sa kódom overiť nedá. *(Presne to som 15. 8. robil
+ručne regulárnymi výrazmi — patrí to do skriptu.)*
+
+**b) Verifikátor nevracia „vyhovel", vracia rozhodnutie, čo ďalej.** Namiesto
+*„vyzerá to dobre"*:
+
+```json
+{ "pass": false,
+  "kod": "Z2",
+  "co": "štyri príčiny mimo katalógu bez označenia",
+  "dalej": "doplniť rozlíšenie štítkov do packu" }
+```
+
+Kód je z taxonómie `Z1`–`Z6` vyššie. **Tým sa zo zoznamu zlyhaní stane zoznam
+úloh** — a opakujúci sa kód je zadanie na opravu, nie pocit.
+
+## 3c. Čo v našej procedúre chýba — päť koncov, nie dva
+
+Článok žiada, aby mal každý krok **päť možných koncov**, nie dva:
+
+| Koniec | Máme? |
+|---|---|
+| **Pass** — výstup spĺňa, čo má | áno |
+| **Retry** — ten istý krok to vie napraviť | áno |
+| **Reroute** — inam, iný rozlišovač | áno (`NEOVERENÁ` + ďalšia otázka) |
+| **Escalate** — musí rozhodnúť človek | **NIE** |
+| **Stop** — pokračovať by stálo viac, než to prinesie | **NIE** |
+
+**To sú dve skutočné diery v diagnostike, nie v evaluácii.** Dnes procedúra
+nikdy nepovie *„na toto už moje otázky nestačia, treba metalografiu"* ani
+*„toto rieš s technológom"*. Ide len dopredu, kým sa nevyčerpajú kroky.
+
+Súvisí s tým aj rozpočet: technik má konečný čas a procedúra ho nesleduje.
+Článok to hovorí stroho — **pravidlo zastavenia sa pridáva skôr než opakovanie.**
+
+**Je to zmena packu, takže ju nerobím sám** — pack je zmrazený a rozhodnutie
+je majiteľovo. Zapísané ako návrh, nie ako vykonaná zmena.
+
 ## 4. Čo to mení v ponuke
 
 Toto je predajné, nie interné:
