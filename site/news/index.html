@@ -140,6 +140,13 @@
     font-weight: 700; box-shadow: var(--shadow);
   }
   main { max-width: 720px; margin: 0 auto; padding: 3rem 1.25rem 4rem; }
+  /* Dlzka riadku. Merane 2026-08-16 na 1440px: slovenska stranka mala median
+     85 znakov na riadok (22 z 30 odsekov nad 80, maximum 98), anglicka 77.
+     Pohodlne citanie je zhruba 45-75; nad 80 sa oko na konci riadku straca a
+     hlada zaciatok dalsieho. Obmedzuje sa MIERA TEXTU, nie kontajner - nadpisy,
+     karty, tabulky a obrazky maju nadalej celu sirku. */
+  main > p, main > ul, main > ol, article.post > p, article.post > ul,
+  .card > p, .card > ul { max-width: 62ch; }
   main.wide { max-width: 1080px; }
   h1 {
     font-size: clamp(2.1rem, 5vw, 2.7rem); font-weight: 800; letter-spacing: -0.035em;
@@ -551,7 +558,7 @@ unedited, linking straight back to the people who wrote them.</p>
 <p>We deliberately show only the headline, the publisher, and the date. Article text is never
 copied or republished here: every link goes to the original source, where it belongs.</p>
 <p class="form-note"><strong>Sources:</strong> Ars Technica, European Central Bank, IEEE Spectrum, MIT Technology Review, Nature, Phys.org (Quantum), US Federal Reserve, arXiv (cs.AI), arXiv (cs.LG), arXiv (quant-ph).<br>
-Last checked August 16, 2026 at 18:07 UTC.</p>
+Last checked August 16, 2026 at 18:29 UTC.</p>
 </div>
 </main>
 <footer><a class="brand" href="../index.html">Biznis<span>.studi<b>O</b></span></a><span>Built in public from real demand signals.</span><a href="../index.html">Products</a><a href="../tools/index.html">Free tools</a><a href="../news/index.html">Signals</a><a href="../blog/index.html">Blog</a><a href="../sk/index.html">Slovensky</a><a href="../credits.html">Photo credits</a><a href="https://github.com/biznis-studio/biznis-studio.github.io" target="_blank" rel="noopener">GitHub</a></footer>
