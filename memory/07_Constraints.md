@@ -80,6 +80,12 @@ the gate and delete it from here** (`CLAUDE.md` lists what is enforced).
 
 ## Publishing
 
+- **A published article without a hero image is an unfinished article.**
+  The image is not fetched automatically — the slug must be added to
+  `agents/image_agent.QUERIES` first, and the full (non-`--fast`) build with
+  `PEXELS_API_KEY` has to run. One article shipped without one for two weeks
+  before anyone noticed.
+
 - Slovak quotes are `„text“` — never straight ASCII. Five articles shipped wrong.
 - Proofread Slovak before it goes out; bad Slovak costs more than no Slovak page.
 - Never invent evidence: no testimonials, logos, ratings or review counts.

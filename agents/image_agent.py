@@ -130,6 +130,10 @@ QUERIES = {
         "person planning notes laptop"],
     "automatizacia-v-malej-firme": ["gears machinery automation", "conveyor factory automation",
         "industrial robot arm"],
+    "kolko-stoji-logo-a-vizualna-identita": ["graphic designer sketching logo",
+        "designer drawing brand sketches", "design studio pencil sketches paper"],
+    "overovanie-vam-zoberie-uspory": ["person reviewing documents magnifying glass",
+        "proofreading paperwork desk close up", "person checking documents office desk"],
     "hero": ["office workspace desk", "modern office interior", "desk laptop window"],
 }
 
@@ -294,7 +298,29 @@ def fetch_one(slug: str, queries, size: tuple) -> Optional[dict]:
     return None
 
 
+def _warn_missing_queries() -> None:
+    """Nahlas kazdy publikovany clanok, ktory nema svoj dotaz v QUERIES.
+
+    Existuje preto, ze clanok o logu isiel von 2026-08-01 bez obrazka a
+    vsimlo sa to az 2026-08-16. Obrazok sa nefetchne sam od seba: slug musi
+    byt v QUERIES. Toto je jedina vec, ktora to prezradi skor nez citatel.
+    """
+    from pathlib import Path as _P
+    import re as _re
+    root = _P(__file__).resolve().parent.parent
+    slugs = set()
+    for f in (root / "content" / "sk").glob("*.md"):
+        slugs.add(_re.sub(r"^\d{4}-\d{2}-\d{2}-", "", f.stem))
+    for f in (root / "content" / "blog").glob("*.md"):
+        slugs.add(_re.sub(r"^\d{4}-\d{2}-\d{2}-", "", f.stem))
+    chyba = sorted(s for s in slugs if s and s not in QUERIES)
+    if chyba:
+        print("[image_agent] POZOR - clanok bez dotazu v QUERIES, teda aj bez "
+              "obrazka: " + ", ".join(chyba))
+
+
 def run(force: bool = False) -> int:
+    _warn_missing_queries()
     IMG_DIR.mkdir(parents=True, exist_ok=True)
     CREDITS_FILE.parent.mkdir(parents=True, exist_ok=True)
     credits = {}
