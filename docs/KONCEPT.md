@@ -50,6 +50,20 @@ dokumenty. Postup napíše tiež. Ale nikto nedodáva **dôkaz, že to funguje a
 po zmene stále funguje.** Bez neho je to ďalší chatbot, ktorému firma nezverí
 nič dôležité — čiže presne tých 5 %.
 
+## 3b. Nezávislé potvrdenie tejto tézy
+
+Andrew Ng, *AI Engineering Skills Map* (14. 8. 2026), syntéza z vyše 10 000
+pracovných inzerátov a rozhovorov: rozdiel medzi AI a bežným softvérom je
+**nepredvídateľný výstup**, preto je jadrom remesla vedieť správanie **merať,
+usmerňovať a riadiť** — cez disciplinované evaly a analýzu chýb.
+
+**Je to tá istá vec z druhej strany.** My hovoríme firme: *AI nepustíte
+k ničomu s následkom, lebo nikto neoverí odpoveď.* Trh práce hovorí: *kto to
+vie merať, je vzácny.* Firma, ktorá tú zručnosť nemá interne, si ju buď najme,
+alebo zostane pri mailoch.
+
+Podrobne, aj s tým, čo nám ešte chýba: `docs/EVAL_DISCIPLINA.md`.
+
 ## 4. Prečo to nie je „AI asistent na mieru"
 
 Asistent na mieru je konfigurácia. Toto je **výrobná linka**:
