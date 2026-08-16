@@ -60,6 +60,17 @@
       "datum_kontroly": "2026-10-15",
       "stav": "bezi",
       "poznamka": "Prva vec v novej pozicii (overitelnost). SERP na technicke dotazy drzi Microsoft; obchodne ramovanie drzia SK tech media, nie poskytovatelia sluzieb - tam je medzera."
+    },
+    {
+      "id": "en-clanok-test-ai-assistant",
+      "typ": "clanok",
+      "co": "EN clanok: How to test an AI assistant before you let staff use it",
+      "url": "/blog/test-ai-assistant-before-staff-use-it.html",
+      "vzniklo": "2026-08-16",
+      "slub": "aspon 30 organickych impresii a aspon 1 klik v Search Console na dotazy typu 'test AI assistant before' DO 2026-10-15, inak anglicka cast novu poziciu necieli spravne a dalsi EN clanok sa nepise",
+      "datum_kontroly": "2026-10-15",
+      "stav": "bezi",
+      "poznamka": "Prvy EN clanok v novej pozicii. Cielovy dotaz 'how to test an AI assistant before you let staff use it' - SERP drzia male chatbot agentury (pegamento.nl, parslabs.org, inspectagents.com), ziadny Microsoft ani velky vydavatel; vsetky odpovedaju pre zakaznicke chatboty (CSAT, completion rate), nie pre odbornu pracu. Dotazy so slovom 'Copilot' zahodene - drzi ich Microsoft Support a Copilot Studio."
     }
   ]
 }

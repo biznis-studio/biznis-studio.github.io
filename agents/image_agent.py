@@ -110,6 +110,8 @@ QUERIES = {
     "scope-creep-by-the-numbers": ["calculator money", "coins calculator", "finance desk"],
     "seven-places-worth-reading": ["books library", "bookshelf books", "reading book"],
     "pricing-digital-products": ["price tag", "shopping price", "sale tag"],
+    "test-ai-assistant-before-staff-use-it": ["quality inspection checklist clipboard",
+        "engineer checking test results laboratory", "person inspecting parts factory desk"],
     # --- tools ---
     "machinery-regulation-digital-instructions": ["industrial machine factory floor",
         "cnc machine manufacturing", "industrial machinery equipment"],

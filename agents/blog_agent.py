@@ -119,6 +119,21 @@ def _sk_related_html(slug: str, posts: list[dict], limit: int = 3) -> str:
             f'<ul>\n{items}\n</ul>\n</div>')
 
 
+def _en_contact_html() -> str:
+    """Formular priamo pod anglickym clankom.
+
+    SK clanky ho dostali 2026-08-16, anglickych sest zostalo bez neho - takze
+    pravidlo "kazdy clanok nesie formular" platilo len na polovicu webu.
+    """
+    from agents.landing_page_agent import FORMSPREE_ENDPOINT, contact_form_html
+    if not FORMSPREE_ENDPOINT:
+        return ""
+    return ('<h2 id="kontakt" class="section-title">Tell us what you need</h2>\n'
+            '<p>A short description is enough to start. We reply with what we '
+            'would do, what it costs, and what we would need from you.</p>\n'
+            + contact_form_html())
+
+
 def _sk_contact_html() -> str:
     """Formular priamo pod clankom.
 
@@ -250,6 +265,7 @@ def build_post(post: dict) -> None:
 <h1>{html.escape(post["title"])}</h1>
 <p class="subtitle">{html.escape(post["description"])}</p>
 {markdown_lite_to_html(post["body_md"])}
+{_en_contact_html()}
 <p><a href="index.html">&larr; All posts</a></p>
 </article>"""
     page = page_shell(post["title"], post["description"], body)
