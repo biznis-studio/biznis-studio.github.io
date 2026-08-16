@@ -12,11 +12,11 @@ Aktualizované: **2026-08-16**
 
 | Vec | Stav | Ďalší krok |
 |---|---|---|
-| Akceptačná sada packu | **8 zo 17 odbehnutých**, S17 zlyhal (Z7) | dobehnúť 9 scenárov v Copilote |
+| Akceptačná sada packu | **8 zo 17**, S17 zlyhal (Z7) · **6 z 9 zvyšných bolo nesplniteľných, prepísané** | odbehnúť 9 podľa `tests/vysledky/2026-08-16_priprava_dobehnutia.md` |
 | Pack v0.5.0 | **NEVYDANÝ** — `vydane: false` v MANIFESTe | až po 17/17 |
-| Nová pozícia na webe | SK má 1 článok + službu, **EN nemá nič** | EN článok |
+| Nová pozícia na webe | SK 1 článok + služba, **EN 1 článok** (publikovaný) | čakať na sľuby (15. 10.) |
 | Inbound dráha | skill `/dopyt` hotový | napojiť na to, čo chodí z formulára |
-| Sľuby aktív | 6 aktív, žiadne po termíne | prvý beh kontroly pondelok |
+| Sľuby aktív | 7 aktív, žiadne po termíne | týždenná kontrola beží sama |
 
 ## Kotvy — čo hovorí realita
 
@@ -53,6 +53,6 @@ formulár.
 
 ## Posledný beh
 
-2026-08-16 · publikovaný prvý článok v novej pozícii · formuláre doplnené na
+2026-08-16 · fan out na štyroch vetvách · publikované 2 články (SK+EN) · formuláre pod všetky články oboch jazykov · prvý článok v novej pozícii · formuláre doplnené na
 domovskú, work.html a pod články · „Hire us" vedie na formulár · SK stránka
 zo 4 na 11 obrázkov · zavedený register sľubov a týždenná kontrola.
