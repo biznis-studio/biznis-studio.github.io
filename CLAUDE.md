@@ -1,5 +1,43 @@
 # Biznis — working notes
 
+## What this business is (read before proposing anything)
+
+**LLMs automate what you can verify, not what you can specify.** Companies use AI
+at ~5% not because it is weak but because **their work is not in verifiable form**.
+We sell that conversion. The pack is a delivery format, not the product.
+Full reasoning: `docs/KONCEPT.md`, `docs/RESEARCH_12_UCTOV.md`.
+
+**Qualification filter — apply before building anything for anyone:**
+*can we say in advance what would prove the answer wrong?* If not, don't build it.
+
+**Four rules that override enthusiasm:**
+
+1. **A verifier may say something is broken. It must never decide what gets built.**
+   Five pack versions once shipped while the knowledge never changed, because the
+   gate and the test set were allowed to generate the work.
+2. **Never author domain content.** Derive it from the expert's own file. Every
+   time Claude invented decision content it had to be rewritten from scratch.
+3. **Whoever produced the work does not grade it.** Grading runs in a clean
+   context given only the output and the criteria.
+4. **Most of our test set proves stability, not correctness.** Only *anchors*
+   prove correctness — closed cases with an independently known outcome, an
+   intervention that actually stopped, an expert objection from the shop floor.
+
+**Deleting is allowed and required — ablation:** turn a rule off, re-run the set;
+if nothing degrades, delete the rule. Without this the pack can only grow.
+
+## What is enforced vs advisory
+
+Everything above is advisory. These are **enforced** and cannot be talked around:
+
+| Mechanism | Blocks |
+|---|---|
+| Stop hook `.claude/hooks/verify_before_stop.sh` | ending a turn while the site audit fails |
+| `quality-packs/build/build_pack.py --check` (local + CI) | catalogue inconsistency · **a frozen rule missing from the pack** · **customer data in the repo** · **a VERSION with no eval record naming it and stating `DÔVOD ZMENY:`** |
+
+If a rule matters and is not in that table, either enforce it or accept it will be
+skipped under pressure.
+
 ## Start here (any new session)
 
 Read `memory/06_Index.md` then `memory/00_Project.md` through `03_Tasks.md`

@@ -10,6 +10,12 @@ Terms        → 05_Terminology.md
 Procedures (read when running them, not by default):
 .claude/skills/ship/SKILL.md · .claude/skills/find-opportunities/SKILL.md
 
+Product concept — read when the task touches what we sell or how packs are built:
+docs/KONCEPT.md (what the business is) · docs/PONUKA.md (the offer) ·
+docs/PACK_PLAYBOOK.md (how to build one, incl. the stopping rule) ·
+docs/ARCHITEKTURA_COPILOT_GITHUB.md (method on GitHub, data in the tenant) ·
+docs/EVAL_DISCIPLINA.md · docs/GRAF_A_KOTVY.md · docs/RESEARCH_12_UCTOV.md
+
 Full docs (read only when the task needs the detail):
 docs/TASKBOARD.md · docs/DECISION_JOURNAL.md · docs/CONSTRAINT_LOG.md ·
 docs/ROADMAP.md · docs/COMPANY_SCOREBOARD.md · docs/STRATEGIC_REVIEWS.md ·
