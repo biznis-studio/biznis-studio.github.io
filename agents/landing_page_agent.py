@@ -113,7 +113,7 @@ def footer_html(is_index: bool, lang: str) -> str:
 
 
 def page_shell(title: str, meta_description: str, body_html: str, is_index: bool = False,
-               lang: str = "en", canonical_path: str = "") -> str:
+               lang: str = "en", canonical_path: str = "", wide: Optional[bool] = None) -> str:
     """Render a full page.
 
     `is_index` means "lives at the site root, uses the wide layout" - it is
@@ -128,7 +128,13 @@ def page_shell(title: str, meta_description: str, body_html: str, is_index: bool
         f'<meta name="google-site-verification" content="{html.escape(GOOGLE_SITE_VERIFICATION)}">\n'
         if GOOGLE_SITE_VERIFICATION else ""
     )
-    main_class = ' class="wide"' if is_index else ""
+    # `wide` bolo dlho zrastene s `is_index`, takze stranka mohla byt siroka
+    # len ked lezala v koreni. Slovenska sluzobna stranka je v /sk/, takze
+    # dostala uzkych 720px, kym jej anglicky protajsok mal 1080 - dve sirky
+    # pre tu istu vec. Merane 2026-08-16, nahlasene majitelom.
+    if wide is None:
+        wide = is_index
+    main_class = ' class="wide"' if wide else ""
     # The homepage doesn't go through seo_agent.py's per-product inject()
     # step, so it's the only page that needs its canonical/OG tags added
     # right here rather than post-hoc.
@@ -840,7 +846,7 @@ zdrojov&yacute;ch s&uacute;borov, bez mesačn&yacute;ch poplatkov a bez viazanos
         "Vyu\u017eite firemn\u00fd Copilot naplno | Biznis",
         "Firmy platia za Microsoft 365 Copilot a pou\u017e\u00edvaj\u00fa zlomok toho, \u010do vie. "
         "Postav\u00edme nad n\u00edm \u0161trukt\u00faru pre jeden proces. D\u00e1ta zost\u00e1vaj\u00fa u v\u00e1s.",
-        body, lang="sk")
+        body, lang="sk", wide=True)
     if alt:
         idx = page.lower().find("</head>")
         if idx != -1:
