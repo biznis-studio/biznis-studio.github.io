@@ -246,3 +246,25 @@ set is **not an eval**: single manual run, binary pass/fail, no error taxonomy, 
 passed once on a nondeterministic model means "it worked at least once", which is weaker than what we
 recorded. Fix specified in `docs/EVAL_DISCIPLINA.md`: repeat runs with a pass *rate* (blocking = 5/5),
 error codes Z1–Z6 instead of free text, model-assisted grading with mandatory human sampling.
+
+
+**Topology does not buy truth — you need anchors. 2026-08-16, Kopadze "Graph Engineering".**
+The article's own opening claim is that most people use AI at 5–10% of its capability — i.e. the product
+thesis is a widely held view in the field, not our insight. Commercially good news: the market does not
+need convincing that the problem exists.
+Its deepest point lands on what we built: a system where every node checks another node, all reading from
+the same source, is **consistent and unverified** — it fails like a single loop, later and with more green
+ticks. Our pack, gate, scenarios and grading were all authored by Claude, so most of the acceptance set
+**catches regression but does not prove correctness**. Only anchors prove correctness: closed complaints
+whose real cause is independently known, an intervention that actually stopped (AMARI/2650), an expert
+objection from the shop floor, and CW35–36 switching to original packaging.
+**Three practices we were violating, now fixed:** (1) whoever ran a scenario also graded it in one context
+— grading now runs in a clean context given only the transcript and criteria; (2) the 15 scenarios have no
+edges between them yet ran serially — they fan out, which is what makes Ng's repeat runs affordable
+(15 × 5 = 75); (3) a truncated response was almost graded as complete — returned answers are now counted
+against expected.
+Also recorded: three **frozen rules** (no cause without a discriminating observation · always label
+out-of-catalogue · never invent sources) — frozen because they are exactly what an optimiser would bend to
+look more helpful.
+**Where a graph would be wrong for us:** building a pack (exploratory, sequential, approval each step) and
+diagnosing one case (the cost-ordered sequence is a real chain). Diagnosis is a loop, and a loop is correct.
