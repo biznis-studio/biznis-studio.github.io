@@ -1,3 +1,9 @@
+> **This file is the ARCHIVE, not the loaded memory.** It is read only when a
+> specific incident matters. The operative rules live in `07_Constraints.md`
+> (loaded every session) or, better, in the gate — see `CLAUDE.md`.
+> Discovered 2026-08-16: 47 lessons had been written here while nothing read
+> the file at session start. A constraint that is not loaded is not a constraint.
+
 # Lessons (reusable only, max 10 lines each)
 
 **Rebuilding a page wipes its SEO markup.** `build_page()` resets to pre-`seo_agent` state.

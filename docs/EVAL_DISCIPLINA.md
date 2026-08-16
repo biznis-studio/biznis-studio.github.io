@@ -67,6 +67,7 @@ Prvá verzia priamo z toho, čo sa už reálne stalo:
 | `Z4` | preskočený krok bez uvedenia dôvodu | riziko |
 | `Z5` | navrhol opatrenie pred potvrdením príčiny | riziko |
 | `Z6` | vymyslený zdroj, citácia alebo číslo | riziko |
+| `Z7` | **obchodný záver namiesto diagnostického** | reálny prípad 8/2026 · znovu 2026-08-16, S17 |
 
 Kategória, ktorá sa opakuje, je zadanie na opravu. Kategória, ktorá sa nikdy
 neobjaví, je pravidlo, ktoré si možno mohol odpustiť.

@@ -4,7 +4,8 @@ Project      → 00_Project.md
 Decisions    → 01_Decisions.md   (index; full: docs/DECISION_JOURNAL.md)
 Context      → 02_Context.md
 Tasks        → 03_Tasks.md       (full history: docs/TASKBOARD.md)
-Lessons      → 04_Lessons.md
+Constraints  → 07_Constraints.md  (LOADED EVERY SESSION - imperatives)
+Lessons      → 04_Lessons.md       (archive: why each constraint exists)
 Terms        → 05_Terminology.md
 
 Procedures (read when running them, not by default):

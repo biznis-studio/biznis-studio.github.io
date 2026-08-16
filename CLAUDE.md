@@ -40,7 +40,10 @@ skipped under pressure.
 
 ## Start here (any new session)
 
-Read `memory/06_Index.md` then `memory/00_Project.md` through `03_Tasks.md`
+Read `memory/06_Index.md`, then `memory/00_Project.md` through `03_Tasks.md`,
+then **`memory/07_Constraints.md`** — the short imperative list of what has
+already gone wrong. `04_Lessons.md` is the archive behind it and is read only
+when a specific incident matters
 (~1,800 tokens total) before anything else. That is the whole current state —
 do not read `docs/*.md` unless the task needs the specific detail those
 files hold (full history, full decision reasoning).
