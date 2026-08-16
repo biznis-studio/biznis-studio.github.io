@@ -230,3 +230,19 @@ scenario must be re-checked against neighbouring scenarios — **a scenario for 
 genuinely discriminating observation, or it silently tests the older rule instead.**
 Run status: 6 of 15, all five blocking scenarios pass on model "Automaticky" (not GPT-5.6). S1/S2 passed
 on 0.2.1 and do not carry over — the pack changed materially since.
+
+
+**A verifier may say something is broken; it must never decide what gets built — 2026-08-16.**
+Owner's frustration ("točíme sa v bludnom kruhu") was correct and Andrew Ng's *AI Engineering Skills Map*
+(14 Aug 2026) names the missing skill precisely: **shaping the build** — when agents deliver to a spec,
+the engineering work moves to deciding what belongs in the spec. Between 12 and 16 Aug the quality pack
+went through five versions while `source/` — the actual knowledge — never changed once, because a working
+verifier was allowed to generate the work: gate → scenario → rule collision → new rule → new scenario.
+It looks like progress because every step is correct and ends green.
+**The same post also validates the product thesis and exposes a real gap.** Ng: AI differs from ordinary
+software in having unpredictable output, so the craft is measuring and governing behaviour via disciplined
+evals and error-analysis loops. That is our differentiator stated from the other side — but our acceptance
+set is **not an eval**: single manual run, binary pass/fail, no error taxonomy, no trend. A scenario that
+passed once on a nondeterministic model means "it worked at least once", which is weaker than what we
+recorded. Fix specified in `docs/EVAL_DISCIPLINA.md`: repeat runs with a pass *rate* (blocking = 5/5),
+error codes Z1–Z6 instead of free text, model-assisted grading with mandatory human sampling.
