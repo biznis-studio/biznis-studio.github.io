@@ -846,7 +846,7 @@ zdrojov&yacute;ch s&uacute;borov, bez mesačn&yacute;ch poplatkov a bez viazanos
         "Vyu\u017eite firemn\u00fd Copilot naplno | Biznis",
         "Firmy platia za Microsoft 365 Copilot a pou\u017e\u00edvaj\u00fa zlomok toho, \u010do vie. "
         "Postav\u00edme nad n\u00edm \u0161trukt\u00faru pre jeden proces. D\u00e1ta zost\u00e1vaj\u00fa u v\u00e1s.",
-        body, lang="sk", wide=True)
+        body, lang="sk")
     if alt:
         idx = page.lower().find("</head>")
         if idx != -1:
