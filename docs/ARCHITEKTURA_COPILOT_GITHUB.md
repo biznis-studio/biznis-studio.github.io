@@ -59,6 +59,29 @@ nezapisuje. Odpoveď **nie je GitHub** — tam by išli dáta.
 | priebeh a záver prípadu | **do ich úložiska** (SharePoint zoznam, Excel, Word) | nikdy k nám |
 | nová príčina / rozlíšenie objavené na prípade | **do GitHubu** — ale **len zovšeobecnené**, bez zákazníka, čísla a kontextu | toto je legitímny prínos naspäť do metódy |
 
+### Stavový súbor — chýbajúci diel, ktorý rieši amnéziu Copilota
+
+Doplnené 2026-08-16. *„Agent medzi behmi zabudne. Súbor nie."*
+
+Copilot si nepamätá nič medzi konverzáciami — to je najstaršia výhrada k celému
+nápadu. Odpoveď nie je pamäť modelu, ale **jeden markdown alebo Excel súbor
+v ich úložisku**, ktorý sa na začiatku prečíta a na konci doplní:
+
+```
+prípad 2802 · stav: príčina nepotvrdená
+overené:   materiál u zákazníka · balenie náhradné (vyjadrenie, nie záznam)
+v hre:     náhradný obal · balenie nepodopiera geometriu
+NEOVERENÉ: expedičné záznamy — zatiaľ neporovnané
+ďalší krok: porovnať expedičné záznamy s reklamovanými dodávkami
+```
+
+**Znie to príliš hlúpo na to, aby to fungovalo, a je to chrbtica.** Prípad
+prežije koniec konverzácie, iného človeka aj týždeň dovolenky — a pri
+pokračovaní sa nezačína od nuly.
+
+Sedí to presne na dátovú hranicu: **stavový súbor je dáta, takže žije
+v tenante.** Nikdy nie u nás.
+
 **Tá druhá cesta je jadro produktu a treba ju povedať nahlas:** prípad
 u zákazníka odhalí, že v katalógu chýba príčina. Do metódy sa vráti **veta
 o mechanizme a jeho rozlíšení**, nie prípad. Tak rastie pack bez toho, aby čokoľvek
