@@ -268,3 +268,24 @@ out-of-catalogue · never invent sources) — frozen because they are exactly wh
 look more helpful.
 **Where a graph would be wrong for us:** building a pack (exploratory, sequential, approval each step) and
 diagnosing one case (the cost-ordered sequence is a real chain). Diagnosis is a loop, and a loop is correct.
+
+
+**LLMs automate what you can VERIFY, not what you can specify — 2026-08-16, research across 5 sources.**
+Karpathy's verifiability thesis, and Ng, Huyen, Raschka and Kopadze say the same thing from other angles.
+This sharpens the product claim: companies are stuck at 5% **not because AI is weak but because their work
+is not in verifiable form**. We do not sell knowledge into AI — we sell the conversion of company
+decision-making into verifiable form. Falls out as a **sales qualification filter**: *can we say in advance
+what would prove the answer wrong?* If not, don't sell the pack — it can be neither handed over nor defended.
+Diagnosing a defect passes; "write a nice reply to the customer" does not.
+**Raschka gives the mechanism the pack was missing — ablation.** Harnesses shrink as models improve, so a
+rule written today to compensate for a weakness may be dead weight in six months. Turn one rule off, re-run
+the set; if nothing degrades, **delete the rule**. Until now the pack could only grow, which is exactly how
+five versions appeared with no change to the knowledge.
+**Huyen: four of her six pitfalls are ones we fell into** — premature complexity, over-indexing on early
+success (LinkedIn: 1 month to 80%, four more to 95% — tell customers this before a pilot), abandoning human
+evaluation (judge quality depends on judge model, prompt and use case, so a manual sample must always run
+and be correlated), and collecting use cases without strategy ("a million Slack bots") — which is the ready
+answer to how a process gets chosen at a customer: not by survey.
+Also missing: we only have **failure-mode** eval sets. Huyen wants one that matches the **real production
+distribution** — an ordinary Tuesday — otherwise we never learn if the tool is over-cautious on routine work.
+Full notes with sources and honest coverage gaps: `docs/RESEARCH_12_UCTOV.md`.
