@@ -232,8 +232,19 @@ def _download(url: str) -> Optional[bytes]:
 
 
 def _process(raw: bytes, size: tuple) -> Optional[bytes]:
-    """Centre-crop to the target aspect ratio, resize, save as JPEG."""
-    from PIL import Image
+    """Centre-crop to the target aspect ratio, resize, save as JPEG.
+
+    Chybajuci Pillow NESMIE zhodit cely pipeline. 2026-08-16 to presne to
+    urobilo: novy clanok potreboval obrazok, PIL v CI nebol (do vtedy mali
+    vsetky slugy obrazok v repozitari, takze sa sem nikdy nedoslo) a spadol
+    cely beh. Chybajuci obrazok je kozmeticka chyba, nie dovod nevydat web.
+    """
+    try:
+        from PIL import Image
+    except ModuleNotFoundError:
+        print("[image_agent] Pillow nie je nainstalovany - obrazky sa preskakuju "
+              "(pip install -r requirements.txt)")
+        return None
     try:
         im = Image.open(io.BytesIO(raw))
         im = im.convert("RGB")
