@@ -1,7 +1,7 @@
 # Ponuka — Rozhodovacia vrstva do vášho Microsoft 365
 
-Pracovná verzia 2026-08-16. Ceny sú **návrh na odsúhlasenie**, nie zistená
-trhová sadzba — nemáme ju odkiaľ vziať a nebudeme ju vymýšľať.
+Pracovná verzia 2026-08-16. Ceny prevzaté z cenníka na stránke, aby ponuka
+a web hovorili to isté.
 
 ---
 
@@ -36,9 +36,12 @@ Nie systém. Nie migrácia. Nie licencia na našu platformu.
 
 | | |
 |---|---|
-| **Kvalifikácia** | zdarma |
-| **Jeden pack, pevná cena** | *(doplniť — Jozefovo rozhodnutie)* |
-| **Ak know-how nie je zapísané** | najprv samostatná štruktúrovacia zákazka za pevnú cenu |
+| **Posudok jedného procesu** + ukážka na vašom reálnom prípade | **490 €** |
+| **Nasadenie jedného procesu** do vášho Microsoft 365 | **2 400 €** |
+| Každý ďalší proces | **1 400 €** — lacnejší, štruktúra už existuje |
+
+Ceny sú bez DPH a **zhodujú sa s cenníkom na stránke** — nie sú to iné čísla pre
+iný kanál.
 
 **Pevná cena a písomný rozsah sú súčasťou ponuky, nie ústupok.** Riziko
 prekročenia nesieme my.
