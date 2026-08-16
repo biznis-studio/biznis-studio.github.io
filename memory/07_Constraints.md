@@ -47,6 +47,16 @@ the gate and delete it from here** (`CLAUDE.md` lists what is enforced).
 - **Re-read only the delta.** After sending a message, read what changed, not
   the whole transcript.
 
+## Can it take done back?
+
+- **A system that can only promote is a burndown chart with extra steps.**
+  For every gate we build, ask what un-does a pass — not only what blocks one.
+- **A pass belongs to the version it ran on and does not carry forward.**
+  The artifact states its own release status; a failing blocking scenario marks
+  the built pack `vydane: false` with the reason.
+- **For every tool or approach adopted, name its trap** in the same breath as
+  its benefit. If we cannot name the trap, we have not understood it yet.
+
 ## Building
 
 - **Derive domain content from the expert's file. Never author it.** Every
