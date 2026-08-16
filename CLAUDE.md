@@ -26,6 +26,28 @@ Full reasoning: `docs/KONCEPT.md`, `docs/RESEARCH_12_UCTOV.md`.
 **Deleting is allowed and required — ablation:** turn a rule off, re-run the set;
 if nothing degrades, delete the rule. Without this the pack can only grow.
 
+## Operating mode (owner, 2026-08-16)
+
+**Run continuously. Do not wait for the owner on anything reversible.**
+
+- **Architecture and marketing advance together.** They are independent branches
+  with no edge between them — running one while the other waits is a fake edge.
+  Every architecture change should have a marketing consequence in the same
+  stretch of work, and vice versa.
+- **When stuck, consult ChatGPT** (open in the owner's Chrome, tab
+  `chatgpt.com`). Paste the design, ask for hard criticism, name your own
+  objections and ask it to confirm or refute them. **It is a second opinion, not
+  an authority** — record what you accepted, what you rejected, and why.
+  It already corrected two real errors this way.
+- **Stop and ask the owner only for:** anything outward-facing (publishing,
+  sending, posting), anything that costs money, anything that creates an
+  obligation, and any decision about what the business should be.
+- Everything else — build, verify, measure, record, prepare — proceed.
+
+**Every asset carries a promise and a review date.** No exceptions: an asset
+that cannot state how it will be judged cannot later be killed, and the system
+grows forever. `state/promises.json`, checked by `scripts/check_promises.py`.
+
 ## What is enforced vs advisory
 
 Everything above is advisory. These are **enforced** and cannot be talked around:

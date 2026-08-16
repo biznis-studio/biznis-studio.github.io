@@ -1,0 +1,65 @@
+{
+  "_comment": "Kazde aktivum nesie merateľný sľub a dátum kontroly. Bez nich sa neda nic zabit a system len rastie. Kontroluje scripts/check_promises.py.",
+  "aktiva": [
+    {
+      "id": "sk-sluzba-copilot",
+      "typ": "stranka",
+      "co": "SK stranka sluzby - Copilot vrstva",
+      "url": "/sk/",
+      "vzniklo": "2026-08-11",
+      "slub": "aspon 1 dopyt z formulara na tuto sluzbu",
+      "datum_kontroly": "2026-09-15",
+      "stav": "bezi"
+    },
+    {
+      "id": "sk-clanky-5",
+      "typ": "clanky",
+      "co": "5 SK clankov v starej pozicii (web, chatbot, logo, automatizacia, e-faktura)",
+      "vzniklo": "2026-07-31",
+      "slub": "aspon 10 organickych klikov spolu za mesiac",
+      "datum_kontroly": "2026-09-01",
+      "stav": "bezi",
+      "poznamka": "Stara pozicia. Ak nesplnia, nepredlzovat - nova pozicia je overitelnost."
+    },
+    {
+      "id": "machinery-tool",
+      "typ": "nastroj",
+      "co": "Machinery Regulation nastroj",
+      "vzniklo": "2026-08-02",
+      "slub": "aspon 1 dopyt alebo 25 organickych navstev",
+      "datum_kontroly": "2026-09-01",
+      "stav": "bezi"
+    },
+    {
+      "id": "gumroad-produkty",
+      "typ": "produkty",
+      "co": "Gumroad katalog (29 produktov)",
+      "vzniklo": "2026-07-01",
+      "slub": "aspon 1 predaj",
+      "datum_kontroly": "2026-09-01",
+      "stav": "ohrozene",
+      "poznamka": "0 zobrazeni za mesiac. Kotva je prazdna, nie zaporna - problem je traffic, nie ponuka."
+    },
+    {
+      "id": "quality-pack",
+      "typ": "produkt",
+      "co": "Quality pack v0.5.0 (diagnostika extruzie)",
+      "vzniklo": "2026-08-12",
+      "slub": "pouzity na aspon 5 realnych reklamaciach ALEBO 1 clovek mimo firmy povie, ze by to pouzival",
+      "datum_kontroly": "2026-09-30",
+      "stav": "bezi",
+      "poznamka": "Zatial 3 realne pripady, vsetky interne. Verzia NIE JE vydana - blokujuci scenar zlyhal."
+    },
+    {
+      "id": "sk-clanok-verifikacna-ekonomika",
+      "typ": "clanok",
+      "co": "SK clanok: AI vam usetri cas, overovanie vam ho zoberie spat",
+      "url": "/sk/2026-08-16-overovanie-vam-zoberie-uspory.html",
+      "vzniklo": "2026-08-16",
+      "slub": "aspon 20 organickych impresii v Search Console DO 2026-10-15, inak nova pozicia necielila spravne",
+      "datum_kontroly": "2026-10-15",
+      "stav": "bezi",
+      "poznamka": "Prva vec v novej pozicii (overitelnost). SERP na technicke dotazy drzi Microsoft; obchodne ramovanie drzia SK tech media, nie poskytovatelia sluzieb - tam je medzera."
+    }
+  ]
+}
