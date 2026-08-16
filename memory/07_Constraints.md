@@ -28,6 +28,25 @@ the gate and delete it from here** (`CLAUDE.md` lists what is enforced).
 - **Whoever produced the work does not grade it.** Fresh context, given only the
   output and the criteria.
 
+## Tooling
+
+- **Never install third-party agent tooling (skills, MCP servers, plugins) on
+  the owner's say-so alone.** This machine's Chrome holds a live corporate
+  Microsoft 365 session and credentials for our GitHub. A skill list on X is a
+  claim, not a verification — "live-verified" is the author's word, and our own
+  rule is to re-check against the primary source before acting.
+- **Fix a capability gap by hand before shopping for it.** Most of what these
+  tools sell — context discipline, session memory, verification — we have
+  either already built or can build in an afternoon, and then we understand it.
+
+## Context discipline
+
+- **Never dump a whole page or file into context to read one part of it.**
+  Extract the slice (JS on the DOM, `grep`, a range read). Whole-page reads have
+  repeatedly cost tens of thousands of tokens for a paragraph of signal.
+- **Re-read only the delta.** After sending a message, read what changed, not
+  the whole transcript.
+
 ## Building
 
 - **Derive domain content from the expert's file. Never author it.** Every
