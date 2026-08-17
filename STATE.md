@@ -53,6 +53,20 @@ formulár.
 3. **Druhý pack v inej profesii** — jediný chýbajúci dôkaz, že je to výrobná
    linka a nie jeden dokument.
 
+## Blokované na majiteľovi — autonómia stroja
+
+**Cloudový beh evolučnej vrstvy sa nedá založiť: tri rôzne GitHub identity.**
+Lokálne `gh` je prihlásené ako `fwwk4pb868-afk`, repozitár vlastní
+`biznis-studio`, a na claude.ai je prepojený `jozefrusnak4-ux` (vidí len
+`cestapoznania`, na „biznis“ hlási *No repos match*). API preto vracia 401
+`Connect your GitHub account…`. Riešenie: prihlásiť sa na github.com ako
+**`biznis-studio`** a až tam nainštalovať Claude GitHub App — alebo pridať
+`jozefrusnak4-ux` ako spolupracovníka s právami na repozitár.
+
+**Dôsledok, kým to neplatí:** zber beží sám (GitHub Actions), ale **úsudok nie**.
+Vykladanie fronty je viazané na reláciu, takže systém je autonómny len vtedy,
+keď je otvorený. To je presne tá časť, ktorá má byť inteligentná.
+
 ## Blokované na majiteľovi (jedno kliknutie)
 
 **Copilot: klávesnica sa do stránky nedostáva.** Kliknutia aj JavaScript
