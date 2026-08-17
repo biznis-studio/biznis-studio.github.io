@@ -57,6 +57,15 @@ jobs:
           echo "### Sluby aktiv" >> "$GITHUB_STEP_SUMMARY"
           python3 scripts/check_promises.py >> "$GITHUB_STEP_SUMMARY" 2>&1 || true
 
+      # Hrana z merania spat do rozhodovania. Zvysok pipeline veci vyraba;
+      # toto sa pyta, ci sa mali vyrabat, a co si system pyta ako dalsie.
+      - name: Evolucny beh - co si system pyta dalej
+        run: |
+          echo "### Co si system pyta dalej" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          python3 scripts/evolve.py --seed >> "$GITHUB_STEP_SUMMARY" 2>&1 || true
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
       - name: Commit updated database, reports and site
         run: |
           git config user.name "biznis-bot"

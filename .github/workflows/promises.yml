@@ -41,6 +41,20 @@ jobs:
           echo '```' >> "$GITHUB_STEP_SUMMARY"
           exit 0
 
+      # Sľuby strážia aktíva. Domnienky strážia to, prečo tie aktíva vôbec
+      # vznikli. Prvý pondelok v mesiaci sa zmeškaná revízia zapíše — a po
+      # druhom zmeškaní domnienka padá, aj keď proti nej nikto nič nenašiel.
+      - name: Domnienky, na ktorých stojíme
+        run: |
+          echo "### Domnienky" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          if [ "$(date -u +%d)" -le 07 ]; then
+            python3 scripts/evolve.py --seed --revizia >> "$GITHUB_STEP_SUMMARY" 2>&1 || true
+          else
+            python3 scripts/evolve.py --seed >> "$GITHUB_STEP_SUMMARY" 2>&1 || true
+          fi
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
       # Rozhodnutie je ľudské — automat ho nikdy nespraví sám. Založí frontu.
       - name: Založiť issue, keď je čo rozhodnúť
         if: steps.check.outputs.kod != '0'
