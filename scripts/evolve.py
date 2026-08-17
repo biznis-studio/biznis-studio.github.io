@@ -113,6 +113,20 @@ def main() -> int:
                 znacka = "PADLA" if novy == "VYVRATENA" else "odložená o 30 dní"
                 print(f"[revizia] {d['domnienka'][:60]}… → {znacka}")
 
+        ucinnost = ev.ucinnost_zdrojov(conn)
+        if ucinnost:
+            print("\n[evolve] výťažnosť zdrojov (vyložené → zapísané):")
+            for z in ucinnost:
+                print(f"  {z['zdroj']:32} {z['zapisane']:>3}/{z['vylozene']:<3} "
+                      f"{z['pomer']:>6.0%}  {z['odporucanie']}")
+
+        navrhy = ev.navrhy_na_seba(conn)
+        if navrhy:
+            print("\n[evolve] čo systém navrhuje zmeniť sám na sebe:")
+            for n in navrhy:
+                kto = "MAJITEĽ" if n["autorita"] == "majitel" else "stroj"
+                print(f"  ({kto}) {n['co']}\n          {n['preco']}")
+
         kroky = ev.dalsi_krok(conn)
         if not kroky:
             print("[evolve] nič splatné — žiadna domnienka nie je po termíne "

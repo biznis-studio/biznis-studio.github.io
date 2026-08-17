@@ -84,6 +84,21 @@ CREATE TABLE IF NOT EXISTS domnienky (
     zapisane          TEXT NOT NULL
 );
 
+-- Každá položka z fronty musí skončiť rozhodnutím: buď sa z nej stal poznatok,
+-- alebo sme ju zahodili a povedali prečo. Bez zápisu zahodených sa nedá spočítať
+-- výťažnosť zdroja — a zdroj, ktorého výťažnosť nikto nemeria, sa nedá zrušiť.
+CREATE TABLE IF NOT EXISTS vyklad (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    signal_id   INTEGER NOT NULL UNIQUE,
+    zdroj       TEXT NOT NULL,
+    rozhodnutie TEXT NOT NULL,          -- ZAPISANE | ZAHODENE
+    duvod       TEXT NOT NULL,
+    poznatok_id INTEGER,
+    kedy        TEXT NOT NULL,
+    FOREIGN KEY (signal_id) REFERENCES signals_raw(id),
+    FOREIGN KEY (poznatok_id) REFERENCES poznatky(id)
+);
+
 CREATE TABLE IF NOT EXISTS rozhodnutia (
     id           INTEGER PRIMARY KEY AUTOINCREMENT,
     co           TEXT NOT NULL,
@@ -288,6 +303,148 @@ def rozhodni_domnienku(
 
 # --- čo robiť ďalej --------------------------------------------------------
 
+# --- meranie vlastnej výťažnosti -------------------------------------------
+#
+# Toto je jediné miesto, kde sa systém mení sám od seba. Všetko ostatné vie
+# len to, čo mu niekto napísal. Zdroj sa neruší preto, že sa niekomu zdá slabý,
+# ale preto, že po dostatočnom počte položiek z neho nevzniklo nič.
+
+MIN_VZORKA = 25          # pod týmto počtom je pomer šum, nie výsledok
+PRAH_ZRUSENIA = 0.04     # menej než 4 % zapísaných = zdroj neplatí za miesto
+
+
+def zapis_vyklad(
+    conn: sqlite3.Connection,
+    *,
+    signal_id: int,
+    zdroj: str,
+    rozhodnutie: str,
+    duvod: str,
+    poznatok_id: Optional[int] = None,
+) -> None:
+    """Zaznamená, ako dopadla jedna položka fronty. Aj zahodenie je výsledok."""
+    if rozhodnutie not in ("ZAPISANE", "ZAHODENE"):
+        raise ChybaEvolucie("rozhodnutie je ZAPISANE alebo ZAHODENE")
+    if not duvod.strip():
+        raise ChybaEvolucie(
+            "zahodenie bez dôvodu je nemerateľné — práve dôvody hovoria, "
+            "či je slabý zdroj alebo filter"
+        )
+    conn.execute(
+        "INSERT OR REPLACE INTO vyklad "
+        "(signal_id, zdroj, rozhodnutie, duvod, poznatok_id, kedy) "
+        "VALUES (?,?,?,?,?,?)",
+        (signal_id, zdroj, rozhodnutie, duvod, poznatok_id, _dnes()),
+    )
+    conn.commit()
+
+
+def ucinnost_zdrojov(conn: sqlite3.Connection) -> list[dict]:
+    """Za každý zdroj: koľko dal, koľko z toho prežilo úsudok, a čo s ním.
+
+    `vyklad` je jediný vstup — nie počet nasnímaných položiek. Zdroj, ktorý
+    nasype tisíc riadkov a nikto ich nevyloží, nie je výkonný ani neúspešný,
+    je len nezmeraný, a nesmie z toho dostať ani odmenu, ani trest.
+    """
+    riadky = conn.execute(
+        "SELECT zdroj, "
+        "  SUM(rozhodnutie='ZAPISANE') AS zapisane, "
+        "  COUNT(*) AS vylozene "
+        "FROM vyklad GROUP BY zdroj"
+    ).fetchall()
+
+    von = []
+    for r in riadky:
+        vylozene = r["vylozene"] or 0
+        zapisane = r["zapisane"] or 0
+        pomer = zapisane / vylozene if vylozene else 0.0
+        if vylozene < MIN_VZORKA:
+            odporucanie = f"MERIA SA ({vylozene}/{MIN_VZORKA})"
+        elif pomer < PRAH_ZRUSENIA:
+            odporucanie = "ZRUSIT"
+        else:
+            odporucanie = "PONECHAT"
+        von.append({
+            "zdroj": r["zdroj"], "vylozene": vylozene, "zapisane": zapisane,
+            "pomer": round(pomer, 3), "odporucanie": odporucanie,
+        })
+    von.sort(key=lambda z: z["pomer"], reverse=True)
+    return von
+
+
+def navrhy_na_seba(conn: sqlite3.Connection) -> list[dict]:
+    """Systém číta vlastné dôvody zahodenia a navrhuje zmeny na sebe.
+
+    Toto je rozdiel medzi filtrom a vrstvou, ktorá sa učí. Filter len prepúšťa.
+    Tu je vstupom to, čo úsudok o vlastnej práci povedal: keď sa istý dôvod
+    zahodenia opakuje, nie je to smola na položkách — je to porucha v zbere,
+    a povedať sa dá, ktorá.
+
+    Vracia návrhy, nie vykonané zmeny. Návrh, ktorý zruší zdroj, môže vykonať
+    stroj; návrh, ktorý mení, čo považujeme za relevantné, mení zameranie firmy,
+    a ten patrí majiteľovi.
+    """
+    navrhy: list[dict] = []
+
+    # 1. Zdroj, ktorého zahodenia sa opakujú z toho istého dôvodu, nie je slabý
+    #    náhodou — sníma zlú vec.
+    dovody = conn.execute(
+        "SELECT zdroj, duvod, COUNT(*) AS n FROM vyklad "
+        "WHERE rozhodnutie='ZAHODENE' GROUP BY zdroj, duvod HAVING n >= 2"
+    ).fetchall()
+    for d in dovody:
+        navrhy.append({
+            "co": f"{d['zdroj']}: {d['n']}× zahodené z toho istého dôvodu — "
+                  f"„{d['duvod'][:70]}“",
+            "preco": "opakovaný dôvod je porucha zberu, nie smola na položkách",
+            "autorita": "stroj",
+        })
+
+    # 2. Zahodenie pre nedostatok obsahu znamená, že zbierame titulky tam, kde
+    #    treba text. To je oprava zberu, nie dôvod zrušiť zdroj.
+    riedke = conn.execute(
+        "SELECT zdroj, COUNT(*) AS n FROM vyklad WHERE rozhodnutie='ZAHODENE' "
+        "AND (duvod LIKE '%titulok%' OR duvod LIKE '%Iba názov%' "
+        "OR duvod LIKE '%nestačí%') GROUP BY zdroj"
+    ).fetchall()
+    for r in riedke:
+        navrhy.append({
+            "co": f"{r['zdroj']}: {r['n']}× zahodené preto, že titulok nestačil",
+            "preco": "zbierame názvy tam, kde je poznatok až v texte — "
+                     "zdroj potrebuje dočítanie obsahu, nie zrušenie",
+            "autorita": "stroj",
+        })
+
+    # 3. Poznatok bez `dosah` je zápis bez dôsledku. Ak ich je veľa, vykladáme
+    #    len nazbierané, nie premyslené.
+    bez_dosahu = conn.execute(
+        "SELECT COUNT(*) AS n FROM poznatky WHERE dosah IS NULL OR TRIM(dosah)=''"
+    ).fetchone()["n"]
+    if bez_dosahu:
+        navrhy.append({
+            "co": f"{bez_dosahu} poznatkov nemá vyplnený `dosah`",
+            "preco": "poznatok bez dôsledku je zápis do skládky; buď sa doplní, "
+                     "čo mení, alebo sa maže",
+            "autorita": "stroj",
+        })
+
+    # 4. Ak úsudok prepustí takmer všetko, filter nefiltruje a fronta rastie
+    #    rýchlejšie, než ju stíhame vykladať.
+    spolu = conn.execute("SELECT COUNT(*) AS n FROM vyklad").fetchone()["n"]
+    zapisane = conn.execute(
+        "SELECT COUNT(*) AS n FROM vyklad WHERE rozhodnutie='ZAPISANE'"
+    ).fetchone()["n"]
+    if spolu >= MIN_VZORKA and zapisane / spolu > 0.8:
+        navrhy.append({
+            "co": f"Úsudok prepúšťa {zapisane}/{spolu} položiek",
+            "preco": "buď je filter príliš voľný, alebo výklad nič nezahadzuje — "
+                     "v oboch prípadoch prestal byť sitom",
+            "autorita": "majitel",
+        })
+
+    return navrhy
+
+
 def hodnota_informacie(domnienka: sqlite3.Row) -> float:
     """Hrubé poradie: dôležitosť × ako dlho je po termíne.
 
@@ -329,5 +486,29 @@ def dalsi_krok(conn: sqlite3.Connection) -> list[dict]:
             "autorita": "stroj",
         })
 
+    for z in ucinnost_zdrojov(conn):
+        if z["odporucanie"] == "ZRUSIT":
+            kroky.append({
+                "poradie": 3.0,
+                "co": f"Zrušiť zdroj {z['zdroj']} — z {z['vylozene']} vyložených "
+                      f"prežilo úsudok {z['zapisane']} ({z['pomer']:.0%})",
+                "ako": "vyradiť ho zo ZDROJE vo frontier_agent.py alebo z x_watchlist.json",
+                "vyvratilo_by": "zdroj práve zmenil zameranie a nová vzorka to ukáže",
+                "autorita": "stroj",
+            })
+
     kroky.sort(key=lambda k: k["poradie"], reverse=True)
     return kroky
+
+
+def zrusene_zdroje(conn: sqlite3.Connection) -> set[str]:
+    """Zdroje, ktoré si po dostatočnej vzorke miesto nezaslúžili.
+
+    `frontier_agent` sa na to pýta pred každým behom, takže rozhodnutie sa
+    prejaví bez toho, aby ktokoľvek zasahoval do kódu. Toto je ten rozdiel
+    medzi slučkou, ktorá beží, a systémom, ktorý sa mení.
+    """
+    return {
+        z["zdroj"] for z in ucinnost_zdrojov(conn)
+        if z["odporucanie"] == "ZRUSIT"
+    }

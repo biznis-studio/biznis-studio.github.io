@@ -8,14 +8,18 @@ pokročilo používa, a v tom, ako sa mení marketing a vyhľadávanie.
 
 Zdroje sú overené naživo 2026-08-17 (HTTP 200, nie z výsledkov vyhľadávania):
 
-    arXiv cs.AI / cs.CL      výskum, primárny zdroj
+    arXiv cs.AI / cs.CL       výskum, primárny zdroj
     HuggingFace daily papers  čo z výskumu si komunita naozaj všimla
     HuggingFace models        ktoré modely rastú
-    OpenAI news RSS           oznámenia priamo od výrobcu
-    Google Research blog      to isté z druhej strany
+    OpenAI news               oznámenia priamo od výrobcu
+    Google Research           to isté z druhej strany
+    AWS ML blog               referenčné nasadenia, nie sľuby
+    Microsoft 365 blog        prostredie, v ktorom naši zákazníci pracujú
+    Simon Willison            čo niekto naozaj skúsil a čo nevyšlo
+    OpenRouter                ceny a dĺžka kontextu — čo je ekonomicky možné
+    MCP register              čím sa dá AI napojiť na firemné dáta
     Google Search Central     ako sa mení vyhľadávanie
-    Search Engine Land        marketing a AI vo vyhľadávaní
-    Microsoft 365 roadmap     čo pribúda v prostredí, kde naši zákazníci pracujú
+    Search Engine Land · Ahrefs · Moz   marketing a AI vo vyhľadávaní
     GitHub (nové agent repá)  čo sa reálne stavia
 
 Medzera, ktorú priznávam: **Anthropic nemá RSS na `/news/rss.xml` ani na
@@ -35,6 +39,7 @@ import json
 import re
 import xml.etree.ElementTree as ET
 from datetime import date, datetime
+from urllib.parse import quote
 from typing import Iterable, Optional
 
 import requests
@@ -238,11 +243,15 @@ def fetch_konektory(limit: int = 30) -> list[dict]:
         meno = s.get("name") or ""
         if not meno:
             continue
+        # Register nemá pole `repository`; stabilným identifikátorom je `name`.
+        # Odkazujeme naň späť do registra, aby sa dal poznatok kedykoľvek overiť
+        # pri zdroji — poznatok bez otvoriteľného zdroja sa aj tak nezapíše.
+        odkaz = ("https://registry.modelcontextprotocol.io/v0/servers"
+                 f"?search={quote(meno)}")
         von.append(_polozka(
             "mcp_registry", "konektor",
             f"{meno} — {(s.get('description') or '')[:180]}",
-            s.get("repository", {}).get("url") if isinstance(s.get("repository"), dict) else None,
-            0.0, {"name": meno},
+            odkaz, 0.0, {"name": meno},
         ))
     return von
 
@@ -343,6 +352,22 @@ def run(run_id: Optional[int] = None) -> int:
                 print(f"[frontier_agent] {zdroj.__name__} zlyhal: {chyba}")
 
         polozky = _relevantne(surove)
+
+        # Zdroje, ktoré si po dostatočnej vzorke miesto nezaslúžili, sa
+        # preskočia. Nikto ich nemusí mazať z kódu — rozhodlo o nich meranie
+        # vlastnej výťažnosti, nie názor.
+        try:
+            from core import evolution as ev
+            ev.priprav(conn)
+            zrusene = ev.zrusene_zdroje(conn)
+        except Exception:
+            zrusene = set()
+        if zrusene:
+            pred = len(polozky)
+            polozky = [p for p in polozky if p["source"] not in zrusene]
+            print(f"[frontier_agent] preskočené zrušené zdroje "
+                  f"({', '.join(sorted(zrusene))}): {pred - len(polozky)} položiek")
+
         teraz = now_iso()
         conn.executemany(
             "INSERT INTO signals_raw "
@@ -395,10 +420,12 @@ def na_vyklad(limit: int = 20) -> list[dict]:
     }
     conn = get_connection()
     try:
+        from core import evolution as ev
+        ev.priprav(conn)          # fronta sa pýta na `vyklad`, ktorý nemusí ešte existovať
         riadky = [dict(r) for r in conn.execute(
-            "SELECT s.term, s.url, s.source, s.metric_value FROM signals_raw s "
+            "SELECT s.id, s.term, s.url, s.source, s.metric_value FROM signals_raw s "
             "WHERE s.source LIKE 'frontier:%' "
-            "AND NOT EXISTS (SELECT 1 FROM poznatky p WHERE p.zdroj = s.url) "
+            "AND NOT EXISTS (SELECT 1 FROM vyklad v WHERE v.signal_id = s.id) "
             "ORDER BY s.id DESC")]
         riadky.sort(key=lambda r: (PORADIE_ZDROJA.get(r["source"], 9),
                                    -(r["metric_value"] or 0)))
