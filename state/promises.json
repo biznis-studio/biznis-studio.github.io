@@ -33,7 +33,7 @@
     {
       "id": "gumroad-produkty",
       "typ": "produkty",
-      "co": "Gumroad katalog (29 produktov)",
+      "co": "Gumroad katalog (19 produktov po zmazani 16 nezmyselnych)",
       "vzniklo": "2026-07-01",
       "slub": "aspon 1 predaj",
       "datum_kontroly": "2026-09-01",
@@ -103,6 +103,17 @@
       "datum_kontroly": "2026-10-31",
       "stav": "bezi",
       "poznamka": "Druhy clanok v novej pozicii. SERP na 'preco zamestnanci nepouzivaju Copilot' drzi Microsoft adoption guide + blogy predajcov licencii (sanding.sk, s4b.sk, esolutions.sk, itlearning.sk) - vsetky odpovedaju na 'preco kupit', ziadny na 'preco to prestali otvarat'. Cituje cudzie zistenia (podnikajte.sk, ftnews.sk), ziadne nase cislo."
+    },
+    {
+      "id": "news-signals",
+      "typ": "stranka",
+      "co": "Signals - agregator cudzich titulkov (48 poloziek, denne aktualizovany)",
+      "url": "/news/",
+      "vzniklo": "2026-07-15",
+      "slub": "aspon 15 organickych navstev za mesiac ALEBO 1 dopyt, ktory sa nan odvolava",
+      "datum_kontroly": "2026-10-01",
+      "stav": "bezi",
+      "poznamka": "Jedina stranka bez formulara okrem creditov - zamerne, nizky zamer. Ak nesplni, zrusit: udrziava sa sama, ale zabera miesto v navigacii."
     }
   ]
 }

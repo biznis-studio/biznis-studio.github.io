@@ -41,6 +41,22 @@ jobs:
       - name: Crawl-readiness audit (non-fatal for now - see ROADMAP.md)
         run: python3 scripts/audit_site.py || true
 
+      # Kontroly, ktore doteraz existovali, ale nikto ich nespustal - cize
+      # boli len radou. Nezhadzuju beh: mrtvy externy odkaz ani slub po
+      # termine nie su dovod nevydat web, ale musia byt vidno v zhrnuti.
+      - name: Rucne pisane popisy do databazy
+        run: python3 scripts/apply_blurbs.py || true
+
+      - name: Externe odkazy
+        run: |
+          echo "### Externe odkazy" >> "$GITHUB_STEP_SUMMARY"
+          python3 scripts/check_external_links.py >> "$GITHUB_STEP_SUMMARY" 2>&1 || true
+
+      - name: Sluby aktiv
+        run: |
+          echo "### Sluby aktiv" >> "$GITHUB_STEP_SUMMARY"
+          python3 scripts/check_promises.py >> "$GITHUB_STEP_SUMMARY" 2>&1 || true
+
       - name: Commit updated database, reports and site
         run: |
           git config user.name "biznis-bot"
