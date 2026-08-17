@@ -134,6 +134,8 @@ QUERIES = {
         "industrial robot arm"],
     "kolko-stoji-logo-a-vizualna-identita": ["graphic designer sketching logo",
         "designer drawing brand sketches", "design studio pencil sketches paper"],
+    "ktore-rozhodnutie-zverit-ai": ["fork in the road path",
+        "railway track switch junction", "two paths diverging"],
     "overovanie-vam-zoberie-uspory": ["person reviewing documents magnifying glass",
         "proofreading paperwork desk close up", "person checking documents office desk"],
     "preco-zamestnanci-prestanu-pouzivat-ai": ["empty office desk laptop closed",

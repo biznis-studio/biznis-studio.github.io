@@ -114,6 +114,17 @@
       "datum_kontroly": "2026-10-01",
       "stav": "bezi",
       "poznamka": "Jedina stranka bez formulara okrem creditov - zamerne, nizky zamer. Ak nesplni, zrusit: udrziava sa sama, ale zabera miesto v navigacii."
+    },
+    {
+      "id": "sk-clanok-ktore-rozhodnutie-zverit-ai",
+      "typ": "clanok",
+      "co": "SK clanok: Ktore firemne rozhodnutie sa oplati zverit AI a ktore nie",
+      "url": "/sk/2026-08-17-ktore-rozhodnutie-zverit-ai.html",
+      "vzniklo": "2026-08-17",
+      "slub": "aspon 20 organickych impresii v Search Console na dotazy typu 'ktore rozhodnutie zverit AI' / 'kedy sa oplati nasadit AI' DO 2026-10-31, inak tretia iteracia novej pozicie neciela spravne a dalsi clanok v tomto rade sa nepise",
+      "datum_kontroly": "2026-10-31",
+      "stav": "bezi",
+      "poznamka": "Treti clanok novej pozicie (overitelnost). SERP na tento dotaz drzia AI Act/pravne clanky a genericke 'X krokov ako nasadit AI' od agentur; kvalifikacne sito (co by dokazalo, ze odpoved je nesprava) nedrzi nikto. Citovane zdroje: necto.sk, bratislavskyvecernik.sk - obe overene 200 cez check_external_links."
     }
   ]
 }

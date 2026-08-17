@@ -94,8 +94,14 @@ SK_RELATED: dict[str, list[str]] = {
                                              "potrebuje-moja-firma-webstranku"],
     # New-position pair: one article says where the time saving goes, the
     # other says why the tool stops being opened at all. Same mechanism.
-    "overovanie-vam-zoberie-uspory": ["preco-zamestnanci-prestanu-pouzivat-ai"],
-    "preco-zamestnanci-prestanu-pouzivat-ai": ["overovanie-vam-zoberie-uspory"],
+    # New-position trio: where the saved time goes, why the tool stops being
+    # opened, and which decision was worth handing over in the first place.
+    "overovanie-vam-zoberie-uspory": ["ktore-rozhodnutie-zverit-ai",
+                                      "preco-zamestnanci-prestanu-pouzivat-ai"],
+    "preco-zamestnanci-prestanu-pouzivat-ai": ["ktore-rozhodnutie-zverit-ai",
+                                               "overovanie-vam-zoberie-uspory"],
+    "ktore-rozhodnutie-zverit-ai": ["preco-zamestnanci-prestanu-pouzivat-ai",
+                                    "overovanie-vam-zoberie-uspory"],
 }
 
 # Pages in site/sk/ that are not markdown articles but are valid link targets.

@@ -12,9 +12,11 @@ Aktualizované: **2026-08-17**
 
 | Vec | Stav | Ďalší krok |
 |---|---|---|
-| Akceptačná sada packu | **8 zo 17**, S17 zlyhal (Z7) · **6 z 9 zvyšných bolo nesplniteľných, prepísané** | odbehnúť 9 podľa `tests/vysledky/2026-08-16_priprava_dobehnutia.md` |
-| Pack v0.5.0 | **NEVYDANÝ** — `vydane: false` v MANIFESTe | až po 17/17 |
-| Nová pozícia na webe | SK **2 články** + služba, EN 1 článok + sekcia na domovskej | čakať na sľuby (15. 10., 31. 10.) |
+| Akceptačná sada packu | **13 zo 17** · zlyhali S8 `Z4`, S9 `Z1`, S17 `Z7` | prehodnotiť S8 a S9 v čistom kontexte (hodnotil ich ten, kto ich spustil) |
+| Taxonómia Z1–Z7 | **má dieru** | S8 = vynechaná povinná časť výstupu, S9 = procedúra sa nedopracovala k rozhodujúcemu testu — ani jedno nemá kód |
+| Pack v0.5.0 | **NEVYDANÝ** — `vydane: false` v MANIFESTe | až po 17/17; každý dnešný výsledok je 1 beh, nie 5/5 |
+| Nová pozícia na webe | SK **3 články** + služba, EN 1 článok + sekcia na domovskej | 3. článok postavený vrátane obrázka, **nedeployovaný a neprekorektúrovaný** |
+| Tretí SK článok | `ktore-rozhodnutie-zverit-ai` | nezávislá korektúra slovenčiny nikdy nedobehla — spustiť pred deployom |
 | Inbound dráha | skill `/dopyt` hotový | napojiť na to, čo chodí z formulára |
 | Sľuby aktív | **10 aktív**, žiadne po termíne | týždenná kontrola beží sama |
 
