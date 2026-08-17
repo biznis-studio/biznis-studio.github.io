@@ -108,6 +108,8 @@ CREATE TABLE IF NOT EXISTS rozhodnutia (
     vratenie     TEXT NOT NULL,           -- ako sa to odrobí
     ocakavany_ucinok TEXT NOT NULL,
     skutocny_ucinok  TEXT,
+    datum_revizie TEXT NOT NULL,
+    vrstva       TEXT NOT NULL,           -- 'produkt' | 'system'
     domnienka_id INTEGER,
     zapisane     TEXT NOT NULL,
     FOREIGN KEY (domnienka_id) REFERENCES domnienky(id)
@@ -372,6 +374,65 @@ def ucinnost_zdrojov(conn: sqlite3.Connection) -> list[dict]:
     return von
 
 
+# --- rozhodnutia: aj o samotnom stroji ------------------------------------
+#
+# `vrstva='system'` je tu podstatná. Zlepšovať sa musí nielen produkt, ale aj
+# stroj, ktorý ho vyrába — a stroj sa nezlepší tým, že do neho pribúdajú vrstvy.
+# Zlepší sa tým, že každá vrstva vopred povie, čo má spôsobiť, a po termíne sa
+# to porovná. Vrstva, ktorá nespôsobila nič, je zbytočná bez ohľadu na to, ako
+# dobre je napísaná.
+
+def zapis_rozhodnutie(
+    conn: sqlite3.Connection,
+    *,
+    co: str,
+    preco: str,
+    ocakavany_ucinok: str,
+    vratenie: str,
+    datum_revizie: str,
+    vrstva: str,
+    zamietnute: Optional[str] = None,
+    autorita: str = "stroj",
+    domnienka_id: Optional[int] = None,
+) -> int:
+    """Zapíše zmenu spolu s tým, čo má spôsobiť a ako sa odrobí.
+
+    `ocakavany_ucinok` musí byť pozorovateľný. „Bude to lepšie“ sa nedá
+    vyhodnotiť, takže sa nedá ani zamietnuť — a nezamietnuteľná zmena je presne
+    tá, ktorá v systéme zostane navždy.
+    """
+    if vrstva not in ("produkt", "system"):
+        raise ChybaEvolucie("vrstva je 'produkt' alebo 'system'")
+    vagne = ("lepšie", "lepsie", "zlepší", "zlepsi", "efektívnejšie", "rýchlejšie")
+    text = ocakavany_ucinok.strip().lower()
+    if len(text) < 25 or (any(v in text for v in vagne) and not any(c.isdigit() for c in text)):
+        raise ChybaEvolucie(
+            "`ocakavany_ucinok` musí byť pozorovateľný — „bude to lepšie“ sa "
+            "nedá vyhodnotiť, a teda ani zamietnuť"
+        )
+    if not vratenie.strip():
+        raise ChybaEvolucie("zmena bez spôsobu vrátenia sa nezapisuje")
+
+    cur = conn.execute(
+        """INSERT INTO rozhodnutia
+           (co, preco, zamietnute, autorita, vratenie, ocakavany_ucinok,
+            datum_revizie, vrstva, domnienka_id, zapisane)
+           VALUES (?,?,?,?,?,?,?,?,?,?)""",
+        (co, preco, zamietnute, autorita, vratenie, ocakavany_ucinok,
+         datum_revizie, vrstva, domnienka_id, _dnes()),
+    )
+    conn.commit()
+    return int(cur.lastrowid)
+
+
+def nevyhodnotene_rozhodnutia(conn: sqlite3.Connection) -> list[sqlite3.Row]:
+    """Zmeny po termíne revízie, ktorým nikto neporovnal očakávanie so skutočnosťou."""
+    return list(conn.execute(
+        "SELECT * FROM rozhodnutia WHERE skutocny_ucinok IS NULL "
+        "AND datum_revizie <= ? ORDER BY vrstva, datum_revizie", (_dnes(),)
+    ))
+
+
 def navrhy_na_seba(conn: sqlite3.Connection) -> list[dict]:
     """Systém číta vlastné dôvody zahodenia a navrhuje zmeny na sebe.
 
@@ -484,6 +545,15 @@ def dalsi_krok(conn: sqlite3.Connection) -> list[dict]:
             "ako": f"otvoriť {p['zdroj']} a potvrdiť alebo nahradiť",
             "vyvratilo_by": "zdroj už tvrdí niečo iné alebo neexistuje",
             "autorita": "stroj",
+        })
+
+    for r in nevyhodnotene_rozhodnutia(conn):
+        kroky.append({
+            "poradie": 4.0 if r["vrstva"] == "system" else 3.5,
+            "co": f"Vyhodnotiť zmenu ({r['vrstva']}): {r['co']}",
+            "ako": f"porovnať so skutočnosťou — očakávalo sa: {r['ocakavany_ucinok']}",
+            "vyvratilo_by": f"nenastalo to; vrátenie: {r['vratenie']}",
+            "autorita": r["autorita"],
         })
 
     for z in ucinnost_zdrojov(conn):
