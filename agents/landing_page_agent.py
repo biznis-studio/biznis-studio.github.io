@@ -475,7 +475,11 @@ def build_page(product: dict) -> Optional[dict]:
         body_html = (f"{format_badge_html(fmt)}\n<h1>{html.escape(title)}</h1>\n{intro_html}\n"
                      f'<div class="card">{body}</div>\n{trust_note}{cta}{zaver}')
         page_path = PAGES_DIR / f"{slug}.html"
-        page_path.write_text(page_shell(title, meta_description, body_html))
+        # Titulok pod ~18 znakov je vo vysledkoch vyhladavania slaby ("Invoice
+        # Pack"), nad ~62 sa oreze. Kratke nazvy produktov preto dostanu
+        # doplnok, ktory povie, o aky typ veci ide. Merane 2026-08-17.
+        titul = title if len(title) >= 24 else f"{title} - free {fmt.replace('_', ' ')} template"
+        page_path.write_text(page_shell(titul[:62], meta_description, body_html))
 
     return {
         "url": str(page_path.relative_to(SITE_DIR)),
@@ -582,7 +586,7 @@ anything at all.</p>
     body += contact_form_html() if FORMSPREE_ENDPOINT else ""
 
     (SITE_DIR / "work.html").write_text(page_shell(
-        "Work - Biznis",
+        "Our work: this site, its tools and how it is built",
         "Everything on this site was designed and built by us, and it is all live. "
         "Try any of it before you talk to us.",
         body, is_index=True, canonical_path="work.html"))

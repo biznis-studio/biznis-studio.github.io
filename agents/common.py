@@ -849,6 +849,42 @@ def _link_sub(match: "re.Match[str]") -> str:
     return f'<a href="{href}"{extra}>{text}</a>'
 
 
+# Rucne pisane <title> pre stranky, ktorych nadpis je spravne dlhy, ale do
+# vysledkov vyhladavania sa nezmesti. h1 zostava nedotknuty. Automaticke
+# skracovanie tu nestaci - vyrabalo useknute vety ("...if you freelance or run a").
+SEO_TITULKY = {
+    "blog/seven-places-worth-reading.html":
+        "7 places worth reading if you freelance",
+    "blog/telling-clients-rate-increase.html":
+        "How to tell a client you are raising your rates",
+    "index.html":
+        "Biznis - websites, automation and company AI",
+    "sk/preco-zamestnanci-prestanu-pouzivat-ai.html":
+        "Pre\u010do zamestnanci prestan\u00fa pou\u017e\u00edva\u0165 AI vo firme",
+    "tools/machinery-regulation-digital-instructions.html":
+        "EU Machinery Regulation: digital instructions test",
+}
+
+
+def seo_titul(text: str, limit: int = 62) -> str:
+    """Skrati <title> na dlzku, ktoru vyhladavac zobrazi celu.
+
+    Nadpis clanku smie byt dlhy - h1 sa nekrati. Ale <title> nad ~62 znakov
+    Google oreze uprostred slova a vysledok vyzera nedbalo. Reze sa na
+    prirodzenom mieste: zatvorka, dvojbodka alebo koniec vety pred limitom,
+    az potom na hranici slova. Merane 2026-08-17: 5 stranok bolo nad limitom.
+    """
+    text = text.strip()
+    if len(text) <= limit:
+        return text
+    for znak in (" (", ". ", ": ", " - ", " | "):
+        i = text.rfind(znak, 0, limit + 1)
+        if i > limit * 0.45:
+            return text[:i].rstrip(" -|:.")
+    i = text.rfind(" ", 0, limit)
+    return (text[:i] if i > 0 else text[:limit]).rstrip(" -|:.")
+
+
 def _typografia(escaped_text: str) -> str:
     """Typograficke upravy, ktore rozhoduju o tom, ci text vyzera profesionalne.
 

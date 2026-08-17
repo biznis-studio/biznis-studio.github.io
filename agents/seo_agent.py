@@ -190,7 +190,7 @@ def _blog_entries() -> list[dict]:
                 "meta_description": p["description"], "created_at": p["date"]}
                for p in load_posts()]
     if entries:
-        entries.insert(0, {"url": "blog/index.html", "title": "Blog - Biznis",
+        entries.insert(0, {"url": "blog/index.html", "title": "Blog: automation, pricing and running a small studio",
                            "meta_description": "Practical notes on freelancing, automation, "
                            "and running a small digital product business in public.",
                            "created_at": entries[0]["created_at"]})
@@ -211,7 +211,7 @@ def _blog_entries() -> list[dict]:
                     "identita pre mal\u00e9 firmy.",
                     "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%d")})
     entries.append({"url": "work.html",
-                    "title": "Work - Biznis",
+                    "title": "Our work: this site, its tools and how it is built",
                     "meta_description": "Everything we have built so far: a live site, an "
                     "unattended pipeline, working tools and open source.",
                     "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%d")})

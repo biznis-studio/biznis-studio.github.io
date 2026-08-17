@@ -295,7 +295,7 @@ like to run a small digital product business in public - including the numbers.<
 {cards}
 </div>
 {_en_contact_html()}"""
-    title = "Blog - Biznis"
+    title = "Blog: automation, pricing and running a small studio"
     description = ("Practical notes on freelancing, automation, and running a small digital "
                    "product business in public.")
     page = page_shell(title, description, body)
