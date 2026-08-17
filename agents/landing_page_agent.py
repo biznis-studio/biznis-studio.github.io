@@ -1076,6 +1076,11 @@ opl&aacute;ca a &ccaron;o je strata &ccaron;asu</a>.</p>
 <a href="https://e-fakturacia.finance.gov.sk/e-fakturacia/" target="_blank" rel="noopener">Ministerstvo financi&iacute; SR - Informa&ccaron;n&yacute; syst&eacute;m elektronickej fakturácie</a> &middot;
 <a href="https://www.mfsr.sk/sk/media/tlacove-spravy/nova-web-stranka-15.html" target="_blank" rel="noopener">MF SR - tla&ccaron;ov&aacute; spr&aacute;va k syst&eacute;mu E-fakt&uacute;ra</a> &middot;
 <a href="https://www.podnikajte.sk/dan-z-pridanej-hodnoty/efaktura-povinna-elektronicka-fakturacia-od-2027" target="_blank" rel="noopener">Podnikajte.sk</a></p>
+<h2 id="kontakt" class="section-title">Nechcete to rie&scaron;iť s&aacute;mi?</h2>
+<p>Ak v&aacute;m z testu vy&scaron;lo, &zcaron;e budete potrebovať zmenu vo fakturácii,
+napí&scaron;te n&aacute;m, ako dnes fakt&uacute;ry vznikaj&uacute;. Odp&iacute;&scaron;eme,
+&ccaron;o by sa dalo spraviť a &ccaron;o to stoj&iacute;.</p>
+""" + (contact_form_html("sk") if FORMSPREE_ENDPOINT else "") + """
 <p><a href="index.html">&larr; Späť na slu&zcaron;by</a></p>"""
 
     page = page_shell(

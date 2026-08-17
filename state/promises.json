@@ -81,6 +81,17 @@
       "datum_kontroly": "2026-10-01",
       "stav": "bezi",
       "poznamka": "Ina cielova skupina nez nova pozicia (freelanceri, nie firmy s Copilotom). Ak nesplnia, neprepisovat - stiahnut a pisat do novej pozicie."
+    },
+    {
+      "id": "sk-efaktura-test",
+      "typ": "nastroj",
+      "co": "Interaktivny test 'Ste pripraveni na e-fakturu 2027?' (3695 slov, v navigacii)",
+      "url": "/sk/efaktura-2027-test.html",
+      "vzniklo": "2026-08-05",
+      "slub": "aspon 2 dopyty z formulara ALEBO 50 organickych navstev za mesiac",
+      "datum_kontroly": "2026-10-01",
+      "stav": "bezi",
+      "poznamka": "Najvyssi zamer na webe - clovek si sam zisti, ze ma problem. Do 2026-08-17 nemal formular, takze sa nemal ako ozvat."
     }
   ]
 }
