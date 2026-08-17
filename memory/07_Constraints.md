@@ -96,6 +96,16 @@ the gate and delete it from here** (`CLAUDE.md` lists what is enforced).
   heading line-height, tap targets at 375px, horizontal overflow.
 - **Fix both language versions in the same turn**, then verify both.
 
+## Merateľné dizajnové minimum (namerané 2026-08-17, drž to)
+
+- kontrast textu voči pozadiu **≥ 4,5** v tmavom aj svetlom režime
+  (namerané: telo 7,48 tmavý / 6,25 svetlý — rezerva je, nezhoršovať)
+- **jeden `h1`** na stránku, každý obrázok má `alt`
+- dotykový terč na 375 px **≥ 40 px**
+- žiadne vodorovné pretečenie: `scrollWidth == clientWidth`
+- riadkovanie nadpisov 1,12-1,25, nikdy zdedené 1,65
+- každý vnútorný odkaz vedie na existujúci súbor (690 overených)
+
 ## Publishing
 
 - **A published article without a hero image is an unfinished article.**
