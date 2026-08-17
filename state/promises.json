@@ -71,6 +71,16 @@
       "datum_kontroly": "2026-10-15",
       "stav": "bezi",
       "poznamka": "Prvy EN clanok v novej pozicii. Cielovy dotaz 'how to test an AI assistant before you let staff use it' - SERP drzia male chatbot agentury (pegamento.nl, parslabs.org, inspectagents.com), ziadny Microsoft ani velky vydavatel; vsetky odpovedaju pre zakaznicke chatboty (CSAT, completion rate), nie pre odbornu pracu. Dotazy so slovom 'Copilot' zahodene - drzi ich Microsoft Support a Copilot Studio."
+    },
+    {
+      "id": "en-clanky-5-stara-pozicia",
+      "typ": "clanky",
+      "co": "5 EN clankov pre freelancerov (pricing, scope creep, rate increase, reading list)",
+      "vzniklo": "2026-07-28",
+      "slub": "aspon 30 organickych klikov spolu za mesiac ALEBO 1 dopyt, ktory sa na nieco z nich odvolava",
+      "datum_kontroly": "2026-10-01",
+      "stav": "bezi",
+      "poznamka": "Ina cielova skupina nez nova pozicia (freelanceri, nie firmy s Copilotom). Ak nesplnia, neprepisovat - stiahnut a pisat do novej pozicie."
     }
   ]
 }
