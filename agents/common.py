@@ -709,6 +709,24 @@ MARKETING_BLURBS = {
     "swipe_file": "Ready-to-send scripts for {term} - copy, adjust the details, send.",
     "service": "{term}, scoped and quoted for your actual project - get in touch to start.",
 }
+# Pat sluzieb zdielalo jednu vetu, v ktorej sa menil len nazov: "X, scoped and
+# quoted for your actual project - get in touch to start." Na stranke, ktora
+# predava dizajn, to citatelovi povie jedine to, ze text pisala sablona.
+# Kazda sluzba ma vlastnu vetu o tom, CO ZAKAZNIK DOSTANE - ziadne cisla,
+# ziadne sluby, ktore nevieme dodrzat.
+BLURB_PODLA_SLUZBY = {
+    "custom-website-design-development":
+        "A finished, deployed website - not a design file someone else still has to build.",
+    "custom-chatbot-development":
+        "A chatbot that answers from your own documents and prices, on your own site.",
+    "tailored-digital-product":
+        "A calculator, template or tool shaped around one job your customers keep asking about.",
+    "design-branding-visual-identity":
+        "A logo with the rules and stylesheet to use it - so everything made later still looks like you.",
+    "automation-integrations":
+        "The weekly job you do by hand, running by itself - with the source code handed to you.",
+}
+
 MARKETING_BLURB_EBOOK_FREE = "A fast, practical guide to {term} - no fluff, just what actually works."
 MARKETING_BLURB_EBOOK_PAID = "A focused guide to {term} you can read in about 15 minutes and put to use today."
 MARKETING_BLURB_FALLBACK = "A practical {format} for {term}."
@@ -742,13 +760,16 @@ def display_term(term: str) -> str:
     return " ".join(ACRONYM_OVERRIDES.get(w.lower(), w.title()) for w in term.split())
 
 
-def marketing_blurb(term: str, format_: str, monetized: bool = False) -> str:
+def marketing_blurb(term: str, format_: str, monetized: bool = False,
+                    slug: str = "") -> str:
     """Visitor-facing copy for a product page - deliberately separate from
     `product_ideas.rationale`, which is an internal audit trail ("why the
     agent picked this") and reads like an engineering log, not marketing
     (e.g. "Keyword implies users want to compute something quickly
     online."). Real copy, but still 100% honest - no fabricated numbers,
     testimonials, or urgency that isn't true."""
+    if slug and slug in BLURB_PODLA_SLUZBY:
+        return BLURB_PODLA_SLUZBY[slug]
     if term.strip().lower() == format_:
         subject = GENERIC_SUBJECT_BY_FORMAT.get(format_, term)
     else:

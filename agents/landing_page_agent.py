@@ -391,7 +391,7 @@ def build_page(product: dict) -> Optional[dict]:
         return None
 
     slug = slugify(title)
-    meta_description = marketing_blurb(term, fmt, bool(monetization_url))[:160]
+    meta_description = marketing_blurb(term, fmt, bool(monetization_url), slug=slug)[:160]
     intro_html = f'<p class="subtitle">{html.escape(meta_description)}</p>'
 
     PAGES_DIR.mkdir(parents=True, exist_ok=True)
