@@ -25,6 +25,7 @@ kotva prestane byť nula — nie skôr.
 from __future__ import annotations
 
 import json
+import re
 import sqlite3
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -81,7 +82,9 @@ CREATE TABLE IF NOT EXISTS domnienky (
     dolezitost        INTEGER NOT NULL,   -- 1-5: koľko na nej stojí
     zmeskane_revizie  INTEGER NOT NULL DEFAULT 0,
     vysledok          TEXT,
-    zapisane          TEXT NOT NULL
+    poznatok_id       INTEGER,            -- z ktorého poznatku sa zrodila
+    zapisane          TEXT NOT NULL,
+    FOREIGN KEY (poznatok_id) REFERENCES poznatky(id)
 );
 
 -- Každá položka z fronty musí skončiť rozhodnutím: buď sa z nej stal poznatok,
@@ -170,6 +173,18 @@ def zapis_poznatok(
     if not (zdroj or "").strip():
         raise ChybaEvolucie("poznatok bez zdroja sa nezapisuje")
 
+    # Idempotencia. Zápis nie je v transakcii s ostatnými, takže výklad, ktorý
+    # spadne v polovici, nechá za sebou časť poznatkov — a opakovanie ich
+    # zapíše druhýkrát. Presne to sa stalo 2026-08-17: štyri poznatky vznikli
+    # dvakrát, keď prvý priechod spadol na chýbajúcej URL z MCP registra.
+    # V dennom behu bez dozoru by sa to opakovalo pri každom zlyhaní.
+    uz = conn.execute(
+        "SELECT id FROM poznatky WHERE zdroj = ? AND tvrdenie = ? "
+        "AND stav NOT IN ('PREKONANY','VYVRATENY')", (zdroj, tvrdenie)
+    ).fetchone()
+    if uz is not None:
+        return int(uz["id"])
+
     plati_do = (date.today() + timedelta(days=PLATNOST_DNI[typ_zdroja])).isoformat()
     cur = conn.execute(
         """INSERT INTO poznatky
@@ -213,6 +228,7 @@ def zapis_domnienku(
     ako_to_zistime: str,
     datum_revizie: str,
     dolezitost: int,
+    poznatok_id: Optional[int] = None,
 ) -> int:
     """Zapíše strategický predpoklad.
 
@@ -233,13 +249,83 @@ def zapis_domnienku(
     cur = conn.execute(
         """INSERT INTO domnienky
            (domnienka, preco_tomu_verime, co_by_ju_vyvratilo, ako_to_zistime,
-            datum_revizie, stav, dolezitost, zapisane)
-           VALUES (?,?,?,?,?,'OTVORENA',?,?)""",
+            datum_revizie, stav, dolezitost, poznatok_id, zapisane)
+           VALUES (?,?,?,?,?,'OTVORENA',?,?,?)""",
         (domnienka, preco_tomu_verime, co_by_ju_vyvratilo, ako_to_zistime,
-         datum_revizie, dolezitost, _dnes()),
+         datum_revizie, dolezitost, poznatok_id, _dnes()),
     )
     conn.commit()
     return int(cur.lastrowid)
+
+
+def poznatky_bez_dosledku(conn: sqlite3.Connection, limit: int = 10) -> list[sqlite3.Row]:
+    """Poznatky, ktoré niečo znamenajú, ale nikdy nič nespôsobili.
+
+    Toto je hranica medzi automatizovaným výskumom a evolúciou. Systém, ktorý
+    poznatky zbiera, vykladá a zakladá, ale nikdy z nich nespraví vyvrátiteľnú
+    hypotézu, je archív. Presne tu sa doteraz reťaz trhala: `domnienky` vznikali
+    výhradne z ručne napísaného zoznamu v `evolve.py` a z 20 zapísaných poznatkov
+    neviedol k hypotéze ani jeden.
+
+    Zámerne vracia len poznatky s vyplneným `dosah` — kde nikto nepovedal, čo to
+    mení, tam nie je z čoho hypotézu postaviť, a nasilu vyrobená hypotéza je
+    horšia než žiadna.
+    """
+    return list(conn.execute(
+        "SELECT * FROM poznatky p WHERE p.dosah IS NOT NULL AND TRIM(p.dosah) <> '' "
+        "AND p.stav <> 'VYVRATENY' "
+        "AND NOT EXISTS (SELECT 1 FROM domnienky d WHERE d.poznatok_id = p.id) "
+        "ORDER BY p.id DESC LIMIT ?", (limit,)
+    ))
+
+
+def mozne_rozpory(conn: sqlite3.Connection, limit: int = 5) -> list[dict]:
+    """Dvojice poznatkov o tej istej veci, ktoré si môžu odporovať.
+
+    Rozpor sa nedá spoľahlivo nájsť kódom — „Microsoft overovanie nerieši“ a
+    „Microsoft ohlásil governance agentov“ sa nelíšia ani jedným kľúčovým
+    slovom, a pritom napätie medzi nimi je celý zmysel veci. Kód preto len
+    predloží dvojice s prekryvom podstatných slov; rozhodnúť ich musí úsudok
+    cez `oznac_rozpor`. Tichý prepis staršieho poznatku novším je zakázaný.
+    """
+    riadky = list(conn.execute(
+        "SELECT id, tvrdenie, typ_zdroja FROM poznatky "
+        "WHERE stav NOT IN ('VYVRATENY','PREKONANY') ORDER BY id DESC LIMIT 60"
+    ))
+    stop = {"a", "aj", "ako", "ale", "na", "sa", "sú", "je", "to", "že", "pre",
+            "the", "and", "for", "with", "that", "ktoré", "ktorá", "ktorý", "nie"}
+
+    def slova(text: str) -> set[str]:
+        return {w for w in re.findall(r"\w{5,}", text.lower()) if w not in stop}
+
+    dvojice = []
+    for i, a in enumerate(riadky):
+        sa_ = slova(a["tvrdenie"])
+        for b in riadky[i + 1:]:
+            spolocne = sa_ & slova(b["tvrdenie"])
+            if len(spolocne) >= 3:
+                dvojice.append({
+                    "a": a["id"], "b": b["id"], "spolocne": sorted(spolocne)[:5],
+                    "a_text": a["tvrdenie"][:90], "b_text": b["tvrdenie"][:90],
+                })
+    return dvojice[:limit]
+
+
+def oznac_rozpor(conn: sqlite3.Connection, novy_id: int, stary_id: int,
+                 *, rozhodnutie: str) -> None:
+    """Zaznamená rozpor. `rozhodnutie` je 'NAHRADZA' alebo 'NEISTE'.
+
+    'NAHRADZA' starý poznatok zhodí, 'NEISTE' nechá oba žiť a označí ich —
+    lebo dva zdroje, ktoré si odporujú a ani jeden nie je zjavne lepší, sú
+    stav neistoty, nie dôvod vybrať si ten pohodlnejší.
+    """
+    if rozhodnutie not in ("NAHRADZA", "NEISTE"):
+        raise ChybaEvolucie("rozhodnutie je NAHRADZA alebo NEISTE")
+    conn.execute("UPDATE poznatky SET odporuje=? WHERE id=?", (stary_id, novy_id))
+    if rozhodnutie == "NAHRADZA":
+        conn.execute("UPDATE poznatky SET stav='PREKONANY', nahradza=NULL WHERE id=?",
+                     (stary_id,))
+    conn.commit()
 
 
 def splatne_domnienky(conn: sqlite3.Connection) -> list[sqlite3.Row]:
@@ -425,6 +511,24 @@ def zapis_rozhodnutie(
     return int(cur.lastrowid)
 
 
+def vyhodnot_rozhodnutie(conn: sqlite3.Connection, rozhodnutie_id: int,
+                         *, skutocny_ucinok: str) -> None:
+    """Porovná, čo sa čakalo, s tým, čo nastalo. Bez toho niet učenia.
+
+    Toto pole doteraz nenastavovalo nič — takže systém vedel povedať, čo od
+    zmeny čaká, ale nikdy sa nedozvedel, či to nastalo. Zmena, ktorej výsledok
+    nikto neporovná, ostane navždy, lebo neexistuje dôvod ju zrušiť.
+    """
+    if len(skutocny_ucinok.strip()) < 15:
+        raise ChybaEvolucie(
+            "skutočný účinok musí byť pozorovanie, nie „ok“ — porovnáva sa "
+            "s očakávaním a to porovnanie je jediný zdroj poučenia"
+        )
+    conn.execute("UPDATE rozhodnutia SET skutocny_ucinok=? WHERE id=?",
+                 (skutocny_ucinok, rozhodnutie_id))
+    conn.commit()
+
+
 def nevyhodnotene_rozhodnutia(conn: sqlite3.Connection) -> list[sqlite3.Row]:
     """Zmeny po termíne revízie, ktorým nikto neporovnal očakávanie so skutočnosťou."""
     return list(conn.execute(
@@ -544,6 +648,29 @@ def dalsi_krok(conn: sqlite3.Connection) -> list[dict]:
             "co": f"Preveriť starnúci poznatok: {p['tvrdenie']}",
             "ako": f"otvoriť {p['zdroj']} a potvrdiť alebo nahradiť",
             "vyvratilo_by": "zdroj už tvrdí niečo iné alebo neexistuje",
+            "autorita": "stroj",
+        })
+
+    for p in poznatky_bez_dosledku(conn):
+        kroky.append({
+            "poradie": 4.5,
+            "co": f"Postaviť vyvrátiteľnú hypotézu z poznatku #{p['id']}: "
+                  f"{p['tvrdenie'][:90]}",
+            "ako": f"dosah hovorí: {p['dosah'][:110]} — sformulovať, čo z toho "
+                   f"vyplýva pre nás, a čím sa to dá vyvrátiť",
+            "vyvratilo_by": "poznatok nemá dôsledok pre nás; potom ho označ ako "
+                            "PREKONANY namiesto vymýšľania hypotézy",
+            "autorita": "stroj",
+        })
+
+    for d in mozne_rozpory(conn):
+        kroky.append({
+            "poradie": 4.2,
+            "co": f"Preveriť možný rozpor #{d['a']} vs #{d['b']} "
+                  f"(spoločné: {', '.join(d['spolocne'])})",
+            "ako": f"A: {d['a_text']} · B: {d['b_text']} — rozhodnúť cez "
+                   f"oznac_rozpor: NAHRADZA alebo NEISTE",
+            "vyvratilo_by": "hovoria o inej veci a prekryv slov je náhodný",
             "autorita": "stroj",
         })
 
