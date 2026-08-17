@@ -15,7 +15,9 @@ nie porucha. Nenulový je len pri chybe behu.
 from __future__ import annotations
 
 import argparse
+import os
 import sys
+import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -97,8 +99,23 @@ def main() -> int:
     args = p.parse_args()
 
     conn = get_connection()
+    beh_id = f"{os.environ.get('GITHUB_RUN_ID') or os.getpid()}-{int(time.time())}"
+    vlastnik = ("github-actions" if os.environ.get("GITHUB_ACTIONS")
+                else os.environ.get("CLAUDE_RUN_OWNER", "relacia"))
+    zamknute = False
     try:
         ev.priprav(conn)
+
+        # Stav smie meniť jediný beh. Odmietnutie nie je chyba, je to ochrana,
+        # preto sa končí nulou — inak by CI hlásilo poruchu vždy, keď zámok
+        # zafunguje, a niekto by ho zo zúfalstva vypol.
+        try:
+            ev.zamkni(conn, run_id=beh_id, vlastnik=vlastnik)
+            zamknute = True
+        except ev.ZamokObsadeny as e:
+            print(f"[evolve] {e}")
+            print("[evolve] nič sa nemení; súbežný zápis by databázu rozbil")
+            return 0
 
         if args.seed:
             print(f"[evolve] založených domnienok: {seed(conn)}")
@@ -146,6 +163,8 @@ def main() -> int:
                   "menia to, čím má byť biznis.")
         return 0
     finally:
+        if zamknute:
+            ev.odomkni(conn, run_id=beh_id)
         conn.close()
 
 

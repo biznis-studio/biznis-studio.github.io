@@ -53,6 +53,19 @@ PLATNOST_DNI = {
 }
 
 SCHEMA = """
+-- Naraz smie stav meniť jediný beh. 2026-08-17 bežali dva cloudové behy a
+-- pipeline súčasne nad tou istou `db/biznis.sqlite3`; je to binárny súbor, kde
+-- súbežný zápis nekončí zlúčením, ale prepisom. Databázy sa rozišli a museli sa
+-- zmierovať ručne. Autonómia bez tohto zámku je nebezpečná autonómia.
+CREATE TABLE IF NOT EXISTS beh_zamok (
+    id         INTEGER PRIMARY KEY CHECK (id = 1),   -- práve jeden riadok
+    run_id     TEXT NOT NULL,
+    vlastnik   TEXT NOT NULL,
+    zacal      TEXT NOT NULL,
+    plati_do   TEXT NOT NULL,        -- prežije aj pád procesu
+    stav       TEXT NOT NULL         -- BEZI | HOTOVO | PADOL
+);
+
 CREATE TABLE IF NOT EXISTS poznatky (
     id            INTEGER PRIMARY KEY AUTOINCREMENT,
     tvrdenie      TEXT NOT NULL,
@@ -128,16 +141,127 @@ def _dnes() -> str:
     return date.today().isoformat()
 
 
+# Stĺpce doplnené až po tom, čo tabuľka vznikla. `CREATE TABLE IF NOT EXISTS`
+# existujúcu tabuľku NEMENÍ, takže bez tohto zoznamu by databáza, ktorá vznikla
+# skôr, nový stĺpec nikdy nedostala. Presne to sa stalo 2026-08-17: pridal som
+# `domnienky.poznatok_id` ručným ALTER-om vo svojej relácii, a vzdialená
+# databáza v CI ho nemala ako ho získať. Migrácia patrí do kódu, nie do rúk.
+MIGRACIE = [
+    ("domnienky", "poznatok_id", "INTEGER"),
+    ("rozhodnutia", "datum_revizie", "TEXT"),
+    ("rozhodnutia", "vrstva", "TEXT"),
+]
+
+
 def priprav(conn: Optional[sqlite3.Connection] = None) -> None:
-    """Vytvorí tabuľky. Bezpečné spustiť opakovane."""
+    """Vytvorí tabuľky a doplní chýbajúce stĺpce. Bezpečné spustiť opakovane."""
     vlastne = conn is None
     conn = conn or get_connection()
     try:
         conn.executescript(SCHEMA)
+        for tabulka, stlpec, typ in MIGRACIE:
+            existujuce = {r["name"] for r in conn.execute(
+                f"PRAGMA table_info({tabulka})")}
+            if existujuce and stlpec not in existujuce:
+                conn.execute(f"ALTER TABLE {tabulka} ADD COLUMN {stlpec} {typ}")
         conn.commit()
     finally:
         if vlastne:
             conn.close()
+
+
+# --- zámok behu ------------------------------------------------------------
+
+ZAMOK_MINUT = 45          # dlhší než najdlhší doterajší beh, kratší než cyklus
+
+
+class ZamokObsadeny(Exception):
+    """Iný beh práve mení stav. Toto nie je porucha — je to ochrana."""
+
+
+def _teraz() -> datetime:
+    return datetime.now()
+
+
+def zamkni(conn: sqlite3.Connection, *, run_id: str, vlastnik: str,
+           minut: int = ZAMOK_MINUT) -> None:
+    """Získa zámok, alebo vyhodí ZamokObsadeny. Nikdy nečaká.
+
+    Prebratie po páde je viazané na `plati_do`, nie na kontrolu procesu: beh
+    v cudzom prostredí sa overiť nedá, takže jediné bezpečné kritérium je čas.
+    Živý beh si zámok predlžuje cez `predlz_zamok`, čím sa chráni pred
+    prebratím — a beh, ktorý padol, prestane predlžovať a zámok po termíne
+    uvoľní sám.
+    """
+    teraz = _teraz()
+    r = conn.execute("SELECT * FROM beh_zamok WHERE id=1").fetchone()
+    if r is not None and r["stav"] == "BEZI":
+        try:
+            plati_do = datetime.fromisoformat(r["plati_do"])
+        except (TypeError, ValueError):
+            plati_do = teraz                      # nečitateľný termín = vypršaný
+        if plati_do > teraz:
+            raise ZamokObsadeny(
+                f"beh {r['run_id']} ({r['vlastnik']}) drží zámok do "
+                f"{r['plati_do']}; tento beh sa nespúšťa"
+            )
+        # vypršaný zámok = beh padol; zaznamenáme to, nemlčíme o tom
+        conn.execute("UPDATE beh_zamok SET stav='PADOL' WHERE id=1")
+
+    conn.execute(
+        "INSERT INTO beh_zamok (id, run_id, vlastnik, zacal, plati_do, stav) "
+        "VALUES (1,?,?,?,?,'BEZI') "
+        "ON CONFLICT(id) DO UPDATE SET run_id=excluded.run_id, "
+        "vlastnik=excluded.vlastnik, zacal=excluded.zacal, "
+        "plati_do=excluded.plati_do, stav='BEZI'",
+        (run_id, vlastnik, teraz.isoformat(),
+         (teraz + timedelta(minutes=minut)).isoformat()),
+    )
+    conn.commit()
+
+
+def predlz_zamok(conn: sqlite3.Connection, *, run_id: str,
+                 minut: int = ZAMOK_MINUT) -> bool:
+    """Predĺži platnosť. Vráti False, ak zámok medzitým prevzal niekto iný."""
+    r = conn.execute("SELECT run_id FROM beh_zamok WHERE id=1").fetchone()
+    if r is None or r["run_id"] != run_id:
+        return False
+    conn.execute("UPDATE beh_zamok SET plati_do=? WHERE id=1",
+                 ((_teraz() + timedelta(minutes=minut)).isoformat(),))
+    conn.commit()
+    return True
+
+
+def odomkni(conn: sqlite3.Connection, *, run_id: str) -> bool:
+    """Uvoľní zámok. Cudzí zámok neuvoľní — vráti False."""
+    r = conn.execute("SELECT run_id FROM beh_zamok WHERE id=1").fetchone()
+    if r is None or r["run_id"] != run_id:
+        return False
+    conn.execute("UPDATE beh_zamok SET stav='HOTOVO' WHERE id=1")
+    conn.commit()
+    return True
+
+
+def zluc_duplicitne_poznatky(conn: sqlite3.Connection) -> int:
+    """Zlúči poznatky s rovnakým zdrojom aj tvrdením a zachová väzby.
+
+    Zápis je od 2026-08-17 idempotentný, takže nové duplikáty nevznikajú. Toto
+    je oprava tých, ktoré vznikli predtým — a musí byť v kóde, lebo tú istú
+    databázu opravuje aj CI, nielen jedna relácia. Mazať sa smie až po
+    prepojení odkazov, inak to zastaví cudzí kľúč (a správne).
+    """
+    dvojice = conn.execute(
+        "SELECT MIN(id) prezije, MAX(id) zmaze FROM poznatky "
+        "GROUP BY zdroj, tvrdenie HAVING COUNT(*) > 1"
+    ).fetchall()
+    for d in dvojice:
+        conn.execute("UPDATE vyklad SET poznatok_id=? WHERE poznatok_id=?",
+                     (d["prezije"], d["zmaze"]))
+        conn.execute("UPDATE domnienky SET poznatok_id=? WHERE poznatok_id=?",
+                     (d["prezije"], d["zmaze"]))
+        conn.execute("DELETE FROM poznatky WHERE id=?", (d["zmaze"],))
+    conn.commit()
+    return len(dvojice)
 
 
 # --- poznatky --------------------------------------------------------------
