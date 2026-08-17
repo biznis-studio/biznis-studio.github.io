@@ -13,7 +13,8 @@ a hlavne hovorí, kedy chatbota nekupovať.
 Rozpätia nižšie **nie sú naše merania** — sú to ceny, ktoré slovenskí
 dodávatelia zverejňujú, a viete si ich overiť u nich:
 [chatbotnamieru.sk](https://www.chatbotnamieru.sk/blog/kolko-stoji-ai-chatbot-a-aka-je-jeho-navratnost-roi-pre-slovenske-firmy),
-[slovensko.ai](https://www.slovensko.ai/chatbot/chatbot-cennik/),
+[slovensko.ai](https://www.slovensko.ai/chatbot/),
+[flowii.com](https://www.flowii.com/sk/blog/chatbot-ako-ho-vytvorit-vyuzivat-a-aka-je-jeho-cena/),
 [replai.sk](https://replai.sk/blog/slovensky-chatbot-pre-firmy.html).
 
 **Hotový SaaS widget: zhruba 30 – 180 € mesačne.**

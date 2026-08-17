@@ -16,6 +16,10 @@ the gate and delete it from here** (`CLAUDE.md` lists what is enforced).
 - **No published number without a pre-registered threshold and an UNKNOWN
   category.** A guessed 85% once shipped where the real figure was 92%.
 - **Say what a result does *not* prove**, every time you report one.
+- **A URL from a search result is not a verified source — open it.** On
+  2026-08-17 a cited source went live returning 404 because the link came
+  from search output and nobody fetched it. Citing a dead source is worse
+  than citing none. `scripts/check_external_links.py` now checks them all.
 
 ## Verification
 
