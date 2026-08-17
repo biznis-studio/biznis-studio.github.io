@@ -14,9 +14,9 @@ Aktualizované: **2026-08-17**
 |---|---|---|
 | Akceptačná sada packu | **8 zo 17**, S17 zlyhal (Z7) · **6 z 9 zvyšných bolo nesplniteľných, prepísané** | odbehnúť 9 podľa `tests/vysledky/2026-08-16_priprava_dobehnutia.md` |
 | Pack v0.5.0 | **NEVYDANÝ** — `vydane: false` v MANIFESTe | až po 17/17 |
-| Nová pozícia na webe | SK 1 článok + služba, **EN 1 článok** (publikovaný) | čakať na sľuby (15. 10.) |
+| Nová pozícia na webe | SK **2 články** + služba, EN 1 článok + sekcia na domovskej | čakať na sľuby (15. 10., 31. 10.) |
 | Inbound dráha | skill `/dopyt` hotový | napojiť na to, čo chodí z formulára |
-| Sľuby aktív | 7 aktív, žiadne po termíne | týždenná kontrola beží sama |
+| Sľuby aktív | **10 aktív**, žiadne po termíne | týždenná kontrola beží sama |
 
 ## Kotvy — čo hovorí realita
 
@@ -57,6 +57,18 @@ formulár.
 fungujú, ale vložený text sa neobjaví — ani „test". Je to zameranie okna na
 úrovni systému. **Stačí kliknúť do okna Chromu** a viem dobehnúť zvyšných
 sedem scenárov. Do vtedy je pack 0.5.0 nevydaný.
+
+## Web — stav meraním (2026-08-17)
+
+| | |
+|---|---|
+| šablónové popisy | **0** (bolo 19 z 19 stránok) |
+| stránky bez kontaktného formulára | **2**, obe zámerne (credits, news) |
+| rovné úvodzovky v článkoch | **0** |
+| mŕtve externé odkazy | **0** z 28 |
+| rozbité vnútorné odkazy | **0** z 690 |
+| kontrast textu | 7,48 tmavý · 6,25 svetlý (limit 4,5) |
+| dotykový terč na 375 px | 40 px · žiadne pretečenie |
 
 ## Posledný beh
 

@@ -295,3 +295,15 @@ answer to how a process gets chosen at a customer: not by survey.
 Also missing: we only have **failure-mode** eval sets. Huyen wants one that matches the **real production
 distribution** — an ordinary Tuesday — otherwise we never learn if the tool is over-cautious on routine work.
 Full notes with sources and honest coverage gaps: `docs/RESEARCH_12_UCTOV.md`.
+
+
+**A template that fills in a name produces pages nobody wrote — 2026-08-17.**
+All 19 product/service pages shared seven generated sentences; four templates and four swipe files
+differed by a single word ("X, scoped and quoted for your actual project"). It looked correct at the
+source (`MARKETING_BLURBS` keyed by format) and unbearable on the page. **A per-format template is a
+defect generator: it scales one weak sentence across every page and nobody reads them side by side.**
+Fixed with per-slug dictionaries written from each product's own file.
+**Second, worse lesson from the same fix:** the copy lives in code but is *served* from the `pages`
+table, which the pipeline rewrites — so `git checkout --theirs db/biznis.sqlite3` silently reverted it
+twice in one hour. `scripts/apply_blurbs.py` now rewrites them from code and exits non-zero if any
+template sentence survived; it runs after every merge, before the build.
