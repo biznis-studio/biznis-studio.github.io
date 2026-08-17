@@ -1,0 +1,19 @@
+{
+  "_comment": "Kuratorsky zoznam uctov na X. X nema pouzitelne free API - v2 free tier je prakticky iba na zapis - takze tato drahu NEVIE spustit CI. Cita sa cez prihlaseny Chrome majitela, teda pocas relacie. Preto je zoznam tu ako data a postup je v .claude/skills/frontier/SKILL.md.",
+  "preco_kuratorsky": "Otvorene vyhladavanie na X nefunguje: dotaz 'agent' vratil futbalovych agentov a byvaleho agenta FBI. Overene 2026-08-17. Hodnotu ma zoznam ludi, nie kluc.",
+  "ucty": [
+    { "handle": "AndrewYNg", "preco": "evals a error analysis - disciplina merania" },
+    { "handle": "AnatoliKopadze", "preco": "graph engineering, stavba agentovych systemov" },
+    { "handle": "Granite0x", "preco": "principy prace s agentmi, harness" },
+    { "handle": "ai_explorer25", "preco": "prehlady vyskumu" },
+    { "handle": "josesilesdata", "preco": "data a vyhodnocovanie" },
+    { "handle": "0xRicker", "preco": "studie a rozbory" },
+    { "handle": "RohOnChain", "preco": "signal je slaby - vela kratkych odpovedi bez obsahu; kandidat na vyradenie pri prvej revizii" },
+    { "handle": "iiiichigo_chan", "preco": "kontextove inzinierstvo" },
+    { "handle": "eng_khairallah1", "preco": "praktiky nasadzovania" },
+    { "handle": "simonw", "preco": "pise co naozaj skusil a co nevyslo; ma aj RSS, takze CI drahu pokryva frontier_agent" },
+    { "handle": "karpathy", "preco": "zdroj tezy o overitelnosti, na ktorej stoji nasa pozicia" }
+  ],
+  "revizia": "2026-11-17",
+  "pravidlo_revizie": "Ucet, ktory za tri mesiace nedal ani jeden poznatok zapisany do tabulky poznatky, sa zo zoznamu vyhadzuje. Bez toho zoznam iba rastie."
+}

@@ -28,36 +28,33 @@ from core import evolution as ev
 # čo už majiteľ napísal v CLAUDE.md alebo čo je v STATE.md ako kotva. Pri každej
 # je uvedené, odkiaľ pochádza, aby sa dala spochybniť aj samotná domnienka.
 ZAKLADNE_DOMNIENKY = [
+    # Majiteľ 2026-08-17: „zabudni na faktúry, faktúry prídu keď budeme mať top
+    # produkt.“ Faktúra preto NIE JE bránou pred stavaním — je následkom. Čo
+    # zostáva merateľné, je kvalita produktu, a tá sa dá vyvrátiť aj bez tržby.
     {
-        "domnienka": "Firmy sú ochotné zaplatiť za prevod svojej práce do overiteľnej podoby.",
+        "domnienka": "Produkt bude špičkový vtedy, keď bude stáť na aktuálnej svetovej "
+                     "špičke AI, nie na tom, čo sme vedeli pred rokom.",
+        "preco_tomu_verime": "Majiteľ 2026-08-17: zdrojom je globálny svet AI a marketingu "
+                             "a jeho pokročilého používania; aplikácia na SK trh je až dôsledok.",
+        "co_by_ju_vyvratilo": "Za tri mesiace nevznikne z fronty `frontier` ani jeden poznatok, "
+                              "ktorý by čokoľvek v produkte zmenil — potom je snímanie ozdoba.",
+        "ako_to_zistime": "počet riadkov v `poznatky` so zdrojom `frontier:` a "
+                          "s vyplneným `dosah`, ktoré viedli k zmene v repozitári",
+        "datum_revizie": "2026-11-17",
+        "dolezitost": 5,
+    },
+    {
+        "domnienka": "Overiteľnosť je tá schopnosť, ktorá odlišuje náš produkt od "
+                     "bežného nasadenia AI.",
         "preco_tomu_verime": "CLAUDE.md: „LLM automatizujú to, čo viete overiť.“ "
                              "Z toho stojí celá pozícia webu aj packu.",
-        "co_by_ju_vyvratilo": "Šesť mesiacov od spustenia formulárov nula zaplatených "
-                              "faktúr a nula dopytov, ktoré by pomenovali overiteľnosť "
-                              "ako svoj problém.",
-        "ako_to_zistime": "state/promises.json + počet dopytov z Formspree + faktúry",
-        "datum_revizie": "2026-11-15",
-        "dolezitost": 5,
-    },
-    {
-        "domnienka": "Naším trhom sú slovenské malé a stredné firmy, nie anglický trh nástrojov.",
-        "preco_tomu_verime": "CLAUDE.md, Strategy context: slovenské SERP-y našich služieb "
-                             "držia len malé lokálne agentúry a bežia na ne platené reklamy.",
-        "co_by_ju_vyvratilo": "Prvé reálne dopyty prídu z anglických stránok, alebo slovenské "
-                              "články po troch mesiacoch neprinesú ani jednu organickú impresiu.",
-        "ako_to_zistime": "Search Console podľa jazyka + pôvod dopytov z formulára",
+        "co_by_ju_vyvratilo": "Špička dorieši overovanie sama — modely alebo nástroje začnú "
+                              "štandardne dodávať doložiteľný postup, a naša práca sa scvrkne "
+                              "na zapnutie funkcie, ktorú má každý.",
+        "ako_to_zistime": "sledovať vo fronte `frontier` položky o verifikácii, "
+                          "evals a doložiteľnosti (arXiv, hf_papers, oznámenia výrobcov)",
         "datum_revizie": "2026-10-31",
         "dolezitost": 5,
-    },
-    {
-        "domnienka": "Viazaným obmedzením je návštevnosť, nie konverzia.",
-        "preco_tomu_verime": "CLAUDE.md: Gumroad ukazuje 0 zobrazení, nie 0 predajov. "
-                             "Leštenie textu sedí pod bránou, ktorá sa neotvorila.",
-        "co_by_ju_vyvratilo": "Návštevnosť vyrastie na stovky za mesiac a dopyty zostanú nula "
-                              "— potom je chyba na stránke, nie pred ňou.",
-        "ako_to_zistime": "Search Console: zobrazenia a kliky proti počtu dopytov",
-        "datum_revizie": "2026-10-15",
-        "dolezitost": 4,
     },
     {
         "domnienka": "Pack je formát dodania, nie produkt — výrobná linka zvládne druhú profesiu.",
