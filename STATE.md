@@ -4,7 +4,7 @@ Prečíta sa na začiatku každej relácie, doplní sa na konci. Agent medzi beh
 zabudne, tento súbor nie. **Krátky zámerne** — čo je hotové, patrí do histórie,
 nie sem.
 
-Aktualizované: **2026-08-16**
+Aktualizované: **2026-08-17**
 
 ---
 
@@ -50,6 +50,13 @@ formulár.
    presná zhoda ich rozdelí a jedna väzba je neviditeľná. Zjednotiť názvy?
 3. **Druhý pack v inej profesii** — jediný chýbajúci dôkaz, že je to výrobná
    linka a nie jeden dokument.
+
+## Blokované na majiteľovi (jedno kliknutie)
+
+**Copilot: klávesnica sa do stránky nedostáva.** Kliknutia aj JavaScript
+fungujú, ale vložený text sa neobjaví — ani „test". Je to zameranie okna na
+úrovni systému. **Stačí kliknúť do okna Chromu** a viem dobehnúť zvyšných
+sedem scenárov. Do vtedy je pack 0.5.0 nevydaný.
 
 ## Posledný beh
 
