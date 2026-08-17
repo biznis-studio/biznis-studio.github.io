@@ -293,6 +293,27 @@ def inject_intro_into_calculator(html_text: str, intro_html: str, meta_descripti
     html_text = re.sub(r"<style>.*?</style>", lambda _m: f"<style>{SITE_CSS}</style>",
                        html_text, count=1, flags=re.DOTALL)
 
+    # Kontaktny formular. Kalkulacka je jedina stranka mimo page_shell(), takze
+    # co pribudne inde, tu treba pridat zvlast - inak zostane slepou ulickou.
+    # Presne takto tu uz raz chybal RSS odkaz aj cela revizia dizajnu.
+    # Poistka hlada "<form", nie triedu "contact-form": ta je aj v CSS, ktore
+    # sa do stranky vklada, takze podmienka by bola vzdy nepravdiva. Presne
+    # takto ma raz oklamal aj grep pri kontrole domovskej stranky.
+    if FORMSPREE_ENDPOINT and "<form" not in html_text:
+        zaver = ('\n<h2 id="kontakt" class="section-title">Need something built for you?</h2>\n'
+                 '<p>This one is free because it is small. If you need a calculator or tool '
+                 'for your own customers, tell us what it has to do.</p>\n'
+                 + contact_form_html())
+        telo_koniec = re.compile(r"</main>", re.IGNORECASE).search(html_text)
+        if telo_koniec:
+            html_text = (html_text[:telo_koniec.start()] + zaver
+                         + html_text[telo_koniec.start():])
+        else:
+            body_koniec = re.compile(r"</body>", re.IGNORECASE).search(html_text)
+            if body_koniec:
+                html_text = (html_text[:body_koniec.start()] + zaver
+                             + html_text[body_koniec.start():])
+
     head_match = re.compile(r"</head>", re.IGNORECASE).search(html_text)
     if head_match:
         # The calculator is the one page type that doesn't go through
@@ -443,8 +464,16 @@ def build_page(product: dict) -> Optional[dict]:
             cta = (f'<a class="button" href="../downloads/{html.escape(download_name)}" '
                    f'download>Download {html.escape(label)}</a>')
 
+        # Aj na produktovej stranke ma navstevnik moznost ozvat sa. Kontrola
+        # 2026-08-17: 20 stranok bolo slepou ulickou - kto si stiahol sablonu
+        # alebo prepocital kalkulacku, nemal sa ako spytat na pracu na mieru.
+        zaver = "" if fmt == "service" else (
+            '\n<h2 id="kontakt" class="section-title">Need something built for you?</h2>\n'
+            '<p>These are finished, self-contained pieces. If you need one shaped '
+            'around your own process, tell us what it has to do.</p>\n'
+            + contact_form_html() if FORMSPREE_ENDPOINT else "")
         body_html = (f"{format_badge_html(fmt)}\n<h1>{html.escape(title)}</h1>\n{intro_html}\n"
-                     f'<div class="card">{body}</div>\n{trust_note}{cta}')
+                     f'<div class="card">{body}</div>\n{trust_note}{cta}{zaver}')
         page_path = PAGES_DIR / f"{slug}.html"
         page_path.write_text(page_shell(title, meta_description, body_html))
 

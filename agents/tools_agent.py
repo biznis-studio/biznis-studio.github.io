@@ -376,6 +376,7 @@ def build_tool(tool: dict) -> None:
 {tool["after"]}
 <p class="form-note">Runs entirely in your browser. Nothing you type is sent anywhere,
 stored, or logged - there is no server involved and no analytics on this tool.</p>
+{_kontakt()}
 <p><a href="index.html">&larr; All free tools</a></p>"""
     page = page_shell(f'{tool["title"]} - Free', tool["description"], body)
     page = _with_extras(page, _head_extras(tool["title"], tool["description"],
@@ -399,7 +400,8 @@ def build_index() -> None:
 and consultants. They run in your browser, need no account, and nothing you type leaves
 your device.</p>
 </div>
-<div class="product-grid">{cards}</div>"""
+<div class="product-grid">{cards}</div>
+{_kontakt()}"""
     title = "Free tools for freelancers - Biznis"
     desc = ("Free browser-based calculators for freelancers: scope creep cost and minimum "
             "hourly rate. No signup, nothing stored.")
@@ -419,6 +421,21 @@ def tool_entries() -> list[dict]:
                  "meta_description": t["description"], "created_at": today} for t in TOOLS]
     return entries
 
+
+
+def _kontakt() -> str:
+    """Formular aj na prehlade nastrojov.
+
+    Kontrola 2026-08-17: blog index a prehlad nastrojov boli jedine stranky,
+    na ktore navstevnik pristane a nema sa ako ozvat - slepa ulicka.
+    """
+    from agents.landing_page_agent import FORMSPREE_ENDPOINT, contact_form_html
+    if not FORMSPREE_ENDPOINT:
+        return ""
+    return ('<h2 id="kontakt" class="section-title">Need something like this built?</h2>\n'
+            '<p>These are free because they are small. If you need one for your own '
+            'customers, or something bigger, tell us what it has to do.</p>\n'
+            + contact_form_html())
 
 def run() -> int:
     TOOLS_DIR.mkdir(parents=True, exist_ok=True)

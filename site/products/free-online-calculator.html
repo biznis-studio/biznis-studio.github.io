@@ -529,7 +529,20 @@
   Base + percentage (markup): <b id="markupUp">-</b><br>
   Base - percentage (discount): <b id="markupDown">-</b>
 </div>
-</main>
+
+<h2 id="kontakt" class="section-title">Need something built for you?</h2>
+<p>This one is free because it is small. If you need a calculator or tool for your own customers, tell us what it has to do.</p>
+<form class="contact-form" action="https://formspree.io/f/xykrlrjz" method="POST">
+<label for="name">Name</label>
+<input type="text" id="name" name="name" required>
+<label for="email">Your email</label>
+<input type="email" id="email" name="email" required>
+<label for="message">What do you need?</label>
+<textarea id="message" name="message" required></textarea>
+<input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+<button type="submit" class="button">Send</button>
+<p class="form-note">Goes straight to us — no account or signup needed on your end.</p>
+</form></main>
 <script>
   function recalc() {
     const base = parseFloat(document.getElementById('base').value) || 0;

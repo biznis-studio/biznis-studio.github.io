@@ -289,7 +289,8 @@ like to run a small digital product business in public - including the numbers.<
 </div>
 <div class="post-list">
 {cards}
-</div>"""
+</div>
+{_en_contact_html()}"""
     title = "Blog - Biznis"
     description = ("Practical notes on freelancing, automation, and running a small digital "
                    "product business in public.")
