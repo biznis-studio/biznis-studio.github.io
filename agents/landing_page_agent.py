@@ -1217,6 +1217,23 @@ catalogue of ready-made tools you can use today.</p>
 </div>
 </div>
 {stats_html}
+<section class="band">
+<div class="band-head">
+<h2 class="section-title">Company AI that can be checked</h2>
+</div>
+<div class="band-body">
+<p>Most companies pay for an AI assistant and use it for email. Not because the
+model is weak &mdash; because <strong>nobody can check whether an answer is
+right</strong>, so nothing with consequences gets handed to it.</p>
+<p>We take one decision your experienced people make well and your newer people
+get wrong, and put it into your own Microsoft 365 in a form that can be checked:
+your rules written down, a procedure that asks the cheapest question first, and
+a fixed set of test cases <em>you</em> approve, re-run on every change.</p>
+<p><a href="blog/test-ai-assistant-before-staff-use-it.html">How we test it
+before your staff use it</a> &middot; <a href="#kontakt">Tell us the process
+that keeps costing you</a></p>
+</div>
+</section>
 {services_section}
 {paid_section}
 <h2 class="section-title">Free downloads</h2>

@@ -727,6 +727,45 @@ BLURB_PODLA_SLUZBY = {
         "The weekly job you do by hand, running by itself - with the source code handed to you.",
 }
 
+# To iste platilo pre zvysok katalogu: 14 publikovanych produktovych stranok
+# dostalo jednu zo siedmich sablon z MARKETING_BLURBS, v ktorej sa menil len
+# nazov temy - styri "template" stranky mali doslova rovnaku vetu az na jedno
+# slovo, styri "swipe_file" tiez. Kazda veta nizsie je napisana z OBSAHU suboru
+# (products.file_path), nie z nazvu: co v tom subore naozaj je a na aku situaciu
+# to je. Ziadne cisla, ziadne referencie, ziadna urgencia.
+# Sablony v MARKETING_BLURBS zostavaju ako fallback pre produkt, ktory pipeline
+# vyrobi zajtra a nikto mu este vetu nenapisal.
+BLURB_PODLA_PRODUKTU = {
+    "free-online-calculator":
+        "Enter an amount and a percentage and see the percentage itself, the amount with the markup added, and the amount with the discount taken off.",
+    "checklist-pdf-notion":
+        "A checklist that walks a project from a written definition of done, through setup and a first working version, to feedback and a final quality check.",
+    "eu-digital-seller-compliance-checklist":
+        "The questions an EU-based seller of ebooks or templates meets in week one: selling status, VAT on digital goods, identity checks, and getting paid.",
+    "the-practical-guide-to-xlsx":
+        "What an .xlsx file actually is underneath, when to reach for a spreadsheet app, a CSV export or a code library, and the mistakes that waste the most time.",
+    "the-practical-guide-to-automation":
+        "How to choose between a built-in feature, a no-code platform and a short script for a repetitive task, and how to describe the task well enough to automate it.",
+    "gpt-sol-ai-prompt-pack":
+        "Prompts for explaining, comparing, troubleshooting, critiquing and planning around Gpt Sol - fill in the bracketed details and paste them into your assistant.",
+    "spreadsheet-pack":
+        "A log sheet with the columns already named - date, category, description, amount, status and notes - plus an example row showing how to fill it in.",
+    "invoice-pack":
+        "An invoice sheet with numbering, issue and due dates, line items with quantity and unit price, and the subtotal, tax and total rows already laid out.",
+    "change-request-log-template":
+        "A log for every extra request on a project: what was asked, who asked for it, the estimated hours and cost, and whether it was approved and when.",
+    "retainer-renewal-tracker-template":
+        "A tracker for contract dates: when each retainer ends, when to open the renewal conversation, the rate you are on now, and what to send next.",
+    "freelance-scope-creep-defense-kit":
+        "Wording for the moments a project quietly grows, from the first small extra ask to a full renegotiation, paired with a log for every addition.",
+    "resume-gap-job-title-explainer-scripts":
+        "Honest wording for two awkward resume questions: a gap in your work history, and a job title that did not describe what you actually did.",
+    "client-retainer-renewal-kit":
+        "Wording for every renewal moment - the early check-in, a client going quiet, raising your rate, ending a retainer - plus a tracker for contract dates.",
+    "late-payment-recovery-kit":
+        "The escalation ladder for an unpaid invoice, from the day after the due date to a formal final notice, with a tracker for where each invoice stands.",
+}
+
 MARKETING_BLURB_EBOOK_FREE = "A fast, practical guide to {term} - no fluff, just what actually works."
 MARKETING_BLURB_EBOOK_PAID = "A focused guide to {term} you can read in about 15 minutes and put to use today."
 MARKETING_BLURB_FALLBACK = "A practical {format} for {term}."
@@ -770,6 +809,8 @@ def marketing_blurb(term: str, format_: str, monetized: bool = False,
     testimonials, or urgency that isn't true."""
     if slug and slug in BLURB_PODLA_SLUZBY:
         return BLURB_PODLA_SLUZBY[slug]
+    if slug and slug in BLURB_PODLA_PRODUKTU:
+        return BLURB_PODLA_PRODUKTU[slug]
     if term.strip().lower() == format_:
         subject = GENERIC_SUBJECT_BY_FORMAT.get(format_, term)
     else:
