@@ -10,7 +10,13 @@ a hlavne hovorí, kedy chatbota nekupovať.
 
 ## Tri cenové kategórie
 
-**Hotový SaaS widget: zhruba 30 – 100 € mesačne.**
+Rozpätia nižšie **nie sú naše merania** — sú to ceny, ktoré slovenskí
+dodávatelia zverejňujú, a viete si ich overiť u nich:
+[chatbotnamieru.sk](https://www.chatbotnamieru.sk/blog/kolko-stoji-ai-chatbot-a-aka-je-jeho-navratnost-roi-pre-slovenske-firmy),
+[slovensko.ai](https://www.slovensko.ai/chatbot/chatbot-cennik/),
+[replai.sk](https://replai.sk/blog/slovensky-chatbot-pre-firmy.html).
+
+**Hotový SaaS widget: zhruba 30 – 180 € mesačne.**
 Nastavíte si ho sami cez rozhranie, nakŕmite ho svojimi otázkami a
 odpoveďami. Funguje dobre na jednoduché a stabilné otázky — otváracie
 hodiny, dostupnosť, kde nás nájdete. Nevýhoda: vzhľad aj správanie sú
@@ -26,8 +32,8 @@ ako cudzia bublina.
 Napojenie na sklad, rezervačný systém alebo CRM, kde chatbot pracuje s
 aktuálnymi dátami. Tu už cenu určuje počet systémov, nie samotný chatbot.
 
-Na slovenskom trhu bežne uvidíte 999 € za štandardné riešenie na mieru
-alebo 120 – 480 € za jednoduchší e-shopový chatbot. Naša cena je **od
+Na slovenskom trhu nájdete jednoduchší chatbot so znalostnou bázou
+od zhruba 400 €, integrované riešenia od stoviek po tisíce eur. Naša cena je **od
 690 €** bez DPH.
 
 ## Náklad, ktorý sa v cenníkoch často nespomína

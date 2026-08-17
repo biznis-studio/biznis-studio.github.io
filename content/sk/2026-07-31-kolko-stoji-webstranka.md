@@ -11,14 +11,22 @@ nepotrebujete.
 
 ## Reálne ceny na Slovensku
 
-Čísla, ktoré na trhu bežne uvidíte:
+Čísla, ktoré na trhu bežne uvidíte. **Nie sú to naše merania** — sú to
+rozpätia, ktoré verejne uvádzajú slovenské štúdiá a agentúry, a viete si
+ich overiť sami:
 
-- **Jednostránkový web (vizitka, landing page):** približne 500 – 900 €
-- **Firemný web s niekoľkými podstránkami:** približne 1 000 – 2 500 €
-- **Rozsiahlejší web s blogom a napojeniami:** približne 1 700 – 5 000 €
+- **Jednostránkový web (vizitka, landing page):** približne 400 – 900 €
+- **Firemný web s niekoľkými podstránkami:** približne 1 200 – 3 500 €
+- **Rozsiahlejší web s blogom a napojeniami:** približne 3 000 – 8 000 €
 - **Agentúra s tímom:** spravidla od 2 000 € vyššie
 - **Freelancer:** približne 500 – 2 000 €
 - **Šablónové riešenia s predplatným:** od zhruba 20 – 40 € mesačne
+
+Zdroje, kde tie rozpätia nájdete zverejnené:
+[neonrocket.sk](https://neonrocket.sk/blog/tvorba-web-stranok-cena-kolko-stoji-web-v-roku-2026/),
+[tomarco.sk](https://tomarco.sk/kolko-stoji-webova-stranka/),
+[web-star.sk](https://www.web-star.sk/tvorba-web-stranok-kolko-stoji-web-2026/).
+Rozpätia sa medzi zdrojmi líšia — preto sú to rozpätia a nie jedna cena.
 
 Rozdiel medzi 600 € a 3 000 € nie je „kvalita dizajnu“. Je to takmer vždy
 rozsah — počet stránok, množstvo textu, ktorý niekto musí napísať, a to,

@@ -8,6 +8,12 @@ nekupovať vôbec.
 
 ## Tri cenové kategórie
 
+Rozpätia nižšie **nie sú naše merania** — vychádzajú zo zverejnených
+cenníkov slovenských grafikov a štúdií, napríklad
+[webovica.sk](https://webovica.sk/cennik-grafickych-prac/),
+[rabbitstudio.sk](https://www.rabbitstudio.sk/o-nas/cennik/) alebo
+[identiq.sk](https://www.identiq.sk/cennik/).
+
 **AI generátor: zhruba 20 – 90 €.**
 Nástroj vygeneruje logo z pár vašich vstupov za pár minút. Funguje na
 rýchly štart — nový živnostník, testovací projekt, niečo na sociálne
