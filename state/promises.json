@@ -92,6 +92,17 @@
       "datum_kontroly": "2026-10-01",
       "stav": "bezi",
       "poznamka": "Najvyssi zamer na webe - clovek si sam zisti, ze ma problem. Do 2026-08-17 nemal formular, takze sa nemal ako ozvat."
+    },
+    {
+      "id": "sk-clanok-preco-prestanu-pouzivat-ai",
+      "typ": "clanok",
+      "co": "SK clanok: Zamestnanci prestanu AI pouzivat po dvoch tyzdnoch",
+      "url": "/sk/2026-08-17-preco-zamestnanci-prestanu-pouzivat-ai.html",
+      "vzniklo": "2026-08-17",
+      "slub": "aspon 20 organickych impresii v Search Console na dotazy typu 'preco zamestnanci nepouzivaju AI / Copilot' DO 2026-10-31, inak dotaz nie je vyhratelny a druhy clanok v novej pozicii sa nepredlzuje",
+      "datum_kontroly": "2026-10-31",
+      "stav": "bezi",
+      "poznamka": "Druhy clanok v novej pozicii. SERP na 'preco zamestnanci nepouzivaju Copilot' drzi Microsoft adoption guide + blogy predajcov licencii (sanding.sk, s4b.sk, esolutions.sk, itlearning.sk) - vsetky odpovedaju na 'preco kupit', ziadny na 'preco to prestali otvarat'. Cituje cudzie zistenia (podnikajte.sk, ftnews.sk), ziadne nase cislo."
     }
   ]
 }

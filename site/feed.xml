@@ -28,6 +28,12 @@
     <pubDate>Mon, 17 Aug 2026 00:00:00 -0000</pubDate>
   </item>
   <item>
+    <title>Zamestnanci prestanú AI používať po dvoch týždňoch. Školenie to nespraví</title>
+    <link>https://biznis-studio.github.io/sk/preco-zamestnanci-prestanu-pouzivat-ai.html</link>
+    <description>Licencie sú kúpené, nadšenie vydrží prvý týždeň a potom je ticho. Dôvod nie je v ľuďoch ani v modeli — a dá sa opraviť tým, čo sa vo firme zapíše.</description>
+    <pubDate>Mon, 17 Aug 2026 00:00:00 -0000</pubDate>
+  </item>
+  <item>
     <title>Ste pripravení na e-faktúru 2027? Bezplatný test</title>
     <link>https://biznis-studio.github.io/sk/efaktura-2027-test.html</link>
     <description>Zistite za minútu, čo musíte spraviť pred 1. 1. 2027.</description>
@@ -66,7 +72,7 @@
   <item>
     <title>Gpt Sol: AI Prompt Pack</title>
     <link>https://biznis-studio.github.io/products/gpt-sol-ai-prompt-pack.html</link>
-    <description>Ready-to-paste AI prompts for Gpt Sol - works with ChatGPT, Claude, or Gemini.</description>
+    <description>Prompts for explaining, comparing, troubleshooting, critiquing and planning around Gpt Sol - fill in the bracketed details and paste them into your assistant.</description>
     <pubDate>Fri, 07 Aug 2026 09:40:00 +0000</pubDate>
   </item>
   <item>
@@ -78,7 +84,7 @@
   <item>
     <title>Late Payment Recovery Kit</title>
     <link>https://biznis-studio.github.io/products/late-payment-recovery-kit.html</link>
-    <description>Ready-to-send scripts for Late Payment Recovery - copy, adjust the details, send.</description>
+    <description>The escalation ladder for an unpaid invoice, from the day after the due date to a formal final notice, with a tracker for where each invoice stands.</description>
     <pubDate>Fri, 31 Jul 2026 12:17:45 +0000</pubDate>
   </item>
   <item>
@@ -168,73 +174,73 @@
   <item>
     <title>The Practical Guide to XLSX</title>
     <link>https://biznis-studio.github.io/products/the-practical-guide-to-xlsx.html</link>
-    <description>A fast, practical guide to XLSX - no fluff, just what actually works.</description>
+    <description>What an .xlsx file actually is underneath, when to reach for a spreadsheet app, a CSV export or a code library, and the mistakes that waste the most time.</description>
     <pubDate>Mon, 27 Jul 2026 16:41:32 +0000</pubDate>
   </item>
   <item>
     <title>Checklist (PDF + Notion)</title>
     <link>https://biznis-studio.github.io/products/checklist-pdf-notion.html</link>
-    <description>A clear, repeatable checklist for your next project - know exactly what to do next, in the right order.</description>
+    <description>A checklist that walks a project from a written definition of done, through setup and a first working version, to feedback and a final quality check.</description>
     <pubDate>Mon, 27 Jul 2026 16:41:32 +0000</pubDate>
   </item>
   <item>
     <title>The Practical Guide to Automation</title>
     <link>https://biznis-studio.github.io/products/the-practical-guide-to-automation.html</link>
-    <description>A focused guide to Automation you can read in about 15 minutes and put to use today.</description>
+    <description>How to choose between a built-in feature, a no-code platform and a short script for a repetitive task, and how to describe the task well enough to automate it.</description>
     <pubDate>Mon, 27 Jul 2026 16:41:32 +0000</pubDate>
   </item>
   <item>
     <title>Spreadsheet Pack</title>
     <link>https://biznis-studio.github.io/products/spreadsheet-pack.html</link>
-    <description>Skip the blank page. A ready-to-use Spreadsheet template with the right structure already in place.</description>
+    <description>A log sheet with the columns already named - date, category, description, amount, status and notes - plus an example row showing how to fill it in.</description>
     <pubDate>Mon, 27 Jul 2026 16:41:32 +0000</pubDate>
   </item>
   <item>
     <title>Free Online Calculator</title>
     <link>https://biznis-studio.github.io/products/free-online-calculator.html</link>
-    <description>Get an instant answer for your numbers - no signup, no spreadsheet, works right in your browser.</description>
+    <description>Enter an amount and a percentage and see the percentage itself, the amount with the markup added, and the amount with the discount taken off.</description>
     <pubDate>Mon, 27 Jul 2026 16:41:32 +0000</pubDate>
   </item>
   <item>
     <title>Invoice Pack</title>
     <link>https://biznis-studio.github.io/products/invoice-pack.html</link>
-    <description>Skip the blank page. A ready-to-use Invoice template with the right structure already in place.</description>
+    <description>An invoice sheet with numbering, issue and due dates, line items with quantity and unit price, and the subtotal, tax and total rows already laid out.</description>
     <pubDate>Mon, 27 Jul 2026 16:41:32 +0000</pubDate>
   </item>
   <item>
     <title>EU Digital Seller Compliance Checklist</title>
     <link>https://biznis-studio.github.io/products/eu-digital-seller-compliance-checklist.html</link>
-    <description>A clear, repeatable checklist for EU Digital Seller Compliance - know exactly what to do next, in the right order.</description>
+    <description>The questions an EU-based seller of ebooks or templates meets in week one: selling status, VAT on digital goods, identity checks, and getting paid.</description>
     <pubDate>Mon, 27 Jul 2026 16:41:32 +0000</pubDate>
   </item>
   <item>
     <title>Freelance Scope Creep Defense Kit</title>
     <link>https://biznis-studio.github.io/products/freelance-scope-creep-defense-kit.html</link>
-    <description>Ready-to-send scripts for Scope Creep - copy, adjust the details, send.</description>
+    <description>Wording for the moments a project quietly grows, from the first small extra ask to a full renegotiation, paired with a log for every addition.</description>
     <pubDate>Mon, 27 Jul 2026 16:41:32 +0000</pubDate>
   </item>
   <item>
     <title>Change Request Log Template</title>
     <link>https://biznis-studio.github.io/products/change-request-log-template.html</link>
-    <description>Skip the blank page. A ready-to-use Change Request Tracking template with the right structure already in place.</description>
+    <description>A log for every extra request on a project: what was asked, who asked for it, the estimated hours and cost, and whether it was approved and when.</description>
     <pubDate>Mon, 27 Jul 2026 16:41:32 +0000</pubDate>
   </item>
   <item>
     <title>Resume Gap &amp; Job Title Explainer Scripts</title>
     <link>https://biznis-studio.github.io/products/resume-gap-job-title-explainer-scripts.html</link>
-    <description>Ready-to-send scripts for Resume Gap Explanation - copy, adjust the details, send.</description>
+    <description>Honest wording for two awkward resume questions: a gap in your work history, and a job title that did not describe what you actually did.</description>
     <pubDate>Mon, 27 Jul 2026 16:41:32 +0000</pubDate>
   </item>
   <item>
     <title>Client Retainer Renewal Kit</title>
     <link>https://biznis-studio.github.io/products/client-retainer-renewal-kit.html</link>
-    <description>Ready-to-send scripts for Client Retainer Renewal - copy, adjust the details, send.</description>
+    <description>Wording for every renewal moment - the early check-in, a client going quiet, raising your rate, ending a retainer - plus a tracker for contract dates.</description>
     <pubDate>Mon, 27 Jul 2026 16:41:32 +0000</pubDate>
   </item>
   <item>
     <title>Retainer Renewal Tracker Template</title>
     <link>https://biznis-studio.github.io/products/retainer-renewal-tracker-template.html</link>
-    <description>Skip the blank page. A ready-to-use Retainer Renewal Tracking template with the right structure already in place.</description>
+    <description>A tracker for contract dates: when each retainer ends, when to open the renewal conversation, the rate you are on now, and what to send next.</description>
     <pubDate>Mon, 27 Jul 2026 16:41:32 +0000</pubDate>
   </item>
 </channel></rss>

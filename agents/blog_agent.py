@@ -92,6 +92,10 @@ SK_RELATED: dict[str, list[str]] = {
                                     "efaktura-2027-test"],
     "kolko-stoji-logo-a-vizualna-identita": ["kolko-stoji-webstranka",
                                              "potrebuje-moja-firma-webstranku"],
+    # New-position pair: one article says where the time saving goes, the
+    # other says why the tool stops being opened at all. Same mechanism.
+    "overovanie-vam-zoberie-uspory": ["preco-zamestnanci-prestanu-pouzivat-ai"],
+    "preco-zamestnanci-prestanu-pouzivat-ai": ["overovanie-vam-zoberie-uspory"],
 }
 
 # Pages in site/sk/ that are not markdown articles but are valid link targets.

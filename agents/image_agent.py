@@ -136,6 +136,8 @@ QUERIES = {
         "designer drawing brand sketches", "design studio pencil sketches paper"],
     "overovanie-vam-zoberie-uspory": ["person reviewing documents magnifying glass",
         "proofreading paperwork desk close up", "person checking documents office desk"],
+    "preco-zamestnanci-prestanu-pouzivat-ai": ["empty office desk laptop closed",
+        "unused workspace empty chair office", "person turning away from computer desk"],
     "sk-copilot-vrstva": ["team working laptops office meeting",
         "colleagues office computer screens", "modern office team working"],
     "hero": ["office workspace desk", "modern office interior", "desk laptop window"],

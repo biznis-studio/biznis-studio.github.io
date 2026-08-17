@@ -113,6 +113,12 @@ Without `SITE_BASE_URL` the build silently skips canonicals, sitemap and RSS.
   page to its pre-`seo_agent` state. Any rebuild must set
   `pages.seo_enhanced = 0` and re-run `seo_agent`. `build_site.py` does this;
   hand-rolled rebuilds forget it and strip canonicals from every page.
+- **Merging the pipeline's `db/biznis.sqlite3` discards hand-written copy.**
+  Product descriptions live in `agents/common.py` but are *served* from the
+  `pages` table, which the pipeline rewrites. After every merge with origin,
+  run `python3 scripts/apply_blurbs.py` **before** the build — it rewrites them
+  and exits non-zero if any template sentence survived. This bit twice in one
+  hour on 2026-08-17.
 - **During a `git rebase`, `--ours` is UPSTREAM, not your commit.** Resolving
   `db/biznis.sqlite3` with `--ours` once discarded newly added products while
   leaving their HTML behind as orphans. Use `--theirs` when replaying your own
