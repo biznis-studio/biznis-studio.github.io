@@ -175,6 +175,22 @@ def _dnes() -> str:
 # databáza v CI ho nemala ako ho získať. Migrácia patrí do kódu, nie do rúk.
 MIGRACIE = [
     ("domnienky", "poznatok_id", "INTEGER"),
+    # Pôvodná `experiments` mala názov, hypotézu a metriku, ale ani základ, ani
+    # kandidáta — teda presne to, čo z experimentu robí experiment. Preto bola
+    # osem mesiacov prázdna: zapísať sa do nej dala iba mienka.
+    ("experiments", "domnienka_id", "INTEGER"),
+    ("experiments", "trieda", "TEXT"),
+    ("experiments", "metrika", "TEXT"),
+    ("experiments", "sposob_merania", "TEXT"),
+    ("experiments", "zaklad_popis", "TEXT"),
+    ("experiments", "zaklad_hodnota", "REAL"),
+    ("experiments", "kandidat_popis", "TEXT"),
+    ("experiments", "kandidat_hodnota", "REAL"),
+    ("experiments", "smer", "TEXT"),
+    ("experiments", "vzorka", "INTEGER"),
+    ("experiments", "naozivo", "INTEGER"),
+    ("experiments", "rozhodnutie", "TEXT"),
+    ("experiments", "poucenie", "TEXT"),
     ("rozhodnutia", "datum_revizie", "TEXT"),
     ("rozhodnutia", "vrstva", "TEXT"),
 ]

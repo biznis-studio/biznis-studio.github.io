@@ -79,8 +79,8 @@ a pre ľudský dohľad, ktoré si treba ustrážiť tak či tak.
 
 Toto je krok, ktorý väčšina firiem preskočí. „Koho prijať“ neprejde.
 Ale *„ktorí uchádzači spĺňajú podmienky uvedené v inzeráte a pri kom
-podklad chýba“* prejde bez problémov, lebo to má overiteľnú odpoveď —
-a je to zároveň tá časť, ktorá zaberie najviac času.
+podklad chýba“* prejde bez problémov, lebo to má overiteľnú odpoveď.
+A je to zároveň tá časť, ktorá zaberie najviac času.
 
 To isté platí takmer všade. Rozhodnutie sa dá rozobrať na
 **overiteľnú prípravu** a **samotný úsudok**. Prvá časť sa dá zveriť
@@ -92,16 +92,16 @@ Otázkou „dá sa to vyvrátiť?“ sa výber končí. Dôkaz prichádza až t�
 že sa to naozaj vyvracať skúsi — na prípadoch, ktoré už dopadli.
 
 Rovnaký postup opísal pre právnu oblasť Jakub Žák v článku
-[Bratislavského večerníka](https://www.bratislavskyvecernik.sk/2026/07/28/ai-nestaci-verit-odbornik-ukazuje-sposob-ako-odhalit-halucinacie-umelej-inteligencie/):
-navrhuje využiť *„už raz overenú expertnú prácu – konkrétne súdne
-rozhodnutie – ako základ realistických testovacích scenárov“*, pričom
+[Bratislavského večerníka](https://www.bratislavskyvecernik.sk/2026/07/28/ai-nestaci-verit-odbornik-ukazuje-sposob-ako-odhalit-halucinacie-umelej-inteligencie/).
+Navrhuje využiť *„už raz overenú expertnú prácu – konkrétne súdne
+rozhodnutie – ako základ realistických testovacích scenárov“*. Pritom
 *„nehodnotí sa pritom len finálna odpoveď, ale aj cesta, ktorou sa k nej
 systém dostal“*. Cudzí zdroj, nie naše meranie — ale je to presne to,
 čo z overiteľnej úlohy spraví obhájiteľnú.
 
 Vo firme to znamená pár desiatok uzavretých prípadov a pevnú sadu
-skúšok, ktorú viete pustiť kedykoľvek: po zmene pravidla, po zmene
-zadania aj vtedy, keď dodávateľ vymení model pod nástrojom bez
+skúšok, ktorú viete pustiť kedykoľvek. Po zmene pravidla, po zmene
+zadania — aj vtedy, keď dodávateľ vymení model pod nástrojom bez
 opýtania. Vtedy sa nediskutuje o dojmoch, pozerá sa na výsledok skúšky.
 
 ## Ako to robíme my
