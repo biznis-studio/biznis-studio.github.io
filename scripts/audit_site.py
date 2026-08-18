@@ -33,6 +33,19 @@ SITE_DIR = ROOT / "site"
 SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "").rstrip("/")
 
 
+# ČO TENTO AUDIT NEVIE — čítaj skôr, než uveríš jeho "no issues found".
+#
+# 2026-08-18: audit hlásil nula problémov, zatiaľ čo Google mal v indexe 2 z 44
+# stránok, sitemapu nikdy nenačítal a za 19 dní spravil 9 crawl požiadaviek.
+# Audit mal pravdu v tom, čo meria — tituly, popisy, kanonické odkazy, hreflang,
+# vnútorné odkazy. Ale to všetko je OBSAH SÚBOROV. Ani jedna kontrola nevie
+# odpovedať na otázku, na ktorej záleží: dostal sa k tomu vyhľadávač?
+#
+# Je to presne tá chyba, ktorú predávame ako odstránenú — deklarovaný stav
+# namiesto overeného. Preto výstup od 2026-08-18 túto hranicu vypisuje sám.
+# Dosah sa dá overiť len zvonku (Search Console, živé načítanie), nie zo súborov.
+
+
 def audit(site_dir: Path) -> list[tuple[str, str]]:
     files = sorted(site_dir.rglob("*.html"))
     existing = {str(p.relative_to(site_dir)) for p in site_dir.rglob("*") if p.is_file()}
@@ -144,6 +157,14 @@ def _audit_hreflang(site_dir: Path) -> list[tuple[str, str]]:
 if __name__ == "__main__":
     found = audit(SITE_DIR)
     print(f"Checked site/ - {'no issues found' if not found else f'{len(found)} issue(s):'}")
+    if not found:
+        # Bez tejto vety znie "no issues found" ako "web je v poriadku". 2026-08-18
+        # bol zelený audit a súčasne 2 indexované stránky zo 44. Kontrola, ktorá
+        # nepovie, čo NEOVERILA, klame presne tak, ako klame zelený SEO report.
+        print("  POZOR: audit číta LEN obsah súborov. Nehovorí nič o tom, či "
+              "vyhľadávač stránky našiel, načítal alebo zaradil do indexu —")
+        print("  to sa dá overiť iba zvonku (Search Console: crawl stats, "
+              "page indexing, stav sitemapy).")
     for rel, issue in found:
         print(f"  {rel}: {issue}")
     sys.exit(1 if found else 0)
