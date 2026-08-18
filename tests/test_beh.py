@@ -123,10 +123,38 @@ def test_rozpocet_zastavi_beh() -> list[str]:
     return chyby
 
 
+def test_vlastny_zamok_nebrani_obnoveniu() -> list[str]:
+    """Beh zabitý uprostred nechá zámok BEZI. Musí sa vedieť obnoviť hneď.
+
+    Našiel to až test na SKUTOČNEJ ceste: os._exit preskočí `finally`, takže
+    zámok zostane držaný behom, ktorý už neexistuje. Bez tejto vetvy by sa beh
+    obnovil až 45 minút po páde, ktorý trval sekundu.
+    """
+    from core import evolution as ev
+    chyby = []
+    with tempfile.TemporaryDirectory() as tmp:
+        conn = sqlite3.connect(Path(tmp) / "z.sqlite3")
+        conn.row_factory = sqlite3.Row
+        ev.priprav(conn)
+        ev.zamkni(conn, run_id="beh-1", vlastnik="test")
+        try:
+            ev.zamkni(conn, run_id="beh-1", vlastnik="test")   # obnovenie
+        except ev.ZamokObsadeny:
+            chyby.append("vlastný zámok zablokoval obnovenie toho istého behu")
+        try:
+            ev.zamkni(conn, run_id="beh-2", vlastnik="test")
+            chyby.append("cudzí beh prevzal živý zámok")
+        except ev.ZamokObsadeny:
+            pass
+        conn.close()
+    return chyby
+
+
 if __name__ == "__main__":
     zlyhania = []
     for test in (test_pad_v_polovici_uzla_nenechá_polovicu_zápisov,
-                 test_rozpocet_zastavi_beh):
+                 test_rozpocet_zastavi_beh,
+                 test_vlastny_zamok_nebrani_obnoveniu):
         chyby = test()
         znacka = "OK  " if not chyby else "ZLE "
         print(f"{znacka}{test.__name__}")

@@ -468,9 +468,16 @@ def _relevantne(polozky: list[dict]) -> list[dict]:
     return von
 
 
-def run(run_id: Optional[int] = None) -> int:
-    """Nasníma špičku do `signals_raw`. Vracia počet uložených položiek."""
-    conn = get_connection()
+def run(run_id: Optional[int] = None, conn=None) -> int:
+    """Nasníma špičku do `signals_raw`. Vracia počet uložených položiek.
+
+    `conn` je pre NODE_MODE: keď beh vedie `core.beh.Beh`, transakciu vlastní
+    uzol a toto spojenie má `commit()` potlačený. Bez toho by si funkcia
+    commitla sama uprostred uzla a atomicitu by rozbila. Volaná bez `conn`
+    (DIRECT_MODE, teda z ruky) sa správa ako predtým.
+    """
+    vlastne_spojenie = conn is None
+    conn = conn if conn is not None else get_connection()
     try:
         if run_id is None:
             cur = conn.execute(
@@ -565,7 +572,8 @@ def run(run_id: Optional[int] = None) -> int:
             print(f"[frontier_agent] legitímne prázdne: {', '.join(prazdne)}")
         return len(polozky)
     finally:
-        conn.close()
+        if vlastne_spojenie:
+            conn.close()
 
 
 def na_vyklad(limit: int = 20) -> list[dict]:

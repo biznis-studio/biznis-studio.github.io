@@ -209,6 +209,15 @@ def zamkni(conn: sqlite3.Connection, *, run_id: str, vlastnik: str,
     """
     teraz = _teraz()
     r = conn.execute("SELECT * FROM beh_zamok WHERE id=1").fetchone()
+    # Vlastný zámok nie je prekážka, je to obnovenie. Beh zabitý uprostred
+    # nechá zámok v stave BEZI (os._exit preskočí aj `finally`) a bez tejto
+    # vetvy by sa nevedel obnoviť, kým zámok nevyprší — teda 45 minút po páde,
+    # ktorý trval sekundu. Overené skutočným pádom 2026-08-17, nie úvahou.
+    if r is not None and r["run_id"] == run_id:
+        conn.execute("UPDATE beh_zamok SET plati_do=?, stav='BEZI' WHERE id=1",
+                     ((teraz + timedelta(minutes=minut)).isoformat(),))
+        conn.commit()
+        return
     if r is not None and r["stav"] == "BEZI":
         try:
             plati_do = datetime.fromisoformat(r["plati_do"])
