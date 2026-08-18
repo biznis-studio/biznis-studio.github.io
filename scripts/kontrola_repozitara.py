@@ -56,11 +56,18 @@ ZNAMY_DLH = {
 }
 
 
+# Kontrola musí vynechať samu seba: zoznam mien je jej vstup, nie únik.
+# Po prvom commitnutí sa stala sledovaným súborom a zhodila sama seba —
+# preto to nie je poznámka, ale riadok kódu.
+VYNECHANE = {"scripts/kontrola_repozitara.py"}
+
+
 def sledovane_subory() -> list[Path]:
     out = subprocess.run(
         ["git", "ls-files"], cwd=ROOT, capture_output=True, text=True, check=True
     ).stdout.splitlines()
-    return [ROOT / p for p in out if Path(p).suffix in PRIPONY]
+    return [ROOT / p for p in out
+            if Path(p).suffix in PRIPONY and p not in VYNECHANE]
 
 
 def main() -> int:
