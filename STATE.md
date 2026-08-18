@@ -61,33 +61,25 @@ fungujú, ale vložený text sa neobjaví — ani „test". Je to zameranie okna
 úrovni systému. **Stačí kliknúť do okna Chromu** a viem dobehnúť zvyšných
 sedem scenárov. Do vtedy je pack 0.5.0 nevydaný.
 
-## Cloudová autonómia — čo sa naozaj ukázalo (2026-08-17)
+## Cloudová routine — vypnutá 2026-08-18 (rozhodnutie majiteľa)
 
-Routine `Frontier loop` beží denne o 9:32. Prvý ostrý beh odhalil **tri
-obmedzenia prostredia**, ktoré rozhodujú o tom, čo tam vôbec má zmysel púšťať:
+Bežala dvakrát a oba razy premyslela a potom prácu stratila. Príčinou boli
+**dve nezávislé poruchy prostredia**, nie jedna:
 
 | | |
 |---|---|
-| zápis z cloudu | **NEEXISTUJE ŽIADNA CESTA.** `git push` → 403 (egress policy) a GitHub MCP `create_branch` aj `push_files` → 403 „Resource not accessible by integration“. Overené 2026-08-18 v jednom behu. Môj predpoklad zo 17. 8., že MCP je náhrada za git, je **vyvrátený**. |
-| dosah na zdroje | **7 z 9 zberačov nemých**, 15 z 25 položiek sa nedalo otvoriť — väčšina domén je z cloudu blokovaná |
-| veľkosť stavu | `db/biznis.sqlite3` má **20 MB**; cez GitHub MCP sa taký súbor rozumne poslať nedá |
+| zápis | `git push` → 403 · GitHub MCP `create_branch` aj `push_files` → 403 · **Claude GitHub App sa nedá nainštalovať** — v zozname účtov je len `jozefrusnak4-ux`, ktorý repozitár nevlastní |
+| čítanie | **14 z 15 zberačov v poruche**, otvoriť sa podarilo **3 z 25** stránok |
 
-**Čo sa medzitým zmenilo:** výklad už nezapisuje priamo. Úsudok vytvorí JSON
-artefakt do `state/vyklad/`, ten sa celý overí a zapíše v jednej transakcii
-vnútri uzla — takže cloudový beh nemusí mať právo zápisu do stavu, stačí mu
-odovzdať artefakt.
+Inštalácia aplikácie by opravila zápis a slepotu nie — preto sa nenaháňa.
 
-**Dôsledok:** cloudová uvažovacia rovina vie premýšľať, ale výsledok odovzdá len
-súborom do chatu — teda cez človeka. To nie je autonómia. **Potrebné od majiteľa:**
-doplniť Claude GitHub Appu právo `contents: write` na tento repozitár, inak každý
-cloudový beh zanikne s kontajnerom (už dvakrát: `789581c` a `def37cd`).
-Jeho commit `789581c` zostal v pieskovisku a zanikol. Prácu, ktorú našiel, som
-zopakoval ručne — ale to nie je autonómia, to je drahý spôsob, ako mať nápady.
+**Ako to beží teraz:** zber v GitHub Actions (sieť má), úsudok v relácii pri
+otvorenom počítači. Menej efektné, ale nevyrába to plytký záver z troch
+stránok s tvárou prehľadu sveta.
 
-**Čo z toho vyplýva pre architektúru** (rozhodnutie o smerovaní, nie o kóde —
-preto čaká na majiteľa): zber patrí do GitHub Actions, ktoré sieť majú;
-cloudový beh by mal iba vykladať to, čo už je v databáze, a stav evolučnej
-vrstvy by nemal žiť v 20 MB binárnom súbore, ale v malom zlučiteľnom formáte.
+**Späť sa to zapne jedným príkazom** — `RemoteTrigger update
+trig_0119FrcTPSc6Z4WfJNxHmjwA` s `enabled:true`. Revízia rozhodnutia
+2026-09-18.
 
 ## Web — stav meraním (2026-08-17)
 
