@@ -22,6 +22,40 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 
+def zapis_favicon() -> Path:
+    """Vyrobí /favicon.ico.
+
+    Stránky deklarujú ikonu ako vloženú SVG data-URI, čo prehliadačom stačí.
+    Prehľadávače si však /favicon.ico pýtajú podľa konvencie bez ohľadu na to,
+    čo je v HTML — Search Console 2026-08-18 ukázal, že **2 z 9 požiadaviek
+    Googlebota na celý web** boli práve tieto a vrátili 404. Pri deviatich
+    požiadavkách za tri týždne je to 22 % rozpočtu prehľadávania premrhaných
+    na súbor, ktorý sa dá vyrobiť raz.
+    """
+    from PIL import Image, ImageDraw
+
+    velkosti = (16, 32, 48, 64)
+    zaklad = 256
+    obr = Image.new("RGBA", (zaklad, zaklad), (0, 0, 0, 0))
+    kresli = ImageDraw.Draw(obr)
+    # rovnaké farby a tvar ako vložená SVG ikona v page_shell()
+    kresli.rounded_rectangle([0, 0, zaklad - 1, zaklad - 1], radius=56, fill=(79, 70, 229, 255))
+    # „B" vykreslené ako obdĺžniky — nezávisí od toho, aké písma sú na stroji,
+    # takže CI a lokálny build vyrobia bajt za bajt to isté
+    L, R, T, D, t = 76, 170, 60, 196, 26      # ľavý, pravý, horný, dolný okraj, hrúbka ťahu
+    biela = (255, 255, 255, 255)
+    kresli.rectangle([L, T, L + t, D], fill=biela)          # zvislý ťah
+    kresli.rectangle([L, T, R, T + t], fill=biela)          # horné rameno
+    kresli.rectangle([L, 115, R, 141], fill=biela)          # stredné rameno
+    kresli.rectangle([L, D - t, R, D], fill=biela)          # dolné rameno
+    kresli.rectangle([R - t, T, R, 141], fill=biela)        # pravý ťah hornej slučky
+    kresli.rectangle([R - t, 115, R, D], fill=biela)        # pravý ťah dolnej slučky
+
+    cesta = ROOT / "site" / "favicon.ico"
+    obr.save(cesta, format="ICO", sizes=[(v, v) for v in velkosti])
+    return cesta
+
+
 def main(fast: bool = False) -> int:
     from agents import (blog_agent, image_agent, landing_page_agent as lpa,
                         news_agent, seo_agent, tools_agent)
@@ -107,6 +141,10 @@ def main(fast: bool = False) -> int:
             _f.write_text(_novy, encoding="utf-8")
             _n += 1
     print(f"[titulky] rucne prepisanych: {_n} z {len(SEO_TITULKY)}")
+
+    # 5b. /favicon.ico — pýta si ho prehľadávač, nie HTML. Viď zapis_favicon().
+    _ico = zapis_favicon()
+    print(f"[favicon] {_ico.relative_to(ROOT)} ({_ico.stat().st_size} B)")
 
     # 6. The check Claude can read: non-zero exit means do not ship.
     audit = subprocess.run([sys.executable, str(ROOT / "scripts" / "audit_site.py")])
