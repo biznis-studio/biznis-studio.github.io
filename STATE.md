@@ -4,7 +4,7 @@ Prečíta sa na začiatku každej relácie, doplní sa na konci. Agent medzi beh
 zabudne, tento súbor nie. **Krátky zámerne** — čo je hotové, patrí do histórie,
 nie sem.
 
-Aktualizované: **2026-08-17** (večerný beh)
+Aktualizované: **2026-08-18** (večerný beh)
 
 ---
 
@@ -20,6 +20,7 @@ Aktualizované: **2026-08-17** (večerný beh)
 | Výklad fronty | úsudok mimo → artefakt JSON → overenie → atomický zápis v uzle | úsudok stále robí človek alebo cloud; automatický ho nerobí nikto |
 | Inbound dráha | skill `/dopyt` hotový | napojiť na to, čo chodí z formulára |
 | Sľuby aktív | **10 aktív**, žiadne po termíne | týždenná kontrola beží sama |
+| Zákaznícke údaje na verejnom repozitári | **13 riadkov na origin/main** (mená + čísla prípadov) | brána `scripts/kontrola_repozitara.py` blokuje nové; **o už zverejnenom rozhoduje majiteľ** |
 
 ## Kotvy — čo hovorí realita
 
@@ -36,6 +37,28 @@ Toto je jediné, čo do rozhodovania smie vstupovať ako dôkaz.
 **Prázdna kotva nie je záporný výsledok.** Znamená, že sa ešte nemeria —
 a do 2026-08-16 sa ani nedalo ozvať: anglická domovská ani „Hire us" nemali
 formulár.
+
+## Viditeľnosť vo vyhľadávaní — meraním 2026-08-18
+
+Toto je momentálne najtvrdšia hrana: web je hotový a nikto ho nevidí.
+
+| | |
+|---|---|
+| stránok v indexe | **2 zo 43** |
+| „Not indexed" | **0, „No reasons"** — Google o zvyšku nevie, nezamietol ho |
+| sitemapa | **„Couldn't fetch", Discovered pages 0**, 24 h po opätovnom odoslaní |
+| požiadavky Googlebota | **9 za tri týždne**, Purpose **Refresh 100 %, Discovery 0 %** |
+| z toho 404 | **22 %** — `/favicon.ico`, opravené 2026-08-18, naživo 200 |
+| `/sk/` v inšpekcii URL | „URL is unknown to Google", žiadna odkazujúca stránka, Last crawl N/A |
+
+**Naša strana je čistá vo všetkom merateľnom zvonku:** sitemapa 200 /
+`application/xml` / 43 URL / parsuje sa, aj s hlavičkou Googlebota aj cez IPv6;
+robots.txt povoľuje; domovská odkazuje na `/sk/` trikrát bez `nofollow`;
+kanonické URL konzistentné; 0 osirelých stránok.
+
+**Obchádzka, ktorá beží:** `/sk/` zaradená do priority crawl queue cez inšpekciu
+URL (2026-08-18). Domovská zlyhala na chybe Googlu, skúsiť znovu.
+Rozhodnutie #20, revízia 2026-08-25.
 
 ## Čo je zmrazené a nedotýka sa
 
@@ -95,9 +118,10 @@ trig_0119FrcTPSc6Z4WfJNxHmjwA` s `enabled:true`. Revízia rozhodnutia
 
 ## Posledný beh
 
-2026-08-17 · postavená evolučná vrstva a snímanie špičky (14 zdrojov) ·
-prvý výklad fronty (25 položiek, 11 zapísaných) · zámok behu proti súbežnému
-zápisu · zmierené rozídené databázy po incidente so štyrmi súbežnými zapisovateľmi ·
-tri chyby zberu opravené (abecedná vzorka registra, mlčiace zdroje, dedup medzi
-behmi) · tretí SK článok naživo · `jozefrusnak4-ux` pridaný ako správca repozitára,
-cloudová routine založená a spustená.
+2026-08-18 · brána na zákaznícke údaje — pravidlo, ktoré vynucoval neexistujúci
+skript (`quality-packs/build/build_pack.py --check` tu nikdy nebol) · zistené,
+že mená zákazníkov a čísla prípadov sú na verejnom origin/main · `/favicon.ico`
+vyrobený a nasadený, bral 22 % rozpočtu prehľadávania · sitemapa 24 h po
+odoslaní stále neprečítaná, `/sk/` vyžiadaná do priority crawl queue ·
+štruktúrovaný výstup a citácie vyhodnotené ako priama oprava S8 a pravidla
+„neautoruj obsah domény" — implementácia blokovaná na prístupe k API.
