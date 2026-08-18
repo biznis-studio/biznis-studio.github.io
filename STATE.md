@@ -84,6 +84,12 @@ fungujú, ale vložený text sa neobjaví — ani „test". Je to zameranie okna
 úrovni systému. **Stačí kliknúť do okna Chromu** a viem dobehnúť zvyšných
 sedem scenárov. Do vtedy je pack 0.5.0 nevydaný.
 
+*Obchádzka vyskúšaná a zamietnutá 2026-08-18:* v Search Console sa to isté dá
+obísť cez `form_input` na prvku namiesto klávesnice. V Copilote nie — vstupné
+pole je `contenteditable` SPAN, nie formulárový prvok, a `form_input` ho
+odmieta („Element type SPAN is not a supported form input"). Netreba to skúšať
+znovu.
+
 ## Cloudová routine — vypnutá 2026-08-18 (rozhodnutie majiteľa)
 
 Bežala dvakrát a oba razy premyslela a potom prácu stratila. Príčinou boli
