@@ -179,6 +179,12 @@ MIGRACIE = [
     # stĺpca sa dal len ignorovať alebo naň nasilu vyrobiť ďalšia hypotéza, čo
     # by z registra spravilo zoznam takmer rovnakých viet.
     ("poznatky", "domnienka_id", "INTEGER"),
+    # Poznatok nemusí viesť k hypotéze — môže rovno spôsobiť zmenu alebo
+    # experiment. Bez týchto dvoch stĺpcov ich fronta naďalej ponúkala ako
+    # „bez dôsledku" a tlačila vymyslieť hypotézu k niečomu, na čo sa už
+    # konalo. To je motor špirály takmer rovnakých pravidiel.
+    ("poznatky", "rozhodnutie_id", "INTEGER"),
+    ("poznatky", "experiment_id", "INTEGER"),
     # Pôvodná `experiments` mala názov, hypotézu a metriku, ale ani základ, ani
     # kandidáta — teda presne to, čo z experimentu robí experiment. Preto bola
     # osem mesiacov prázdna: zapísať sa do nej dala iba mienka.
@@ -461,6 +467,10 @@ def poznatky_bez_dosledku(conn: sqlite3.Connection, limit: int = 10) -> list[sql
         # prekonané položky sa vracali do fronty donekonečna.
         "AND p.stav NOT IN ('VYVRATENY','PREKONANY') AND p.druh <> 'VYSLEDOK' "
         "AND p.domnienka_id IS NULL "
+        # Dôsledok nie je iba hypotéza. Poznatok, ktorý viedol k zmene alebo
+        # k experimentu, svoju úlohu splnil — ponúkať ho ďalej znamená pýtať
+        # si druhú formuláciu toho istého.
+        "AND p.rozhodnutie_id IS NULL AND p.experiment_id IS NULL "
         "AND NOT EXISTS (SELECT 1 FROM domnienky d WHERE d.poznatok_id = p.id) "
         "ORDER BY p.id DESC LIMIT ?", (limit,)
     ))
@@ -479,6 +489,32 @@ def pripoj_k_domnienke(conn: sqlite3.Connection, poznatok_id: int,
         raise ChybaEvolucie(f"domnienka {domnienka_id} neexistuje")
     conn.execute("UPDATE poznatky SET domnienka_id=? WHERE id=?",
                  (domnienka_id, poznatok_id))
+    conn.commit()
+
+
+def pripoj_k_rozhodnutiu(conn: sqlite3.Connection, poznatok_id: int,
+                         rozhodnutie_id: int) -> None:
+    """Poznatok viedol priamo k zmene, nie k hypotéze.
+
+    Väčšina meraní o vlastnom systéme takto aj funguje: zistí sa porucha a
+    hneď sa opraví. Nútiť medzi ne hypotézu je obrad, nie poznanie.
+    """
+    if conn.execute("SELECT 1 FROM rozhodnutia WHERE id=?",
+                    (rozhodnutie_id,)).fetchone() is None:
+        raise ChybaEvolucie(f"rozhodnutie {rozhodnutie_id} neexistuje")
+    conn.execute("UPDATE poznatky SET rozhodnutie_id=? WHERE id=?",
+                 (rozhodnutie_id, poznatok_id))
+    conn.commit()
+
+
+def pripoj_k_experimentu(conn: sqlite3.Connection, poznatok_id: int,
+                         experiment_id: int) -> None:
+    """Poznatok sa stal základom merania. To je silnejší dôsledok než hypotéza."""
+    if conn.execute("SELECT 1 FROM experiments WHERE id=?",
+                    (experiment_id,)).fetchone() is None:
+        raise ChybaEvolucie(f"experiment {experiment_id} neexistuje")
+    conn.execute("UPDATE poznatky SET experiment_id=? WHERE id=?",
+                 (experiment_id, poznatok_id))
     conn.commit()
 
 
