@@ -713,6 +713,26 @@ def nevyhodnotene_rozhodnutia(conn: sqlite3.Connection) -> list[sqlite3.Row]:
     ))
 
 
+def _riesene_zdroje(conn: sqlite3.Connection) -> dict[str, str]:
+    """Za každý zdroj dátum poslednej zmeny, ktorá ho menovala.
+
+    Väzba je cez meno zdroja v texte rozhodnutia, nie cez cudzí kľúč — hrubé
+    zámerne: rozhodnutie často mení viac zdrojov naraz a viazať to formálne by
+    znamenalo vypĺňať väzby, na ktoré sa zabudne. Ak sa dôvod zahodenia po
+    oprave vráti, návrh sa objaví znova, takže hrubosť tu nič nezakryje.
+    """
+    von: dict[str, str] = {}
+    zdroje = [z for (z,) in conn.execute("SELECT DISTINCT zdroj FROM vyklad")]
+    for r in conn.execute("SELECT co, preco, zapisane FROM rozhodnutia").fetchall():
+        text = f"{r['co']} {r['preco']}"
+        for z in zdroje:
+            kratke = z.split(":")[-1]
+            if kratke and kratke in text:
+                if r["zapisane"] > von.get(z, ""):
+                    von[z] = r["zapisane"]
+    return von
+
+
 def navrhy_na_seba(conn: sqlite3.Connection) -> list[dict]:
     """Systém číta vlastné dôvody zahodenia a navrhuje zmeny na sebe.
 
@@ -726,13 +746,23 @@ def navrhy_na_seba(conn: sqlite3.Connection) -> list[dict]:
     a ten patrí majiteľovi.
     """
     navrhy: list[dict] = []
+    riesene = _riesene_zdroje(conn)
 
     # 1. Zdroj, ktorého zahodenia sa opakujú z toho istého dôvodu, nie je slabý
-    #    náhodou — sníma zlú vec.
+    #    náhodou — sníma zlú vec. Počítajú sa LEN zahodenia po poslednej zmene,
+    #    ktorá ten zdroj menovala: návrh, ktorý sa nedá uzavrieť, by hnal
+    #    donekonečna po tom istom aj po oprave. Ak sa dôvod vráti, návrh sa
+    #    vráti tiež — a to je správne, lebo oprava vtedy nezabrala.
     dovody = conn.execute(
-        "SELECT zdroj, duvod, COUNT(*) AS n FROM vyklad "
-        "WHERE rozhodnutie='ZAHODENE' GROUP BY zdroj, duvod HAVING n >= 2"
+        "SELECT zdroj, duvod, kedy FROM vyklad WHERE rozhodnutie='ZAHODENE'"
     ).fetchall()
+    zhluky: dict[tuple[str, str], int] = {}
+    for d in dovody:
+        if d["kedy"] <= riesene.get(d["zdroj"], ""):
+            continue
+        zhluky[(d["zdroj"], d["duvod"])] = zhluky.get((d["zdroj"], d["duvod"]), 0) + 1
+    dovody = [{"zdroj": z, "duvod": u, "n": n}
+              for (z, u), n in zhluky.items() if n >= 2]
     for d in dovody:
         navrhy.append({
             "co": f"{d['zdroj']}: {d['n']}× zahodené z toho istého dôvodu — "
@@ -746,8 +776,22 @@ def navrhy_na_seba(conn: sqlite3.Connection) -> list[dict]:
     riedke = conn.execute(
         "SELECT zdroj, COUNT(*) AS n FROM vyklad WHERE rozhodnutie='ZAHODENE' "
         "AND (duvod LIKE '%titulok%' OR duvod LIKE '%Iba názov%' "
-        "OR duvod LIKE '%nestačí%') GROUP BY zdroj"
-    ).fetchall()
+        "OR duvod LIKE '%nestačí%') AND kedy > ? GROUP BY zdroj",
+        (None,)
+    ).fetchall() if False else [
+        r for r in conn.execute(
+            "SELECT zdroj, duvod, kedy FROM vyklad WHERE rozhodnutie='ZAHODENE' "
+            "AND (duvod LIKE '%titulok%' OR duvod LIKE '%Iba názov%' "
+            "OR duvod LIKE '%nestačí%')")
+        if r["kedy"] > riesene.get(r["zdroj"], "")
+    ]
+    zhluk2: dict[str, int] = {}
+    for r in riedke:
+        zhluk2[r["zdroj"]] = zhluk2.get(r["zdroj"], 0) + 1
+    # Aspoň dve zahodenia, rovnako ako pri zhluku dôvodov vyššie. Jedno jediné
+    # je udalosť, nie porucha — a trvalý príznak z jednej udalosti je presne to,
+    # čo z brány spraví šum, ktorý sa naučím preskakovať.
+    riedke = [{"zdroj": z, "n": n} for z, n in zhluk2.items() if n >= 2]
     for r in riedke:
         navrhy.append({
             "co": f"{r['zdroj']}: {r['n']}× zahodené preto, že titulok nestačil",

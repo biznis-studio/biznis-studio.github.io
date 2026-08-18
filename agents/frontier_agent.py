@@ -257,18 +257,32 @@ def fetch_hf_papers(limit: int = 30) -> list[dict]:
 
 
 def fetch_hf_models(limit: int = 25) -> list[dict]:
-    """Ktoré modely rastú. Schopnosť sa posúva tam, kam ide pozornosť."""
+    """Ktorá TRIEDA schopností rastie, nie ktorý model sa volá ako.
+
+    API modelov nemá popis — vracia len typ úlohy, stiahnutia a značky. Holé
+    meno modelu preto nikdy nebolo tvrdenie a výklad ho správne zahadzoval
+    („iba názov modelu“, 0 z 2 zapísaných). Chyba bola v zbere: pýtali sme sa
+    na meno tam, kde je signálom typ úlohy a veľkosť záujmu. S `pipeline_tag`
+    a počtom stiahnutí sa už dá povedať, kam sa pozornosť presúva.
+    """
     data = _json("hf_models", "https://huggingface.co/api/models",
-                 {"sort": "trendingScore", "limit": limit})
+                 {"sort": "trendingScore", "limit": limit, "full": "true"})
     if not isinstance(data, list):
         return []
-    return [
-        _polozka("hf_models", "model", r.get("id", ""),
-                 f"https://huggingface.co/{r.get('id','')}",
-                 float(r.get("likes") or 0),
-                 {"id": r.get("id"), "likes": r.get("likes")})
-        for r in data if r.get("id")
-    ]
+    von = []
+    for r in data:
+        if not r.get("id"):
+            continue
+        stiahnutia = int(r.get("downloads") or 0)
+        von.append(_polozka(
+            "hf_models", "model",
+            f"{r['id']} — {r.get('pipeline_tag') or 'neuvedený typ úlohy'}, "
+            f"{stiahnutia:,} stiahnutí".replace(",", " "),
+            f"https://huggingface.co/{r['id']}",
+            float(stiahnutia),
+            {"id": r["id"], "pipeline_tag": r.get("pipeline_tag"),
+             "downloads": stiahnutia, "likes": r.get("likes")}))
+    return von
 
 
 def fetch_vyrobcovia(limit: int = 15) -> list[dict]:
