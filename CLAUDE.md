@@ -69,13 +69,21 @@ Everything above is advisory. These are **enforced** and cannot be talked around
 If a rule matters and is not in that table, either enforce it or accept it will be
 skipped under pressure.
 
-**A row in that table naming a mechanism that does not exist is worse than no
-row.** Until 2026-08-18 the table named `quality-packs/build/build_pack.py
---check` as what blocked customer data from the repo. No such file has ever
-existed here and nothing ran it, so three guarantees — catalogue consistency,
-frozen-rule coverage, and customer data — were enforced by nothing while
-reading as enforced. Before adding a row, run the command and watch it fail on
-purpose.
+**A row in that table must name the path it actually guards.** Until
+2026-08-18 the table named `quality-packs/build/build_pack.py --check` as what
+blocked customer data from *the repo*. That script is real and it works — it
+lives in the sibling project `~/Desktop/quality-packs/` and its `--check`
+verifies catalogue consistency and refuses customer names in the **pack
+source**. What it never did is look at *this* repository, and nothing in this
+repository's CI ran it. So the row was true about the pack and false about the
+repo, which is how 13 lines naming customers reached the public `origin/main`
+while the table read as covering them.
+
+*(An earlier version of this paragraph claimed the file had never existed. That
+was wrong — I checked only this repository. Corrected 2026-08-19.)*
+
+Before adding a row, run the command **from where CI runs it** and watch it
+fail on purpose.
 
 ## Start here (any new session)
 

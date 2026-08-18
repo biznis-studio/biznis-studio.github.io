@@ -68,6 +68,35 @@ Prvá verzia priamo z toho, čo sa už reálne stalo:
 | `Z5` | navrhol opatrenie pred potvrdením príčiny | riziko |
 | `Z6` | vymyslený zdroj, citácia alebo číslo | riziko |
 | `Z7` | **obchodný záver namiesto diagnostického** | reálny prípad 8/2026 · znovu 2026-08-16, S17 |
+| `Z8` | **nenavrhol rozhodujúci test, hoci existoval** | 2026-08-17, S9 |
+| `Z9` | **chýba dopredu-akcia pri chýbajúcom zázname** | 2026-08-17, S8 |
+
+**Z8 a Z9 doplnené 2026-08-19 po prečítaní oboch prepisov.** Dovtedy boli obe
+zlyhania natlačené do najbližšieho existujúceho kódu a oprava preto mierila
+vedľa:
+
+- **S8 dostal `Z4`** (*preskočený krok bez uvedenia dôvodu*). Lenže žiadny krok
+  preskočený nebol — model teplotu držal ako NEOVERENÚ, nič si nedopísal a
+  pokračoval ďalším rozlišovačom. Vynechal **dopredu-akciu**: nikde nepovedal,
+  čo treba **začať zapisovať**, aby sa príčina dala overiť nabudúce. Presne tým
+  sa S8 líši od S14. Krok navyše označil `POKRAČUJ`, hoci správne bolo `OBÍDI`.
+- **S9 dostal `Z1`** (*uzavrel príčinu bez rozlišujúceho pozorovania*). Lenže
+  nič neuzavrel — držal päť rovnocenných NEOVERENÝCH príčin a **rozhodujúci
+  krok „odložiť kusy a premerať po 3–7 dňoch" nenavrhol ani raz počas štyroch
+  ťahov**. Zásoba na odpoveď *„máme ich"* sa preto nepoužila. (Vylúčenie dvoch
+  príčin na pravdepodobnosť v prvom ťahu `Z1` **je** — a model si to sám opravil
+  po odpovedi *„neviem"*. Jeden prepis teda nesie dva rôzne kódy.)
+
+**Obe nové kategórie sú ten istý chýbajúci koniec.** Sekcia 3c hovorí, že nám
+z piatich koncov chýba **Escalate — musí rozhodnúť človek**. Pri S8 je správnym
+koncom „obídi a povedz človeku, čo začať zapisovať"; pri S9 „navrhni človeku
+test, ktorý to rozhodne". Nie sú to dve chyby úsudku, ale jedna chýbajúca cesta
+von. Kto by z `Z4` a `Z1` odvodil opravu, opravoval by rozhodovanie — a to
+pritom fungovalo.
+
+**Dôsledok pre sadu:** S8 a S9 sú preto stále NEVYHOVEL, ale nie sú dôkazom,
+že diagnostika je zlá. Sú dôkazom, že procedúra nemá koniec pre prípad, keď
+odpoveď nie je v chate, ale u človeka.
 
 Kategória, ktorá sa opakuje, je zadanie na opravu. Kategória, ktorá sa nikdy
 neobjaví, je pravidlo, ktoré si možno mohol odpustiť.

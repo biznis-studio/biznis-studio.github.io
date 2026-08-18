@@ -13,7 +13,7 @@ Aktualizované: **2026-08-18** (večerný beh)
 | Vec | Stav | Ďalší krok |
 |---|---|---|
 | Akceptačná sada packu | **13 zo 17** · zlyhali S8 `Z4`, S9 `Z1`, S17 `Z7` | prehodnotiť S8 a S9 v čistom kontexte (hodnotil ich ten, kto ich spustil) |
-| Taxonómia Z1–Z7 | **má dieru** | S8 = vynechaná povinná časť výstupu, S9 = procedúra sa nedopracovala k rozhodujúcemu testu — ani jedno nemá kód |
+| Taxonómia Z1–Z9 | **diera zaplnená 2026-08-19** — `Z8` nenavrhol rozhodujúci test, `Z9` chýba dopredu-akcia | oba sú **jeden chýbajúci koniec Escalate**, nie dve chyby úsudku; doplnenie konca do packu je rozhodnutie majiteľa |
 | Pack v0.5.0 | **NEVYDANÝ** — `vydane: false` v MANIFESTe | až po 17/17; každý dnešný výsledok je 1 beh, nie 5/5 |
 | Nová pozícia na webe | SK **3 články** + služba, EN 1 článok + sekcia na domovskej | 3. článok je naživo (HTTP 200, obrázok 200) |
 | Evolučná vrstva | beží cez `scripts/frontier_run.py`; `experiments` má **2 merania naživo** so základom zmeraným pred zásahom (#3 index, #4 podiel 404) | domerať kandidáta 2026-08-25; predtým bola tabuľka „prázdna" len zdanlivo — mala 2 uzavreté, oba offline |
@@ -77,6 +77,15 @@ ktorých základ je zapísaný pred zásahom a už sa nedá prepísať.
 - **Ablácia pravidiel** — predčasná, kým sada nebola odbehnutá celá.
 
 ## Čo čaká na rozhodnutie majiteľa
+
+0b. **Doplniť do packu koniec `ESKALUJ`?** S8 aj S9 zlyhali na tom istom —
+   procedúra nemá cestu von, keď odpoveď nie je v chate, ale u človeka. Pri S8
+   je správnym koncom „obídi a povedz, čo začať zapisovať", pri S9 „navrhni
+   test, ktorý to rozhodne". Rozhodovanie pritom v oboch prepisoch fungovalo:
+   model nič nedopísal a nič nevylúčil natvrdo. Sekcia 3c `docs/EVAL_DISCIPLINA.md`
+   uvádzala Escalate ako chýbajúci koniec už predtým. **Pack je zmrazený, takže
+   to nerobím sám.** Vyvrátiteľné: ak sa po doplnení oba scenáre zmenia na
+   VYHOVEL bez zásahu do rozhodovacích stromov, hypotéza platí.
 
 0. **Analytika: zbierať, alebo nie?** Web nemá žiadnu — 0 zhôd na `gtag`,
    `analytics`, `plausible`, `umami`, `matomo`, `fathom` vo všetkých HTML, a
