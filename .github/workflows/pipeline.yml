@@ -65,6 +65,13 @@ jobs:
           python3 tests/test_beh.py
           python3 tests/test_vyklad.py
 
+      # Blokujuca brana. CLAUDE.md tvrdil, ze zakaznicke udaje v repozitari
+      # blokuje `quality-packs/build/build_pack.py --check`. Ten skript v
+      # repozitari nikdy nebol - pravidlo teda nevynucovalo nic a 2026-08-18
+      # sa ukazalo, ze mena zakaznikov su na verejnom origin/main.
+      - name: Zakaznicke udaje v repozitari (blokujuce)
+        run: python3 scripts/kontrola_repozitara.py
+
       # Chranena cesta Frontieru: snimanie + zapis cakajucich artefaktov
       # vykladu. Bezi cez zamok, kontrolne body a rozpocet, takze pad v
       # polovici nenecha polovicu stavu. Artefakty vyroba uvazovacia rovina

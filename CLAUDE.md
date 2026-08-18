@@ -64,10 +64,18 @@ Everything above is advisory. These are **enforced** and cannot be talked around
 |---|---|
 | Stop hook `.claude/hooks/verify_before_stop.sh` | ending a turn while the site audit fails · **ending a turn while the queue still has `(stroj)` work** |
 | `tests/test_beh.py` (CI, blocking) | a run that crashes mid-node leaving partial writes, or budgets that don't stop a run |
-| `quality-packs/build/build_pack.py --check` (local + CI) | catalogue inconsistency · **a frozen rule missing from the pack** · **customer data in the repo** · **a VERSION with no eval record naming it and stating `DÔVOD ZMENY:`** |
+| `scripts/kontrola_repozitara.py` (CI, blocking) | **new customer data reaching the repo** — names and case identifiers. Does *not* check git history: a published record stays published. |
 
 If a rule matters and is not in that table, either enforce it or accept it will be
 skipped under pressure.
+
+**A row in that table naming a mechanism that does not exist is worse than no
+row.** Until 2026-08-18 the table named `quality-packs/build/build_pack.py
+--check` as what blocked customer data from the repo. No such file has ever
+existed here and nothing ran it, so three guarantees — catalogue consistency,
+frozen-rule coverage, and customer data — were enforced by nothing while
+reading as enforced. Before adding a row, run the command and watch it fail on
+purpose.
 
 ## Start here (any new session)
 
