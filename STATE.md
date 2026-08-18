@@ -4,7 +4,7 @@ Prečíta sa na začiatku každej relácie, doplní sa na konci. Agent medzi beh
 zabudne, tento súbor nie. **Krátky zámerne** — čo je hotové, patrí do histórie,
 nie sem.
 
-Aktualizované: **2026-08-17**
+Aktualizované: **2026-08-17** (večerný beh)
 
 ---
 
@@ -15,8 +15,8 @@ Aktualizované: **2026-08-17**
 | Akceptačná sada packu | **13 zo 17** · zlyhali S8 `Z4`, S9 `Z1`, S17 `Z7` | prehodnotiť S8 a S9 v čistom kontexte (hodnotil ich ten, kto ich spustil) |
 | Taxonómia Z1–Z7 | **má dieru** | S8 = vynechaná povinná časť výstupu, S9 = procedúra sa nedopracovala k rozhodujúcemu testu — ani jedno nemá kód |
 | Pack v0.5.0 | **NEVYDANÝ** — `vydane: false` v MANIFESTe | až po 17/17; každý dnešný výsledok je 1 beh, nie 5/5 |
-| Nová pozícia na webe | SK **3 články** + služba, EN 1 článok + sekcia na domovskej | 3. článok postavený vrátane obrázka, **nedeployovaný a neprekorektúrovaný** |
-| Tretí SK článok | `ktore-rozhodnutie-zverit-ai` | nezávislá korektúra slovenčiny nikdy nedobehla — spustiť pred deployom |
+| Nová pozícia na webe | SK **3 články** + služba, EN 1 článok + sekcia na domovskej | 3. článok je naživo (HTTP 200, obrázok 200) |
+| Evolučná vrstva | poznatky · domnienky · výklad · rozhodnutia · zámok behu | `experiments` má stále **0 riadkov** — bez porovnania kandidáta so základom niet experimentu |
 | Inbound dráha | skill `/dopyt` hotový | napojiť na to, čo chodí z formulára |
 | Sľuby aktív | **10 aktív**, žiadne po termíne | týždenná kontrola beží sama |
 
@@ -53,26 +53,32 @@ formulár.
 3. **Druhý pack v inej profesii** — jediný chýbajúci dôkaz, že je to výrobná
    linka a nie jeden dokument.
 
-## Blokované na majiteľovi — autonómia stroja
-
-**Cloudový beh evolučnej vrstvy sa nedá založiť: tri rôzne GitHub identity.**
-Lokálne `gh` je prihlásené ako `fwwk4pb868-afk`, repozitár vlastní
-`biznis-studio`, a na claude.ai je prepojený `jozefrusnak4-ux` (vidí len
-`cestapoznania`, na „biznis“ hlási *No repos match*). API preto vracia 401
-`Connect your GitHub account…`. Riešenie: prihlásiť sa na github.com ako
-**`biznis-studio`** a až tam nainštalovať Claude GitHub App — alebo pridať
-`jozefrusnak4-ux` ako spolupracovníka s právami na repozitár.
-
-**Dôsledok, kým to neplatí:** zber beží sám (GitHub Actions), ale **úsudok nie**.
-Vykladanie fronty je viazané na reláciu, takže systém je autonómny len vtedy,
-keď je otvorený. To je presne tá časť, ktorá má byť inteligentná.
-
 ## Blokované na majiteľovi (jedno kliknutie)
 
 **Copilot: klávesnica sa do stránky nedostáva.** Kliknutia aj JavaScript
 fungujú, ale vložený text sa neobjaví — ani „test". Je to zameranie okna na
 úrovni systému. **Stačí kliknúť do okna Chromu** a viem dobehnúť zvyšných
 sedem scenárov. Do vtedy je pack 0.5.0 nevydaný.
+
+## Cloudová autonómia — čo sa naozaj ukázalo (2026-08-17)
+
+Routine `Frontier loop` beží denne o 9:32. Prvý ostrý beh odhalil **tri
+obmedzenia prostredia**, ktoré rozhodujú o tom, čo tam vôbec má zmysel púšťať:
+
+| | |
+|---|---|
+| `git push` z cloudu | **403 — egress policy.** Cloudová relácia nemá povolené písať na github.com. Sankcionovaná cesta je GitHub MCP, nie git. |
+| dosah na zdroje | **7 z 9 zberačov nemých**, 15 z 25 položiek sa nedalo otvoriť — väčšina domén je z cloudu blokovaná |
+| veľkosť stavu | `db/biznis.sqlite3` má **20 MB**; cez GitHub MCP sa taký súbor rozumne poslať nedá |
+
+**Dôsledok:** cloudový beh v tejto podobe **nevie výskum ani uložiť výsledok**.
+Jeho commit `789581c` zostal v pieskovisku a zanikol. Prácu, ktorú našiel, som
+zopakoval ručne — ale to nie je autonómia, to je drahý spôsob, ako mať nápady.
+
+**Čo z toho vyplýva pre architektúru** (rozhodnutie o smerovaní, nie o kóde —
+preto čaká na majiteľa): zber patrí do GitHub Actions, ktoré sieť majú;
+cloudový beh by mal iba vykladať to, čo už je v databáze, a stav evolučnej
+vrstvy by nemal žiť v 20 MB binárnom súbore, ale v malom zlučiteľnom formáte.
 
 ## Web — stav meraním (2026-08-17)
 
@@ -88,6 +94,9 @@ sedem scenárov. Do vtedy je pack 0.5.0 nevydaný.
 
 ## Posledný beh
 
-2026-08-16 · fan out na štyroch vetvách · publikované 2 články (SK+EN) · formuláre pod všetky články oboch jazykov · prvý článok v novej pozícii · formuláre doplnené na
-domovskú, work.html a pod články · „Hire us" vedie na formulár · SK stránka
-zo 4 na 11 obrázkov · zavedený register sľubov a týždenná kontrola.
+2026-08-17 · postavená evolučná vrstva a snímanie špičky (14 zdrojov) ·
+prvý výklad fronty (25 položiek, 11 zapísaných) · zámok behu proti súbežnému
+zápisu · zmierené rozídené databázy po incidente so štyrmi súbežnými zapisovateľmi ·
+tri chyby zberu opravené (abecedná vzorka registra, mlčiace zdroje, dedup medzi
+behmi) · tretí SK článok naživo · `jozefrusnak4-ux` pridaný ako správca repozitára,
+cloudová routine založená a spustená.

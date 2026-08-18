@@ -38,7 +38,7 @@ from __future__ import annotations
 import json
 import re
 import xml.etree.ElementTree as ET
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from urllib.parse import quote
 from typing import Iterable, Optional
 
@@ -227,31 +227,66 @@ def fetch_schopnosti(limit: int = 60) -> list[dict]:
     return von
 
 
-def fetch_konektory(limit: int = 30) -> list[dict]:
+def fetch_konektory(limit: int = 8) -> list[dict]:
     """Oficiálny register MCP serverov — čím sa dá AI napojiť na firemné dáta.
 
     Priamo pod našou pozíciou: overiteľnosť potrebuje prístup k tomu, čo sa
     overuje. Rast registra je merateľný signál, čo je už napojiteľné bez práce.
+
+    `updated_since` tu nie je kozmetika. Bez neho register radí podľa `name`,
+    takže `?limit=30` vracia abecedný začiatok — overené 2026-08-17: 30 z 30
+    položiek začínalo na „a“ a prvé tri boli ten istý server v troch verziách.
+    Nemerali sme trh, merali sme abecedu, a to isté by sme merali každý deň.
+
+    Register nemá pojem „nové“, má len okno — takže okno JE definícia novosti.
+    Deň preto, že za 24 h ide o stovky záznamov; širšie okno je firehose.
+    Hlavným výstupom je preto ČÍSLO (koľko pribudlo za deň), nie zoznam mien.
     """
-    data = http_get("https://registry.modelcontextprotocol.io/v0/servers",
-                    params={"limit": limit})
-    if not isinstance(data, dict):
+    od = (date.today() - timedelta(days=1)).isoformat() + "T00:00:00Z"
+    videne: dict[str, dict] = {}
+    kurzor, strany = None, 0
+    while strany < 12:                       # strop, aby beh nemohol utiecť
+        params = {"limit": 100, "updated_since": od, "version": "latest"}
+        if kurzor:
+            params["cursor"] = kurzor
+        data = http_get("https://registry.modelcontextprotocol.io/v0/servers",
+                        params=params)
+        if not isinstance(data, dict):
+            break
+        davka = data.get("servers") or []
+        for r in davka:
+            s = r.get("server") or r
+            if not s.get("name"):
+                continue
+            # Časová pečiatka je v `_meta`, nie v `server`. Bez nej by vzorka
+            # znova išla abecedne — poradie z API je podľa mena, nie podľa veku.
+            meta = ((r.get("_meta") or {})
+                    .get("io.modelcontextprotocol.registry/official") or {})
+            s = {**s, "_kedy": meta.get("updatedAt") or meta.get("publishedAt") or ""}
+            videne[s["name"]] = s        # posledná verzia mena vyhráva
+        kurzor = (data.get("metadata") or {}).get("nextCursor")
+        strany += 1
+        if not kurzor or not davka:
+            break
+
+    if not videne:
         return []
-    von = []
-    for r in data.get("servers", []):
-        s = r.get("server") or r
-        meno = s.get("name") or ""
-        if not meno:
-            continue
-        # Register nemá pole `repository`; stabilným identifikátorom je `name`.
-        # Odkazujeme naň späť do registra, aby sa dal poznatok kedykoľvek overiť
-        # pri zdroji — poznatok bez otvoriteľného zdroja sa aj tak nezapíše.
-        odkaz = ("https://registry.modelcontextprotocol.io/v0/servers"
-                 f"?search={quote(meno)}")
+
+    von = [_polozka(
+        "mcp_registry", "konektor",
+        f"MCP register: {len(videne)} serverov pridaných alebo zmenených za 24 h",
+        f"https://registry.modelcontextprotocol.io/v0/servers?updated_since={od}",
+        float(len(videne)), {"pocet": len(videne), "okno": "24h"},
+    )]
+    najnovsie = sorted(videne.items(), key=lambda kv: kv[1].get("_kedy") or "",
+                       reverse=True)
+    for meno, s in najnovsie[:limit]:
         von.append(_polozka(
             "mcp_registry", "konektor",
             f"{meno} — {(s.get('description') or '')[:180]}",
-            odkaz, 0.0, {"name": meno},
+            "https://registry.modelcontextprotocol.io/v0/servers"
+            f"?search={quote(meno)}",
+            0.0, {"name": meno},
         ))
     return von
 
@@ -318,6 +353,12 @@ BEZ_FILTRA = {
 }
 
 
+def _kluc(text: str) -> str:
+    """Totožnosť položky. Jedno miesto, aby sa dedup v behu a medzi behmi
+    nikdy nerozišli — dva takmer rovnaké kľúče sú horšie než žiadny."""
+    return re.sub(r"\W+", "", (text or "").lower())[:120]
+
+
 def _relevantne(polozky: list[dict]) -> list[dict]:
     """Filter + odstránenie duplikátov. Obyčajný kód, žiadny model."""
     videne: set[str] = set()
@@ -326,7 +367,7 @@ def _relevantne(polozky: list[dict]) -> list[dict]:
         text = p["term"]
         if p["source"] not in BEZ_FILTRA and not RELEVANTNE.search(text):
             continue
-        kluc = re.sub(r"\W+", "", text.lower())[:120]
+        kluc = _kluc(text)
         if kluc in videne:
             continue
         videne.add(kluc)
@@ -345,13 +386,33 @@ def run(run_id: Optional[int] = None) -> int:
             run_id = int(cur.lastrowid)
 
         surove: list[dict] = []
+        neme: list[str] = []
         for zdroj in ZDROJE:
             try:
-                surove.extend(zdroj())
+                davka = zdroj()
             except Exception as chyba:      # jeden mŕtvy zdroj nesmie zvaliť beh
                 print(f"[frontier_agent] {zdroj.__name__} zlyhal: {chyba}")
+                neme.append(zdroj.__name__)
+                continue
+            if not davka:
+                neme.append(zdroj.__name__)
+            surove.extend(davka)
 
         polozky = _relevantne(surove)
+
+        # Dedup MEDZI behmi. `_relevantne` odstráni duplikáty vnútri jedného
+        # behu, ale RSS aj register vracajú tie isté položky celé dni, takže
+        # každý ďalší beh im pridelí nové id a fronta ich podá znova ako nové.
+        # Kľúč je rovnaký ako pri dedupe v behu — dva rôzne by sa rozišli.
+        uz_videne = {
+            _kluc(t) for (t,) in conn.execute(
+                "SELECT term FROM signals_raw WHERE source LIKE 'frontier:%'")
+        }
+        pred = len(polozky)
+        polozky = [p for p in polozky if _kluc(p["term"]) not in uz_videne]
+        if pred != len(polozky):
+            print(f"[frontier_agent] už videné v predošlých behoch: "
+                  f"{pred - len(polozky)} položiek")
 
         # Zdroje, ktoré si po dostatočnej vzorke miesto nezaslúžili, sa
         # preskočia. Nikto ich nemusí mazať z kódu — rozhodlo o nich meranie
@@ -384,6 +445,15 @@ def run(run_id: Optional[int] = None) -> int:
         rozpis = ", ".join(f"{k.split(':')[1]}={v}" for k, v in sorted(podla_zdroja.items()))
         print(f"[frontier_agent] {len(surove)} nasnímaných → "
               f"{len(polozky)} relevantných ({rozpis})")
+
+        # Mlčiaci zdroj vyzerá presne ako zdroj, ktorý nič nové nenašiel — a to
+        # je nebezpečné, lebo nedostupnosť alebo zmena API sa tak tvári ako
+        # úspech. Cloudový beh 2026-08-17 mal 7 z 9 zberačov nemých (blokovaný
+        # egress) a bez tohto riadku by to hlásil ako hotový beh.
+        if neme:
+            print(f"[frontier_agent] NEMÉ ZDROJE ({len(neme)}/{len(ZDROJE)}): "
+                  f"{', '.join(neme)} — nula položiek, čo je nedostupnosť alebo "
+                  f"zmena API, nie „nič nové“. Snímka je neúplná.")
         return len(polozky)
     finally:
         conn.close()
