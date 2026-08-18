@@ -57,6 +57,12 @@ jobs:
           echo "### Sluby aktiv" >> "$GITHUB_STEP_SUMMARY"
           python3 scripts/check_promises.py >> "$GITHUB_STEP_SUMMARY" 2>&1 || true
 
+      # Blokujuca brana. Testy reprodukuju pad procesu uprostred uzla; ak
+      # prestane platit atomicita, bezobsluzny beh zacne duplikovat zapisy -
+      # co uz raz nastalo 2026-08-17 a stalo to rucne zmierovanie databaz.
+      - name: Regresne testy behu (blokujuce)
+        run: python3 tests/test_beh.py
+
       # Hrana z merania spat do rozhodovania. Zvysok pipeline veci vyraba;
       # toto sa pyta, ci sa mali vyrabat, a co si system pyta ako dalsie.
       - name: Evolucny beh - co si system pyta dalej
