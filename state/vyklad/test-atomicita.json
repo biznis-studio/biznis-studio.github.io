@@ -1,0 +1,17 @@
+{
+  "poznamka": "Testovací artefakt pre overenie atomicity zápisu výkladu.",
+  "polozky": [
+    {"signal_id": 19748, "rozhodnutie": "ZAPISANE",
+     "duvod": "vlastné meranie registra, priamo pod našou pozíciou",
+     "poznatok": {
+       "tvrdenie": "Oficiálny register MCP mal 2026-08-17 za 24 hodín 758 pridaných alebo zmenených serverov (vlastné meranie cez updated_since, endpoint overený HTTP 200).",
+       "typ_zdroja": "nastroj",
+       "dosah": "Ekosystém napojenia rastie rádovo stovkami za deň. Ak sa napojenie stane bežnou komoditou, naša hodnota sa presúva z prepojenia na overenie toho, čo prepojené systémy tvrdia."}},
+    {"signal_id": 19670, "rozhodnutie": "ZAHODENE",
+     "duvod": "oznámenie o konferencii v Šanghaji, žiadny dôsledok pre produkt"},
+    {"signal_id": 19635, "rozhodnutie": "ZAHODENE",
+     "duvod": "skúsenosť z finančnej funkcie, iná doména než naša"},
+    {"signal_id": 19647, "rozhodnutie": "ZAHODENE",
+     "duvod": "redizajn rozhrania Copilota, mení vzhľad nie schopnosti"}
+  ]
+}

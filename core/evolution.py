@@ -80,6 +80,19 @@ CREATE TABLE IF NOT EXISTS zdroj_zdravie (
     kedy     TEXT NOT NULL
 );
 
+-- Ktoré artefakty výkladu už boli zapísané. Kontrolný bod je viazaný na
+-- run_id, takže NOVÝ beh by ten istý artefakt spracoval znova; idempotencia
+-- zápisu by síce zabránila duplicitám, ale úsudok by sa premrhal a stav by
+-- tvrdil, že sa niečo stalo dvakrát. Kľúčom je odtlačok obsahu, nie meno
+-- súboru — premenovaný artefakt je ten istý artefakt.
+CREATE TABLE IF NOT EXISTS vyklad_artefakt (
+    odtlacok TEXT PRIMARY KEY,
+    subor    TEXT NOT NULL,
+    run_id   TEXT NOT NULL,
+    polozek  INTEGER NOT NULL,
+    kedy     TEXT NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS poznatky (
     id            INTEGER PRIMARY KEY AUTOINCREMENT,
     tvrdenie      TEXT NOT NULL,

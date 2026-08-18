@@ -119,7 +119,38 @@ def main() -> int:
                     _mozny_pad("domnienky")
                     print(f"  domnienky: {zalozene} nových")
 
-            # 4. SPRÁVA — čo si systém pýta. Číta, nemení.
+            # 4. VÝKLAD — zápis úsudku z artefaktu, ak nejaký čaká.
+            #    Úsudok sa robí mimo (relácia, cloud); sem prichádza hotový
+            #    artefakt, ktorý sa celý overí a zapíše v jednej transakcii.
+            cakajuce = sorted((ROOT / "state" / "vyklad").glob("*.json"))
+            for artefakt in cakajuce:
+                with beh.uzol(f"vyklad:{artefakt.stem}") as c:
+                    if c is None:
+                        print(f"  vyklad {artefakt.stem}: PRESKOČENÝ (kontrolný bod)")
+                        continue
+                    import hashlib
+                    from core import vyklad as vy
+                    surovy = artefakt.read_bytes()
+                    odtlacok = hashlib.sha256(surovy).hexdigest()
+                    uz = c.execute(
+                        "SELECT run_id, kedy FROM vyklad_artefakt WHERE odtlacok=?",
+                        (odtlacok,)).fetchone()
+                    if uz is not None:
+                        print(f"  vyklad {artefakt.stem}: UŽ ZAPÍSANÝ "
+                              f"(beh {uz['run_id']}, {uz['kedy']})")
+                        continue
+                    vysledok = vy.zapis(c, vy.nacitaj(artefakt))
+                    c.execute(
+                        "INSERT INTO vyklad_artefakt "
+                        "(odtlacok, subor, run_id, polozek, kedy) VALUES (?,?,?,?,?)",
+                        (odtlacok, artefakt.name, run_id, vysledok["spolu"],
+                         __import__("datetime").datetime.now().isoformat()))
+                    beh.minul("volania_modelu")
+                    _mozny_pad("vyklad")
+                    print(f"  vyklad {artefakt.stem}: {vysledok['zapisane']} "
+                          f"zapísaných, {vysledok['zahodene']} zahodených")
+
+            # 5. SPRÁVA — čo si systém pýta. Číta, nemení.
             with beh.uzol("sprava") as c:
                 if c is None:
                     print("  sprava: PRESKOČENÝ (kontrolný bod)")

@@ -16,7 +16,8 @@ Aktualizované: **2026-08-17** (večerný beh)
 | Taxonómia Z1–Z7 | **má dieru** | S8 = vynechaná povinná časť výstupu, S9 = procedúra sa nedopracovala k rozhodujúcemu testu — ani jedno nemá kód |
 | Pack v0.5.0 | **NEVYDANÝ** — `vydane: false` v MANIFESTe | až po 17/17; každý dnešný výsledok je 1 beh, nie 5/5 |
 | Nová pozícia na webe | SK **3 články** + služba, EN 1 článok + sekcia na domovskej | 3. článok je naživo (HTTP 200, obrázok 200) |
-| Evolučná vrstva | poznatky · domnienky · výklad · rozhodnutia · zámok behu | `experiments` má stále **0 riadkov** — bez porovnania kandidáta so základom niet experimentu |
+| Evolučná vrstva | celá skutočná cesta beží cez `scripts/frontier_run.py` — zámok, kontrolné body, rozpočet, atomické uzly | `experiments` má stále **0 riadkov** — bez porovnania kandidáta so základom niet experimentu |
+| Výklad fronty | úsudok mimo → artefakt JSON → overenie → atomický zápis v uzle | úsudok stále robí človek alebo cloud; automatický ho nerobí nikto |
 | Inbound dráha | skill `/dopyt` hotový | napojiť na to, čo chodí z formulára |
 | Sľuby aktív | **10 aktív**, žiadne po termíne | týždenná kontrola beží sama |
 
@@ -70,6 +71,11 @@ obmedzenia prostredia**, ktoré rozhodujú o tom, čo tam vôbec má zmysel pú�
 | `git push` z cloudu | **403 — egress policy.** Cloudová relácia nemá povolené písať na github.com. Sankcionovaná cesta je GitHub MCP, nie git. |
 | dosah na zdroje | **7 z 9 zberačov nemých**, 15 z 25 položiek sa nedalo otvoriť — väčšina domén je z cloudu blokovaná |
 | veľkosť stavu | `db/biznis.sqlite3` má **20 MB**; cez GitHub MCP sa taký súbor rozumne poslať nedá |
+
+**Čo sa medzitým zmenilo:** výklad už nezapisuje priamo. Úsudok vytvorí JSON
+artefakt do `state/vyklad/`, ten sa celý overí a zapíše v jednej transakcii
+vnútri uzla — takže cloudový beh nemusí mať právo zápisu do stavu, stačí mu
+odovzdať artefakt.
 
 **Dôsledok:** cloudový beh v tejto podobe **nevie výskum ani uložiť výsledok**.
 Jeho commit `789581c` zostal v pieskovisku a zanikol. Prácu, ktorú našiel, som

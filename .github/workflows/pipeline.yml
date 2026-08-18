@@ -61,7 +61,9 @@ jobs:
       # prestane platit atomicita, bezobsluzny beh zacne duplikovat zapisy -
       # co uz raz nastalo 2026-08-17 a stalo to rucne zmierovanie databaz.
       - name: Regresne testy behu (blokujuce)
-        run: python3 tests/test_beh.py
+        run: |
+          python3 tests/test_beh.py
+          python3 tests/test_vyklad.py
 
       # Hrana z merania spat do rozhodovania. Zvysok pipeline veci vyraba;
       # toto sa pyta, ci sa mali vyrabat, a co si system pyta ako dalsie.

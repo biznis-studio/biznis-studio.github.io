@@ -614,6 +614,16 @@ def na_vyklad(limit: int = 20) -> list[dict]:
             "WHERE s.source LIKE 'frontier:%' "
             "AND NOT EXISTS (SELECT 1 FROM vyklad v WHERE v.signal_id = s.id) "
             "ORDER BY s.id DESC")]
+
+        # Vylúč aj to, čo už bolo vyložené POD INÝM ID. Dedup pri zbere bráni
+        # novým vloženiam, ale položky uložené pred jeho zavedením tu zostali
+        # a fronta ich podávala na úsudok znova — teda tá istá práca druhýkrát.
+        vylozene = {
+            _kluc(t) for (t,) in conn.execute(
+                "SELECT s.term FROM signals_raw s "
+                "JOIN vyklad v ON v.signal_id = s.id")
+        }
+        riadky = [r for r in riadky if _kluc(r["term"]) not in vylozene]
         riadky.sort(key=lambda r: (PORADIE_ZDROJA.get(r["source"], 9),
                                    -(r["metric_value"] or 0)))
         # Striedanie zdrojov. Bez neho zaplní vrch fronty jeden zdroj (naposledy
