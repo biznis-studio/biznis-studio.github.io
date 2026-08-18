@@ -22,6 +22,7 @@ import json
 import subprocess
 import sys
 import time
+import html
 import urllib.request
 
 BASE = "https://biznis-studio.github.io"
@@ -50,9 +51,19 @@ def wait_for(run_id: str, timeout: int = 900) -> str:
 
 
 def fetch(url: str) -> str:
+    """Stiahne stránku a ROZKÓDUJE HTML entity pred porovnaním.
+
+    Bez toho `--expect "Pospájať"` nikdy nesedí, lebo v HTML je to
+    `Pospájať`. Väčšina našej slovenčiny je zakódovaná v entitách, takže
+    kontrola hlásila "nie je naživo" aj vtedy, keď stránka bola nasadená
+    správne — overené 2026-08-18, živá stránka bola znak po znaku
+    identická s lokálnym buildom a kontrola aj tak zlyhala. Falošný poplach
+    je horší než žiadna kontrola: naučí človeka ju ignorovať.
+    """
     req = urllib.request.Request(f"{url}?cachebust={int(time.time())}", headers=UA)
     with urllib.request.urlopen(req, timeout=30) as resp:
-        return resp.read().decode("utf-8", "ignore")
+        surove = resp.read().decode("utf-8", "ignore")
+    return html.unescape(surove)
 
 
 def main() -> int:
