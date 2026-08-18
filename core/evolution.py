@@ -66,6 +66,20 @@ CREATE TABLE IF NOT EXISTS beh_zamok (
     stav       TEXT NOT NULL         -- BEZI | HOTOVO | PADOL
 );
 
+-- Zdravie zdroja pri každom pokuse. Bez toho sa "nula položiek" nedá odlíšiť
+-- od "nedosiahol som" a systém sa učí z fikcie.
+CREATE TABLE IF NOT EXISTS zdroj_zdravie (
+    id       INTEGER PRIMARY KEY AUTOINCREMENT,
+    run_id   INTEGER,
+    zdroj    TEXT NOT NULL,
+    stav     TEXT NOT NULL,
+    url      TEXT,
+    pocet    INTEGER NOT NULL DEFAULT 0,
+    trvanie  REAL,
+    detail   TEXT,
+    kedy     TEXT NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS poznatky (
     id            INTEGER PRIMARY KEY AUTOINCREMENT,
     tvrdenie      TEXT NOT NULL,

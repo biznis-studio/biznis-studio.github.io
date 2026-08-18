@@ -37,6 +37,7 @@ from __future__ import annotations
 
 import json
 import re
+import time
 import xml.etree.ElementTree as ET
 from datetime import date, datetime, timedelta
 from urllib.parse import quote
@@ -69,16 +70,106 @@ RELEVANTNE = re.compile(
 )
 
 
+
+# --- zdravie zdroja --------------------------------------------------------
+#
+# Najdôležitejší nález 2026-08-17: `0 položiek` nie je stav zdroja, je to
+# zlúčenie siedmich rôznych stavov. Cloudový beh mal 7 z 9 zberačov "nemých"
+# a vyzeralo to ako pokojný deň — pritom mu prostredie blokovalo egress.
+# Systém, ktorý nerozlíši "nič nové" od "nedosiahol som", sa učí z fikcie.
+
+STAVY_ZDROJA = (
+    "USPECH",          # odpoveď prišla a niečo v nej bolo
+    "PRAZDNY",         # odpoveď prišla a bola legitímne prázdna
+    "TIMEOUT",
+    "SIET",            # DNS, odmietnuté spojenie, TLS
+    "ZAMIETNUTY",      # 401/403 — egress policy alebo autentifikácia
+    "LIMIT",           # 429
+    "CHYBA_SERVERA",   # 5xx
+    "PARSER",          # odpoveď prišla, ale nedala sa prečítať
+    "NEZNAMA",
+)
+
+_ZDRAVIE: list[dict] = []
+
+
+def _zaznam(zdroj: str, stav: str, *, url: str, pocet: int = 0,
+            trvanie: float = 0.0, detail: str = "") -> None:
+    _ZDRAVIE.append({"zdroj": zdroj, "stav": stav, "url": url, "pocet": pocet,
+                     "trvanie": round(trvanie, 2), "detail": detail[:200]})
+
+
+def _stav_z_vynimky(chyba: Exception) -> tuple[str, str]:
+    """Zaradí výnimku. Nezaradené patrí do NEZNAMA — nie do PRAZDNY."""
+    if isinstance(chyba, requests.Timeout):
+        return "TIMEOUT", str(chyba)[:200]
+    if isinstance(chyba, (requests.ConnectionError, requests.TooManyRedirects)):
+        return "SIET", str(chyba)[:200]
+    if isinstance(chyba, ET.ParseError):
+        return "PARSER", str(chyba)[:200]
+    return "NEZNAMA", f"{type(chyba).__name__}: {chyba}"[:200]
+
+
+def _stav_z_kodu(kod: int) -> str:
+    if kod == 200:
+        return "USPECH"
+    if kod in (401, 403):
+        return "ZAMIETNUTY"
+    if kod == 429:
+        return "LIMIT"
+    if kod >= 500:
+        return "CHYBA_SERVERA"
+    return "NEZNAMA"
+
+
+def _json(zdroj: str, url: str, params: Optional[dict] = None):
+    """Ako http_get, ale povie PREČO nič neprišlo. Nikdy nevyhodí výnimku."""
+    zac = time.monotonic()
+    try:
+        r = requests.get(url, params=params, headers=DEFAULT_HEADERS,
+                         timeout=DEFAULT_TIMEOUT)
+    except Exception as chyba:
+        stav, detail = _stav_z_vynimky(chyba)
+        _zaznam(zdroj, stav, url=url, trvanie=time.monotonic() - zac, detail=detail)
+        return None
+    stav = _stav_z_kodu(r.status_code)
+    if stav != "USPECH":
+        _zaznam(zdroj, stav, url=url, trvanie=time.monotonic() - zac,
+                detail=f"HTTP {r.status_code}")
+        return None
+    try:
+        data = r.json()
+    except ValueError as chyba:
+        _zaznam(zdroj, "PARSER", url=url, trvanie=time.monotonic() - zac,
+                detail=str(chyba)[:200])
+        return None
+    pocet = len(data) if isinstance(data, (list, dict)) else 0
+    _zaznam(zdroj, "USPECH" if pocet else "PRAZDNY", url=url, pocet=pocet,
+            trvanie=time.monotonic() - zac)
+    return data
+
+
 # --- pomocné ---------------------------------------------------------------
 
-def _rss(url: str, limit: int) -> list[dict]:
-    """Prečíta RSS/Atom a vráti položky. Nikdy nevyhodí výnimku."""
+def _rss(url: str, limit: int, zdroj: str = "rss") -> list[dict]:
+    """Prečíta RSS/Atom. Nikdy nevyhodí výnimku, ale vždy povie, čo sa stalo."""
+    zac = time.monotonic()
     try:
         r = requests.get(url, headers=DEFAULT_HEADERS, timeout=DEFAULT_TIMEOUT)
-        if r.status_code != 200:
-            return []
+    except Exception as chyba:
+        stav, detail = _stav_z_vynimky(chyba)
+        _zaznam(zdroj, stav, url=url, trvanie=time.monotonic() - zac, detail=detail)
+        return []
+    stav = _stav_z_kodu(r.status_code)
+    if stav != "USPECH":
+        _zaznam(zdroj, stav, url=url, trvanie=time.monotonic() - zac,
+                detail=f"HTTP {r.status_code}")
+        return []
+    try:
         korene = ET.fromstring(r.content)
-    except (requests.RequestException, ET.ParseError):
+    except ET.ParseError as chyba:
+        _zaznam(zdroj, "PARSER", url=url, trvanie=time.monotonic() - zac,
+                detail=str(chyba)[:200])
         return []
 
     polozky: list[dict] = []
@@ -99,6 +190,8 @@ def _rss(url: str, limit: int) -> list[dict]:
             polozky.append({"nazov": nazov, "url": odkaz, "datum": datum})
         if len(polozky) >= limit:
             break
+    _zaznam(zdroj, "USPECH" if polozky else "PRAZDNY", url=url,
+            pocet=len(polozky), trvanie=time.monotonic() - zac)
     return polozky
 
 
@@ -125,7 +218,7 @@ def fetch_arxiv(kategorie: Iterable[str] = ("cs.AI", "cs.CL"),
             "https://export.arxiv.org/api/query"
             f"?search_query=cat:{kat}&sortBy=submittedDate"
             f"&sortOrder=descending&max_results={limit}",
-            limit,
+            limit, "arxiv",
         )
         for p in polozky:
             von.append(_polozka("arxiv", "praca", p["nazov"], p["url"], 0.0, p))
@@ -134,8 +227,8 @@ def fetch_arxiv(kategorie: Iterable[str] = ("cs.AI", "cs.CL"),
 
 def fetch_hf_papers(limit: int = 30) -> list[dict]:
     """Denné práce na HuggingFace — filter, ktorý už spravila komunita."""
-    data = http_get("https://huggingface.co/api/daily_papers",
-                    params={"limit": limit})
+    data = _json("hf_papers", "https://huggingface.co/api/daily_papers",
+                 {"limit": limit})
     if not isinstance(data, list):
         return []
     von = []
@@ -155,8 +248,8 @@ def fetch_hf_papers(limit: int = 30) -> list[dict]:
 
 def fetch_hf_models(limit: int = 25) -> list[dict]:
     """Ktoré modely rastú. Schopnosť sa posúva tam, kam ide pozornosť."""
-    data = http_get("https://huggingface.co/api/models",
-                    params={"sort": "trendingScore", "limit": limit})
+    data = _json("hf_models", "https://huggingface.co/api/models",
+                 {"sort": "trendingScore", "limit": limit})
     if not isinstance(data, list):
         return []
     return [
@@ -183,7 +276,7 @@ def fetch_vyrobcovia(limit: int = 15) -> list[dict]:
     }
     von = []
     for meno, url in kanaly.items():
-        for p in _rss(url, limit):
+        for p in _rss(url, limit, meno):
             von.append(_polozka(meno, "oznamenie", p["nazov"], p["url"], 0.0, p))
     return von
 
@@ -196,7 +289,7 @@ def fetch_praktici(limit: int = 25) -> list[dict]:
     výrobcu. Ak jeho feed raz stíchne, tento zdroj sa nahrádza, nie dopĺňa.
     """
     von = []
-    for p in _rss("https://simonwillison.net/atom/everything/", limit):
+    for p in _rss("https://simonwillison.net/atom/everything/", limit, "willison"):
         von.append(_polozka("willison", "prax", p["nazov"], p["url"], 0.0, p))
     return von
 
@@ -208,7 +301,7 @@ def fetch_schopnosti(limit: int = 60) -> list[dict]:
     alebo v dĺžke kontextu mení, čo je vôbec ekonomicky možné postaviť — a to je
     poznatok o schopnostiach, nie marketing.
     """
-    data = http_get("https://openrouter.ai/api/v1/models")
+    data = _json("openrouter", "https://openrouter.ai/api/v1/models")
     if not isinstance(data, dict):
         return []
     modely = data.get("data") or []
@@ -249,8 +342,8 @@ def fetch_konektory(limit: int = 8) -> list[dict]:
         params = {"limit": 100, "updated_since": od, "version": "latest"}
         if kurzor:
             params["cursor"] = kurzor
-        data = http_get("https://registry.modelcontextprotocol.io/v0/servers",
-                        params=params)
+        data = _json("mcp_registry",
+                     "https://registry.modelcontextprotocol.io/v0/servers", params)
         if not isinstance(data, dict):
             break
         davka = data.get("servers") or []
@@ -301,14 +394,14 @@ def fetch_marketing(limit: int = 20) -> list[dict]:
     }
     von = []
     for meno, url in kanaly.items():
-        for p in _rss(url, limit):
+        for p in _rss(url, limit, meno):
             von.append(_polozka(meno, "marketing", p["nazov"], p["url"], 0.0, p))
     return von
 
 
 def fetch_github_agenti(limit: int = 25) -> list[dict]:
     """Nové repozitáre okolo agentov — čo sa reálne stavia, nie o čom sa píše."""
-    data = http_get("https://api.github.com/search/repositories", params={
+    data = _json("github", "https://api.github.com/search/repositories", {
         "q": f"llm agent created:>{date.today().replace(day=1).isoformat()}",
         "sort": "stars", "order": "desc", "per_page": limit,
     })
@@ -385,6 +478,7 @@ def run(run_id: Optional[int] = None) -> int:
                 "VALUES (?, 'frontier', 'running')", (now_iso(),))
             run_id = int(cur.lastrowid)
 
+        _ZDRAVIE.clear()
         surove: list[dict] = []
         neme: list[str] = []
         for zdroj in ZDROJE:
@@ -450,10 +544,25 @@ def run(run_id: Optional[int] = None) -> int:
         # je nebezpečné, lebo nedostupnosť alebo zmena API sa tak tvári ako
         # úspech. Cloudový beh 2026-08-17 mal 7 z 9 zberačov nemých (blokovaný
         # egress) a bez tohto riadku by to hlásil ako hotový beh.
-        if neme:
-            print(f"[frontier_agent] NEMÉ ZDROJE ({len(neme)}/{len(ZDROJE)}): "
-                  f"{', '.join(neme)} — nula položiek, čo je nedostupnosť alebo "
-                  f"zmena API, nie „nič nové“. Snímka je neúplná.")
+        # Zdravie sa zapisuje vždy, aj pri úspechu — inak sa nedá povedať,
+        # či zdroj mlčí prvý raz alebo desiaty. „Nula položiek“ bez stavu je
+        # nerozlíšiteľná od nedostupnosti; presne tak sme si 2026-08-17
+        # pomýlili blokovaný egress s pokojným dňom.
+        conn.executemany(
+            "INSERT INTO zdroj_zdravie (run_id, zdroj, stav, url, pocet, trvanie, detail, kedy) "
+            "VALUES (?,?,?,?,?,?,?,?)",
+            [(run_id, z["zdroj"], z["stav"], z["url"], z["pocet"], z["trvanie"],
+              z["detail"], teraz) for z in _ZDRAVIE])
+        conn.commit()
+
+        zle = [z for z in _ZDRAVIE if z["stav"] not in ("USPECH", "PRAZDNY")]
+        if zle:
+            print(f"[frontier_agent] ZDROJE V PORUCHE ({len(zle)}):")
+            for z in zle:
+                print(f"    {z['zdroj']}: {z['stav']} — {z['detail']}")
+        prazdne = [z["zdroj"] for z in _ZDRAVIE if z["stav"] == "PRAZDNY"]
+        if prazdne:
+            print(f"[frontier_agent] legitímne prázdne: {', '.join(prazdne)}")
         return len(polozky)
     finally:
         conn.close()
