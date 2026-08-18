@@ -153,4 +153,8 @@ jobs:
       - run: pip install -r requirements.txt
 
       - name: Ping IndexNow now that the key file is actually live
-        run: python3 scripts/ping_indexnow.py || true
+        run: |
+          echo "### IndexNow" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          python3 scripts/ping_indexnow.py 2>&1 | tee -a "$GITHUB_STEP_SUMMARY" || true
+          echo '```' >> "$GITHUB_STEP_SUMMARY"

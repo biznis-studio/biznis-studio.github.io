@@ -316,9 +316,24 @@ def submit_to_indexnow(urls: list[str], key: str) -> bool:
                   "urlList": urls},
             timeout=15,
         )
-        return resp.status_code in (200, 202)
-    except requests.RequestException:
+    except requests.RequestException as exc:
+        print(f"[indexnow] NEDOSIAHNUTELNE: {type(exc).__name__}: {exc}")
         return False
+
+    # Stavovy kod sa vypisuje, lebo funkcia vracala iba True/False a v CI bezi
+    # s `|| true` - tichy neuspech bol nerozoznatelny od uspechu.
+    #
+    # ALE POZOR, co tento kod NEDOKAZUJE. Sonda 2026-08-18: odoslanie s
+    # vymyslenym klucom vratilo **202**, nie 403. IndexNow overuje kluc az
+    # asynchronne na svojej strane, takze 200/202 hovori iba to, ze poziadavka
+    # bola dobre zostavena - nie ze kluc plati a uz vobec nie, ze niekto tie
+    # stranky nacita. To sa da overit iba v Bing Webmaster Tools zvonku.
+    # Overene 2026-08-18: 200 na 43 realnych URL.
+    ok = resp.status_code in (200, 202)
+    znacka = "OK" if ok else "ZLYHALO"
+    print(f"[indexnow] {znacka} HTTP {resp.status_code} pre {len(urls)} URL"
+          + ("" if ok else f" — telo: {resp.text[:200]!r}"))
+    return ok
 
 
 def inject(page_path: Path, head_extra: str, body_extra: str) -> None:

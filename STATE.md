@@ -56,6 +56,13 @@ Toto je momentálne najtvrdšia hrana: web je hotový a nikto ho nevidí.
 robots.txt povoľuje; domovská odkazuje na `/sk/` trikrát bez `nofollow`;
 kanonické URL konzistentné; 0 osirelých stránok.
 
+**Druhý kanál, nezávislý od Googlu:** IndexNow (Bing/Yandex/Seznam) sa pinguje
+každý beh a **odosielanie funguje** — 200 na 43 URL, kľúčový súbor naživo.
+Či z toho niečo vzniklo, je pre nás **nemerateľné**: bing.com aj DuckDuckGo
+vrátia na `site:` dotaz CAPTCHA, a Bing Webmaster Tools nemá prihlásený účet.
+Sonda tiež ukázala, že **neplatný kľúč vráti 202**, takže úspešný stavový kód
+nedokazuje ani platnosť kľúča.
+
 **Obchádzka, ktorá beží:** `/sk/` aj domovská zaradené do priority crawl queue
 cez inšpekciu URL (2026-08-18, domovská až na druhý pokus — prvý zlyhal na chybe
 Googlu). Rozhodnutie #20, revízia 2026-08-25. Merajú to experimenty #3 a #4,
@@ -79,6 +86,10 @@ ktorých základ je zapísaný pred zásahom a už sa nedá prepísať.
    linka a nie jeden dokument.
 
 ## Blokované na majiteľovi (jedno kliknutie)
+
+**Bing Webmaster Tools: nie je prihlásený účet.** Kým sa doň majiteľ neprihlási
+(má účet Microsoft cez M365), je stav v Bingu pre nás nemerateľný — hoci doň
+odosielame 43 URL po každom behu. Účty nezakladám.
 
 **Copilot: klávesnica sa do stránky nedostáva.** Kliknutia aj JavaScript
 fungujú, ale vložený text sa neobjaví — ani „test". Je to zameranie okna na
