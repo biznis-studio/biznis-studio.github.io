@@ -18,7 +18,6 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from agents import (blog_agent, competitor_agent, content_agent, demand_scoring_agent,
-                     frontier_agent,
                      image_agent, keyword_agent, landing_page_agent, market_research_agent, news_agent,
                      niche_agent, product_agent, scoreboard_agent, seo_agent, tools_agent)
 from agents.common import now_iso
@@ -78,10 +77,10 @@ def export_report(run_id: int) -> Path:
 
 def main() -> int:
     run_id = market_research_agent.run()
-    # Špička AI a marketingu. Beží nad rovnakým run_id, lebo odpovedá na inú
-    # otázku než market_research: nie „o čom sa hovorí", ale „čo sa dá odteraz
-    # spraviť, čo sa vlani nedalo".
-    frontier_agent.run(run_id)
+    # Snímanie špičky tu ZÁMERNE nie je. Vlastní ho scripts/frontier_run.py,
+    # ktorý beží cez zámok, kontrolné body a rozpočet — dvaja vlastníci tej
+    # istej operácie znamenajú dva zápisy do toho istého stavu bez koordinácie,
+    # čo je presne to, čo nás 2026-08-17 stálo zmierovanie databáz.
     keyword_agent.run(run_id)
     niche_agent.run(run_id)
     demand_scoring_agent.score_run(run_id)

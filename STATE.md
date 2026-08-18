@@ -68,7 +68,7 @@ obmedzenia prostredia**, ktoré rozhodujú o tom, čo tam vôbec má zmysel pú�
 
 | | |
 |---|---|
-| `git push` z cloudu | **403 — egress policy.** Cloudová relácia nemá povolené písať na github.com. Sankcionovaná cesta je GitHub MCP, nie git. |
+| zápis z cloudu | **NEEXISTUJE ŽIADNA CESTA.** `git push` → 403 (egress policy) a GitHub MCP `create_branch` aj `push_files` → 403 „Resource not accessible by integration“. Overené 2026-08-18 v jednom behu. Môj predpoklad zo 17. 8., že MCP je náhrada za git, je **vyvrátený**. |
 | dosah na zdroje | **7 z 9 zberačov nemých**, 15 z 25 položiek sa nedalo otvoriť — väčšina domén je z cloudu blokovaná |
 | veľkosť stavu | `db/biznis.sqlite3` má **20 MB**; cez GitHub MCP sa taký súbor rozumne poslať nedá |
 
@@ -77,7 +77,10 @@ artefakt do `state/vyklad/`, ten sa celý overí a zapíše v jednej transakcii
 vnútri uzla — takže cloudový beh nemusí mať právo zápisu do stavu, stačí mu
 odovzdať artefakt.
 
-**Dôsledok:** cloudový beh v tejto podobe **nevie výskum ani uložiť výsledok**.
+**Dôsledok:** cloudová uvažovacia rovina vie premýšľať, ale výsledok odovzdá len
+súborom do chatu — teda cez človeka. To nie je autonómia. **Potrebné od majiteľa:**
+doplniť Claude GitHub Appu právo `contents: write` na tento repozitár, inak každý
+cloudový beh zanikne s kontajnerom (už dvakrát: `789581c` a `def37cd`).
 Jeho commit `789581c` zostal v pieskovisku a zanikol. Prácu, ktorú našiel, som
 zopakoval ručne — ale to nie je autonómia, to je drahý spôsob, ako mať nápady.
 

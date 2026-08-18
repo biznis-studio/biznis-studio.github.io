@@ -65,6 +65,14 @@ jobs:
           python3 tests/test_beh.py
           python3 tests/test_vyklad.py
 
+      # Chranena cesta Frontieru: snimanie + zapis cakajucich artefaktov
+      # vykladu. Bezi cez zamok, kontrolne body a rozpocet, takze pad v
+      # polovici nenecha polovicu stavu. Artefakty vyroba uvazovacia rovina
+      # (relacia alebo cloudovy worker) a commituje ich ako maly JSON;
+      # zapisuje ich vzdy len tento jediny pisatel.
+      - name: Frontier - snimanie a zapis artefaktov vykladu
+        run: python3 scripts/frontier_run.py
+
       # Hrana z merania spat do rozhodovania. Zvysok pipeline veci vyraba;
       # toto sa pyta, ci sa mali vyrabat, a co si system pyta ako dalsie.
       - name: Evolucny beh - co si system pyta dalej
