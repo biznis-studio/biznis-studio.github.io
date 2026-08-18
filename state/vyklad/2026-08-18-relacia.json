@@ -1,0 +1,43 @@
+{
+  "poznamka": "Výklad v relácii 2026-08-18. Otvorené naozaj: 2 zdroje. Zvyšok zahodený s dôvodom.",
+  "polozky": [
+    {"signal_id": 19673, "rozhodnutie": "ZAPISANE",
+     "duvod": "otvorené a prečítané; priamo na naše viazané obmedzenie (návštevnosť) a zároveň varovanie pred falošnou metrikou",
+     "poznatok": {
+       "tvrdenie": "OTVORENÉ A PREČÍTANÉ. Ahrefs uvádza z vlastných dát: AI Overviews spôsobujú pri prvej pozícii stratu klikov okolo 58 %. Dopyt „agentic optimization“ narástol o 852 %, „generative engine optimization“ o 997 % za 18 mesiacov. A prípadová štúdia, kde 1900% nárast citácií v ChatGPT priniesol minimálny obchodný dopad.",
+       "typ_zdroja": "trh",
+       "dosah": "Dvojaké. Prvá pozícia v Googli prestáva stačiť, takže klasické SEO ako jediná stávka je slabšie, než sme počítali. Ale to druhé číslo je dôležitejšie: citácie v AI odpovediach nie sú obchod. Ak si zavedieme „koľkokrát nás cituje ChatGPT“ ako metriku, budeme optimalizovať aktivitu namiesto výsledku — presne to, čo si zakazujeme."}},
+
+    {"signal_id": 19669, "rozhodnutie": "ZAPISANE",
+     "duvod": "otvorené a prečítané; oficiálna politika Googlu s dátumom vymáhania, dá sa proti nej overiť vlastný web",
+     "poznatok": {
+       "tvrdenie": "OTVORENÉ A PREČÍTANÉ. Google od 13. 4. 2026 zaraďuje „back button hijacking“ medzi malicious practices; vymáha sa od 15. 6. 2026 manuálnymi zásahmi alebo automatickým znížením pozície. Upozorňuje, že to často pochádza z pripojených knižníc alebo reklamnej platformy, nie z vlastného kódu.",
+       "typ_zdroja": "nastroj",
+       "dosah": "Overil som náš web proti tomu: žiadne pushState, replaceState ani popstate a žiadny externý skript — vyhovujeme. Použiteľné aj ako kontrolná otázka pri weboch, ktoré staviame zákazníkom, lebo typicky to zanesie tretia strana bez vedomia majiteľa."}},
+
+    {"signal_id": 19997, "rozhodnutie": "ZAHODENE",
+     "duvod": "duplicitné s 19988 v ten istý deň a čísla si odporujú (918 vs 913) — nedôveryhodné, kým sa nestabilizuje samotný merač"},
+    {"signal_id": 19988, "rozhodnutie": "ZAHODENE",
+     "duvod": "to isté meranie v tom istom dni s iným číslom; ponechať jedno by znamenalo vybrať si ľubovoľne"},
+    {"signal_id": 19987, "rozhodnutie": "ZAHODENE",
+     "duvod": "ChatGPT pre tínedžerov — iná cieľová skupina, žiadny dôsledok pre firemné nasadenie"},
+    {"signal_id": 19986, "rozhodnutie": "ZAHODENE",
+     "duvod": "partnerstvo vo vzdelávaní, mimo našej domény"},
+    {"signal_id": 19646, "rozhodnutie": "ZAHODENE",
+     "duvod": "už vyložené a zapísané ako poznatky #22 a #24; fronta ho podala pod novým id"},
+    {"signal_id": 20004, "rozhodnutie": "ZAHODENE",
+     "duvod": "lokálne SEO je pre nás relevantné, ale zdroj som neotvoril — vykladať z titulku nebudem; vráti sa po otvorení"},
+    {"signal_id": 19677, "rozhodnutie": "ZAHODENE",
+     "duvod": "moz.com je pre náš nástroj na sťahovanie zablokovaný, obsah som nevidel; téma agentického obchodu je relevantná, ale bez zdroja to nie je poznatok"},
+    {"signal_id": 19985, "rozhodnutie": "ZAHODENE",
+     "duvod": "otvorené hľadanie modelov, výskumná téma bez dôsledku pre to, čo staviame"},
+    {"signal_id": 19728, "rozhodnutie": "ZAHODENE",
+     "duvod": "vyhľadávanie v reči, iná modalita než naša doména"},
+    {"signal_id": 19640, "rozhodnutie": "ZAHODENE",
+     "duvod": "návod na agentové toky v AWS; naši zákazníci sú v Microsofte, nie v Bedrocku"},
+    {"signal_id": 19682, "rozhodnutie": "ZAHODENE",
+     "duvod": "príručka k DeepSeek harness v čínštine, bez dôsledku"},
+    {"signal_id": 19598, "rozhodnutie": "ZAHODENE",
+     "duvod": "iba názov modelu bez ceny a kontextu — z toho sa poznatok spraviť nedá"}
+  ]
+}

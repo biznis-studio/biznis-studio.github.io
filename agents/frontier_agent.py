@@ -367,7 +367,11 @@ def fetch_konektory(limit: int = 8) -> list[dict]:
 
     von = [_polozka(
         "mcp_registry", "konektor",
-        f"MCP register: {len(videne)} serverov pridaných alebo zmenených za 24 h",
+        # Čas odberu patrí do textu. Bez neho vyzerajú dve merania z toho istého
+        # dňa ako rozpor — 2026-08-18 som na tom základe zahodil obe ako
+        # nedôveryhodné, hoci číslo len rástlo (913, 918, 920).
+        f"MCP register: {len(videne)} serverov pridaných alebo zmenených za 24 h "
+        f"(odber {datetime.now().strftime('%Y-%m-%d %H:%M')})",
         f"https://registry.modelcontextprotocol.io/v0/servers?updated_since={od}",
         float(len(videne)), {"pocet": len(videne), "okno": "24h"},
     )]
