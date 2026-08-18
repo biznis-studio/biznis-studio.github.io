@@ -1,10 +1,8 @@
 {
   "run_id": 98,
-  "generated_at": "2026-08-18T08:00:49.010486+00:00",
+  "generated_at": "2026-08-18T14:26:52.667464+00:00",
   "run_status": "success",
   "signals_by_source": {
-    "frontier:github": 1,
-    "frontier:mcp_registry": 8,
     "github": 30,
     "hackernews": 50,
     "npm_downloads": 45,
@@ -20,18 +18,18 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
+      "term": "deepseek harness",
+      "score": 0.565445,
+      "breadth_component": 0.2,
+      "growth_component": 0.6627218934911243,
+      "sources_json": "[\"frontier:github\", \"github\", \"hackernews\"]"
+    },
+    {
       "term": "@accounter/green-invoice-graphql",
       "score": 0.55584,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
-    },
-    {
-      "term": "deepseek harness",
-      "score": 0.5524249999999999,
-      "breadth_component": 0.2,
-      "growth_component": 0.5798816568047337,
-      "sources_json": "[\"frontier:github\", \"github\", \"hackernews\"]"
     },
     {
       "term": "@e965/xlsx",
@@ -49,14 +47,14 @@
     },
     {
       "term": "mjml-invoice",
-      "score": 0.5352049999999999,
+      "score": 0.541865,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
       "term": "sms-segments-calculator",
-      "score": 0.52874,
+      "score": 0.52208,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
@@ -70,7 +68,7 @@
     },
     {
       "term": "react-spreadsheet",
-      "score": 0.46417,
+      "score": 0.45751000000000003,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
@@ -83,7 +81,21 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "media-engine",
+      "term": "invoice",
+      "score": 0.44416,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "appium",
+      "score": 0.439185,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@ai-sdk/azure",
       "score": 0.4288888888888889,
       "breadth_component": 0.2,
       "growth_component": 0.5,
@@ -118,8 +130,15 @@
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "@ai-sdk/google",
+      "term": "@ai-sdk/openai",
       "score": 0.4111111111111111,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "spreadsheet",
+      "score": 0.405845,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
@@ -139,28 +158,21 @@
       "sources_json": "[\"wikipedia_pageviews\"]"
     },
     {
-      "term": "@ai-sdk/react",
+      "term": "@ai-sdk/google",
       "score": 0.40222222222222226,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "spreadsheet",
-      "score": 0.399185,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
-    },
-    {
-      "term": "@google/generative-ai",
+      "term": "ec-sri-invoice-signer",
       "score": 0.3933333333333333,
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"npm_downloads\"]"
     },
     {
-      "term": "ec-sri-invoice-signer",
+      "term": "media-engine",
       "score": 0.3844444444444445,
       "breadth_component": 0.2,
       "growth_component": 0.5,
@@ -172,20 +184,6 @@
       "breadth_component": 0.2,
       "growth_component": 0.5,
       "sources_json": "[\"wikipedia_pageviews\"]"
-    },
-    {
-      "term": "invoice",
-      "score": 0.38166,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
-    },
-    {
-      "term": "appium",
-      "score": 0.376685,
-      "breadth_component": 0.2,
-      "growth_component": 0.5,
-      "sources_json": "[\"npm_downloads\"]"
     }
   ],
   "product_ideas": []
