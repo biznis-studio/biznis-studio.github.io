@@ -16,7 +16,7 @@ Aktualizované: **2026-08-18** (večerný beh)
 | Taxonómia Z1–Z7 | **má dieru** | S8 = vynechaná povinná časť výstupu, S9 = procedúra sa nedopracovala k rozhodujúcemu testu — ani jedno nemá kód |
 | Pack v0.5.0 | **NEVYDANÝ** — `vydane: false` v MANIFESTe | až po 17/17; každý dnešný výsledok je 1 beh, nie 5/5 |
 | Nová pozícia na webe | SK **3 články** + služba, EN 1 článok + sekcia na domovskej | 3. článok je naživo (HTTP 200, obrázok 200) |
-| Evolučná vrstva | celá skutočná cesta beží cez `scripts/frontier_run.py` — zámok, kontrolné body, rozpočet, atomické uzly | `experiments` má stále **0 riadkov** — bez porovnania kandidáta so základom niet experimentu |
+| Evolučná vrstva | beží cez `scripts/frontier_run.py`; `experiments` má **2 merania naživo** so základom zmeraným pred zásahom (#3 index, #4 podiel 404) | domerať kandidáta 2026-08-25; predtým bola tabuľka „prázdna" len zdanlivo — mala 2 uzavreté, oba offline |
 | Výklad fronty | úsudok mimo → artefakt JSON → overenie → atomický zápis v uzle | úsudok stále robí človek alebo cloud; automatický ho nerobí nikto |
 | Inbound dráha | skill `/dopyt` hotový | napojiť na to, čo chodí z formulára |
 | Sľuby aktív | **10 aktív**, žiadne po termíne | týždenná kontrola beží sama |
@@ -56,9 +56,10 @@ Toto je momentálne najtvrdšia hrana: web je hotový a nikto ho nevidí.
 robots.txt povoľuje; domovská odkazuje na `/sk/` trikrát bez `nofollow`;
 kanonické URL konzistentné; 0 osirelých stránok.
 
-**Obchádzka, ktorá beží:** `/sk/` zaradená do priority crawl queue cez inšpekciu
-URL (2026-08-18). Domovská zlyhala na chybe Googlu, skúsiť znovu.
-Rozhodnutie #20, revízia 2026-08-25.
+**Obchádzka, ktorá beží:** `/sk/` aj domovská zaradené do priority crawl queue
+cez inšpekciu URL (2026-08-18, domovská až na druhý pokus — prvý zlyhal na chybe
+Googlu). Rozhodnutie #20, revízia 2026-08-25. Merajú to experimenty #3 a #4,
+ktorých základ je zapísaný pred zásahom a už sa nedá prepísať.
 
 ## Čo je zmrazené a nedotýka sa
 
@@ -124,10 +125,9 @@ trig_0119FrcTPSc6Z4WfJNxHmjwA` s `enabled:true`. Revízia rozhodnutia
 
 ## Posledný beh
 
-2026-08-18 · brána na zákaznícke údaje — pravidlo, ktoré vynucoval neexistujúci
-skript (`quality-packs/build/build_pack.py --check` tu nikdy nebol) · zistené,
-že mená zákazníkov a čísla prípadov sú na verejnom origin/main · `/favicon.ico`
-vyrobený a nasadený, bral 22 % rozpočtu prehľadávania · sitemapa 24 h po
-odoslaní stále neprečítaná, `/sk/` vyžiadaná do priority crawl queue ·
-štruktúrovaný výstup a citácie vyhodnotené ako priama oprava S8 a pravidla
-„neautoruj obsah domény" — implementácia blokovaná na prístupe k API.
+2026-08-18 · brána na zákaznícke údaje (pravidlo vynucoval neexistujúci skript) ·
+zistené, že mená zákazníkov sú na verejnom origin/main · `/favicon.ico` vyrobený
+a nasadený, bral 22 % rozpočtu prehľadávania · sitemapa neprečítaná ani po 24 h,
+`/sk/` aj domovská obídené cez priority crawl queue · dva experimenty naživo so
+základom zmeraným pred zásahom · fronta poznatkov 10 → 1 po tom, čo dôsledkom
+prestala byť iba hypotéza.
