@@ -175,6 +175,10 @@ def _dnes() -> str:
 # databáza v CI ho nemala ako ho získať. Migrácia patrí do kódu, nie do rúk.
 MIGRACIE = [
     ("domnienky", "poznatok_id", "INTEGER"),
+    # Poznatok často nezakladá novú domnienku — podopiera existujúcu. Bez tohto
+    # stĺpca sa dal len ignorovať alebo naň nasilu vyrobiť ďalšia hypotéza, čo
+    # by z registra spravilo zoznam takmer rovnakých viet.
+    ("poznatky", "domnienka_id", "INTEGER"),
     # Pôvodná `experiments` mala názov, hypotézu a metriku, ale ani základ, ani
     # kandidáta — teda presne to, čo z experimentu robí experiment. Preto bola
     # osem mesiacov prázdna: zapísať sa do nej dala iba mienka.
@@ -448,11 +452,34 @@ def poznatky_bez_dosledku(conn: sqlite3.Connection, limit: int = 10) -> list[sql
     horšia než žiadna.
     """
     return list(conn.execute(
+        # VYSLEDOK je koniec reťaze, nie čakajúce pozorovanie: vlastné overené
+        # meranie už odpoveď dalo. Núkať naň hypotézu znamená pýtať si domnienku
+        # o niečom, čo je zmerané — a fronta by potom nikdy nevyprázdnila.
         "SELECT * FROM poznatky p WHERE p.dosah IS NOT NULL AND TRIM(p.dosah) <> '' "
-        "AND p.stav <> 'VYVRATENY' "
+        # PREKONANY sem tiež nepatrí: nahradený poznatok už dôsledok mal, len
+        # ho prevzal jeho nástupca. Filtrovať iba VYVRATENY znamenalo, že
+        # prekonané položky sa vracali do fronty donekonečna.
+        "AND p.stav NOT IN ('VYVRATENY','PREKONANY') AND p.druh <> 'VYSLEDOK' "
+        "AND p.domnienka_id IS NULL "
         "AND NOT EXISTS (SELECT 1 FROM domnienky d WHERE d.poznatok_id = p.id) "
         "ORDER BY p.id DESC LIMIT ?", (limit,)
     ))
+
+
+def pripoj_k_domnienke(conn: sqlite3.Connection, poznatok_id: int,
+                      domnienka_id: int) -> None:
+    """Poznatok podopiera existujúcu domnienku, nezakladá novú.
+
+    Bez toho by sa dôkaz dal iba ignorovať, alebo by sa naň nasilu vyrobila
+    ďalšia takmer rovnaká hypotéza — a register domnienok by prestal byť
+    zoznamom toho, na čom stojíme.
+    """
+    d = conn.execute("SELECT stav FROM domnienky WHERE id=?", (domnienka_id,)).fetchone()
+    if d is None:
+        raise ChybaEvolucie(f"domnienka {domnienka_id} neexistuje")
+    conn.execute("UPDATE poznatky SET domnienka_id=? WHERE id=?",
+                 (domnienka_id, poznatok_id))
+    conn.commit()
 
 
 def mozne_rozpory(conn: sqlite3.Connection, limit: int = 5) -> list[dict]:
@@ -468,8 +495,14 @@ def mozne_rozpory(conn: sqlite3.Connection, limit: int = 5) -> list[dict]:
         "SELECT id, tvrdenie, typ_zdroja FROM poznatky "
         "WHERE stav NOT IN ('VYVRATENY','PREKONANY') ORDER BY id DESC LIMIT 60"
     ))
+    # Procesné slová sem nepatria. „OTVORENÉ A PREČÍTANÉ“ som si písal na začiatok
+    # tvrdení a detektor na tom 2026-08-18 postavil falošný rozpor medzi dvoma
+    # poznatkami o úplne iných veciach. Zhoda v tom, AKO poznatok vznikol, nie je
+    # zhoda v tom, ČO tvrdí. Markery sú odvtedy v poli `dokaz`, toto je poistka.
     stop = {"a", "aj", "ako", "ale", "na", "sa", "sú", "je", "to", "že", "pre",
-            "the", "and", "for", "with", "that", "ktoré", "ktorá", "ktorý", "nie"}
+            "the", "and", "for", "with", "that", "ktoré", "ktorá", "ktorý", "nie",
+            "otvorené", "prečítané", "vlastné", "meranie", "uvádza", "opisuje",
+            "hovorí", "ukazuje", "podľa", "zdroj", "článok", "práca"}
 
     def slova(text: str) -> set[str]:
         return {w for w in re.findall(r"\w{5,}", text.lower()) if w not in stop}

@@ -44,6 +44,14 @@ if nothing degrades, delete the rule. Without this the pack can only grow.
   obligation, and any decision about what the business should be.
 - Everything else — build, verify, measure, record, prepare — proceed.
 
+**Nikdy neukončuj správu vyhlásením zámeru.** Vety typu „ďalej overím…",
+„idem na to", „teraz pozriem…" na konci ťahu sú zakázané. Ak je ďalší krok
+známy, sprav ho v tom istom ťahu. Ak sa spraviť nedá, napíš **prečo sa nedá**
+— nie čo by si spravil. Majiteľ na to upozornil trikrát (2026-08-18) a stop
+hook to nevyrieši: vynúti jednu jednotku navyše a potom pustí. Toto je návyk
+vo výstupe, nie chýbajúca brána, takže sa opravuje pravidlom, ktoré sa číta
+každú reláciu.
+
 **Every asset carries a promise and a review date.** No exceptions: an asset
 that cannot state how it will be judged cannot later be killed, and the system
 grows forever. `state/promises.json`, checked by `scripts/check_promises.py`.
