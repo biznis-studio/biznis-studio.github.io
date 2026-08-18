@@ -538,7 +538,15 @@ def mozne_rozpory(conn: sqlite3.Connection, limit: int = 5) -> list[dict]:
     stop = {"a", "aj", "ako", "ale", "na", "sa", "sú", "je", "to", "že", "pre",
             "the", "and", "for", "with", "that", "ktoré", "ktorá", "ktorý", "nie",
             "otvorené", "prečítané", "vlastné", "meranie", "uvádza", "opisuje",
-            "hovorí", "ukazuje", "podľa", "zdroj", "článok", "práca"}
+            "hovorí", "ukazuje", "podľa", "zdroj", "článok", "práca",
+            # Vlastné meno a doména. 2026-08-19 detektor ponúkol štyri „rozpory",
+            # ktorých spoločné slová boli `biznis, github, studio` — teda náš
+            # vlastný web, ktorý sa spomína skoro v každom poznatku o nás.
+            # Zhoda v tom, O KOM poznatok je, nie je zhoda v tom, ČO tvrdí,
+            # a bez tohto by tá dvojica vznikala donekonečna.
+            "biznis", "studio", "github", "studiO", "biznis-studio",
+            # Rovnaká trieda: nástroje a povrchy, ktoré používame všade.
+            "search", "console", "google", "stránok", "stránka", "stránky"}
 
     def slova(text: str) -> set[str]:
         return {w for w in re.findall(r"\w{5,}", text.lower()) if w not in stop}

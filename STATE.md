@@ -78,6 +78,15 @@ ktorých základ je zapísaný pred zásahom a už sa nedá prepísať.
 
 ## Čo čaká na rozhodnutie majiteľa
 
+0. **Analytika: zbierať, alebo nie?** Web nemá žiadnu — 0 zhôd na `gtag`,
+   `analytics`, `plausible`, `umami`, `matomo`, `fathom` vo všetkých HTML, a
+   GitHub Pages nedáva serverové logy. Keby Google zajtra začal posielať
+   návštevnosť, dozvieme sa iba súhrnné kliky v Search Console s dvoj- až
+   trojdňovým oneskorením. **Prvá návštevnosť sa nedá spätne dorátať.**
+   Proti tomu stojí, že pri dnešných nulových kotvách by to meralo nič, a že
+   akékoľvek sledovanie návštevníka je rozhodnutie o súkromí a o záväzku
+   (súhlas, GDPR) — teda tvoje, nie moje.
+
 1. **Obchodný záver v diagnostike** (Z7): doplniť do packu pravidlo, že
    uznanie/zamietnutie reklamácie nie je diagnostický výstup?
 2. **Znečistený materiál čapu** je v katalógu 3× plus raz s dodatkom, takže
