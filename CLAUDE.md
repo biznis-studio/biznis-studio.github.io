@@ -54,7 +54,7 @@ Everything above is advisory. These are **enforced** and cannot be talked around
 
 | Mechanism | Blocks |
 |---|---|
-| Stop hook `.claude/hooks/verify_before_stop.sh` | ending a turn while the site audit fails |
+| Stop hook `.claude/hooks/verify_before_stop.sh` | ending a turn while the site audit fails · **ending a turn while the queue still has `(stroj)` work** |
 | `tests/test_beh.py` (CI, blocking) | a run that crashes mid-node leaving partial writes, or budgets that don't stop a run |
 | `quality-packs/build/build_pack.py --check` (local + CI) | catalogue inconsistency · **a frozen rule missing from the pack** · **customer data in the repo** · **a VERSION with no eval record naming it and stating `DÔVOD ZMENY:`** |
 

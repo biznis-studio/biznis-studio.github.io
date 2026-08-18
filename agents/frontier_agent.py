@@ -178,6 +178,7 @@ def _rss(url: str, limit: int, zdroj: str = "rss") -> list[dict]:
         if not item.tag.endswith(("item", "entry")):
             continue
         nazov = odkaz = datum = None
+        anotacia = ""
         for pole in item:
             znacka = pole.tag.rsplit("}", 1)[-1]
             if znacka == "title":
@@ -186,13 +187,22 @@ def _rss(url: str, limit: int, zdroj: str = "rss") -> list[dict]:
                 odkaz = (pole.text or pole.attrib.get("href") or "").strip()
             elif znacka in ("pubDate", "updated", "published"):
                 datum = (pole.text or "").strip()
+            elif znacka in ("summary", "description", "content", "encoded"):
+                if not anotacia:
+                    anotacia = _bez_znaciek("".join(pole.itertext()))[:600]
         if nazov:
-            polozky.append({"nazov": nazov, "url": odkaz, "datum": datum})
+            polozky.append({"nazov": nazov, "url": odkaz, "datum": datum,
+                            "anotacia": anotacia})
         if len(polozky) >= limit:
             break
     _zaznam(zdroj, "USPECH" if polozky else "PRAZDNY", url=url,
             pocet=len(polozky), trvanie=time.monotonic() - zac)
     return polozky
+
+
+def _bez_znaciek(text: str) -> str:
+    """HTML zo súhrnu preč. Do fronty patrí veta, nie `<p>`."""
+    return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", text or "")).strip()
 
 
 def _polozka(zdroj: str, typ: str, nazov: str, url: Optional[str],
@@ -367,13 +377,15 @@ def fetch_konektory(limit: int = 8) -> list[dict]:
 
     von = [_polozka(
         "mcp_registry", "konektor",
-        # Čas odberu patrí do textu. Bez neho vyzerajú dve merania z toho istého
-        # dňa ako rozpor — 2026-08-18 som na tom základe zahodil obe ako
-        # nedôveryhodné, hoci číslo len rástlo (913, 918, 920).
-        f"MCP register: {len(videne)} serverov pridaných alebo zmenených za 24 h "
-        f"(odber {datetime.now().strftime('%Y-%m-%d %H:%M')})",
+        # Číslo patrí do `metric_value` a do payloadu, NIE do textu. Keď bolo
+        # v texte, každý beh vyrobil inú vetu, dedup ju neodchytil a fronta
+        # dostala tú istú dennú metriku trikrát — 2026-08-18 to systém sám
+        # nahlásil ako „2× zahodené z toho istého dôvodu“.
+        f"MCP register — denná vzorka {date.today().isoformat()}",
         f"https://registry.modelcontextprotocol.io/v0/servers?updated_since={od}",
-        float(len(videne)), {"pocet": len(videne), "okno": "24h"},
+        float(len(videne)),
+        {"pocet": len(videne), "okno": "24h",
+         "odber": datetime.now().strftime("%Y-%m-%d %H:%M")},
     )]
     najnovsie = sorted(videne.items(), key=lambda kv: kv[1].get("_kedy") or "",
                        reverse=True)
@@ -614,7 +626,8 @@ def na_vyklad(limit: int = 20) -> list[dict]:
         from core import evolution as ev
         ev.priprav(conn)          # fronta sa pýta na `vyklad`, ktorý nemusí ešte existovať
         riadky = [dict(r) for r in conn.execute(
-            "SELECT s.id, s.term, s.url, s.source, s.metric_value FROM signals_raw s "
+            "SELECT s.id, s.term, s.url, s.source, s.metric_value, s.payload_json "
+            "FROM signals_raw s "
             "WHERE s.source LIKE 'frontier:%' "
             "AND NOT EXISTS (SELECT 1 FROM vyklad v WHERE v.signal_id = s.id) "
             "ORDER BY s.id DESC")]
@@ -628,6 +641,16 @@ def na_vyklad(limit: int = 20) -> list[dict]:
                 "JOIN vyklad v ON v.signal_id = s.id")
         }
         riadky = [r for r in riadky if _kluc(r["term"]) not in vylozene]
+
+        # Anotáciu vytiahni z payloadu do fronty. Zbierať ju a nepodať ďalej by
+        # znamenalo zbierať pre zber — úsudok by aj tak videl iba titulok.
+        for r in riadky:
+            try:
+                r["anotacia"] = (json.loads(r["payload_json"] or "{}")
+                                 .get("anotacia") or "")[:400]
+            except (ValueError, TypeError):
+                r["anotacia"] = ""
+            r.pop("payload_json", None)
         riadky.sort(key=lambda r: (PORADIE_ZDROJA.get(r["source"], 9),
                                    -(r["metric_value"] or 0)))
         # Striedanie zdrojov. Bez neho zaplní vrch fronty jeden zdroj (naposledy

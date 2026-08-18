@@ -26,4 +26,30 @@ if [ $? -ne 0 ]; then
   echo "Fix the reported issues, then rebuild with scripts/build_site.py." >&2
   exit 2
 fi
+
+# --- druhá brána: nekončiť ťah, kým je vo fronte práca pre stroj ------------
+#
+# Majiteľ 2026-08-18: "zas si sa zasekol, toto je systemovy problem." Mal
+# pravdu. Po každej hotovej jednotke som napísal správu a ťah ukončil, hoci
+# fronta mala ďalšie kroky označené (stroj) — teda také, na ktoré nikoho
+# nepotrebujem. Prevádzkový režim v CLAUDE.md hovorí "bež ďalej", ale to je
+# rada, a rada sa pod tlakom preskočí. Toto je deterministické.
+#
+# Neblokuje donekonečna: pri druhom pokuse je stop_hook_active=true a hook
+# skončí hneď na začiatku. Vynúti teda ešte jednu jednotku práce, nie väzenie.
+# Kroky označené (MAJITEĽ) sa zámerne nepočítajú — tie čakať majú.
+
+[ -f scripts/evolve.py ] || exit 0
+
+# Bez `timeout`: na macOS ten príkaz neexistuje a vracia 127, čím sa výstup
+# stratí a brána mlčky nezaberie. Časový strop hooku je v .claude/settings.json.
+KROKY=$(python3 scripts/evolve.py 2>/dev/null | grep -F "(stroj)" | head -3)
+if [ -n "$KROKY" ]; then
+  echo "Fronta má prácu, ktorú smieš spraviť sám — ťah sa nekončí:" >&2
+  echo "$KROKY" >&2
+  echo "Vezmi prvý krok, sprav ho celý vrátane overenia meraním, commitni." >&2
+  echo "Zastavuj sa len pri peniazoch, odosielaní, záväzkoch a rozhodnutiach" >&2
+  echo "o tom, čím má byť biznis." >&2
+  exit 2
+fi
 exit 0
