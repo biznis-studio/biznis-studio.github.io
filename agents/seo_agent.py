@@ -492,10 +492,45 @@ def run(run_id: Optional[int] = None) -> int:
         urls = [f"{SITE_BASE_URL}/"] + [_abs_url(p["url"]) for p in all_pages]
         indexnow_ok = submit_to_indexnow(urls, key)
 
+    _prepis_rucne_titulky()
+
     print(f"[seo_agent] enhanced {processed} pages"
           + ("" if SITE_BASE_URL else " (SITE_BASE_URL unset - no canonical URLs, sitemap/RSS skipped)")
           + (f", indexnow_submit={'ok' if indexnow_ok else 'failed'}" if indexnow_ok is not None else ""))
     return processed
+
+
+def _prepis_rucne_titulky() -> int:
+    """Rucne pisane <title> pre stranky, ktorych nadpis je spravne dlhy, ale
+    do vysledkov vyhladavania sa nezmesti.
+
+    Bezi TU, a nie v build_site.py, lebo CI spusta run_pipeline.py — ktory
+    build_site.py vobec nevola. Do 2026-08-19 tento krok existoval len v
+    build_site.py, takze **kazdy beh pipeline vsetkych pat rucnych titulkov
+    ticho zahodil** a prezili iba vtedy, ked niekto stavals lokalne a
+    commitol site/. Odhalilo sa to tak, ze zmeneny titulok domovskej sa dva
+    krat po sebe nasadil v starej podobe.
+
+    seo_agent je jedine miesto, ktorym prechadzaju obe cesty (build_site aj
+    run_pipeline), preto patri sem. Musi bezat az po vsetkych zapisoch do
+    stranok, inak ho prepise seo_agent sam.
+    """
+    import re as _re
+    from agents.common import SEO_TITULKY
+    n = 0
+    for cesta, titul in SEO_TITULKY.items():
+        f = SITE_DIR / cesta
+        if not f.exists():
+            print(f"[titulky] POZOR - stranka neexistuje: {cesta}")
+            continue
+        h = f.read_text(encoding="utf-8")
+        novy_h, pocet = _re.subn(r"<title>.*?</title>", f"<title>{titul}</title>",
+                                 h, count=1, flags=_re.S)
+        if pocet:
+            f.write_text(novy_h, encoding="utf-8")
+            n += 1
+    print(f"[titulky] rucne prepisanych: {n} z {len(SEO_TITULKY)}")
+    return n
 
 
 if __name__ == "__main__":

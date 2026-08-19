@@ -123,24 +123,8 @@ def main(fast: bool = False) -> int:
     # 5. Re-inject SEO markup that step 2 wiped.
     seo_agent.run()
 
-    # Rucne pisane <title> pre stranky, ktorych nadpis je spravne dlhy, ale do
-    # vysledkov vyhladavania sa nezmesti. Bezi az po seo_agent, aby ho ten
-    # neprepisal. h1 zostava nedotknuty.
-    import re as _re
-    from agents.common import SEO_TITULKY
-    _n = 0
-    for _cesta, _titul in SEO_TITULKY.items():
-        _f = ROOT / "site" / _cesta
-        if not _f.exists():
-            print(f"[titulky] POZOR - stranka neexistuje: {_cesta}")
-            continue
-        _h = _f.read_text(encoding="utf-8")
-        _novy, _pocet = _re.subn(r"<title>.*?</title>", f"<title>{_titul}</title>",
-                                 _h, count=1, flags=_re.S)
-        if _pocet:
-            _f.write_text(_novy, encoding="utf-8")
-            _n += 1
-    print(f"[titulky] rucne prepisanych: {_n} z {len(SEO_TITULKY)}")
+    # Rucne pisane <title> uz robi seo_agent.run() vyssie — bezi tam, lebo
+    # CI spusta run_pipeline.py, ktory build_site.py nevola.
 
     # 5b. /favicon.ico — pýta si ho prehľadávač, nie HTML. Viď zapis_favicon().
     _ico = zapis_favicon()
