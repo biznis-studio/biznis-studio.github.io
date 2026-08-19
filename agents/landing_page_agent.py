@@ -800,7 +800,7 @@ stoj&iacute; ro&ccaron;ne, a nap&iacute;&scaron;e v&aacute;m podmienku ukon&ccar
 r&yacute;chlejšie pre v&aacute;s aj pre n&aacute;s: hneď vid&iacute;te, či sa vôbec bav&iacute;me
 o rovnak&yacute;ch č&iacute;slach. Sumy s&uacute; <strong>&bdquo;od&ldquo;</strong> - konečn&uacute;
 cenu dostanete p&iacute;somne po tom, ako pozn&aacute;me rozsah, a už sa nemen&iacute;.</p>
-<table>
+<table class="cennik">
 <tr><th>Čo</th><th class="cena">Cena od</th><th>Čo cenu men&iacute;</th></tr>
 <tr><td><strong>Posudok jedn&eacute;ho procesu</strong> + uk&aacute;&zcaron;ka na va&scaron;om re&aacute;lnom pr&iacute;pade</td>
 <td class="cena"><strong>490 &euro;</strong></td>

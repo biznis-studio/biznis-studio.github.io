@@ -168,6 +168,33 @@
   }
   /* Cena sa nikdy nezalamuje - "2 400 EUR" na dva riadky vyzera ako dve ceny. */
   table th.cena, table td.cena { white-space: nowrap; width: 1%; text-align: right; }
+  /* Tri stĺpce sa do 375px zmestia, ale nedajú sa čítať: riadok cenníka mal
+     167px výšky a 7 riadkov textu v 132px stĺpci, teda ~18 znakov na riadok
+     pri pravidle 45-75. Pod 640px sa preto každý riadok skladá na kartu.
+     Zmerané 2026-08-19 na živej /sk/, nie odhadnuté z CSS. */
+  @media (max-width: 640px) {
+    table.cennik, table.cennik tbody, table.cennik tr, table.cennik td {
+      display: block; width: auto;
+    }
+    table.cennik { border: 0; font-size: 1rem; }
+    table.cennik tr:first-child { display: none; }
+    table.cennik tr {
+      border: 1px solid var(--border); border-radius: 12px;
+      background: var(--bg-alt); padding: 0.9rem 1.05rem; margin: 0 0 0.75rem;
+    }
+    table.cennik td { border: 0; padding: 0; }
+    table.cennik td:first-child { font-size: 1.02rem; line-height: 1.35; }
+    table.cennik td.cena {
+      width: auto; text-align: left; font-size: 1.3rem;
+      margin: 0.45rem 0 0.35rem;
+    }
+    table.cennik td:last-child {
+      color: var(--text-muted); font-size: 0.92rem; line-height: 1.5;
+    }
+    table.cennik td:last-child::before {
+      content: "Cenu mení: "; font-weight: 700; color: var(--text);
+    }
+  }
   h1 {
     font-size: clamp(2.1rem, 5vw, 2.7rem); font-weight: 800; letter-spacing: -0.035em;
     margin: 0 0 0.5rem; line-height: 1.12; text-wrap: balance;
@@ -539,7 +566,8 @@ gathered daily from a fixed list of primary sources and established publications
 <div class="news-item"><span class="news-src">arXiv (cs.AI)</span><a href="https://arxiv.org/abs/2608.18058v1" target="_blank" rel="noopener">Delegation Asymmetry in Agentic Recommender Systems: Measuring Two-Sided Receptivity in Online Dating</a><span class="news-date" style="margin-left:auto">2026-08-18</span></div>
 <div class="news-item"><span class="news-src">arXiv (cs.AI)</span><a href="https://arxiv.org/abs/2608.18066v1" target="_blank" rel="noopener">On the Fragility of Self-Improving Agents: Variance, Task Order, and Underspecification</a><span class="news-date" style="margin-left:auto">2026-08-18</span></div>
 <div class="news-item"><span class="news-src">arXiv (cs.AI)</span><a href="https://arxiv.org/abs/2608.18076v1" target="_blank" rel="noopener">From Corpora to Co-Evolving Capabilities: Capability-Centric Data Design for Generalist Image Generation</a><span class="news-date" style="margin-left:auto">2026-08-18</span></div></div><h2 id="quantum" class="section-title">Quantum computing &amp; chips</h2>
-<div class="news-list"><div class="news-item"><span class="news-src">Phys.org (Quantum)</span><a href="https://phys.org/news/2026-08-physicists-entangle-quantum-memories-km.html" target="_blank" rel="noopener">Physicists entangle quantum memories across a record-breaking 420 km</a><span class="news-date" style="margin-left:auto">2026-08-18</span></div>
+<div class="news-list"><div class="news-item"><span class="news-src">Phys.org (Quantum)</span><a href="https://phys.org/news/2026-08-quantum-simulators-gain-quantitative-error.html" target="_blank" rel="noopener">Quantum simulators gain quantitative error bars in 51-ion test</a><span class="news-date" style="margin-left:auto">2026-08-19</span></div>
+<div class="news-item"><span class="news-src">Phys.org (Quantum)</span><a href="https://phys.org/news/2026-08-physicists-entangle-quantum-memories-km.html" target="_blank" rel="noopener">Physicists entangle quantum memories across a record-breaking 420 km</a><span class="news-date" style="margin-left:auto">2026-08-18</span></div>
 <div class="news-item"><span class="news-src">Phys.org (Quantum)</span><a href="https://phys.org/news/2026-08-global-quantum-big.html" target="_blank" rel="noopener">The global race to make a practical quantum computer just took a big leap forward</a><span class="news-date" style="margin-left:auto">2026-08-18</span></div>
 <div class="news-item"><span class="news-src">Phys.org (Quantum)</span><a href="https://phys.org/news/2026-08-photonic-crystal-method-photon-sources.html" target="_blank" rel="noopener">New photonic crystal method improves single-photon sources for quantum networks</a><span class="news-date" style="margin-left:auto">2026-08-18</span></div>
 <div class="news-item"><span class="news-src">Phys.org (Quantum)</span><a href="https://phys.org/news/2026-08-krypton-gas-emerges-ingredient-quantum.html" target="_blank" rel="noopener">Krypton gas emerges as a new ingredient for quantum computing</a><span class="news-date" style="margin-left:auto">2026-08-18</span></div>
@@ -549,8 +577,7 @@ gathered daily from a fixed list of primary sources and established publications
 <div class="news-item"><span class="news-src">arXiv (quant-ph)</span><a href="https://arxiv.org/abs/2608.18065v1" target="_blank" rel="noopener">Quantum Geometric Tensor Preconditioning for Stable Training of Recurrent Neural Quantum States</a><span class="news-date" style="margin-left:auto">2026-08-18</span></div>
 <div class="news-item"><span class="news-src">arXiv (quant-ph)</span><a href="https://arxiv.org/abs/2608.18070v1" target="_blank" rel="noopener">Nearly Sample-Optimal Estimators for Quantum Rényi and Tsallis Entropies</a><span class="news-date" style="margin-left:auto">2026-08-18</span></div>
 <div class="news-item"><span class="news-src">arXiv (quant-ph)</span><a href="https://arxiv.org/abs/2608.18071v1" target="_blank" rel="noopener">Ultrafast and high resolution spatial light modulation for cold atoms</a><span class="news-date" style="margin-left:auto">2026-08-18</span></div>
-<div class="news-item"><span class="news-src">Phys.org (Quantum)</span><a href="https://phys.org/news/2026-08-approach-noise-resistant-quantum-sensors.html" target="_blank" rel="noopener">A new approach to building noise-resistant quantum sensors</a><span class="news-date" style="margin-left:auto">2026-08-18</span></div>
-<div class="news-item"><span class="news-src">Phys.org (Quantum)</span><a href="https://phys.org/news/2026-08-quantum-links-atom-photon-thermodynamics.html" target="_blank" rel="noopener">Quantum light engine links atom-photon thermodynamics to classical physics</a><span class="news-date" style="margin-left:auto">2026-08-17</span></div></div><h2 id="technology" class="section-title">Technology</h2>
+<div class="news-item"><span class="news-src">Phys.org (Quantum)</span><a href="https://phys.org/news/2026-08-approach-noise-resistant-quantum-sensors.html" target="_blank" rel="noopener">A new approach to building noise-resistant quantum sensors</a><span class="news-date" style="margin-left:auto">2026-08-18</span></div></div><h2 id="technology" class="section-title">Technology</h2>
 <div class="news-list"><div class="news-item"><span class="news-src">Nature</span><a href="https://www.nature.com/articles/d41586-026-02528-y" target="_blank" rel="noopener">Screening babies’ genomes could save lives. Here’s how it would work</a><span class="news-date" style="margin-left:auto">2026-08-19</span></div>
 <div class="news-item"><span class="news-src">Nature</span><a href="https://www.nature.com/articles/d41586-026-02516-2" target="_blank" rel="noopener">South Africa’s scientists must register with official body or risk prison, according to draft law</a><span class="news-date" style="margin-left:auto">2026-08-19</span></div>
 <div class="news-item"><span class="news-src">Nature</span><a href="https://www.nature.com/articles/d41586-026-02037-y" target="_blank" rel="noopener">Twenty-two easy ways to power up your lab meetings</a><span class="news-date" style="margin-left:auto">2026-08-19</span></div>
@@ -583,7 +610,7 @@ unedited, linking straight back to the people who wrote them.</p>
 <p>We deliberately show only the headline, the publisher, and the date. Article text is never
 copied or republished here: every link goes to the original source, where it belongs.</p>
 <p class="form-note"><strong>Sources:</strong> Ars Technica, European Central Bank, IEEE Spectrum, MIT Technology Review, Nature, Phys.org (Quantum), US Federal Reserve, arXiv (cs.AI), arXiv (cs.LG), arXiv (quant-ph).<br>
-Last checked August 19, 2026 at 12:57 UTC.</p>
+Last checked August 19, 2026 at 14:13 UTC.</p>
 </div>
 </main>
 <footer><a class="brand" href="../index.html">Biznis<span>.studi<b>O</b></span></a><span>Built in public from real demand signals.</span><a href="../index.html">Products</a><a href="../tools/index.html">Free tools</a><a href="../news/index.html">Signals</a><a href="../blog/index.html">Blog</a><a href="../sk/index.html">Slovensky</a><a href="../credits.html">Photo credits</a><a href="https://github.com/biznis-studio/biznis-studio.github.io" target="_blank" rel="noopener">GitHub</a></footer>

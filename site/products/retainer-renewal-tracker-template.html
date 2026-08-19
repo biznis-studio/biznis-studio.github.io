@@ -168,6 +168,33 @@
   }
   /* Cena sa nikdy nezalamuje - "2 400 EUR" na dva riadky vyzera ako dve ceny. */
   table th.cena, table td.cena { white-space: nowrap; width: 1%; text-align: right; }
+  /* Tri stĺpce sa do 375px zmestia, ale nedajú sa čítať: riadok cenníka mal
+     167px výšky a 7 riadkov textu v 132px stĺpci, teda ~18 znakov na riadok
+     pri pravidle 45-75. Pod 640px sa preto každý riadok skladá na kartu.
+     Zmerané 2026-08-19 na živej /sk/, nie odhadnuté z CSS. */
+  @media (max-width: 640px) {
+    table.cennik, table.cennik tbody, table.cennik tr, table.cennik td {
+      display: block; width: auto;
+    }
+    table.cennik { border: 0; font-size: 1rem; }
+    table.cennik tr:first-child { display: none; }
+    table.cennik tr {
+      border: 1px solid var(--border); border-radius: 12px;
+      background: var(--bg-alt); padding: 0.9rem 1.05rem; margin: 0 0 0.75rem;
+    }
+    table.cennik td { border: 0; padding: 0; }
+    table.cennik td:first-child { font-size: 1.02rem; line-height: 1.35; }
+    table.cennik td.cena {
+      width: auto; text-align: left; font-size: 1.3rem;
+      margin: 0.45rem 0 0.35rem;
+    }
+    table.cennik td:last-child {
+      color: var(--text-muted); font-size: 0.92rem; line-height: 1.5;
+    }
+    table.cennik td:last-child::before {
+      content: "Cenu mení: "; font-weight: 700; color: var(--text);
+    }
+  }
   h1 {
     font-size: clamp(2.1rem, 5vw, 2.7rem); font-weight: 800; letter-spacing: -0.035em;
     margin: 0 0 0.5rem; line-height: 1.12; text-wrap: balance;
@@ -503,28 +530,6 @@
 <link rel="canonical" href="https://biznis-studio.github.io/products/retainer-renewal-tracker-template.html">
 <script type="application/ld+json">{"@context": "https://schema.org", "name": "Retainer Renewal Tracker Template", "description": "A tracker for contract dates: when each retainer ends, when to open the renewal conversation, the rate you are on now, and what to send next.", "url": "https://biznis-studio.github.io/products/retainer-renewal-tracker-template.html", "@type": "CreativeWork"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What file format is the template?", "acceptedAnswer": {"@type": "Answer", "text": "CSV, which opens directly in Excel, Google Sheets, or Numbers."}}, {"@type": "Question", "name": "Is it free?", "acceptedAnswer": {"@type": "Answer", "text": "No - it's a one-time purchase. See the Gumroad link above for the current price."}}, {"@type": "Question", "name": "Can I customize the columns?", "acceptedAnswer": {"@type": "Answer", "text": "Yes - it's a starting point. Add, remove, or rename columns as needed."}}]}</script>
-<meta property="og:title" content="Retainer Renewal Tracker Template">
-<meta property="og:description" content="A tracker for contract dates: when each retainer ends, when to open the renewal conversation, the rate you are on now, and what to send next.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://biznis-studio.github.io/assets/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://biznis-studio.github.io/assets/og-image.png">
-<link rel="canonical" href="https://biznis-studio.github.io/products/retainer-renewal-tracker-template.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "name": "Retainer Renewal Tracker Template", "description": "A tracker for contract dates: when each retainer ends, when to open the renewal conversation, the rate you are on now, and what to send next.", "url": "https://biznis-studio.github.io/products/retainer-renewal-tracker-template.html", "@type": "CreativeWork"}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What file format is the template?", "acceptedAnswer": {"@type": "Answer", "text": "CSV, which opens directly in Excel, Google Sheets, or Numbers."}}, {"@type": "Question", "name": "Is it free?", "acceptedAnswer": {"@type": "Answer", "text": "No - it's a one-time purchase. See the Gumroad link above for the current price."}}, {"@type": "Question", "name": "Can I customize the columns?", "acceptedAnswer": {"@type": "Answer", "text": "Yes - it's a starting point. Add, remove, or rename columns as needed."}}]}</script>
-<meta property="og:title" content="Retainer Renewal Tracker Template">
-<meta property="og:description" content="A tracker for contract dates: when each retainer ends, when to open the renewal conversation, the rate you are on now, and what to send next.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://biznis-studio.github.io/assets/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://biznis-studio.github.io/assets/og-image.png">
-<link rel="canonical" href="https://biznis-studio.github.io/products/retainer-renewal-tracker-template.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "name": "Retainer Renewal Tracker Template", "description": "A tracker for contract dates: when each retainer ends, when to open the renewal conversation, the rate you are on now, and what to send next.", "url": "https://biznis-studio.github.io/products/retainer-renewal-tracker-template.html", "@type": "CreativeWork"}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What file format is the template?", "acceptedAnswer": {"@type": "Answer", "text": "CSV, which opens directly in Excel, Google Sheets, or Numbers."}}, {"@type": "Question", "name": "Is it free?", "acceptedAnswer": {"@type": "Answer", "text": "No - it's a one-time purchase. See the Gumroad link above for the current price."}}, {"@type": "Question", "name": "Can I customize the columns?", "acceptedAnswer": {"@type": "Answer", "text": "Yes - it's a starting point. Add, remove, or rename columns as needed."}}]}</script>
 </head>
 <body>
 <header class="site-header">
@@ -567,24 +572,6 @@
 <p class="form-note">Goes straight to us — no account or signup needed on your end.</p>
 </form>
 </main>
-<div class="card"><h2>FAQ</h2>
-<h3>What file format is the template?</h3>
-<p>CSV, which opens directly in Excel, Google Sheets, or Numbers.</p>
-<h3>Is it free?</h3>
-<p>No - it&#x27;s a one-time purchase. See the Gumroad link above for the current price.</p>
-<h3>Can I customize the columns?</h3>
-<p>Yes - it&#x27;s a starting point. Add, remove, or rename columns as needed.</p></div><div class="card"><h2>More free tools</h2><ul><li><a href="the-practical-guide-to-xlsx.html">The Practical Guide to XLSX</a></li>
-<li><a href="checklist-pdf-notion.html">Checklist (PDF + Notion)</a></li>
-<li><a href="the-practical-guide-to-automation.html">The Practical Guide to Automation</a></li></ul></div>
-<div class="card"><h2>FAQ</h2>
-<h3>What file format is the template?</h3>
-<p>CSV, which opens directly in Excel, Google Sheets, or Numbers.</p>
-<h3>Is it free?</h3>
-<p>No - it&#x27;s a one-time purchase. See the Gumroad link above for the current price.</p>
-<h3>Can I customize the columns?</h3>
-<p>Yes - it&#x27;s a starting point. Add, remove, or rename columns as needed.</p></div><div class="card"><h2>More free tools</h2><ul><li><a href="the-practical-guide-to-xlsx.html">The Practical Guide to XLSX</a></li>
-<li><a href="checklist-pdf-notion.html">Checklist (PDF + Notion)</a></li>
-<li><a href="the-practical-guide-to-automation.html">The Practical Guide to Automation</a></li></ul></div>
 <div class="card"><h2>FAQ</h2>
 <h3>What file format is the template?</h3>
 <p>CSV, which opens directly in Excel, Google Sheets, or Numbers.</p>

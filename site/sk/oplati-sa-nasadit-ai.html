@@ -168,6 +168,33 @@
   }
   /* Cena sa nikdy nezalamuje - "2 400 EUR" na dva riadky vyzera ako dve ceny. */
   table th.cena, table td.cena { white-space: nowrap; width: 1%; text-align: right; }
+  /* Tri stĺpce sa do 375px zmestia, ale nedajú sa čítať: riadok cenníka mal
+     167px výšky a 7 riadkov textu v 132px stĺpci, teda ~18 znakov na riadok
+     pri pravidle 45-75. Pod 640px sa preto každý riadok skladá na kartu.
+     Zmerané 2026-08-19 na živej /sk/, nie odhadnuté z CSS. */
+  @media (max-width: 640px) {
+    table.cennik, table.cennik tbody, table.cennik tr, table.cennik td {
+      display: block; width: auto;
+    }
+    table.cennik { border: 0; font-size: 1rem; }
+    table.cennik tr:first-child { display: none; }
+    table.cennik tr {
+      border: 1px solid var(--border); border-radius: 12px;
+      background: var(--bg-alt); padding: 0.9rem 1.05rem; margin: 0 0 0.75rem;
+    }
+    table.cennik td { border: 0; padding: 0; }
+    table.cennik td:first-child { font-size: 1.02rem; line-height: 1.35; }
+    table.cennik td.cena {
+      width: auto; text-align: left; font-size: 1.3rem;
+      margin: 0.45rem 0 0.35rem;
+    }
+    table.cennik td:last-child {
+      color: var(--text-muted); font-size: 0.92rem; line-height: 1.5;
+    }
+    table.cennik td:last-child::before {
+      content: "Cenu mení: "; font-weight: 700; color: var(--text);
+    }
+  }
   h1 {
     font-size: clamp(2.1rem, 5vw, 2.7rem); font-weight: 800; letter-spacing: -0.035em;
     margin: 0 0 0.5rem; line-height: 1.12; text-wrap: balance;
