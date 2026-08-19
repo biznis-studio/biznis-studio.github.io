@@ -319,3 +319,9 @@ template sentence survived; it runs after every merge, before the build.
   „success" a nezmenený živý web. Push predchádza deployu, vždy.
 - Obrázok z fotobanky treba pred publikovaním otvoriť. Dotaz „invoice paper
   document desk" vrátil stôl fotografa s filmovými kotúčmi.
+- Meranie rozloženia: znaky na riadok **nikdy** nerátaj z obdĺžnikov `Range` —
+  každý `<a>`/`<strong>` v odstavci pridá obdĺžnik a riadkov vyjde viac
+  (na domovskej 9 namiesto 5). Pre blokový prvok platí `výška/line-height`;
+  pre bunku tabuľky ani to, lebo je roztiahnutá na najvyššiu bunku riadku.
+  A pixely v snímke nie sú CSS pixely — pri DPR 2 je 250 px v zábere 125 px
+  v rozložení. Obe chyby som spravil 19. 8. v jednom meraní.
