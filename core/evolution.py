@@ -27,7 +27,7 @@ from __future__ import annotations
 import json
 import re
 import sqlite3
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Iterable, Optional
 
@@ -162,6 +162,42 @@ CREATE TABLE IF NOT EXISTS rozhodnutia (
 
 class ChybaEvolucie(Exception):
     """Vloženie, ktoré by porušilo pravidlo vrstvy."""
+
+
+DENNIK = Path(__file__).resolve().parent.parent / "state" / "evolucia.jsonl"
+
+
+def _zapis_do_dennika(druh_zaznamu: str, data: dict) -> None:
+    """Kazdy zapis ide aj do textoveho denníka, riadok po riadku.
+
+    Databaza je binarny subor. Ked ju pipeline commitne sucasne so mnou,
+    git ju zlucit nevie a pri rebase `--ours` znamena UPSTREAM — takze moje
+    zapisy zmiznu. 2026-08-19 sa to stalo trikrat za jeden den.
+
+    JSONL sa zlucuje ciste, lebo sa doň len pripisuje. Ked databaza o zaznamy
+    pride, `nacitaj_dennik()` ich vrati; zapisy su idempotentne, takze
+    prehratie nic nezduplikuje.
+    """
+    DENNIK.parent.mkdir(parents=True, exist_ok=True)
+    riadok = json.dumps({"typ": druh_zaznamu, "kedy": datetime.now(timezone.utc).isoformat(),
+                          **data}, ensure_ascii=False, sort_keys=True)
+    with DENNIK.open("a", encoding="utf-8") as f:
+        f.write(riadok + "\n")
+
+
+def nacitaj_dennik() -> list[dict]:
+    """Zaznamy z denníka, na prehratie po strate databazy."""
+    if not DENNIK.exists():
+        return []
+    out = []
+    for r in DENNIK.read_text(encoding="utf-8").splitlines():
+        r = r.strip()
+        if r:
+            try:
+                out.append(json.loads(r))
+            except ValueError:
+                continue
+    return out
 
 
 def _dnes() -> str:
@@ -383,7 +419,12 @@ def zapis_poznatok(
     if nahradza is not None:
         conn.execute("UPDATE poznatky SET stav='PREKONANY' WHERE id=?", (nahradza,))
     conn.commit()
-    return int(cur.lastrowid)
+    nove_id = int(cur.lastrowid)
+    _zapis_do_dennika("poznatok", {
+        "id": nove_id, "tvrdenie": tvrdenie, "druh": druh, "zdroj": zdroj,
+        "typ_zdroja": typ_zdroja, "zdroj_datum": zdroj_datum, "dokaz": dokaz,
+        "dosah": dosah, "nahradza": nahradza})
+    return nove_id
 
 
 def zostarni(conn: sqlite3.Connection) -> list[sqlite3.Row]:
@@ -761,7 +802,12 @@ def zapis_rozhodnutie(
          datum_revizie, vrstva, domnienka_id, _dnes()),
     )
     conn.commit()
-    return int(cur.lastrowid)
+    nove_id = int(cur.lastrowid)
+    _zapis_do_dennika("rozhodnutie", {
+        "id": nove_id, "co": co, "preco": preco, "vratenie": vratenie,
+        "ocakavany_ucinok": ocakavany_ucinok, "datum_revizie": datum_revizie,
+        "vrstva": vrstva, "zamietnute": zamietnute, "autorita": autorita})
+    return nove_id
 
 
 def vyhodnot_rozhodnutie(conn: sqlite3.Connection, rozhodnutie_id: int,
