@@ -74,13 +74,16 @@ jobs:
       - name: Zakaznicke udaje v repozitari (blokujuce)
         run: python3 scripts/kontrola_repozitara.py
 
-      # Blokujuca brana. Dvakrat za dva dni islo na zivy web slovenske slovo
-      # s nespravnym pismenom z rucne pisaneho zapisu v zdrojaku
-      # (`sprav&eacute;n&aacute;` -> spravena, `Za\u010fanie` -> Zadanie).
-      # Ani jedno nenasla kontrola. Tato porovnava slova so zriedkavymi
-      # pismenami na postavenych /sk/ strankach voci schvalenemu zoznamu.
-      # Nove slovo NIE JE chyba - je to slovo, ktore treba raz precitat
-      # a schvalit cez --schval.
+      # Blokujuca brana na pravopis /sk/. Prva verzia porovnavala len slova
+      # so zriedkavymi pismenami a hlasila "OK", kym na zivom webe sedelo
+      # sest preklepov s beznymi pismenami (vyjst, sami, zakazku, napriklad,
+      # nevypnete, ponuky). Preto aspell so slovenskym slovnikom: z ~9 500
+      # slov oznaci ~90 neznamych a to su skoro same nazvy a anglicizmy,
+      # ktore drzime v schvalenom zozname. Bez slovnika kontrola ZLYHA
+      # nahlas - ticho prejst by z nej spravilo ozdobu.
+      - name: Slovencina - aspell a slovensky slovnik
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq aspell aspell-sk
+
       - name: Slovencina na /sk/ (blokujuce)
         run: python3 scripts/kontrola_slovenciny.py
 

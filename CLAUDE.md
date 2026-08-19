@@ -65,7 +65,7 @@ Everything above is advisory. These are **enforced** and cannot be talked around
 | Stop hook `.claude/hooks/verify_before_stop.sh` | ending a turn while the site audit fails · **ending a turn while the queue still has `(stroj)` work** |
 | `tests/test_beh.py` (CI, blocking) | a run that crashes mid-node leaving partial writes, or budgets that don't stop a run |
 | `scripts/kontrola_repozitara.py` (CI, blocking) | **new customer data reaching the repo** — names and case identifiers. Does *not* check git history: a published record stays published. |
-| `scripts/kontrola_slovenciny.py` (CI, blocking · also in `build_site.py`) | **a Slovak word with the wrong letter reaching `/sk/`** — compares words with rare letters (é ó ô ĺ ŕ ä ď) on the built pages against an approved list. A new word is not an error, it is a word someone must read once. |
+| `scripts/kontrola_slovenciny.py` (CI, blocking · also in `build_site.py`) | **a Slovak typo reaching `/sk/`** — runs `aspell --lang=sk` over the built pages; ~90 words it does not know (names, anglicisms) are in an approved list. A new word is not an error, it is a word someone must read once. Fails loudly if aspell or the Slovak dictionary is missing. |
 
 If a rule matters and is not in that table, either enforce it or accept it will be
 skipped under pressure.

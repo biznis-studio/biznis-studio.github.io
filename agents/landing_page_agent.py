@@ -719,14 +719,14 @@ rozhodnutie s n&aacute;sledkom.</p>
 <p>Preto s ka&zcaron;d&yacute;m nasaden&iacute;m dod&aacute;vame dve kontroly, ktor&eacute; be&zcaron;ia
 aj po odovzdan&iacute;:</p>
 <ul>
-<li><strong>Kontrola znalosti pri ka&zcaron;dej zmene.</strong> Ke&zcaron; niekto uprav&iacute;
+<li><strong>Kontrola znalosti pri ka&zcaron;dej zmene.</strong> Keď niekto uprav&iacute;
 postup alebo pravidlo, strojovo sa overí, či v&scaron;etko d&aacute;va zmysel dohromady -
 či niektor&yacute; krok neodkazuje na pravidlo, ktor&eacute; u&zcaron; neexistuje, či sa niečo
 nevyskytuje dvakr&aacute;t, či niekde nechýba povinn&aacute; časť. <strong>Čo neprejde,
 sa nenasad&iacute;.</strong></li>
 <li><strong>Pevn&aacute; sada skú&scaron;obn&yacute;ch pr&iacute;padov, ktor&uacute; schvaľujete vy.</strong>
-Zad&aacute;me ich pred vami a porovn&aacute;me odpoveď s t&yacute;m, čo m&aacute; vyj&scaron;ť. Časť
-z nich je blokuj&uacute;ca - naprí&scaron;klad &zcaron;e syst&eacute;m mus&iacute; povedať <em>„toto
+Zad&aacute;me ich pred vami a porovn&aacute;me odpoveď s t&yacute;m, čo m&aacute; vyjsť. Časť
+z nich je blokuj&uacute;ca - napríklad &zcaron;e syst&eacute;m mus&iacute; povedať <em>„toto
 neviem"</em> namiesto vierohodnej vymyslenej odpovede. Ak zlyh&aacute; ktor&aacute;koľvek
 z nich, verzia sa nevyd&aacute;va.</li>
 </ul>
@@ -832,7 +832,7 @@ navrhneme, čo vynechať. Menšia vec spraven&aacute; poriadne je lepšia než v
 <div class="card">
 <h2>Rozsah m&aacute;te nap&iacute;san&yacute; e&scaron;te pred podpisom</h2>
 <p>Aby ste vedeli presne, čo je v cene, kto čo rob&iacute; a kde v&aacute;&scaron; človek
-prevezme &scaron;taf&eacute;tu. Bez toho sa najlep&scaron;ie pon&uacute;ky rozp&aacute;raj&uacute;
+prevezme &scaron;taf&eacute;tu. Bez toho sa najlep&scaron;ie ponuky rozp&aacute;raj&uacute;
 a&zcaron; v polovici pr&aacute;ce.</p>
 <ul>
 <li><strong>Va&scaron;i odborn&iacute;ci zost&aacute;vaj&uacute; a syst&eacute;m rob&iacute; pre nich.</strong>
@@ -847,7 +847,7 @@ presne, čo chýba, d&aacute;me tomu &scaron;trukt&uacute;ru a prevedieme t&yacu
 nekupujete a nie ste viazan&iacute; cez na&scaron;u fakt&uacute;ru. Prev&aacute;dzkov&eacute; &uacute;čty
 (dom&eacute;na, hosting, jazykov&yacute; model) zost&aacute;vaj&uacute; na va&scaron;e meno.</li>
 <li><strong>Staviame vrstvu nad va&scaron;&iacute;m QMS, ERP a SharePointom.</strong>
-Nič nemigrujete a nič nevypn&aacute;te. Va&scaron;e syst&eacute;my zost&aacute;vaj&uacute; tam, kde s&uacute;.</li>
+Nič nemigrujete a nič nevypnete. Va&scaron;e syst&eacute;my zost&aacute;vaj&uacute; tam, kde s&uacute;.</li>
 <li><strong>Prihlasovanie, podpisovanie a peniaze vraciame človeku.</strong>
 Z&aacute;merne. Automatizujeme kroky okolo, rozhodnutie s pr&aacute;vnym alebo
 finančn&yacute;m n&aacute;sledkom nechávame na v&aacute;s.</li>
@@ -855,7 +855,7 @@ finančn&yacute;m n&aacute;sledkom nechávame na v&aacute;s.</li>
 udr&zcaron;iavať v&aacute;&scaron; človek. Úpravy vieme robiť aj my za pevn&yacute; poplatok,
 prípadne v&aacute;m postav&iacute;me administračn&yacute; panel - dohodneme to vopred, nie potom.</li>
 <li><strong>Ak sa niečo ned&aacute; spraviť poriadne, povieme to skôr, ne&zcaron; začneme.</strong>
-Aj keď to znamen&aacute; men&scaron;iu zák&aacute;zku alebo odporúčanie na niekoho in&eacute;ho -
+Aj keď to znamen&aacute; men&scaron;iu zákazku alebo odporúčanie na niekoho in&eacute;ho -
 ilustr&aacute;tora, tlačiareň, špecialistu na e-shopy. Men&scaron;ia vec spraven&aacute;
 poriadne je lep&scaron;ia ne&zcaron; veľk&aacute; spraven&aacute; polovične.</li>
 </ul>
@@ -1098,7 +1098,7 @@ opl&aacute;ca a &ccaron;o je strata &ccaron;asu</a>.</p>
 <p class="form-note"><strong>Zdroje:</strong>
 <a href="https://www.mfsr.sk/sk/media/tlacove-spravy/nova-web-stranka-15.html" target="_blank" rel="noopener">MF SR - tla&ccaron;ov&aacute; spr&aacute;va k syst&eacute;mu E-fakt&uacute;ra</a> &middot;
 <a href="https://www.podnikajte.sk/dan-z-pridanej-hodnoty/efaktura-povinna-elektronicka-fakturacia-od-2027" target="_blank" rel="noopener">Podnikajte.sk</a></p>
-<h2 id="kontakt" class="section-title">Nechcete to rie&scaron;iť s&aacute;mi?</h2>
+<h2 id="kontakt" class="section-title">Nechcete to rie&scaron;iť sami?</h2>
 <p>Ak v&aacute;m z testu vy&scaron;lo, &zcaron;e budete potrebovať zmenu vo fakturácii,
 napí&scaron;te n&aacute;m, ako dnes fakt&uacute;ry vznikaj&uacute;. Odp&iacute;&scaron;eme,
 &ccaron;o by sa dalo spraviť a &ccaron;o to stoj&iacute;.</p>
