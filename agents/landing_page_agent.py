@@ -785,33 +785,39 @@ z&aacute;kazn&iacute;kov - s jasne vymedzen&yacute;m rozsahom, aby si nevym&yacu
 </div>
 <div class="band-body">
 <div class="post-list">SK_ARTICLES</div>
+</div>
+</section>
 
+<section class="band band-full">
+<div class="band-head">
 <h2 id="cennik" class="section-title">Cenn&iacute;k</h2>
+</div>
+<div class="band-body">
 <p>Ceny uv&aacute;dzame otvorene, hoci v&auml;čšina agent&uacute;r to nerob&iacute;. Je to
 r&yacute;chlejšie pre v&aacute;s aj pre n&aacute;s: hneď vid&iacute;te, či sa vôbec bav&iacute;me
 o rovnak&yacute;ch č&iacute;slach. Sumy s&uacute; <strong>&bdquo;od&ldquo;</strong> - konečn&uacute;
 cenu dostanete p&iacute;somne po tom, ako pozn&aacute;me rozsah, a už sa nemen&iacute;.</p>
 <table>
-<tr><th>Čo</th><th>Cena od</th><th>Čo cenu men&iacute;</th></tr>
+<tr><th>Čo</th><th class="cena">Cena od</th><th>Čo cenu men&iacute;</th></tr>
 <tr><td><strong>Posudok jedn&eacute;ho procesu</strong> + uk&aacute;&zcaron;ka na va&scaron;om re&aacute;lnom pr&iacute;pade</td>
-<td><strong>490 &euro;</strong></td>
+<td class="cena"><strong>490 &euro;</strong></td>
 <td>pevn&aacute; cena; ak vyjde, &zcaron;e sa nasadenie neopl&aacute;ca, povieme to</td></tr>
 <tr><td><strong>Nasadenie jedn&eacute;ho procesu</strong> do v&aacute;&scaron;ho Microsoft 365</td>
-<td><strong>2 400 &euro;</strong></td>
+<td class="cena"><strong>2 400 &euro;</strong></td>
 <td>počet zdrojov d&aacute;t, stav dokument&aacute;cie, počet krokov procesu</td></tr>
-<tr><td>Ka&zcaron;d&yacute; ďal&scaron;&iacute; proces</td><td><strong>1 400 &euro;</strong></td>
+<tr><td>Ka&zcaron;d&yacute; ďal&scaron;&iacute; proces</td><td class="cena"><strong>1 400 &euro;</strong></td>
 <td>lacnej&scaron;&iacute;, lebo &scaron;trukt&uacute;ra u&zcaron; existuje</td></tr>
-<tr id="cennik-sluzby"><td>Jednostr&aacute;nkov&yacute; web (landing page)</td><td><strong>590 &euro;</strong></td>
+<tr id="cennik-sluzby"><td>Jednostr&aacute;nkov&yacute; web (landing page)</td><td class="cena"><strong>590 &euro;</strong></td>
 <td>množstvo obsahu, formul&aacute;re, jazykov&eacute; verzie</td></tr>
-<tr><td>Firemn&yacute; web (do 8 podstr&aacute;nok)</td><td><strong>1 190 &euro;</strong></td>
+<tr><td>Firemn&yacute; web (do 8 podstr&aacute;nok)</td><td class="cena"><strong>1 190 &euro;</strong></td>
 <td>počet str&aacute;nok, blog, napojenie na extern&eacute; syst&eacute;my</td></tr>
-<tr><td>Automatiz&aacute;cia jednej &uacute;lohy</td><td><strong>390 &euro;</strong></td>
+<tr><td>Automatiz&aacute;cia jednej &uacute;lohy</td><td class="cena"><strong>390 &euro;</strong></td>
 <td>počet syst&eacute;mov, kvalita vstupn&yacute;ch d&aacute;t</td></tr>
-<tr><td>Digit&aacute;lny produkt na mieru</td><td><strong>290 &euro;</strong></td>
+<tr><td>Digit&aacute;lny produkt na mieru</td><td class="cena"><strong>290 &euro;</strong></td>
 <td>rozsah, či ide o text, tabuľku alebo interakt&iacute;vny n&aacute;stroj</td></tr>
-<tr><td>Logo a z&aacute;kladn&aacute; identita</td><td><strong>390 &euro;</strong></td>
+<tr><td>Logo a z&aacute;kladn&aacute; identita</td><td class="cena"><strong>390 &euro;</strong></td>
 <td>počet v&yacute;stupov, šablóny, rozsah pravidiel</td></tr>
-<tr><td>Chatbot</td><td><strong>690 &euro;</strong></td>
+<tr><td>Chatbot</td><td class="cena"><strong>690 &euro;</strong></td>
 <td>rozsah znalost&iacute;, napojenie na vaše d&aacute;ta</td></tr>
 </table>
 <p class="form-note">Ceny s&uacute; bez DPH. Prev&aacute;dzkov&eacute; n&aacute;klady, ktor&eacute;

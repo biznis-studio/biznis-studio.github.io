@@ -160,7 +160,14 @@
   @media (min-width: 900px) {
     main.wide .band { grid-template-columns: minmax(200px, 300px) 1fr; }
     main.wide .band > .band-head { position: sticky; top: 5.5rem; align-self: start; }
+    /* Cennik nie je text na citanie, ale tabulka na porovnavanie. V uzkom
+       stlpci (696 px z 1080) sa stlpec s cenou zmrstil na 74 px. Tento pas
+       ide na jeden stlpec, takze tabulka dostane celu sirku pasu. */
+    main.wide .band.band-full { grid-template-columns: 1fr; }
+    main.wide .band.band-full > .band-head { position: static; }
   }
+  /* Cena sa nikdy nezalamuje - "2 400 EUR" na dva riadky vyzera ako dve ceny. */
+  table th.cena, table td.cena { white-space: nowrap; width: 1%; text-align: right; }
   h1 {
     font-size: clamp(2.1rem, 5vw, 2.7rem); font-weight: 800; letter-spacing: -0.035em;
     margin: 0 0 0.5rem; line-height: 1.12; text-wrap: balance;
@@ -496,17 +503,6 @@
 <link rel="canonical" href="https://biznis-studio.github.io/products/resume-gap-job-title-explainer-scripts.html">
 <script type="application/ld+json">{"@context": "https://schema.org", "name": "Resume Gap & Job Title Explainer Scripts", "description": "Honest wording for two awkward resume questions: a gap in your work history, and a job title that did not describe what you actually did.", "url": "https://biznis-studio.github.io/products/resume-gap-job-title-explainer-scripts.html", "@type": "CreativeWork"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is this free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, no signup required."}}, {"@type": "Question", "name": "What format is it in?", "acceptedAnswer": {"@type": "Answer", "text": "Plain Markdown - copy the text straight into an email, Slack message, or document."}}, {"@type": "Question", "name": "Do I need to use the exact wording?", "acceptedAnswer": {"@type": "Answer", "text": "No - these are starting points. Adjust the tone and details to match your own situation."}}]}</script>
-<meta property="og:title" content="Resume Gap &amp; Job Title Explainer Scripts">
-<meta property="og:description" content="Honest wording for two awkward resume questions: a gap in your work history, and a job title that did not describe what you actually did.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://biznis-studio.github.io/assets/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://biznis-studio.github.io/assets/og-image.png">
-<link rel="canonical" href="https://biznis-studio.github.io/products/resume-gap-job-title-explainer-scripts.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "name": "Resume Gap & Job Title Explainer Scripts", "description": "Honest wording for two awkward resume questions: a gap in your work history, and a job title that did not describe what you actually did.", "url": "https://biznis-studio.github.io/products/resume-gap-job-title-explainer-scripts.html", "@type": "CreativeWork"}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is this free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, no signup required."}}, {"@type": "Question", "name": "What format is it in?", "acceptedAnswer": {"@type": "Answer", "text": "Plain Markdown - copy the text straight into an email, Slack message, or document."}}, {"@type": "Question", "name": "Do I need to use the exact wording?", "acceptedAnswer": {"@type": "Answer", "text": "No - these are starting points. Adjust the tone and details to match your own situation."}}]}</script>
 </head>
 <body>
 <header class="site-header">
@@ -579,15 +575,6 @@
 <p class="form-note">Goes straight to us — no account or signup needed on your end.</p>
 </form>
 </main>
-<div class="card"><h2>FAQ</h2>
-<h3>Is this free?</h3>
-<p>Yes, no signup required.</p>
-<h3>What format is it in?</h3>
-<p>Plain Markdown - copy the text straight into an email, Slack message, or document.</p>
-<h3>Do I need to use the exact wording?</h3>
-<p>No - these are starting points. Adjust the tone and details to match your own situation.</p></div><div class="card"><h2>More free tools</h2><ul><li><a href="the-practical-guide-to-xlsx.html">The Practical Guide to XLSX</a></li>
-<li><a href="checklist-pdf-notion.html">Checklist (PDF + Notion)</a></li>
-<li><a href="the-practical-guide-to-automation.html">The Practical Guide to Automation</a></li></ul></div>
 <div class="card"><h2>FAQ</h2>
 <h3>Is this free?</h3>
 <p>Yes, no signup required.</p>

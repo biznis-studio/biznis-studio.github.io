@@ -138,6 +138,8 @@ QUERIES = {
         "railway track switch junction", "two paths diverging"],
     "overovanie-vam-zoberie-uspory": ["person reviewing documents magnifying glass",
         "proofreading paperwork desk close up", "person checking documents office desk"],
+    "ako-zistite-ci-ai-nieco-priniesla": ["measuring tape ruler close up",
+        "stopwatch timer hand", "scales balance weighing"],
     "preco-zamestnanci-prestanu-pouzivat-ai": ["empty office desk laptop closed",
         "unused workspace empty chair office", "person turning away from computer desk"],
     "sk-copilot-vrstva": ["team working laptops office meeting",

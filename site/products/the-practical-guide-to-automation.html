@@ -160,7 +160,14 @@
   @media (min-width: 900px) {
     main.wide .band { grid-template-columns: minmax(200px, 300px) 1fr; }
     main.wide .band > .band-head { position: sticky; top: 5.5rem; align-self: start; }
+    /* Cennik nie je text na citanie, ale tabulka na porovnavanie. V uzkom
+       stlpci (696 px z 1080) sa stlpec s cenou zmrstil na 74 px. Tento pas
+       ide na jeden stlpec, takze tabulka dostane celu sirku pasu. */
+    main.wide .band.band-full { grid-template-columns: 1fr; }
+    main.wide .band.band-full > .band-head { position: static; }
   }
+  /* Cena sa nikdy nezalamuje - "2 400 EUR" na dva riadky vyzera ako dve ceny. */
+  table th.cena, table td.cena { white-space: nowrap; width: 1%; text-align: right; }
   h1 {
     font-size: clamp(2.1rem, 5vw, 2.7rem); font-weight: 800; letter-spacing: -0.035em;
     margin: 0 0 0.5rem; line-height: 1.12; text-wrap: balance;
@@ -495,16 +502,6 @@
 <meta name="twitter:image" content="https://biznis-studio.github.io/assets/og-image.png">
 <link rel="canonical" href="https://biznis-studio.github.io/products/the-practical-guide-to-automation.html">
 <script type="application/ld+json">{"@context": "https://schema.org", "name": "The Practical Guide to Automation", "description": "How to choose between a built-in feature, a no-code platform and a short script for a repetitive task, and how to describe the task well enough to automate it.", "url": "https://biznis-studio.github.io/products/the-practical-guide-to-automation.html", "@type": "CreativeWork"}</script>
-<meta property="og:title" content="The Practical Guide to Automation">
-<meta property="og:description" content="How to choose between a built-in feature, a no-code platform and a short script for a repetitive task, and how to describe the task well enough to automate it.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://biznis-studio.github.io/assets/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://biznis-studio.github.io/assets/og-image.png">
-<link rel="canonical" href="https://biznis-studio.github.io/products/the-practical-guide-to-automation.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "name": "The Practical Guide to Automation", "description": "How to choose between a built-in feature, a no-code platform and a short script for a repetitive task, and how to describe the task well enough to automate it.", "url": "https://biznis-studio.github.io/products/the-practical-guide-to-automation.html", "@type": "CreativeWork"}</script>
 </head>
 <body>
 <header class="site-header">
@@ -560,9 +557,6 @@
 <p class="form-note">Goes straight to us — no account or signup needed on your end.</p>
 </form>
 </main>
-<div class="card"><h2>More free tools</h2><ul><li><a href="the-practical-guide-to-xlsx.html">The Practical Guide to XLSX</a></li>
-<li><a href="checklist-pdf-notion.html">Checklist (PDF + Notion)</a></li>
-<li><a href="spreadsheet-pack.html">Spreadsheet Pack</a></li></ul></div>
 <div class="card"><h2>More free tools</h2><ul><li><a href="the-practical-guide-to-xlsx.html">The Practical Guide to XLSX</a></li>
 <li><a href="checklist-pdf-notion.html">Checklist (PDF + Notion)</a></li>
 <li><a href="spreadsheet-pack.html">Spreadsheet Pack</a></li></ul></div>

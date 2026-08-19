@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Biznis - Design, Websites, Custom Digital Products &amp; Automation</title>
+<title>Biznis - websites, automation and company AI</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Digital studio: brand identity and design, websites and chatbots, digital products built to your brief, and automation. Plus free tools.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234f46e5'/%3E%3Ctext x='32' y='44' font-family='Arial,sans-serif' font-size='34' font-weight='800' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
@@ -173,7 +173,14 @@
   @media (min-width: 900px) {
     main.wide .band { grid-template-columns: minmax(200px, 300px) 1fr; }
     main.wide .band > .band-head { position: sticky; top: 5.5rem; align-self: start; }
+    /* Cennik nie je text na citanie, ale tabulka na porovnavanie. V uzkom
+       stlpci (696 px z 1080) sa stlpec s cenou zmrstil na 74 px. Tento pas
+       ide na jeden stlpec, takze tabulka dostane celu sirku pasu. */
+    main.wide .band.band-full { grid-template-columns: 1fr; }
+    main.wide .band.band-full > .band-head { position: static; }
   }
+  /* Cena sa nikdy nezalamuje - "2 400 EUR" na dva riadky vyzera ako dve ceny. */
+  table th.cena, table td.cena { white-space: nowrap; width: 1%; text-align: right; }
   h1 {
     font-size: clamp(2.1rem, 5vw, 2.7rem); font-weight: 800; letter-spacing: -0.035em;
     margin: 0 0 0.5rem; line-height: 1.12; text-wrap: balance;

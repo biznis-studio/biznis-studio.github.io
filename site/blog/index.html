@@ -160,7 +160,14 @@
   @media (min-width: 900px) {
     main.wide .band { grid-template-columns: minmax(200px, 300px) 1fr; }
     main.wide .band > .band-head { position: sticky; top: 5.5rem; align-self: start; }
+    /* Cennik nie je text na citanie, ale tabulka na porovnavanie. V uzkom
+       stlpci (696 px z 1080) sa stlpec s cenou zmrstil na 74 px. Tento pas
+       ide na jeden stlpec, takze tabulka dostane celu sirku pasu. */
+    main.wide .band.band-full { grid-template-columns: 1fr; }
+    main.wide .band.band-full > .band-head { position: static; }
   }
+  /* Cena sa nikdy nezalamuje - "2 400 EUR" na dva riadky vyzera ako dve ceny. */
+  table th.cena, table td.cena { white-space: nowrap; width: 1%; text-align: right; }
   h1 {
     font-size: clamp(2.1rem, 5vw, 2.7rem); font-weight: 800; letter-spacing: -0.035em;
     margin: 0 0 0.5rem; line-height: 1.12; text-wrap: balance;
