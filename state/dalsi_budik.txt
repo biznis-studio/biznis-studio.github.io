@@ -1,1 +1,1 @@
-2026-08-19 12:00 — overiť fotky a šírku cenníka na mobile 375 px; domerať experimenty #3 a #4
+2026-08-19 18:00 — skontrolovať, či niektorá z 5 vyžiadaných URL prestala byť 'unknown to Google'; domerať experimenty #3 a #4
