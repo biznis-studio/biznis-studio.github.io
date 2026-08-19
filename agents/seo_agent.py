@@ -239,6 +239,32 @@ def generate_sitemap(pages: list[dict]) -> None:
     xml = (f'<?xml version="1.0" encoding="UTF-8"?>\n'
            f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{entries}\n</urlset>\n')
     (SITE_DIR / "sitemap.xml").write_text(xml)
+    _generate_sk_sitemap(urls, lastmods)
+
+
+def _generate_sk_sitemap(urls: list[str], lastmods: list[str]) -> None:
+    """Samostatna sitemapa pre slovensku sekciu.
+
+    Nie je to duplikat pre efekt: 2026-08-19 hlasil Search Console pri
+    /sitemap.xml uz druhy den "Couldn't fetch" s prazdnym Last read, hoci
+    subor vracia 200, application/xml a plati aj pre Googlebota cez IPv6.
+    Odoslanie tej istej URL s parametrom (?v=2) Search Console nepridal,
+    takze rozlisit "chyba je v zazname" od "chyba je hlbsie" sa da jedine
+    sitemapou na inej ceste.
+
+    Zaroven je to bezna prax pre viacjazycny web, takze aj ked sa hypoteza
+    nepotvrdi, subor nie je na skodu a moze zostat.
+    """
+    sk = [(u, lm) for u, lm in zip(urls, lastmods) if "/sk/" in u]
+    if not sk:
+        return
+    entries = "\n".join(
+        f"  <url><loc>{html.escape(u)}</loc><lastmod>{lm}</lastmod></url>"
+        for u, lm in sk
+    )
+    xml = (f'<?xml version="1.0" encoding="UTF-8"?>\n'
+           f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{entries}\n</urlset>\n')
+    (SITE_DIR / "sitemap-sk.xml").write_text(xml)
 
 
 def generate_robots_txt() -> None:
@@ -251,6 +277,7 @@ def generate_robots_txt() -> None:
     (SITE_DIR / "robots.txt").write_text(
         "User-agent: *\nAllow: /\n\n"
         f"Sitemap: {SITE_BASE_URL}/sitemap.xml\n"
+        f"Sitemap: {SITE_BASE_URL}/sitemap-sk.xml\n"
     )
 
 

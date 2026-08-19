@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://biznis-studio.github.io/sitemap.xml
+Sitemap: https://biznis-studio.github.io/sitemap-sk.xml
