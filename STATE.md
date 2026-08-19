@@ -92,7 +92,19 @@ mohlo spôsobiť zlyhania. Na S8 **nespôsobilo**. Chýbajúca dopredu-akcia
 NEOVERENÁ, nič si nedopísal, ale nepovedal, čo začať zapisovať.
 Označenie stavu kroku sa zmenilo z nesprávneho `POKRAČUJ` na **žiadne**.
 
-Zostáva dobehnúť S9 — ten rozhodne o kóde `Z8`.
+**S9 rozhodnúť nevie a odhalil prečo.** Sada definuje jednu vetu, ale očakáva
+správanie, ktoré nastane až po niekoľkých ťahoch — **a vstupy tých ďalších
+ťahov v sade nie sú.** Beh 17. 8. mal štyri ťahy, ich vstupy nikde zapísané
+nie sú. Kto scenár púšťa, si pokračovanie vymyslí, takže dva behy S9 nie sú
+porovnateľné a „5/5" pri ňom nič neznamená. **Je to vada zadania, nie packu.**
+
+Ďalším ťahom som zámerne nepokračoval — vymyslel by som vstup, ktorý v sade
+nie je. V prvom ťahu model nespomenul *Uvoľnenie zvyškového napätia*, ale
+zároveň nenastali tri zo štyroch podmienok „nevyhovuje ak": neobvinil meranie
+pri expedícii, nepýtal sa na polohu vady pozdĺž výlisku (výslovne povedal, že
+po nej nepôjde) a nič neoznačil za potvrdené.
+
+**Dokiaľ sa S9 nedopíše, nesmie sa počítať do pomeru „13 zo 17" ako odbehnutý.**
 
 ## Viditeľnosť vo vyhľadávaní — meraním 2026-08-18
 

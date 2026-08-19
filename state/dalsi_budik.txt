@@ -1,1 +1,1 @@
-2026-08-19 09:00 — dobehnúť S9 (rozhodne o kóde Z8) na štruktúrovanom packu, protokol: pack+zadanie v jednej správe
+2026-08-19 09:00 — domerať experimenty #3 a #4 v Search Console; S9 čaká na dopísanie vstupov (rozhodnutie majiteľa), S8/S17 na hodnotenie v čistom kontexte
