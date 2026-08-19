@@ -20,7 +20,7 @@ Aktualizované: **2026-08-18** (večerný beh)
 | Výklad fronty | úsudok mimo → artefakt JSON → overenie → atomický zápis v uzle | úsudok stále robí človek alebo cloud; automatický ho nerobí nikto |
 | Inbound dráha | skill `/dopyt` hotový | napojiť na to, čo chodí z formulára |
 | Sľuby aktív | **10 aktív**, žiadne po termíne | týždenná kontrola beží sama |
-| Slovenčina na `/sk/` | **brána v CI od 19. 8.** — dva preklepy za dva dni („spravéná", „Zaďanie") mali tú istú príčinu: ručne písaný zápis písmena | 204 schválených slov v `data/sk_zriedkave_slova.txt`; nové slovo blokuje build, kým ho niekto neprečíta |
+| Slovenčina na `/sk/` | **brána v CI od 19. 8., cez `aspell --lang=sk`** — prvá verzia na vlastnej heuristike hlásila OK, kým naživo sedelo 6 preklepov (5 na domovskej); všetky opravené | ~90 schválených slov v `data/sk_zname_slova.txt` (názvy, anglicizmy); nové slovo blokuje build, kým ho niekto neprečíta |
 | Zákaznícke údaje na verejnom repozitári | **13 riadkov na origin/main** (mená + čísla prípadov) | brána `scripts/kontrola_repozitara.py` blokuje nové; **o už zverejnenom rozhoduje majiteľ** |
 
 ## Kotvy — čo hovorí realita

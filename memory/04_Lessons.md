@@ -336,3 +336,8 @@ template sentence survived; it runs after every merge, before the build.
   Bránou je `scripts/kontrola_slovenciny.py` nad **postavenými** stránkami.
   Pozor pri zapájaní: `audit_site.py` má v CI `|| true`, takže neblokuje,
   a `build_site.py` v CI vôbec nebeží — CI spúšťa `run_pipeline.py`.
+- **Vlastná heuristika namiesto nástroja je horšia než nič.** Brána na
+  slovenčinu postavená na „zriedkavých písmenách" hlásila „OK, všetky
+  schválené", kým na webe bolo šesť preklepov s bežnými písmenami (vyjšť,
+  sámi, zákázku, napríšklad, nevypnáte, Kež, ponúky). `aspell --lang=sk` ich
+  našiel všetky naraz. Skôr než postavíš náhradu, over, či nástroj existuje.
