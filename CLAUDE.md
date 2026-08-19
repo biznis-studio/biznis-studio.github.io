@@ -153,6 +153,11 @@ Without `SITE_BASE_URL` the build silently skips canonicals, sitemap and RSS.
   pipeline runs used to fail the run and skip `deploy-pages`, leaving the live
   site behind while local builds looked perfect. Never report a change as done
   from a local build — verify against the live URL (`scripts/deploy.py` does).
+  **And `deploy.py` builds what is on `origin`, not what is in your working
+  tree.** An unpushed commit gives a run with status *success* and a live site
+  that never changed (2026-08-19). Push first; then `--expect` a string from
+  the page you actually changed, with `--url` pointing at that page — a default
+  `--expect` against the homepage proves nothing about a `/sk/` page.
 - **The calculator page bypasses `page_shell()`.** `site/products/free-online-calculator.html`
   is generated from its own file, so anything added site-wide must also be added
   in `inject_intro_into_calculator()`. It has silently missed the RSS tag and a

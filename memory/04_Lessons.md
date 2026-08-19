@@ -307,3 +307,15 @@ Fixed with per-slug dictionaries written from each product's own file.
 table, which the pipeline rewrites — so `git checkout --theirs db/biznis.sqlite3` silently reverted it
 twice in one hour. `scripts/apply_blurbs.py` now rewrites them from code and exits non-zero if any
 template sentence survived; it runs after every merge, before the build.
+
+## 2026-08-19 — kontrola nad zdrojom vs nad artefaktom
+
+- `_warn_missing_queries()` v `agents/image_agent.py` skenoval `content/*.md`.
+  Stránka bezplatného testu e-faktúry sa stavia z `landing_page_agent`, nie
+  z markdownu ani z `TOOLS`, takže bola publikovaná bez obrázka a kontrola
+  postavená presne na tento problém ju nevidela. Guard sa teraz pýta
+  `site/{sk,blog,tools}/*.html`. **Kontroluj publikovaný artefakt, nie vstup.**
+- `scripts/deploy.py` spúšťa pipeline nad `origin`. Commit bez pushu → beh
+  „success" a nezmenený živý web. Push predchádza deployu, vždy.
+- Obrázok z fotobanky treba pred publikovaním otvoriť. Dotaz „invoice paper
+  document desk" vrátil stôl fotografa s filmovými kotúčmi.
