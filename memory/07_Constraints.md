@@ -31,6 +31,12 @@ the gate and delete it from here** (`CLAUDE.md` lists what is enforced).
   third-party behaviour are outside it.
 - **Whoever produced the work does not grade it.** Fresh context, given only the
   output and the criteria.
+- **A guard must inspect the published artifact, not the source it came from.**
+  The image check scanned `content/*.md` and never saw a page built another way;
+  the Slovak source read correctly while the page carried the typo.
+- **A visual question is settled by a screenshot, not by a derived number.**
+  `img.complete`, `Range` rects, table-cell heights and screenshot pixels each
+  produced a defect that did not exist (four in one session, 2026-08-19).
 
 ## Tooling
 
@@ -39,6 +45,10 @@ the gate and delete it from here** (`CLAUDE.md` lists what is enforced).
   Microsoft 365 session and credentials for our GitHub. A skill list on X is a
   claim, not a verification — "live-verified" is the author's word, and our own
   rule is to re-check against the primary source before acting.
+- **Before building a substitute, check whether the real tool is already here.**
+  A hand-rolled Slovak check reported "all approved" while six typos sat on the
+  live site; `aspell --lang=sk` was installed the whole time and found them all.
+  A substitute that looks like a check is worse than no check.
 - **Fix a capability gap by hand before shopping for it.** Most of what these
   tools sell — context discipline, session memory, verification — we have
   either already built or can build in an afternoon, and then we understand it.
