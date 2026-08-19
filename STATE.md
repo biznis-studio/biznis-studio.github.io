@@ -106,6 +106,26 @@ po nej nepôjde) a nič neoznačil za potvrdené.
 
 **Dokiaľ sa S9 nedopíše, nesmie sa počítať do pomeru „13 zo 17" ako odbehnutý.**
 
+## Hodnotenie — postavená deterministická kontrola
+
+`tests/kontrola.py` v quality-packs. `EVAL_DISCIPLINA.md` §3b ju predpisuje od
+16. 8. s poznámkou *„presne to som robil ručne regulárnymi výrazmi — patrí to
+do skriptu"*; štyri dni to skript nebol a ja som tú istú prácu spravil ručne
+pri troch behoch, zakaždým trochu inak.
+
+**Verdikt nevydáva.** Vypíše, ktoré kritériá sa dajú rozhodnúť reťazcom a ako
+dopadli, plus zoznam tých, ktoré kód rozhodnúť **nevie** a patria hodnotiteľovi.
+
+| prepis | deterministicky zlyhalo |
+|---|---|
+| S8 | 3 zo 7 · chýba dopredu-akcia `Z9`, chýba stav kroku, chýba `OBÍDI` |
+| S9 | 1 zo 7 · nenavrhol premeranie s odstupom `Z8` |
+| S17 | 2 zo 6 · koniec nie je `ZASTAV`, nenavrhol drahú skúšku `Z8` |
+
+Prvá verzia hlásila pri S9 zlyhanie navyše — vzor chytil vetu aj s popretím
+(*„nepôjdem po otázkach o polohe vady pozdĺž výlisku"*). Doplnené rozpoznanie
+popretia, sonda overila obe strany.
+
 ## Viditeľnosť vo vyhľadávaní — meraním 2026-08-18
 
 Toto je momentálne najtvrdšia hrana: web je hotový a nikto ho nevidí.
