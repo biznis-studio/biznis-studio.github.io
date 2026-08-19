@@ -83,5 +83,9 @@ kontrola, ktorá beží pri každej ďalšej zmene.
 Nie preto, aby ste mali AI. Preto, aby čas, ktorý ušetrí, zostal
 ušetrený.
 
+Koľko z úspory vám po overovaní zostane, si viete zistiť ešte pred
+rozhovorom s kýmkoľvek: [kalkulačka](https://biznis-studio.github.io/sk/oplati-sa-nasadit-ai.html)
+ráta presne ten zvyšok, o ktorom je tento článok.
+
 Posudok jedného procesu má pevnú cenu — a ak z neho vyjde, že sa
 nasadenie neoplatí, povieme to. Formulár je hneď pod článkom.

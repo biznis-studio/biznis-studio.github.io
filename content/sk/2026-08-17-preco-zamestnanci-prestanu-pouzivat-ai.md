@@ -88,6 +88,10 @@ Microsoftu 365, ktorý už máte a máte schválený — vrátane pevnej sady
 skúšobných prípadov, ktorú schvaľujete vy, a kontroly, ktorá sa spustí
 pri každej ďalšej zmene.
 
+Než sa do toho pustíte s kýmkoľvek, oplatí sa vedieť, či tá úloha vôbec
+prejde: [kalkulačka](https://biznis-studio.github.io/sk/oplati-sa-nasadit-ai.html) to spočíta z troch
+čísel, ktoré máte v hlave.
+
 Rozsah aj cenu máte napísané pred podpisom. Posudok jedného procesu má
 pevnú cenu, a ak z neho vyjde, že sa nasadenie neoplatí, povieme to.
 Formulár je hneď pod článkom.

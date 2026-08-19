@@ -13,9 +13,9 @@ Aktualizované: **2026-08-18** (večerný beh)
 | Vec | Stav | Ďalší krok |
 |---|---|---|
 | Akceptačná sada packu | **doterajšie výsledky sú v otázke** — pack v `localStorage` niesol 1 736 znakov textu rozhrania, takže behy od 17. 8. netestovali postavený artefakt | pack vyčistený 19. 8.; sadu dobehnúť znovu, hodnotí niekto iný než ten, kto ju spustil |
-| Taxonómia Z1–Z9 | **diera zaplnená 2026-08-19** — `Z8` nenavrhol rozhodujúci test, `Z9` chýba dopredu-akcia | oba sú **jeden chýbajúci koniec Escalate**, nie dve chyby úsudku; doplnenie konca do packu je rozhodnutie majiteľa |
+| Taxonómia Z1–Z9 | **diera zaplnená 2026-08-19** — `Z8` nenavrhol rozhodujúci test, `Z9` chýba dopredu-akcia | konce v packu **existujú** (`ZASTAV`, `ODOVZDAJ ČLOVEKU`); chýba **spúšťač prechodu na ne**. A pri S9 je pod tým ešte diera medzi ČASŤOU I a II — 6 príčin zo 125 je pri reklamácii nedosiahnuteľných |
 | Pack v0.5.0 | **NEVYDANÝ** — `vydane: false` v MANIFESTe | až po 17/17; každý dnešný výsledok je 1 beh, nie 5/5 |
-| Nová pozícia na webe | SK **3 články** + služba, EN 1 článok + sekcia na domovskej | 3. článok je naživo (HTTP 200, obrázok 200) |
+| Nová pozícia na webe | SK **10 článkov + 1 nástroj zadarmo**, EN 1 článok + sekcia; titulok a popis domovskej vedú rozdielom, nie zoznamom služieb | h1 domovskej je **rozhodnutie majiteľa**; EN strana zaostáva za SK |
 | Evolučná vrstva | beží cez `scripts/frontier_run.py`; `experiments` má **2 merania naživo** so základom zmeraným pred zásahom (#3 index, #4 podiel 404) | domerať kandidáta 2026-08-25; predtým bola tabuľka „prázdna" len zdanlivo — mala 2 uzavreté, oba offline |
 | Výklad fronty | úsudok mimo → artefakt JSON → overenie → atomický zápis v uzle | úsudok stále robí človek alebo cloud; automatický ho nerobí nikto |
 | Inbound dráha | skill `/dopyt` hotový | napojiť na to, čo chodí z formulára |

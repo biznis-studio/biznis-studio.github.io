@@ -117,5 +117,9 @@ s licenciami, ktoré vo firme sú. Súčasťou dodávky je sada skúšobných
 prípadov, ktorú schvaľujete vy, a kontrola, ktorá sa spustí pri každej
 ďalšej zmene.
 
+Ak si chcete jednu takú úlohu prepočítať sami, [kalkulačka](https://biznis-studio.github.io/sk/oplati-sa-nasadit-ai.html)
+vám z troch údajov povie, či sa nasadenie oplatí — a hlavne, kedy ho
+máte zastaviť.
+
 Rozsah aj cenu máte napísané ešte pred podpisom. Formulár je hneď pod
 článkom — stačí napísať, ktoré rozhodnutie sa u vás opakuje najčastejšie.

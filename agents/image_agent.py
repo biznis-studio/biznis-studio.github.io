@@ -140,6 +140,8 @@ QUERIES = {
         "proofreading paperwork desk close up", "person checking documents office desk"],
     "oplati-sa-nasadit-ai": ["abacus counting beads", "hand writing numbers notebook",
         "calculator pen desk paper"],
+    "efaktura-2027-test": ["accounting calculator receipts", "bookkeeping ledger calculator desk",
+        "financial documents spreadsheet desk"],
     "ako-zistite-ci-ai-nieco-priniesla": ["measuring tape ruler close up",
         "stopwatch timer hand", "scales balance weighing"],
     "preco-zamestnanci-prestanu-pouzivat-ai": ["empty office desk laptop closed",
@@ -336,6 +338,15 @@ def _warn_missing_queries() -> None:
         slugs.add(_re.sub(r"^\d{4}-\d{2}-\d{2}-", "", f.stem))
     for f in (root / "content" / "blog").glob("*.md"):
         slugs.add(_re.sub(r"^\d{4}-\d{2}-\d{2}-", "", f.stem))
+    # Nestaci sa pytat zdrojovych markdownov. Stranka bezplatneho testu
+    # e-faktury sa nestavia z content/*.md ani z TOOLS, takze isla von
+    # bez obrazka a tato kontrola ju nevidela (2026-08-19). Pytame sa
+    # preto toho, co je naozaj publikovane.
+    for adresar in ("sk", "blog", "tools"):
+        for f in (root / "site" / adresar).glob("*.html"):
+            if f.stem == "index":
+                continue
+            slugs.add(f.stem)
     chyba = sorted(s for s in slugs if s and s not in QUERIES)
     if chyba:
         print("[image_agent] POZOR - clanok bez dotazu v QUERIES, teda aj bez "

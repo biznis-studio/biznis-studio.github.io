@@ -82,7 +82,10 @@ si kúpi lepší nástroj.
 ## Keď na to nemáte čas
 
 Toto sa dá spraviť aj bez nás a väčšine firiem to takto stačí — preto je
-tu celý postup napísaný.
+tu celý postup napísaný. Prvé dve čísla — koľko hodín to dnes berie a
+koľko z toho reálne zostane — vám spočíta [naša kalkulačka](https://biznis-studio.github.io/sk/oplati-sa-nasadit-ai.html)
+za minútu a ukáže pritom celý výpočet, takže si ho viete prepočítať aj
+na papieri.
 
 Ak chcete, aby to niekto spravil s vami, robíme presne toto: pred
 nasadením zapíšeme stav, dohodneme podmienku ukončenia a po dohodnutom

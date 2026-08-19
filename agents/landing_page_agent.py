@@ -1044,7 +1044,9 @@ def build_efa_tool() -> None:
     The obligation starts 1 January 2027 and voluntary testing is running
     now, so this is the window where people begin looking.
     """
-    body = """<span class="eyebrow">Bezplatn&yacute; n&aacute;stroj</span>
+    body = card_art("efaktura-2027-test",
+                    "Ste pripraven\u00ed na e-fakt\u00faru 2027?") + """
+<span class="eyebrow">Bezplatn&yacute; n&aacute;stroj</span>
 <h1>Ste pripraven&iacute; na e-fakt&uacute;ru 2027?</h1>
 <p class="subtitle">Od 1. janu&aacute;ra 2027 musia platitelia DPH vystavovať aj prij&iacute;mať
 fakt&uacute;ry v štrukt&uacute;rovanom form&aacute;te. Odpovedzte na štyri ot&aacute;zky a
