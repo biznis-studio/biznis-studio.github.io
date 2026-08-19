@@ -113,6 +113,21 @@ jedinej príčine, ktorá vstup vysvetľuje, sa procedúrou nemohol dostať.**
 Nie je to zlyhanie úsudku ani vada sady. Je to diera medzi dvoma časťami packu
 — a je to zmena packu, teda tvoje rozhodnutie.
 
+**Rozsah, nie anekdota: 6 príčin zo 125**, v šiestich rôznych kategóriách, má
+príznak, ktorý sa prejaví až u zákazníka, a všetky ležia v `ČASTI II`:
+
+| kategória | príčina | príznak |
+|---|---|---|
+| Kolmosť medzi stenami | Tenká stena s veľkým rozpätím | uhol u zákazníka mimo tolerancie |
+| Nevhodné balenie | Použitie náhradného obalu | profily poškodené u zákazníka |
+| Prasklina v zvarovom spoji | Nedostatočná teplota v zváracej komore | praskne pri ohýbaní u zákazníka |
+| Skrútenie profilu | Uvoľnenie zvyškového napätia | u zákazníka sa skrúti |
+| Vtrúseniny | Nečistoty v materiáli čapu | prejaví sa pri obrábaní u zákazníka |
+| Škrabance | Nesprávna manipulácia pri balení | zistené až u zákazníka |
+
+Pri reklamácii je teda pre pack nedosiahnuteľných práve tých šesť príčin, ktoré
+sú na reklamácie stavané.
+
 ## Hodnotenie — postavená deterministická kontrola
 
 `tests/kontrola.py` v quality-packs. `EVAL_DISCIPLINA.md` §3b ju predpisuje od
