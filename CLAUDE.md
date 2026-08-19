@@ -101,8 +101,9 @@ files hold (full history, full decision reasoning).
 - New reusable gotcha → append ≤10 lines to `04_Lessons.md`
 - Task state changed → edit `03_Tasks.md` in place (done items become one line)
 - Never duplicate into a new file. Update an existing section instead.
-- If `docs/TASKBOARD.md` exceeds ~150KB, propose archiving older iterations
-  to `docs/TASKBOARD_ARCHIVE.md` and say so — don't do it silently.
+- `docs/TASKBOARD.md` was split at 145KB on 2026-08-19: iterations 1-49 moved
+  to `docs/TASKBOARD_ARCHIVE.md`, nothing deleted. If the live file passes
+  ~150KB again, move the next block of iterations the same way and say so.
 
 
 A digital studio site (services + a product catalogue) published to GitHub
