@@ -144,6 +144,14 @@ Without `SITE_BASE_URL` the build silently skips canonicals, sitemap and RSS.
   run `python3 scripts/apply_blurbs.py` **before** the build — it rewrites them
   and exits non-zero if any template sentence survived. This bit twice in one
   hour on 2026-08-17.
+- **A rebase silently discards everything written to `db/biznis.sqlite3`.**
+  `.gitattributes` resolves that file with `merge=ours`, and during a rebase
+  "ours" is upstream — so poznatky and rozhodnutia written this session vanish
+  and the next write reuses their IDs. This is why `state/evolucia.jsonl`
+  exists (`merge=union`, so it survives). **After every rebase or merge with
+  origin, run `python3 scripts/obnov_z_dennika.py`** — it replays the journal
+  idempotently. It recovered three poznatky on 2026-08-19; without it they
+  would have been lost with no trace that anything was missing.
 - **During a `git rebase`, `--ours` is UPSTREAM, not your commit.** Resolving
   `db/biznis.sqlite3` with `--ours` once discarded newly added products while
   leaving their HTML behind as orphans. Use `--theirs` when replaying your own
