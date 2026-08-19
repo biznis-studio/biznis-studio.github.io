@@ -10,10 +10,10 @@
 # `-merge` ovládač zablokuje, takže konflikt nastane aj tak. Overené sondou
 # 2026-08-19 — s `binary merge=ours` konflikt nastal.
 #
-# NEOVERENÉ: tvar nižšie sa zatiaľ nepodarilo odskúšať pod skutočným rebase
-# (sonda skončila na mojom vlastnom neporiadku so stashom, nie na mechanizme).
-# Otestuje ho prvý súbežný beh pipeline. Ak konflikt nastane aj tak, nič sa
-# nezhoršilo — riešilo sa to doteraz ručne a denník je poistka tak či tak.
+# OVERENÉ 2026-08-19 v ostrej prevádzke: rebase na commit pipeline prebehol
+# bez konfliktu (predtým zastavil zakaždým) a databáza sa prepísala verziou
+# z behu. `scripts/obnov_z_dennika.py` potom vrátil, čo chýbalo:
+# poznatky 66 → 68, rozhodnutia 39 → 40, žiadny duplikát.
 db/biznis.sqlite3 -diff merge=ours
 
 # Denník je textový a len sa naň pripisuje, takže sa zlúči sám.
