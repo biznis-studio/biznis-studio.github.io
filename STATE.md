@@ -92,19 +92,26 @@ mohlo spôsobiť zlyhania. Na S8 **nespôsobilo**. Chýbajúca dopredu-akcia
 NEOVERENÁ, nič si nedopísal, ale nepovedal, čo začať zapisovať.
 Označenie stavu kroku sa zmenilo z nesprávneho `POKRAČUJ` na **žiadne**.
 
-**S9 rozhodnúť nevie a odhalil prečo.** Sada definuje jednu vetu, ale očakáva
-správanie, ktoré nastane až po niekoľkých ťahoch — **a vstupy tých ďalších
-ťahov v sade nie sú.** Beh 17. 8. mal štyri ťahy, ich vstupy nikde zapísané
-nie sú. Kto scenár púšťa, si pokračovanie vymyslí, takže dva behy S9 nie sú
-porovnateľné a „5/5" pri ňom nič neznamená. **Je to vada zadania, nie packu.**
+**S9 odhalil štruktúrnu dieru v packu.** *(Toto nahrádza môj predchádzajúci
+záver, že ide o vadu zadania. Bol nesprávny — vstup stačí.)*
 
-Ďalším ťahom som zámerne nepokračoval — vymyslel by som vstup, ktorý v sade
-nie je. V prvom ťahu model nespomenul *Uvoľnenie zvyškového napätia*, ale
-zároveň nenastali tri zo štyroch podmienok „nevyhovuje ak": neobvinil meranie
-pri expedícii, nepýtal sa na polohu vady pozdĺž výlisku (výslovne povedal, že
-po nej nepôjde) a nič neoznačil za potvrdené.
+Katalóg má pri príčine *Uvoľnenie zvyškového napätia až po výrobe* pole
+`Nasledok`: **„Profil je pri expedícii rovný, ale u zákazníka alebo po obrábaní
+sa skrúti"** — takmer doslovne vstup S9. A `Rozlisenie` je presne to, čo
+kritérium žiada: *„Odložte niekoľko kusov a premerajte ich s odstupom
+(napr. po 3–7 dňoch)."*
 
-**Dokiaľ sa S9 nedopíše, nesmie sa počítať do pomeru „13 zo 17" ako odbehnutý.**
+Lenže tá príčina leží v kategórii *Skrútenie profilu*, teda v **`ČASTI II`,
+ktorú pack výslovne označuje „(materiál ešte u nás)"**. S9 je reklamácia, takže
+model správne šiel do `ČASTI I` a pýtal sa na populáciu. **Sedem otázok ČASTI I
+do stromov nevedie.**
+
+Príčina, ktorej vlastný príznak je „u zákazníka sa skrúti", je teda uložená
+v časti pre materiál, ktorý u zákazníka nie je. **Model sa držal packu a k
+jedinej príčine, ktorá vstup vysvetľuje, sa procedúrou nemohol dostať.**
+
+Nie je to zlyhanie úsudku ani vada sady. Je to diera medzi dvoma časťami packu
+— a je to zmena packu, teda tvoje rozhodnutie.
 
 ## Hodnotenie — postavená deterministická kontrola
 
