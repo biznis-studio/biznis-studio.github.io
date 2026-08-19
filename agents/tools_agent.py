@@ -362,7 +362,7 @@ TOOLS = [
                   "za\u010diatkom, nedozvie sa ju ani potom. T\u00e1to kalkula\u010dka ju nap\u00ed\u0161e za v\u00e1s."),
         "widget": OPLATI_SA_WIDGET,
         "after": ("<h2>Pre\u010do prv\u00e9 \u010d\u00edslo rozhoduje</h2>"
-                  "<p>\u00daloha na desa\u0165 min\u00fat mesa\u010dne je dve hodiny ro\u010dne. Za\u010fanie, otestovanie "
+                  "<p>\u00daloha na desa\u0165 min\u00fat mesa\u010dne je dve hodiny ro\u010dne. Zadanie, otestovanie "
                   "a odovzdanie stoj\u00ed viac. \u00daloha na dve hodiny t\u00fd\u017edenne je zhruba sto hod\u00edn "
                   "ro\u010dne \u2014 a to je u\u017e nieko\u013eko tis\u00edc eur v \u010dase, ktor\u00fd nikto nefakturuje. "
                   "To \u010d\u00edslo rozhodne sk\u00f4r ne\u017e ktor\u00fdko\u013evek predajca softv\u00e9ru.</p>"

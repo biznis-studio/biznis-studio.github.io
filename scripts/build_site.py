@@ -130,6 +130,13 @@ def main(fast: bool = False) -> int:
     _ico = zapis_favicon()
     print(f"[favicon] {_ico.relative_to(ROOT)} ({_ico.stat().st_size} B)")
 
+    # 5c. Slovencina na /sk/ — rovnaka brana ako v CI, aby lokalny build
+    #     nevyrobil to, co CI potom zablokuje. Vid scripts/kontrola_slovenciny.py.
+    sk = subprocess.run([sys.executable, str(ROOT / "scripts" / "kontrola_slovenciny.py")])
+    if sk.returncode != 0:
+        print("[build_site] SLOVENCINA FAILED - do not deploy")
+        return 1
+
     # 6. The check Claude can read: non-zero exit means do not ship.
     audit = subprocess.run([sys.executable, str(ROOT / "scripts" / "audit_site.py")])
     if audit.returncode != 0:
