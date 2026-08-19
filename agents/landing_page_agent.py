@@ -1045,7 +1045,8 @@ def build_efa_tool() -> None:
     now, so this is the window where people begin looking.
     """
     body = card_art("efaktura-2027-test",
-                    "Ste pripraven\u00ed na e-fakt\u00faru 2027?") + """
+                    "Ste pripraven\u00ed na e-fakt\u00faru 2027?",
+                    hero=True) + """
 <span class="eyebrow">Bezplatn&yacute; n&aacute;stroj</span>
 <h1>Ste pripraven&iacute; na e-fakt&uacute;ru 2027?</h1>
 <p class="subtitle">Od 1. janu&aacute;ra 2027 musia platitelia DPH vystavovať aj prij&iacute;mať
@@ -1227,7 +1228,7 @@ def build_index(pages: list[dict], stats: Optional[dict] = None) -> None:
             f'<p><a href="blog/index.html">All posts &rarr;</a></p>\n'
         )
 
-    hero_img = card_art("hero", "Workspace", depth=0)
+    hero_img = card_art("hero", "Workspace", depth=0, hero=True)
     body = f"""<div class="hero-banner">
 {hero_img}
 <div class="hero-copy">

@@ -606,7 +606,8 @@ FAVICON_DATA_URI = (
 )
 
 
-def card_art(slug: str, alt: str, seed_text: str = "", depth: int = 1) -> str:
+def card_art(slug: str, alt: str, seed_text: str = "", depth: int = 1,
+              hero: bool = False) -> str:
     """Card/hero artwork: a real photograph when we have one for this slug,
     otherwise the generated gradient as a graceful fallback.
 
@@ -620,8 +621,13 @@ def card_art(slug: str, alt: str, seed_text: str = "", depth: int = 1) -> str:
     img_path = _Path(__file__).resolve().parent.parent / "site" / "assets" / "img" / f"{slug}.jpg"
     if img_path.exists():
         prefix = "../" * depth
+        # Hlavný obrázok článku je nad zlomom a je najväčším vykresleným
+        # prvkom stránky, takže `lazy` na ňom odkladá presne to, čo má byť
+        # vidieť hneď. Zoznamové karty zostávajú odložené - tam je to správne.
+        nacitanie = ('loading="eager" fetchpriority="high"' if hero
+                     else 'loading="lazy"')
         return (f'<img class="card-art" src="{prefix}assets/img/{slug}.jpg" '
-                f'alt="{html.escape(alt)}" loading="lazy" decoding="async" '
+                f'alt="{html.escape(alt)}" {nacitanie} decoding="async" '
                 f'width="800" height="450">')
     return illustration_svg(seed_text or alt)
 

@@ -493,7 +493,7 @@ def build_tool(tool: dict) -> None:
                  if jazyk == "sk" else
                  "Runs entirely in your browser. Nothing you type is sent anywhere, "
                  "stored, or logged - there is no server involved and no analytics on this tool.")
-    body = f"""{card_art(tool["slug"], tool["title"])}
+    body = f"""{card_art(tool["slug"], tool["title"], hero=True)}
 <span class="eyebrow">{_eyebrow}</span>
 <h1>{html.escape(tool["title"])}</h1>
 <p class="subtitle">{html.escape(tool["intro"])}</p>

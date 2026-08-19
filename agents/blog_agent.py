@@ -183,7 +183,7 @@ def build_sk_posts() -> int:
                       f'<meta property="og:description" content="{html.escape(post["description"])}">\n'
                       f'<meta property="og:url" content="{html.escape(url)}">\n'
                       f'<meta property="og:type" content="article">\n' + OG_IMAGE_TAGS)
-        body = (f'<article class="post">\n{card_art(post["slug"], post["title"])}\n'
+        body = (f'<article class="post">\n{card_art(post["slug"], post["title"], hero=True)}\n'
                 f'<span class="post-meta">{post["date"]}</span>\n'
                 f'<h1>{_typografia(html.escape(post["title"]))}</h1>\n'
                 f'<p class="subtitle">{_typografia(html.escape(post["description"]))}</p>\n'
@@ -270,7 +270,7 @@ def _display_date(date: str) -> str:
 
 def build_post(post: dict) -> None:
     body = f"""<article class="post">
-{card_art(post["slug"], post["title"])}
+{card_art(post["slug"], post["title"], hero=True)}
 <span class="post-meta">Blog · {_display_date(post["date"])}</span>
 <h1>{_typografia(html.escape(post["title"]))}</h1>
 <p class="subtitle">{_typografia(html.escape(post["description"]))}</p>
