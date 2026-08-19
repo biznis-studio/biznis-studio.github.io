@@ -403,6 +403,7 @@ def zapis_poznatok(
     dokaz: Optional[str] = None,
     dosah: Optional[str] = None,
     nahradza: Optional[int] = None,
+    obnova: bool = False,
 ) -> int:
     """Zapíše poznatok. Odmietne tri veci, ktoré nás už stáli čas.
 
@@ -428,10 +429,20 @@ def zapis_poznatok(
     # zapíše druhýkrát. Presne to sa stalo 2026-08-17: štyri poznatky vznikli
     # dvakrát, keď prvý priechod spadol na chýbajúcej URL z MCP registra.
     # V dennom behu bez dozoru by sa to opakovalo pri každom zlyhaní.
-    uz = conn.execute(
-        "SELECT id FROM poznatky WHERE zdroj = ? AND tvrdenie = ? "
-        "AND stav NOT IN ('PREKONANY','VYVRATENY')", (zdroj, tvrdenie)
-    ).fetchone()
+    # Prekonané a vyvrátené sa zámerne nepočítajú: ak to isté tvrdenie znovu
+    # pozorujeme, má vzniknúť nový záznam. Pri OBNOVE z denníka to ale neplatí —
+    # tam nič nepozorujeme, len rekonštruujeme, takže prehratie nahradeného
+    # poznatku ho vzkriesilo ako nový (2026-08-19: #94 sa vrátil ako #96 bez
+    # väzby na #95). Preto sa pri obnove pozeráme na všetky stavy.
+    if obnova:
+        uz = conn.execute(
+            "SELECT id FROM poznatky WHERE zdroj = ? AND tvrdenie = ?",
+            (zdroj, tvrdenie)).fetchone()
+    else:
+        uz = conn.execute(
+            "SELECT id FROM poznatky WHERE zdroj = ? AND tvrdenie = ? "
+            "AND stav NOT IN ('PREKONANY','VYVRATENY')", (zdroj, tvrdenie)
+        ).fetchone()
     if uz is not None:
         return int(uz["id"])
 

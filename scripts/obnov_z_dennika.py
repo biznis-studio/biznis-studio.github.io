@@ -37,7 +37,8 @@ def main() -> int:
             ev.zapis_poznatok(
                 conn, tvrdenie=z["tvrdenie"], druh=z["druh"], zdroj=z["zdroj"],
                 typ_zdroja=z["typ_zdroja"], zdroj_datum=z.get("zdroj_datum"),
-                dokaz=z.get("dokaz"), dosah=z.get("dosah"))
+                dokaz=z.get("dokaz"), dosah=z.get("dosah"),
+                nahradza=z.get("nahradza"), obnova=True)
         elif z["typ"] == "rozhodnutie":
             if conn.execute("SELECT 1 FROM rozhodnutia WHERE co=?", (z["co"],)).fetchone():
                 continue
