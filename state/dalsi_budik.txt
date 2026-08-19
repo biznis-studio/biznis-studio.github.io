@@ -1,1 +1,1 @@
-2026-08-19 18:00 — skontrolovať, či niektorá z 5 vyžiadaných URL prestala byť 'unknown to Google'; domerať experimenty #3 a #4
+2026-08-22 09:00 — domerať experiment #5 (má niektorá sitemapa neprázdny Last read?) a #3, #4
