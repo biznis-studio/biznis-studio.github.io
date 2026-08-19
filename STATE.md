@@ -38,6 +38,22 @@ Toto je jediné, čo do rozhodovania smie vstupovať ako dôkaz.
 a do 2026-08-16 sa ani nedalo ozvať: anglická domovská ani „Hire us" nemali
 formulár.
 
+## Pack — dva nálezy 2026-08-19
+
+**Druhý je vážnejší: pack chodil do Copilota ako jeden riadok.**
+`execCommand('insertText')` zahodí všetky zalomenia — 25 318 znakov skončilo
+v jednom odseku (`br: 0`, `textContent` bez jediného `\n`). Pack je pritom
+štruktúrovaný dokument: nadpisy, päť koncov a vetvy stromov stoja na riadkoch.
+**Takto to išlo do každého behu od 17. 8.**
+
+Oprava: vkladať syntetickou udalosťou `paste` s `DataTransfer`. Overené sondou
+vopred (tri riadky → tri odseky) aj na celom packu → **385 riadkov**.
+
+**Kontrola pred každým behom** (nie po ňom): 385 riadkov, 25 702 znakov,
+0 z 13 kľúčových značiek chýba, 0 výskytov „Stlačením klávesu".
+
+### Prvý nález — text rozhrania v packu
+
 ## Pack — nález 2026-08-19
 
 Pack sa do Copilota vkladá z `localStorage.__pack`. Ten sa 17. 8. vyzobal

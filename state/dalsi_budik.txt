@@ -1,1 +1,1 @@
-2026-08-19 09:00 — dobehnúť akceptačnú sadu na vyčistenom packu (S17 blokujúci, potom S8 a S9); domerať experimenty #3 a #4
+2026-08-19 09:00 — dobehnúť sadu na štruktúrovanom packu (S8, S9 najskôr — overia, či sploštenie zmenilo výsledky); S17 z 19.8. čaká na hodnotenie v čistom kontexte
