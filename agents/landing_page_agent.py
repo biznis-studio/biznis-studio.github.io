@@ -784,6 +784,9 @@ z&aacute;kazn&iacute;kov - s jasne vymedzen&yacute;m rozsahom, aby si nevym&yacu
 <h2 class="section-title">Užitočn&eacute; č&iacute;tanie</h2>
 </div>
 <div class="band-body">
+<p><a href="oplati-sa-nasadit-ai.html"><strong>Kalkula&ccaron;ka zadarmo:</strong>
+oplat&iacute; sa na t&uacute;to &uacute;lohu nasadi&#357; AI?</a> - spo&ccaron;&iacute;ta, ko&#318;ko t&aacute; &uacute;loha
+stoj&iacute; ro&ccaron;ne, a nap&iacute;&scaron;e v&aacute;m podmienku ukon&ccaron;enia e&scaron;te pred nasaden&iacute;m.</p>
 <div class="post-list">SK_ARTICLES</div>
 </div>
 </section>
