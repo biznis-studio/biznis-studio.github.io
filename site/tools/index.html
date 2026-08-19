@@ -483,7 +483,14 @@
     -webkit-text-fill-color: var(--ghost-stroke); -webkit-text-stroke-width: 0;
     color: var(--ghost-stroke);
   }
-  footer a { color: var(--text-muted); }
+  /* Zmerané 2026-08-19 na živej stránke pri 375 px: odkazy v pätičke mali
+     22 px výšky a 6 px medzery medzi zalomenými riadkami, teda rozostup 28 px
+     pri odporúčaných 44. Text zostáva rovnako veľký, rastie len dotyková
+     plocha - preto min-height a nie väčšie písmo. */
+  footer a {
+    color: var(--text-muted);
+    display: inline-flex; align-items: center; min-height: 40px;
+  }
   footer a:hover { color: var(--brand); }
   @media (max-width: 480px) {
     /* Found via a real mobile check: the nav link text and the "Hire us"
