@@ -636,7 +636,7 @@ def build_sk_page() -> None:
     """
     body = """<div class="hero">
 <span class="eyebrow">Firemn&aacute; AI &middot; Microsoft 365 &middot; Copilot</span>
-<h1>M&aacute;te Copilot. Pou&zcaron;&iacute;vate ho na p&iacute;sanie mailov.</h1>
+<h1>M&aacute;te Copilot. Pou&zcaron;&iacute;vate ho na p&iacute;sanie mailov</h1>
 <p class="subtitle">Firmy platia za Microsoft 365 Copilot a vyu&zcaron;&iacute;vaj&uacute; zlomok
 toho, čo vie. Nie preto, &zcaron;e by bol slab&yacute; - ale preto, &zcaron;e nepozn&aacute;
 va&scaron;e postupy, va&scaron;u hist&oacute;riu ani va&scaron;e pravidl&aacute;. Postav&iacute;me nad n&iacute;m
