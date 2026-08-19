@@ -12,7 +12,7 @@ Aktualizované: **2026-08-18** (večerný beh)
 
 | Vec | Stav | Ďalší krok |
 |---|---|---|
-| Akceptačná sada packu | **13 zo 17** · cesta na dobehnutie je otvorená (viď nižšie) · zlyhali S8 `Z4`, S9 `Z1`, S17 `Z7` | prehodnotiť S8 a S9 v čistom kontexte (hodnotil ich ten, kto ich spustil) |
+| Akceptačná sada packu | **doterajšie výsledky sú v otázke** — pack v `localStorage` niesol 1 736 znakov textu rozhrania, takže behy od 17. 8. netestovali postavený artefakt | pack vyčistený 19. 8.; sadu dobehnúť znovu, hodnotí niekto iný než ten, kto ju spustil |
 | Taxonómia Z1–Z9 | **diera zaplnená 2026-08-19** — `Z8` nenavrhol rozhodujúci test, `Z9` chýba dopredu-akcia | oba sú **jeden chýbajúci koniec Escalate**, nie dve chyby úsudku; doplnenie konca do packu je rozhodnutie majiteľa |
 | Pack v0.5.0 | **NEVYDANÝ** — `vydane: false` v MANIFESTe | až po 17/17; každý dnešný výsledok je 1 beh, nie 5/5 |
 | Nová pozícia na webe | SK **3 články** + služba, EN 1 článok + sekcia na domovskej | 3. článok je naživo (HTTP 200, obrázok 200) |
@@ -37,6 +37,27 @@ Toto je jediné, čo do rozhodovania smie vstupovať ako dôkaz.
 **Prázdna kotva nie je záporný výsledok.** Znamená, že sa ešte nemeria —
 a do 2026-08-16 sa ani nedalo ozvať: anglická domovská ani „Hire us" nemali
 formulár.
+
+## Pack — nález 2026-08-19
+
+Pack sa do Copilota vkladá z `localStorage.__pack`. Ten sa 17. 8. vyzobal
+z **vykresleného DOM**, takže zobral aj ovládacie pomôcky rozhrania:
+
+| | |
+|---|---|
+| pred vyčistením | 27 434 znakov |
+| po vyčistení | 25 700 znakov |
+| odstránené | 17× „Stlačením klávesu Tab prejdete na tlačidlo Ďalšie možnosti", 14 zdvojených nadpisov |
+| postavený `.docx` dáva | 25 492 znakov |
+| nadpis | bol odseknutý na `profil`, doplnený na `profilov` |
+
+**Obsahovo bol pack celý** — po vyčistení sedí všetkých 13 kľúčových značiek
+a všetkých päť koncov (`POKRAČUJ`, `ZOPAKUJ`, `OBÍDI`, `ODOVZDAJ ČLOVEKU`,
+`ZASTAV`). Strata bola v obale, nie v procedúre.
+
+**Dôsledok:** behy S3, S4, S5, S8, S9, S10, S12 zo 17. 8. netestovali artefakt,
+ktorý sa vydáva. Či to zmenilo výsledky, sa nevie — zistí sa jedine dobehnutím.
+Záloha pôvodného je v `localStorage.__pack_zaloha_2026_08_19`.
 
 ## Viditeľnosť vo vyhľadávaní — meraním 2026-08-18
 
