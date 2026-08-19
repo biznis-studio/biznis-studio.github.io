@@ -196,6 +196,11 @@ to znamená, že Google ich ešte nikdy neprečítal. Strana servera je vylúče
    ktorý by prenášal váhu: v HTML, ktoré GitHub servíruje Googlebotovi, sú
    oba odkazy na náš web `rel=nofollow` (tretí, bez nofollow, dorobí až
    JavaScript). To je časť príčiny, prečo je Discovery 0 %.
+   *Potvrdené 19. 8. priamo Googlom:* Search Console → Links hlási
+   **External links: Total 0** a Internal links: Total 1. A Bing napriek
+   týždňom IndexNow s HTTP 200 nemá naše stránky v indexe — presná veta
+   zo živej `/sk/` vracia „No results found". Prijaté oznámenie nie je
+   indexácia.
    Overil som dva katalógy a **nie sú zameniteľné**: Azet.sk zobrazuje web
    firmy len ako text, bez `<a href>` — nedáva nič. Zoznam.sk vydáva
    23 obyčajných `<a href>` bez `rel` v jedinej mestskej kategórii, priamo
