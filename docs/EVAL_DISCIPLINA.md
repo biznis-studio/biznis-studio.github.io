@@ -87,16 +87,36 @@ vedľa:
   príčin na pravdepodobnosť v prvom ťahu `Z1` **je** — a model si to sám opravil
   po odpovedi *„neviem"*. Jeden prepis teda nesie dva rôzne kódy.)
 
-**Obe nové kategórie sú ten istý chýbajúci koniec.** Sekcia 3c hovorí, že nám
-z piatich koncov chýba **Escalate — musí rozhodnúť človek**. Pri S8 je správnym
-koncom „obídi a povedz človeku, čo začať zapisovať"; pri S9 „navrhni človeku
-test, ktorý to rozhodne". Nie sú to dve chyby úsudku, ale jedna chýbajúca cesta
-von. Kto by z `Z4` a `Z1` odvodil opravu, opravoval by rozhodovanie — a to
-pritom fungovalo.
+**Obe nové kategórie sú ten istý nespustený koniec — nie chýbajúci.**
 
-**Dôsledok pre sadu:** S8 a S9 sú preto stále NEVYHOVEL, ale nie sú dôkazom,
-že diagnostika je zlá. Sú dôkazom, že procedúra nemá koniec pre prípad, keď
-odpoveď nie je v chate, ale u človeka.
+*(Toto je oprava. Prvá verzia tohto odseku tvrdila, že packu chýba koniec
+Escalate, a opierala sa o sekciu 3c nižšie. Sekcia 3c je zo 16. 8., konce boli
+doplnené v 0.5.0, a S8 aj S9 bežali NA 0.5.0. Overené 2026-08-19 priamo v
+`build/build_pack.py`. Chybu som spravil tak, že som tvrdil niečo o systéme
+bez toho, aby som sa pozrel do neho.)*
+
+Pack 0.5.0 má **päť koncov**, medzi nimi oba, ktoré S8 a S9 potrebovali:
+
+- `ODOVZDAJ ČLOVEKU` — *„rozhodnutie nie je diagnostické… POVEDZ KOMU:
+  technológ, konštruktér, vedúci kvality"*
+- `ZASTAV` — *„ďalšie otázky už nerozlišujú. Povedz to rovno, zhrň, čo je
+  overené a čo zostalo v hre, a navrhni JEDNU drahú skúšku, ktorá to rozhodne."*
+
+Takže cesta von existovala a model po nej **nešiel**. Pri S8 označil krok
+`POKRAČUJ`, hoci správne bolo `OBÍDI` plus povedať, čo začať zapisovať. Pri S9
+držal päť rovnocenných NEOVERENÝCH cez štyri ťahy — presne stav, ktorý `ZASTAV`
+popisuje — a `ZASTAV` nepoužil ani raz.
+
+**Rozdiel je celý zmysel veci.** Chýbajúci koniec sa opravuje tak, že sa dopíše.
+Nespustený koniec sa opravuje tak, že sa spevní **podmienka, kedy sa naň má
+prejsť** — čo je iný zásah do iného miesta packu. Kto by pridával koniec, ktorý
+tam už je, nezmení nič a bude sa čudovať, prečo scenár padá ďalej.
+
+**Dôsledok pre sadu:** S8 a S9 zostávajú NEVYHOVEL, ale nie sú dôkazom, že
+diagnostika je zlá — rozhodovanie v oboch prepisoch fungovalo, model si nič
+nedopísal a nič nevylúčil natvrdo. Sú dôkazom, že **prechod na koniec nemá
+spúšťač**: nikde nie je napísané, po koľkých ťahoch s rovnocennými NEOVERENÝMI
+sa má prejsť na `ZASTAV`, ani že chýbajúci záznam vyžaduje `ODOVZDAJ ČLOVEKU`.
 
 Kategória, ktorá sa opakuje, je zadanie na opravu. Kategória, ktorá sa nikdy
 neobjaví, je pravidlo, ktoré si možno mohol odpustiť.

@@ -12,7 +12,7 @@ Aktualizované: **2026-08-18** (večerný beh)
 
 | Vec | Stav | Ďalší krok |
 |---|---|---|
-| Akceptačná sada packu | **13 zo 17** · zlyhali S8 `Z4`, S9 `Z1`, S17 `Z7` | prehodnotiť S8 a S9 v čistom kontexte (hodnotil ich ten, kto ich spustil) |
+| Akceptačná sada packu | **13 zo 17** · cesta na dobehnutie je otvorená (viď nižšie) · zlyhali S8 `Z4`, S9 `Z1`, S17 `Z7` | prehodnotiť S8 a S9 v čistom kontexte (hodnotil ich ten, kto ich spustil) |
 | Taxonómia Z1–Z9 | **diera zaplnená 2026-08-19** — `Z8` nenavrhol rozhodujúci test, `Z9` chýba dopredu-akcia | oba sú **jeden chýbajúci koniec Escalate**, nie dve chyby úsudku; doplnenie konca do packu je rozhodnutie majiteľa |
 | Pack v0.5.0 | **NEVYDANÝ** — `vydane: false` v MANIFESTe | až po 17/17; každý dnešný výsledok je 1 beh, nie 5/5 |
 | Nová pozícia na webe | SK **3 články** + služba, EN 1 článok + sekcia na domovskej | 3. článok je naživo (HTTP 200, obrázok 200) |
@@ -78,14 +78,17 @@ ktorých základ je zapísaný pred zásahom a už sa nedá prepísať.
 
 ## Čo čaká na rozhodnutie majiteľa
 
-0b. **Doplniť do packu koniec `ESKALUJ`?** S8 aj S9 zlyhali na tom istom —
-   procedúra nemá cestu von, keď odpoveď nie je v chate, ale u človeka. Pri S8
-   je správnym koncom „obídi a povedz, čo začať zapisovať", pri S9 „navrhni
-   test, ktorý to rozhodne". Rozhodovanie pritom v oboch prepisoch fungovalo:
-   model nič nedopísal a nič nevylúčil natvrdo. Sekcia 3c `docs/EVAL_DISCIPLINA.md`
-   uvádzala Escalate ako chýbajúci koniec už predtým. **Pack je zmrazený, takže
-   to nerobím sám.** Vyvrátiteľné: ak sa po doplnení oba scenáre zmenia na
-   VYHOVEL bez zásahu do rozhodovacích stromov, hypotéza platí.
+0b. **Napísať do packu spúšťač prechodu na koniec?** Pack 0.5.0 už má päť
+   koncov vrátane `ODOVZDAJ ČLOVEKU` a `ZASTAV` — S8 aj S9 na ňom bežali a po
+   tej ceste nešli. Nechýba koniec, chýba **podmienka, kedy sa naň prejde**:
+   nikde nie je, po koľkých ťahoch s rovnocennými NEOVERENÝMI sa ide na
+   `ZASTAV`, ani že chýbajúci záznam žiada `ODOVZDAJ ČLOVEKU`. Rozhodovanie
+   pritom fungovalo — model nič nedopísal a nič nevylúčil natvrdo.
+   **Pack je zmrazený, takže to nerobím sám.** Vyvrátiteľné: ak sa po doplnení
+   podmienky oba scenáre zmenia na VYHOVEL bez zásahu do rozhodovacích stromov,
+   hypotéza platí.
+   *(Pôvodne som sem napísal „doplniť koniec ESKALUJ". Bolo to zlé — ten koniec
+   v packu už je. Opravené 2026-08-19.)*
 
 0. **Analytika: zbierať, alebo nie?** Web nemá žiadnu — 0 zhôd na `gtag`,
    `analytics`, `plausible`, `umami`, `matomo`, `fathom` vo všetkých HTML, a
@@ -109,16 +112,19 @@ ktorých základ je zapísaný pred zásahom a už sa nedá prepísať.
 (má účet Microsoft cez M365), je stav v Bingu pre nás nemerateľný — hoci doň
 odosielame 43 URL po každom behu. Účty nezakladám.
 
-**Copilot: klávesnica sa do stránky nedostáva.** Kliknutia aj JavaScript
-fungujú, ale vložený text sa neobjaví — ani „test". Je to zameranie okna na
-úrovni systému. **Stačí kliknúť do okna Chromu** a viem dobehnúť zvyšných
-sedem scenárov. Do vtedy je pack 0.5.0 nevydaný.
+**Copilot NIE JE zablokovaný. Overené 2026-08-19.** Karta má
+`visibilityState: hidden` a `hasFocus: false`, preto syntetické klávesy do
+stránky nechodia a `form_input` na `contenteditable` SPAN neplatí. Funkčná
+cesta bola zapísaná už 17. 8. v `~/Desktop/quality-packs/tests/vysledky/`
+a tento súbor o nej nevedel:
 
-*Obchádzka vyskúšaná a zamietnutá 2026-08-18:* v Search Console sa to isté dá
-obísť cez `form_input` na prvku namiesto klávesnice. V Copilote nie — vstupné
-pole je `contenteditable` SPAN, nie formulárový prvok, a `form_input` ho
-odmieta („Element type SPAN is not a supported form input"). Netreba to skúšať
-znovu.
+1. `document.querySelector('[contenteditable="true"]').focus()`
+2. `document.execCommand('insertText', false, <text>)` — overené, text prejde
+3. klik na tlačidlo **Odoslať**, nie Enter
+
+**Vstup je len na pripisovanie:** `execCommand('delete')` ani `selectAll`
+obsah nevymažú. Pole sa čistí reloadom stránky, nie mazaním. Pack sa vkladá
+z `localStorage.__pack`, ktorý je stále naplnený.
 
 ## Cloudová routine — vypnutá 2026-08-18 (rozhodnutie majiteľa)
 
