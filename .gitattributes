@@ -1,0 +1,20 @@
+# Databáza je binárna: git ju zlúčiť nevie a pri každom súbežnom behu
+# pipeline zastaví rebase konfliktom. 2026-08-19 sa to stalo päťkrát za deň.
+#
+# `merge=ours` má konflikt vyriešiť sám a ponechať verziu vetvy, na ktorú sa
+# prehráva — pri rebase teda UPSTREAM, teda dáta z behu pipeline. Moje zápisy
+# sa tým stratia, ale to je v poriadku: sú v state/evolucia.jsonl a
+# `python3 scripts/obnov_z_dennika.py` ich vráti. Zápisy sú idempotentné.
+#
+# POZOR na atribút `binary`: je to skratka za `-diff -merge -text`, a to
+# `-merge` ovládač zablokuje, takže konflikt nastane aj tak. Overené sondou
+# 2026-08-19 — s `binary merge=ours` konflikt nastal.
+#
+# NEOVERENÉ: tvar nižšie sa zatiaľ nepodarilo odskúšať pod skutočným rebase
+# (sonda skončila na mojom vlastnom neporiadku so stashom, nie na mechanizme).
+# Otestuje ho prvý súbežný beh pipeline. Ak konflikt nastane aj tak, nič sa
+# nezhoršilo — riešilo sa to doteraz ručne a denník je poistka tak či tak.
+db/biznis.sqlite3 -diff merge=ours
+
+# Denník je textový a len sa naň pripisuje, takže sa zlúči sám.
+state/evolucia.jsonl merge=union
