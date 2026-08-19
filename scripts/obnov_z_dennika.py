@@ -46,6 +46,16 @@ def main() -> int:
                 ocakavany_ucinok=z["ocakavany_ucinok"], vratenie=z["vratenie"],
                 datum_revizie=z["datum_revizie"], vrstva=z["vrstva"],
                 zamietnute=z.get("zamietnute"), autorita=z.get("autorita", "stroj"))
+        elif z["typ"] == "dosah":
+            # Úprava, nie vznik. Musí sa prehrať PO poznatku, ktorý mení —
+            # denník je chronologický, takže poradie sedí samo.
+            try:
+                ev.dopln_dosah(conn, tvrdenie_zaciatok=z["tvrdenie_zaciatok"],
+                               dosah=z["dosah"])
+            except ev.ChybaEvolucie:
+                # Poznatok medzitým nahradený alebo zrušený — úprava sa zahodí,
+                # ale beh nepadne: denník je archív, nie príkaz.
+                pass
 
     po_p = conn.execute("SELECT COUNT(*) FROM poznatky").fetchone()[0]
     po_r = conn.execute("SELECT COUNT(*) FROM rozhodnutia").fetchone()[0]

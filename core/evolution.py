@@ -185,6 +185,34 @@ def _zapis_do_dennika(druh_zaznamu: str, data: dict) -> None:
         f.write(riadok + "\n")
 
 
+def dopln_dosah(conn: "sqlite3.Connection", *, tvrdenie_zaciatok: str,
+                dosah: str) -> int:
+    """Doplní `dosah` poznatku a zapíše to aj do denníka.
+
+    Poznatok bez `dosah` je zápis bez dôsledku — `pouzitelne_poznatky()` ho
+    zámerne nevracia, takže je mŕtvy. Fronta ich preto pýta doplniť.
+
+    Poznatok sa hľadá podľa **začiatku tvrdenia**, nie podľa ID. ID nie je
+    stabilné: databáza sa pri rebase stráca a prehratie z denníka pridelí
+    nové (2026-08-19 sa to stalo trikrát). Tvrdenie je to jediné, čo prežije.
+
+    Denník doteraz zaznamenával len vznik záznamu, nie jeho neskoršiu úpravu,
+    takže doplnený `dosah` by prvý rebase zmazal a nikto by sa to nedozvedel.
+    Preto ide úprava do denníka rovnako ako vznik.
+    """
+    r = conn.execute(
+        "SELECT id FROM poznatky WHERE tvrdenie LIKE ? || '%'",
+        (tvrdenie_zaciatok,)).fetchall()
+    if len(r) != 1:
+        raise ChybaEvolucie(
+            f"začiatok tvrdenia {tvrdenie_zaciatok!r} sedí na {len(r)} poznatkov; "
+            "musí sedieť práve na jeden")
+    conn.execute("UPDATE poznatky SET dosah = ? WHERE id = ?", (dosah, r[0][0]))
+    conn.commit()
+    _zapis_do_dennika("dosah", {"tvrdenie_zaciatok": tvrdenie_zaciatok, "dosah": dosah})
+    return r[0][0]
+
+
 def nacitaj_dennik() -> list[dict]:
     """Zaznamy z denníka, na prehratie po strate databazy."""
     if not DENNIK.exists():
