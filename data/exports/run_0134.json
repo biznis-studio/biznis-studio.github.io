@@ -1,0 +1,190 @@
+{
+  "run_id": 134,
+  "generated_at": "2026-08-19T14:18:46.978270+00:00",
+  "run_status": "success",
+  "signals_by_source": {
+    "github": 30,
+    "hackernews": 50,
+    "npm_downloads": 45,
+    "stackexchange": 60,
+    "wikipedia_pageviews": 47
+  },
+  "top_keywords": [
+    {
+      "term": "@editorjs/checklist",
+      "score": 0.5791550000000001,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@accounter/green-invoice-graphql",
+      "score": 0.5625,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "deepseek harness",
+      "score": 0.55586,
+      "breadth_component": 0.2,
+      "growth_component": 0.5925925925925926,
+      "sources_json": "[\"frontier:github\", \"github\", \"hackernews\"]"
+    },
+    {
+      "term": "ejaculation",
+      "score": 0.549185,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "mjml-invoice",
+      "score": 0.548555,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@e965/xlsx",
+      "score": 0.5424899999999999,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "sms-segments-calculator",
+      "score": 0.52208,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "lanterns",
+      "score": 0.50669,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": ".xxx",
+      "score": 0.473655,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "react-spreadsheet",
+      "score": 0.45751000000000003,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "automation-events",
+      "score": 0.4555555555555556,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "xlsx",
+      "score": 0.454995,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "appium",
+      "score": 0.44666666666666666,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@ai-sdk/gateway",
+      "score": 0.4377777777777778,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "cardiomegaly",
+      "score": 0.43581000000000003,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "@ai-sdk/react",
+      "score": 0.4288888888888889,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "checklist",
+      "score": 0.42834,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "automation",
+      "score": 0.42331500000000005,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "calculator",
+      "score": 0.42168,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@ai-sdk/anthropic",
+      "score": 0.42000000000000004,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": ".xyz",
+      "score": 0.4182978723404256,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "@ai-sdk/google-vertex",
+      "score": 0.4111111111111111,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "spreadsheet",
+      "score": 0.405845,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "ec-sri-invoice-signer",
+      "score": 0.40222222222222226,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "media-engine",
+      "score": 0.3933333333333333,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    }
+  ],
+  "product_ideas": []
+}
