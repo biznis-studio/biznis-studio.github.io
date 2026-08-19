@@ -325,3 +325,8 @@ template sentence survived; it runs after every merge, before the build.
   pre bunku tabuľky ani to, lebo je roztiahnutá na najvyššiu bunku riadku.
   A pixely v snímke nie sú CSS pixely — pri DPR 2 je 250 px v zábere 125 px
   v rozložení. Obe chyby som spravil 19. 8. v jednom meraní.
+- Nepriame ukazovatele stavu prehliadača klamú. `img.complete` hlásil `false`
+  pri obrázku, ktorý sa vykresľoval; obdĺžniky `Range` nadhodnotili riadky;
+  pixely snímky nie sú CSS pixely (DPR 2); výška bunky tabuľky nie je výška jej
+  textu. **Pri vizuálnej otázke rozhoduje snímka obrazovky, nie odvodené
+  číslo.** Štyri falošné poplachy 19. 8. v jednej relácii.
