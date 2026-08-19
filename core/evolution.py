@@ -213,18 +213,29 @@ def dopln_dosah(conn: "sqlite3.Connection", *, tvrdenie_zaciatok: str,
     return r[0][0]
 
 
+ZAKLAD = Path(__file__).resolve().parent.parent / "state" / "evolucia_zaklad.jsonl"
+
+
 def nacitaj_dennik() -> list[dict]:
-    """Zaznamy z denníka, na prehratie po strate databazy."""
-    if not DENNIK.exists():
-        return []
+    """Zaznamy na prehratie po strate databazy: najprv zaklad, potom denník.
+
+    Denník vznikol 2026-08-19 a zaznamenava len to, co vzniklo po nom. Test
+    obnovy v ten den ukazal, ze z 89 poznatkov by vratil 31 — zvysnych 58 je
+    starsich. `evolucia_zaklad.jsonl` je jednorazovy snimok tychto starsich
+    zaznamov, aby obnova nebola len ciastocna. Cita sa PRVY, lebo su starsie
+    a vazby (nahradenie) sa riesia podla poradia.
+    """
     out = []
-    for r in DENNIK.read_text(encoding="utf-8").splitlines():
-        r = r.strip()
-        if r:
-            try:
-                out.append(json.loads(r))
-            except ValueError:
-                continue
+    for subor in (ZAKLAD, DENNIK):
+        if not subor.exists():
+            continue
+        for r in subor.read_text(encoding="utf-8").splitlines():
+            r = r.strip()
+            if r:
+                try:
+                    out.append(json.loads(r))
+                except ValueError:
+                    continue
     return out
 
 
@@ -462,7 +473,15 @@ def zapis_poznatok(
     _zapis_do_dennika("poznatok", {
         "id": nove_id, "tvrdenie": tvrdenie, "druh": druh, "zdroj": zdroj,
         "typ_zdroja": typ_zdroja, "zdroj_datum": zdroj_datum, "dokaz": dokaz,
-        "dosah": dosah, "nahradza": nahradza})
+        "dosah": dosah, "nahradza": nahradza,
+        # ID nie je stabilné: po obnove sa prideľujú nové, takže väzba
+        # nahradenia zapísaná ako číslo ukazuje po prehratí inam alebo nikam
+        # (2026-08-19: PREKONANY sa po obnove vrátil ako NOVY). Tvrdenie je
+        # jediné, čo prežije, tak ho zapisujeme vedľa.
+        "nahradza_tvrdenie": (
+            conn.execute("SELECT tvrdenie FROM poznatky WHERE id=?",
+                         (nahradza,)).fetchone() or [None])[0]
+        if nahradza is not None else None})
     return nove_id
 
 
@@ -964,8 +983,14 @@ def navrhy_na_seba(conn: sqlite3.Connection) -> list[dict]:
 
     # 3. Poznatok bez `dosah` je zápis bez dôsledku. Ak ich je veľa, vykladáme
     #    len nazbierané, nie premyslené.
+    # Prekonaný, vyvrátený ani zrušený poznatok už dôsledok mať nemá — je to
+    # história, nie skládka. Bez tejto podmienky sa fronta zasekla na jedinom
+    # nahradenom zázname (#96, 2026-08-19) a pýtala ho doplniť donekonečna,
+    # čím by brána začala rozhodovať, čo sa robí.
     bez_dosahu = conn.execute(
-        "SELECT COUNT(*) AS n FROM poznatky WHERE dosah IS NULL OR TRIM(dosah)=''"
+        "SELECT COUNT(*) AS n FROM poznatky "
+        "WHERE (dosah IS NULL OR TRIM(dosah)='') "
+        "AND stav NOT IN ('PREKONANY','VYVRATENY','ZRUSENY')"
     ).fetchone()["n"]
     if bez_dosahu:
         navrhy.append({
