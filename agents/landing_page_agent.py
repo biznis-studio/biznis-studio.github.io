@@ -827,7 +827,7 @@ cenu dostanete p&iacute;somne po tom, ako pozn&aacute;me rozsah, a už sa nemen&
 plat&iacute;te priamo poskytovateľovi (dom&eacute;na, hosting, jazykov&yacute; model pri chatbote),
 v cene nie s&uacute; - nechceme ich mať cez seba, aby ste neboli na n&aacute;s viazan&iacute;.</p>
 <p><strong>Ak sa v&aacute;m rozpočet a rozsah nestret&aacute;vaj&uacute;</strong>, povieme to a
-navrhneme, čo vynechať. Menšia vec sprav&eacute;n&aacute; poriadne je lepšia než veľk&aacute; sprav&eacute;n&aacute; polovične.</p>
+navrhneme, čo vynechať. Menšia vec spraven&aacute; poriadne je lepšia než veľk&aacute; spraven&aacute; polovične.</p>
 
 <div class="card">
 <h2>Rozsah m&aacute;te nap&iacute;san&yacute; e&scaron;te pred podpisom</h2>
@@ -856,8 +856,8 @@ udr&zcaron;iavať v&aacute;&scaron; človek. Úpravy vieme robiť aj my za pevn&
 prípadne v&aacute;m postav&iacute;me administračn&yacute; panel - dohodneme to vopred, nie potom.</li>
 <li><strong>Ak sa niečo ned&aacute; spraviť poriadne, povieme to skôr, ne&zcaron; začneme.</strong>
 Aj keď to znamen&aacute; men&scaron;iu zák&aacute;zku alebo odporúčanie na niekoho in&eacute;ho -
-ilustr&aacute;tora, tlačiareň, špecialistu na e-shopy. Men&scaron;ia vec sprav&eacute;n&aacute;
-poriadne je lep&scaron;ia ne&zcaron; veľk&aacute; sprav&eacute;n&aacute; polovične.</li>
+ilustr&aacute;tora, tlačiareň, špecialistu na e-shopy. Men&scaron;ia vec spraven&aacute;
+poriadne je lep&scaron;ia ne&zcaron; veľk&aacute; spraven&aacute; polovične.</li>
 </ul>
 
 <div class="card">
