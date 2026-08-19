@@ -341,3 +341,8 @@ template sentence survived; it runs after every merge, before the build.
   schválené", kým na webe bolo šesť preklepov s bežnými písmenami (vyjšť,
   sámi, zákázku, napríšklad, nevypnáte, Kež, ponúky). `aspell --lang=sk` ich
   našiel všetky naraz. Skôr než postavíš náhradu, over, či nástroj existuje.
+- **Nauč raz → pomenovaná rutina.** Meranie rozloženia som 19. 8. robil trikrát
+  ručne a zakaždým inak; štyri „nálezy" boli omyly metódy. Rutina je uložená
+  v `scripts/meranie_rozlozenia.js` aj s tým, čo sa merať NESMIE (obdĺžniky
+  Range, výšky buniek tabuliek) a s pripomienkou, že pri vizuálnej otázke
+  rozhoduje snímka.
