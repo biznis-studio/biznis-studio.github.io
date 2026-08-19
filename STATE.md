@@ -188,6 +188,21 @@ ktorých základ je zapísaný pred zásahom a už sa nedá prepísať.
 
 ## Čo čaká na rozhodnutie majiteľa
 
+0a. **Zapísať štúdio do Zoznam.sk?** Dnes na nás nevedie ani jeden odkaz,
+   ktorý by prenášal váhu: v HTML, ktoré GitHub servíruje Googlebotovi, sú
+   oba odkazy na náš web `rel=nofollow` (tretí, bez nofollow, dorobí až
+   JavaScript). To je časť príčiny, prečo je Discovery 0 %.
+   Overil som dva katalógy a **nie sú zameniteľné**: Azet.sk zobrazuje web
+   firmy len ako text, bez `<a href>` — nedáva nič. Zoznam.sk vydáva
+   23 obyčajných `<a href>` bez `rel` v jedinej mestskej kategórii, priamo
+   v HTML zo servera.
+   **Nerobím to sám:** registrácia je založenie účtu a vystúpenie navonok.
+   Cenu ani podmienky zápisu som neoveroval — to je ďalší krok, ak to
+   majiteľ chce.
+   *Vyvrátiteľné:* ak do 14 dní od zápisu Search Console neukáže žiadnu
+   zmenu v crawl requests ani v Discovery, odkaz z katalógu nie je páka
+   a ďalšie katalógy nemá zmysel riešiť.
+
 0b. **Napísať do packu spúšťač prechodu na koniec?** Pack 0.5.0 už má päť
    koncov vrátane `ODOVZDAJ ČLOVEKU` a `ZASTAV` — S8 aj S9 na ňom bežali a po
    tej ceste nešli. Nechýba koniec, chýba **podmienka, kedy sa naň prejde**:
