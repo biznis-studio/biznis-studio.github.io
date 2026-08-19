@@ -1261,8 +1261,13 @@ that keeps costing you</a></p>
 """ + (contact_form_html() if FORMSPREE_ENDPOINT else "") + """"""
     SITE_DIR.mkdir(parents=True, exist_ok=True)
     (SITE_DIR / "index.html").write_text(page_shell(
-        "Biznis - Design, Websites, Custom Digital Products & Automation",
-        "Digital studio: brand identity and design, websites and chatbots, digital products built to your brief, and automation. Plus free tools.",
+        # Titulok a popis su to jedine, co sa zobrazi vo vysledku vyhladavania,
+        # a domovska je jedna z dvoch stranok, ktore Google vobec indexuje.
+        # Do 2026-08-19 tam bol zoznam sluzieb, ktory nas nerozlisoval od
+        # kazdej inej agentury; rozdiel ("AI, ktorej vystup sa da overit") bol
+        # az druhy nadpis na stranke. Sluzby zostavaju v obsahu aj v h1.
+        "AI your team can actually check - and websites, design, automation | Biznis",
+        "We make one company process checkable: the answer says where it came from and what it could not confirm. Plus websites, design, chatbots and automation.",
         body,
         is_index=True,
     ))

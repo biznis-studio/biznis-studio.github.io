@@ -864,8 +864,12 @@ SEO_TITULKY = {
         "7 places worth reading if you freelance",
     "blog/telling-clients-rate-increase.html":
         "How to tell a client you are raising your rates",
+    # Domovska je jedna z dvoch stranok, ktore Google vobec indexuje, takze
+    # tento titulok je prakticky cela nasa pritomnost vo vysledkoch. Do
+    # 2026-08-19 to bol zoznam sluzieb; teraz vedie rozdiel, ktory mame ako
+    # jedini, a sluzby zostavaju za nim.
     "index.html":
-        "Biznis - websites, automation and company AI",
+        "AI your team can check - websites, design and automation | Biznis",
     "sk/preco-zamestnanci-prestanu-pouzivat-ai.html":
         "Pre\u010do zamestnanci prestan\u00fa pou\u017e\u00edva\u0165 AI vo firme",
     "tools/machinery-regulation-digital-instructions.html":
