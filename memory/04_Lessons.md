@@ -330,3 +330,9 @@ template sentence survived; it runs after every merge, before the build.
   pixely snímky nie sú CSS pixely (DPR 2); výška bunky tabuľky nie je výška jej
   textu. **Pri vizuálnej otázke rozhoduje snímka obrazovky, nie odvodené
   číslo.** Štyri falošné poplachy 19. 8. v jednej relácii.
+- Ručne písaný zápis písmena v zdrojáku (`&eacute;`, `ď`) vyrobí iné
+  slovo a zdroj pritom vyzerá správne — grep na správne slovo ho nájde, hoci
+  stránka nesie preklep. Dvakrát za dva dni (19. 8.: „spravéná", „Zaďanie").
+  Bránou je `scripts/kontrola_slovenciny.py` nad **postavenými** stránkami.
+  Pozor pri zapájaní: `audit_site.py` má v CI `|| true`, takže neblokuje,
+  a `build_site.py` v CI vôbec nebeží — CI spúšťa `run_pipeline.py`.
