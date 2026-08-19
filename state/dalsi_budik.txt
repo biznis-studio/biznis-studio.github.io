@@ -1,1 +1,1 @@
-2026-08-19 09:00 — dobehnúť sadu na štruktúrovanom packu (S8, S9 najskôr — overia, či sploštenie zmenilo výsledky); S17 z 19.8. čaká na hodnotenie v čistom kontexte
+2026-08-19 09:00 — dobehnúť S9 (rozhodne o kóde Z8) na štruktúrovanom packu, protokol: pack+zadanie v jednej správe

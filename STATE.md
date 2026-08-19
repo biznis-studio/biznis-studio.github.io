@@ -75,6 +75,25 @@ a všetkých päť koncov (`POKRAČUJ`, `ZOPAKUJ`, `OBÍDI`, `ODOVZDAJ ČLOVEKU`
 ktorý sa vydáva. Či to zmenilo výsledky, sa nevie — zistí sa jedine dobehnutím.
 Záloha pôvodného je v `localStorage.__pack_zaloha_2026_08_19`.
 
+## Sada — dobehnuté 2026-08-19, nehodnotené
+
+Dva behy na vyčistenom a štruktúrovanom packu. **Hodnotenie zámerne chýba** —
+spustil ich ten istý, kto by ich hodnotil. Prepisy sú v
+`~/Desktop/quality-packs/tests/vysledky/2026-08-19_S{8,17}_nehodnotene.md`.
+
+**Tretia chyba vstupu, nájdená pri S17:** keď model dostane pack ako samostatnú
+prvú správu, **vytiahne si z neho názov kategórie a spracuje ho ako sťažnosť**.
+Pri S17 odpovedal na vetu „Hrúbka steny mimo tolerancie", ktorú nikto neposlal.
+Odvtedy idú pack a zadanie v jednej správe — pri S8 sa to už nestalo.
+
+**Čo hovorí S8 o mojej vlastnej hypotéze:** tvrdil som, že sploštenie packu
+mohlo spôsobiť zlyhania. Na S8 **nespôsobilo**. Chýbajúca dopredu-akcia
+(kód `Z9`) pretrvala aj po odstránení oboch chýb vstupu — teplota správne
+NEOVERENÁ, nič si nedopísal, ale nepovedal, čo začať zapisovať.
+Označenie stavu kroku sa zmenilo z nesprávneho `POKRAČUJ` na **žiadne**.
+
+Zostáva dobehnúť S9 — ten rozhodne o kóde `Z8`.
+
 ## Viditeľnosť vo vyhľadávaní — meraním 2026-08-18
 
 Toto je momentálne najtvrdšia hrana: web je hotový a nikto ho nevidí.
