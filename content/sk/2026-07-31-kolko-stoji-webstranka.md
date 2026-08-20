@@ -24,8 +24,7 @@ ich overiť sami:
 
 Zdroje, kde tie rozpätia nájdete zverejnené:
 [neonrocket.sk](https://neonrocket.sk/blog/tvorba-web-stranok-cena-kolko-stoji-web-v-roku-2026/),
-[tomarco.sk](https://tomarco.sk/kolko-stoji-webova-stranka/),
-[web-star.sk](https://www.web-star.sk/tvorba-web-stranok-kolko-stoji-web-2026/).
+[tomarco.sk](https://tomarco.sk/kolko-stoji-webova-stranka/).
 Rozpätia sa medzi zdrojmi líšia — preto sú to rozpätia a nie jedna cena.
 
 Rozdiel medzi 600 € a 3 000 € nie je „kvalita dizajnu“. Je to takmer vždy
