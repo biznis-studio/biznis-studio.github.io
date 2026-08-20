@@ -350,7 +350,144 @@ OPLATI_SA_WIDGET = """
 </script>
 """
 
+
+ZAPIS_WIDGET = """
+<div class="widget">
+  <div>
+    <label for="uloha">Ktorá úloha sa nasadzuje</label>
+    <input id="uloha" type="text" placeholder="napríklad: odpovede na reklamácie">
+  </div>
+  <div class="widget-row">
+    <div>
+      <label for="minuty">Koľko minút zaberie jeden prípad <em>dnes</em></label>
+      <input id="minuty" type="number" min="1" step="1" value="25">
+    </div>
+    <div>
+      <label for="opravy">Koľko z posledných 20 prípadov sa muselo opraviť</label>
+      <input id="opravy" type="number" min="0" max="20" step="1" value="3">
+    </div>
+  </div>
+  <div class="widget-row">
+    <div>
+      <label for="mesiace">Za koľko mesiacov sa rozhodne</label>
+      <input id="mesiace" type="number" min="1" max="12" step="1" value="2">
+    </div>
+    <div>
+      <label for="kto">Kto rozhodne</label>
+      <input id="kto" type="text" placeholder="meno alebo rola">
+    </div>
+  </div>
+  <div id="zapis" class="widget-out"></div>
+  <p class="widget-note">Nič sa nikam neodosiela. Zápis vzniká vo vašom
+  prehliadači a zostáva len vám.</p>
+</div>
+<script>
+(function () {
+  var ids = ["uloha", "minuty", "opravy", "mesiace", "kto"];
+  var pole = ids.map(function (i) { return document.getElementById(i); });
+  var out = document.getElementById("zapis");
+
+  function dvojcifer(n) { return (n < 10 ? "0" : "") + n; }
+
+  function datumOd(mesiacov) {
+    var d = new Date();
+    d.setMonth(d.getMonth() + mesiacov);
+    return d.getFullYear() + "-" + dvojcifer(d.getMonth() + 1) + "-" + dvojcifer(d.getDate());
+  }
+
+  function dnes() {
+    var d = new Date();
+    return d.getFullYear() + "-" + dvojcifer(d.getMonth() + 1) + "-" + dvojcifer(d.getDate());
+  }
+
+  function prepocitaj() {
+    var uloha = pole[0].value.trim() || "(doplňte úlohu)";
+    var minuty = parseFloat(pole[1].value);
+    var opravy = parseFloat(pole[2].value);
+    var mesiace = parseInt(pole[3].value, 10);
+    var kto = pole[4].value.trim() || "(doplňte meno)";
+
+    if (isNaN(minuty) || isNaN(opravy) || isNaN(mesiace)) {
+      out.innerHTML = "<p>Doplňte čísla.</p>";
+      return;
+    }
+
+    var podiel = Math.round(opravy / 20 * 100);
+    var prah = Math.floor(podiel / 2);
+    var termin = datumOd(mesiace);
+
+    var html = "";
+    html += "<p class=\'widget-big\'>Zápis pred nasadením</p>";
+    html += "<p><strong>Úloha:</strong> " + uloha + "<br>";
+    html += "<strong>Zapísané dňa:</strong> " + dnes() + "<br>";
+    html += "<strong>Rozhodne:</strong> " + kto + " dňa " + termin + "</p>";
+    html += "<p><strong>1. Koľko to trvá teraz:</strong> " + minuty + " minút na prípad";
+    html += " (odmerané, nie odhadnuté).</p>";
+    html += "<p><strong>2. Podiel opráv teraz:</strong> " + opravy + " z 20 prípadov, teda ";
+    html += podiel + " %.</p>";
+    html += "<p><strong>3. Čo bude znamenať, že to nefunguje:</strong> ";
+    if (podiel > 1) {
+      html += "Ak do " + termin + " podiel opráv neklesne pod " + prah + " %, ";
+      html += "vraciame sa k pôvodnému postupu.</p>";
+    } else {
+      // Pri nulovom podiele opráv by prah vyšiel 0 % a takú podmienku nemožno
+      // splniť. Podmienka sa vtedy opiera o druhé vlastné číslo firmy — čas.
+      var casPrah = Math.max(1, Math.round(minuty / 2));
+      html += "Ak do " + termin + " čas na jeden prípad neklesne pod " + casPrah;
+      html += " minút, vraciame sa k pôvodnému postupu.</p>";
+    }
+    html += "<p><strong>V ten deň sú tri možné odpovede:</strong> pokračujeme &middot; ";
+    html += "meníme jednu vec a meriame znovu &middot; končíme.</p>";
+    if (podiel === 0) {
+      html += "<p><em>Podiel opráv vyšiel 0 %. Buď je úloha už spoľahlivá a AI ";
+      html += "na nej nemá čo zlepšiť, alebo sa chyby nezapisujú.</em></p>";
+    }
+    out.innerHTML = html;
+  }
+
+  pole.forEach(function (el) {
+    el.addEventListener("input", prepocitaj);
+  });
+  prepocitaj();
+})();
+</script>
+"""
+
 TOOLS = [
+    {
+        "slug": "zapis-pred-nasadenim-ai",
+        "lang": "sk",
+        "title": "Zápis pred nasadením AI",
+        "description": ("Bezplatný formulár: tri čísla a jedna veta, ktoré si máte "
+                        "zapísať PRED nasadením AI, aby sa dalo o dva mesiace "
+                        "povedať, či to fungovalo."),
+        "intro": ("Po nasadení sa už pôvodný stav nedá zmerať — pamäť je zhovievavá "
+                  "k tomu, čo práve robíme. Tento zápis vznikne za pätnásť minút "
+                  "a je jediná vec, ktorá vám o dva mesiace dovolí projekt "
+                  "ukončiť namiesto donekonečna odkladať rozhodnutie."),
+        "widget": ZAPIS_WIDGET,
+        "after": ("<h2>Prečo práve tieto tri</h2>"
+                  "<p>Prvé číslo je čas na jeden prípad, <strong>odmeraný na piatich "
+                  "prípadoch stopkami</strong>. Nie odhad: odhad sa robí po pamäti a "
+                  "pamäť nadhodnocuje to, čo nás práve otravuje.</p>"
+                  "<p>Druhé je podiel opráv z posledných dvadsiatich prípadov. Je "
+                  "dôležitejšie než čas, lebo chyby stoja viac než minúty — a čas sa "
+                  "dá „ušetriť“ aj tak, že výstup nikto neskontroluje.</p>"
+                  "<p>Tretie nie je číslo, ale veta: <strong>čo bude znamenať, že to "
+                  "nefunguje</strong>. Tú nikto nepíše, a pritom je jediná, ktorá "
+                  "dovolí zlyhanie priznať. Bez nej sa rozhodnutie len odkladá a "
+                  "projekt žije z vlastnej zotrvačnosti.</p>"
+                  "<h2>Čo tento formulár NEROBÍ</h2>"
+                  "<p>Nepovie vám, či sa nasadenie oplatí — to spočíta "
+                  "<a href=\"oplati-sa-nasadit-ai.html\">kalkulačka</a>. Tento zápis "
+                  "rieši, čo bude <em>potom</em>: aby o dva mesiace existoval stav, "
+                  "s ktorým sa dá porovnať. Prah v podmienke ukončenia je polovica "
+                  "vášho dnešného podielu opráv — je to návrh, nie norma, a máte ho "
+                  "prepísať podľa toho, čo je pre vás ešte prijateľné.</p>"
+                  "<p>Celý postup aj s tým, čo meraním nie je, je v článku "
+                  "<a href=\"ako-zistite-ci-ai-nieco-priniesla.html\">Ako zistíte, či "
+                  "vám AI naozaj niečo priniesla</a>.</p>"),
+    },
     {
         "slug": "oplati-sa-nasadit-ai",
         "lang": "sk",
@@ -375,6 +512,9 @@ TOOLS = [
                   "a d\u00e1 v\u00e1m vetu, pod\u013ea ktorej to o dva mesiace vyhodnot\u00edte. Rozdiel medzi firmou, "
                   "ktor\u00e1 o rok vie, \u010do jej AI priniesla, a firmou, ktor\u00e1 o tom vedie debatu na "
                   "porade, je pr\u00e1ve t\u00e1 veta.</p>"
+                  "<p>Ke\u010f u\u017e viete, \u017ee sa to r\u00e1ta, zap\u00ed\u0161te si stav pred nasaden\u00edm: "
+                  "<a href=\"zapis-pred-nasadenim-ai.html\">z\u00e1pis pred nasaden\u00edm</a> "
+                  "z troch \u010d\u00edsel zostav\u00ed hotov\u00fd text aj s term\u00ednom.</p>"
                   "<p>Cel\u00fd postup aj s t\u00fdm, \u010do meran\u00edm nie je, je v \u010dl\u00e1nku "
                   "<a href=\"../sk/ako-zistite-ci-ai-nieco-priniesla.html\">Ako zist\u00edte, \u010di v\u00e1m AI "
                   "naozaj nie\u010do priniesla</a>.</p>"),

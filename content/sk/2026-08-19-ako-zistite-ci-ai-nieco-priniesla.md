@@ -39,7 +39,9 @@ Dôvera nie je nálada. Je to dôsledok toho, že sa niečo dá skontrolovať.
 ## Tri čísla, ktoré si zapíšte pred začiatkom
 
 Nemusí to byť projekt ani tabuľka. Stačí papier a pätnásť minút, ale
-**musí to byť pred nasadením**:
+**musí to byť pred nasadením**. Ak nechcete začínať od prázdneho papiera,
+[zápis pred nasadením](https://biznis-studio.github.io/sk/zapis-pred-nasadenim-ai.html) vám z týchto troch čísel
+zostaví hotový text aj s termínom — nič sa pritom nikam neodosiela:
 
 1. **Koľko to trvá teraz.** Odmerajte päť prípadov stopkami. Nie odhad —
    odhad sa robí po pamäti, a pamäť je zhovievavá k tomu, čo práve robíme.

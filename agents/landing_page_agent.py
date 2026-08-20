@@ -787,6 +787,9 @@ z&aacute;kazn&iacute;kov - s jasne vymedzen&yacute;m rozsahom, aby si nevym&yacu
 <p><a href="oplati-sa-nasadit-ai.html"><strong>Kalkula&ccaron;ka zadarmo:</strong>
 oplat&iacute; sa na t&uacute;to &uacute;lohu nasadi&#357; AI?</a> - spo&ccaron;&iacute;ta, ko&#318;ko t&aacute; &uacute;loha
 stoj&iacute; ro&ccaron;ne, a nap&iacute;&scaron;e v&aacute;m podmienku ukon&ccaron;enia e&scaron;te pred nasaden&iacute;m.</p>
+<p><a href="zapis-pred-nasadenim-ai.html"><strong>Z&aacute;pis pred nasaden&iacute;m zadarmo:</strong>
+tri &ccaron;&iacute;sla a jedna veta</a> - vyplnite&#318;n&yacute; z&aacute;znam stavu pred nasaden&iacute;m, aby sa
+o dva mesiace dalo poveda&#357;, &ccaron;i to fungovalo. Ni&ccaron; sa nikam neodosiela.</p>
 <div class="post-list">SK_ARTICLES</div>
 </div>
 </section>

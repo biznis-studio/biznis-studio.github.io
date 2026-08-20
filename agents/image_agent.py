@@ -142,6 +142,8 @@ QUERIES = {
         "calculator pen desk paper"],
     "efaktura-2027-test": ["accounting calculator receipts", "bookkeeping ledger calculator desk",
         "financial documents spreadsheet desk"],
+    "zapis-pred-nasadenim-ai": ["blank notebook pen desk", "handwriting notes paper desk",
+        "clipboard checklist pen"],
     "ako-zistite-ci-ai-nieco-priniesla": ["measuring tape ruler close up",
         "stopwatch timer hand", "scales balance weighing"],
     "preco-zamestnanci-prestanu-pouzivat-ai": ["empty office desk laptop closed",
