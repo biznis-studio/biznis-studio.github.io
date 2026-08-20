@@ -7,9 +7,10 @@ si ju musí prečítať, overiť a opraviť. A práve tam sa úspora stráca.
 ## Čísla, ktoré to pomenovali
 
 Slovenské médiá o tom písali na jar 2026 a dali tomu meno:
-**verifikačná ekonomika**. Bežní zamestnanci uvádzajú úsporu okolo
-3,6 hodiny týždenne — a kontrola výstupov im z toho zoberie takmer
-štyri hodiny. Čistý efekt vychádza mierne **záporne**.
+**verifikačná ekonomika**. Vychádzajú z výskumu spoločnosti Foxit.
+Bežní zamestnanci v ňom uvádzajú úsporu okolo 3,6 hodiny týždenne —
+a kontrola výstupov im z toho zoberie 3 hodiny a 50 minút. Čistý efekt
+je **mínus 14 minút týždenne**.
 
 Neuvádzame to ako vlastné meranie a ani ho nemáme. Sú to zistenia,
 ktoré si viete prečítať sami — napríklad na

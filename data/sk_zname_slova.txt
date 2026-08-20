@@ -13,6 +13,7 @@ EPS
 ERP
 English
 Exceli
+Foxit
 Freelancer
 GitHub
 Googli
