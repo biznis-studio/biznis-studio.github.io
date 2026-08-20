@@ -207,6 +207,13 @@ def dopln_dosah(conn: "sqlite3.Connection", *, tvrdenie_zaciatok: str,
         raise ChybaEvolucie(
             f"začiatok tvrdenia {tvrdenie_zaciatok!r} sedí na {len(r)} poznatkov; "
             "musí sedieť práve na jeden")
+    # Idempotencia. Bez nej sa obnova zacyklila do seba: prehratie zapísalo
+    # nový záznam, ktorý ďalšie prehratie zase prehralo. Za jeden deň to
+    # z 18 doplnení spravilo 589 840 riadkov a 153 MB (2026-08-20).
+    teraz = conn.execute("SELECT dosah FROM poznatky WHERE id = ?",
+                         (r[0][0],)).fetchone()[0]
+    if (teraz or "") == (dosah or ""):
+        return r[0][0]
     conn.execute("UPDATE poznatky SET dosah = ? WHERE id = ?", (dosah, r[0][0]))
     conn.commit()
     _zapis_do_dennika("dosah", {"tvrdenie_zaciatok": tvrdenie_zaciatok, "dosah": dosah})

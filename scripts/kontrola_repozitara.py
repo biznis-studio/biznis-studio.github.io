@@ -70,9 +70,37 @@ def sledovane_subory() -> list[Path]:
             if Path(p).suffix in PRIPONY and p not in VYNECHANE]
 
 
+# Súbory, ktoré rastú pripisovaním, a strop, pri ktorom je jasné, že rastú
+# zle. Denník evolúcie sa 2026-08-20 nafúkol zo 118 riadkov na 590 022
+# (153 MB), lebo obnova zapisovala záznam, ktorý potom sama znova prehrala.
+# Verzia s 76 MB stihla odísť na verejný origin. Strop je tu preto, aby to
+# druhý raz nikto nezistil až z varovania GitHubu pri pushi.
+STROPY_MB = {"state/evolucia.jsonl": 5.0, "state/evolucia_zaklad.jsonl": 5.0}
+
+
+def prekrocene_stropy() -> list[str]:
+    out = []
+    for rel, strop in STROPY_MB.items():
+        f = ROOT / rel
+        if not f.exists():
+            continue
+        mb = f.stat().st_size / (1024 * 1024)
+        if mb > strop:
+            out.append(f"{rel}: {mb:.1f} MB (strop {strop} MB) — "
+                       f"pravdepodobne sa zapisuje to, čo sa prehráva")
+    return out
+
+
 def main() -> int:
     nalezy: list[str] = []
     dlh: list[str] = []
+
+    velke = prekrocene_stropy()
+    if velke:
+        print("SÚBOR RASTIE MIMO KONTROLY:")
+        for v in velke:
+            print("  " + v)
+        return 1
 
     for cesta in sledovane_subory():
         try:
