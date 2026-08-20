@@ -166,6 +166,9 @@ class ChybaEvolucie(Exception):
 
 DENNIK = Path(__file__).resolve().parent.parent / "state" / "evolucia.jsonl"
 
+# Obsahy záznamov, ktoré v denníku už sú. Načíta sa pri prvom zápise v behu.
+_VIDENE: Optional[set] = None
+
 
 def _zapis_do_dennika(druh_zaznamu: str, data: dict) -> None:
     """Kazdy zapis ide aj do textoveho denníka, riadok po riadku.
@@ -185,17 +188,26 @@ def _zapis_do_dennika(druh_zaznamu: str, data: dict) -> None:
     # ktorý pri prehratí vznikol znova. Idempotenciu má mať každá funkcia
     # zvlášť, ale spoľahnúť sa na to nestačilo.
     telo = json.dumps({"typ": druh_zaznamu, **data}, ensure_ascii=False, sort_keys=True)
-    if DENNIK.exists():
-        for r in DENNIK.read_text(encoding="utf-8").splitlines():
-            if not r.strip():
-                continue
-            try:
-                z = json.loads(r)
-            except ValueError:
-                continue
-            z.pop("kedy", None)
-            if json.dumps(z, ensure_ascii=False, sort_keys=True) == telo:
-                return
+    # Súbor sa číta RAZ za beh, nie raz za zápis. Prvá verzia tejto poistky
+    # (2026-08-20) čítala celý denník pri každom zápise: pri 50 000 riadkoch
+    # stál jeden zápis 117 ms a sto zápisov 11,7 s. Oprava jednej chyby si
+    # vypýtala meranie, inak by nahradila nafukovanie súboru spomalením behu.
+    global _VIDENE
+    if _VIDENE is None:
+        _VIDENE = set()
+        if DENNIK.exists():
+            for r in DENNIK.read_text(encoding="utf-8").splitlines():
+                if not r.strip():
+                    continue
+                try:
+                    z = json.loads(r)
+                except ValueError:
+                    continue
+                z.pop("kedy", None)
+                _VIDENE.add(json.dumps(z, ensure_ascii=False, sort_keys=True))
+    if telo in _VIDENE:
+        return
+    _VIDENE.add(telo)
     riadok = json.dumps({"typ": druh_zaznamu, "kedy": datetime.now(timezone.utc).isoformat(),
                           **data}, ensure_ascii=False, sort_keys=True)
     with DENNIK.open("a", encoding="utf-8") as f:
