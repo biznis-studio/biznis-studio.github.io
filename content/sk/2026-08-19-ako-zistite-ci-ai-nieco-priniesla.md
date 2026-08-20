@@ -1,5 +1,5 @@
 title: Ako zistíte, či vám AI naozaj niečo priniesla
-description: Väčšina firiem to nevie povedať — nie preto, že AI nefunguje, ale preto, že si dopredu nikto nenapísal, čo by znamenalo, že nefunguje.
+description: Ako zmerať prínos AI vo firme: tri čísla, ktoré si zapíšte pred nasadením, a jedna veta, ktorá vám o dva mesiace dovolí projekt ukončiť.
 ---
 Existuje otázka, ktorá rozhodne o osude celého projektu, a väčšina firiem
 si ju položí až o rok. Znie takto: **čo by sme museli vidieť, aby sme
@@ -7,6 +7,9 @@ povedali, že to nefunguje?**
 
 Kto na ňu nemá odpoveď pred začiatkom, nedozvie sa ju ani potom. Nie
 preto, že by výsledok bol zlý — ale preto, že sa nedá porovnať s ničím.
+
+**Zmerať prínos AI vo firme** sa teda nedá spätne. Dá sa len dopredu, a
+stojí to pätnásť minút.
 
 ## Prečo sa to nedozviete spätne
 
