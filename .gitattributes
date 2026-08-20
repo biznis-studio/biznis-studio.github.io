@@ -18,3 +18,9 @@ db/biznis.sqlite3 -diff merge=ours
 
 # Denník je textový a len sa naň pripisuje, takže sa zlúči sám.
 state/evolucia.jsonl merge=union
+
+# Generované súbory, ktoré pipeline prepisuje pri každom behu. Konflikt na
+# nich nikdy nenesie informáciu — obsah sa aj tak vzápätí pregeneruje — ale
+# 2026-08-20 zastavil rebase trikrát a raz nechal repozitár v rozbitom stave.
+site/news/index.html merge=ours
+site/feed.xml merge=ours
