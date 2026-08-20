@@ -69,6 +69,11 @@ def main() -> int:
                 ocakavany_ucinok=z["ocakavany_ucinok"], vratenie=z["vratenie"],
                 datum_revizie=z["datum_revizie"], vrstva=z["vrstva"],
                 zamietnute=z.get("zamietnute"), autorita=z.get("autorita", "stroj"))
+        elif z["typ"] == "dvojica":
+            # Posúdená dvojica je výsledok úsudku, nie odvodený údaj —
+            # bez prehratia by sa po strate databázy vrátila do fronty.
+            ev.zamietni_dvojicu(conn, a_tvrdenie=z["a_tvrdenie"],
+                                b_tvrdenie=z["b_tvrdenie"], dovod=z.get("dovod", ""))
         elif z["typ"] == "dosah":
             # Úprava, nie vznik. Musí sa prehrať PO poznatku, ktorý mení —
             # denník je chronologický, takže poradie sedí samo.

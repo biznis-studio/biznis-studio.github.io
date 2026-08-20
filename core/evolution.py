@@ -624,6 +624,40 @@ def pripoj_k_experimentu(conn: sqlite3.Connection, poznatok_id: int,
     conn.commit()
 
 
+def _zabezpec_tabulku_dvojic(conn: sqlite3.Connection) -> None:
+    """Pamäť posúdených dvojíc. Bez nej sa tá istá dvojica vracia donekonečna.
+
+    2026-08-20: detektor ponúkal 33 dvojíc a nikde sa neukladalo, že som ich
+    už videl a zamietol — takže fronta pýtala rozsúdiť tie isté znova. Hrana,
+    ktorú niekto posúdil ako „toto nie je rozpor", je rovnako platný výsledok
+    ako hrana potvrdená; len ju treba zapísať.
+
+    Kľúčom je TVRDENIE, nie id: id sa pri obnove z denníka menia.
+    """
+    conn.execute("""CREATE TABLE IF NOT EXISTS posudene_dvojice (
+        a_tvrdenie TEXT NOT NULL,
+        b_tvrdenie TEXT NOT NULL,
+        rozhodnutie TEXT NOT NULL,   -- ROZPOR | NIE_JE_ROZPOR
+        dovod TEXT,
+        kedy TEXT NOT NULL,
+        PRIMARY KEY (a_tvrdenie, b_tvrdenie))""")
+    conn.commit()
+
+
+def zamietni_dvojicu(conn: sqlite3.Connection, *, a_tvrdenie: str,
+                     b_tvrdenie: str, dovod: str) -> None:
+    """Zapíše, že dvojica bola posúdená a rozpor to nie je."""
+    _zabezpec_tabulku_dvojic(conn)
+    par = tuple(sorted((a_tvrdenie, b_tvrdenie)))
+    conn.execute(
+        "INSERT OR REPLACE INTO posudene_dvojice "
+        "(a_tvrdenie, b_tvrdenie, rozhodnutie, dovod, kedy) VALUES (?,?,?,?,?)",
+        (par[0], par[1], "NIE_JE_ROZPOR", dovod, _dnes()))
+    conn.commit()
+    _zapis_do_dennika("dvojica", {"a_tvrdenie": par[0], "b_tvrdenie": par[1],
+                                  "rozhodnutie": "NIE_JE_ROZPOR", "dovod": dovod})
+
+
 def mozne_rozpory(conn: sqlite3.Connection, limit: int = 5) -> list[dict]:
     """Dvojice poznatkov o tej istej veci, ktoré si môžu odporovať.
 
@@ -657,10 +691,16 @@ def mozne_rozpory(conn: sqlite3.Connection, limit: int = 5) -> list[dict]:
     def slova(text: str) -> set[str]:
         return {w for w in re.findall(r"\w{5,}", text.lower()) if w not in stop}
 
+    _zabezpec_tabulku_dvojic(conn)
+    uz_posudene = {(r[0], r[1]) for r in conn.execute(
+        "SELECT a_tvrdenie, b_tvrdenie FROM posudene_dvojice")}
+
     dvojice = []
     for i, a in enumerate(riadky):
         sa_ = slova(a["tvrdenie"])
         for b in riadky[i + 1:]:
+            if tuple(sorted((a["tvrdenie"], b["tvrdenie"]))) in uz_posudene:
+                continue
             spolocne = sa_ & slova(b["tvrdenie"])
             if len(spolocne) >= 3:
                 dvojice.append({
