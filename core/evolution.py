@@ -179,6 +179,23 @@ def _zapis_do_dennika(druh_zaznamu: str, data: dict) -> None:
     prehratie nic nezduplikuje.
     """
     DENNIK.parent.mkdir(parents=True, exist_ok=True)
+    # Poistka proti sebe samému. Zápis s rovnakým OBSAHOM (bez času) už
+    # v denníku byť nemusí druhýkrát — a práve tým, že tam bol, sa denník
+    # 2026-08-20 dvakrát nafúkol na desiatky MB: obnova prehrala zápis,
+    # ktorý pri prehratí vznikol znova. Idempotenciu má mať každá funkcia
+    # zvlášť, ale spoľahnúť sa na to nestačilo.
+    telo = json.dumps({"typ": druh_zaznamu, **data}, ensure_ascii=False, sort_keys=True)
+    if DENNIK.exists():
+        for r in DENNIK.read_text(encoding="utf-8").splitlines():
+            if not r.strip():
+                continue
+            try:
+                z = json.loads(r)
+            except ValueError:
+                continue
+            z.pop("kedy", None)
+            if json.dumps(z, ensure_ascii=False, sort_keys=True) == telo:
+                return
     riadok = json.dumps({"typ": druh_zaznamu, "kedy": datetime.now(timezone.utc).isoformat(),
                           **data}, ensure_ascii=False, sort_keys=True)
     with DENNIK.open("a", encoding="utf-8") as f:
@@ -649,6 +666,15 @@ def zamietni_dvojicu(conn: sqlite3.Connection, *, a_tvrdenie: str,
     """Zapíše, že dvojica bola posúdená a rozpor to nie je."""
     _zabezpec_tabulku_dvojic(conn)
     par = tuple(sorted((a_tvrdenie, b_tvrdenie)))
+    # Idempotencia, rovnako ako pri dopln_dosah(). Bez nej obnova prehrá zápis,
+    # ktorý sama vyrobila: 2026-08-20 z 12 dvojíc 12 288 riadkov. Túto chybu
+    # som v ten deň spravil DVAKRÁT, raz pri dosahu a raz tu — pravidlo
+    # nestačí, musí byť v kóde.
+    uz = conn.execute(
+        "SELECT rozhodnutie FROM posudene_dvojice WHERE a_tvrdenie=? AND b_tvrdenie=?",
+        (par[0], par[1])).fetchone()
+    if uz is not None and uz[0] == "NIE_JE_ROZPOR":
+        return
     conn.execute(
         "INSERT OR REPLACE INTO posudene_dvojice "
         "(a_tvrdenie, b_tvrdenie, rozhodnutie, dovod, kedy) VALUES (?,?,?,?,?)",
