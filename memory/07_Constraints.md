@@ -45,6 +45,12 @@ the gate and delete it from here** (`CLAUDE.md` lists what is enforced).
   Microsoft 365 session and credentials for our GitHub. A skill list on X is a
   claim, not a verification — "live-verified" is the author's word, and our own
   rule is to re-check against the primary source before acting.
+- **Validate a new gate on data it was not built from.** Seeding a gate's
+  allow-list from the same pages it guards proves nothing — the improvement can
+  be fitted to those pages. Keep three sets apart: what you diagnosed on, a
+  held-out set for validation, and a regression set. The Slovak gate passed this
+  on 2026-08-20 (6 326 held-out words, 2 non-words flagged), but only because
+  someone checked.
 - **Before building a substitute, check whether the real tool is already here.**
   A hand-rolled Slovak check reported "all approved" while six typos sat on the
   live site; `aspell --lang=sk` was installed the whole time and found them all.
