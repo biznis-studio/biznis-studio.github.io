@@ -193,13 +193,16 @@ ktorých základ je zapísaný pred zásahom a už sa nedá prepísať.
 `application/xml`, platné XML, 45 a 12 URL. So `Last read` prázdnym a `Type: Unknown`
 to znamená, že Google ich ešte nikdy neprečítal. Strana servera je vylúčená.
 
-*Zmerané 20. 8.:* ľudské objavenie je nulové na OBOCH plochách naraz.
-Web má 2 indexované stránky a 0 externých odkazov; repozitár mal za
-14 dní **5 unikátnych návštevníkov** (referrer: github.com 4, Google 1).
-Oproti tomu 524 klonov od 175 zdrojov, pričom náš pipeline mal 72 behov —
-zvyšok je automatizovaný zber, ktorého výstupom sú tri predajné maily
-majiteľovi. Tento bod teda nie je jedna z možností, ale **jediná otvorená
-cesta k prvému človeku**.
+*Zmerané 20. 8. a VZÁPÄTÍ OPRAVENÉ.* Najprv: web má 2 indexované stránky,
+0 externých odkazov, repozitár 5 unikátnych návštevníkov za 14 dní oproti
+524 klonom od 175 zdrojov (automatizovaný zber, výstupom sú predajné maily).
+**Potom priamy test v SERPe ukázal, že „2 indexované" je nepravda:**
+Google na doslovné vety vracia najmenej **4 slovenské stránky**, prehľadané
+„pred 3 dňami" a „pred 4 dňami". Search Console zaostáva **13 dní**
+(graf končí 7. 8.). Sme v indexe a Google nás prehľadáva priebežne.
+Viazaná veličina teda **nie je indexácia, ale dopyt** — nikto nehľadá vety,
+ktoré máme. Zápis do katalógu preto nie je cesta k indexácii, ale
+k autorite a k odkazu; zostáva rozumný, ale prestáva byť jediný.
 
 0a. **Zoznam.sk — ROZHODNUTÉ (áno), čaká na jediný úkon majiteľa.**
    Formulár: <https://www.zoznam.sk/pridaj/> · URL na zápis:
