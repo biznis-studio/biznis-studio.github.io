@@ -1,5 +1,7 @@
-2026-08-20 18:20 — ďalší ťah: zvyšné hypotézy z fronty + podklad k bodu 0a (jediná cesta k prvému človeku)
-2026-08-20 — Search Console: denná kontrola HOTOVÁ (Indexed 2, Not indexed 0, nezmenené)
+2026-08-20 19:30 — ďalší ťah: zvyšné dvojice vo fronte (21) + hypotéza z #104
+ČAKÁ NA MAJITEĽA: IČO a adresa sídla pre zápis do Zoznam.sk (základný profil je zadarmo, plný 179 €/rok neodporúčam)
+2026-08-20 — Search Console: denná kontrola HOTOVÁ (Indexed 2, Not indexed 0)
 2026-08-21 09:00 — Search Console: ďalšia denná kontrola
 2026-08-22 09:00 — domerať experiment #5 (Last read na sitemape), #3 a #4
-2026-09-03 — revízia domnienky #17 (vyvrátená 20. 8.: repozitár ľudské objavenie neprináša)
+2026-09-03 — revízia domnienok #17 (vyvrátená) a #18 (vyvrátená)
+2026-11-20 — revízia rozhodnutia neprepisovať verejnú históriu gitu
