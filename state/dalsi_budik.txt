@@ -1,4 +1,5 @@
-2026-08-20 07:46 — ďalší ťah: overiť zvyšné publikované tvrdenia proti primárnym zdrojom (ako Foxit)
+2026-08-20 18:20 — ďalší ťah: zvyšné hypotézy z fronty + podklad k bodu 0a (jediná cesta k prvému človeku)
 2026-08-20 — Search Console: denná kontrola HOTOVÁ (Indexed 2, Not indexed 0, nezmenené)
 2026-08-21 09:00 — Search Console: ďalšia denná kontrola
 2026-08-22 09:00 — domerať experiment #5 (Last read na sitemape), #3 a #4
+2026-09-03 — revízia domnienky #17 (vyvrátená 20. 8.: repozitár ľudské objavenie neprináša)
