@@ -12,6 +12,7 @@ Aktualizované: **2026-08-18** (večerný beh)
 
 | Vec | Stav | Ďalší krok |
 |---|---|---|
+| **Schopnosť dodať to, čo sľubujeme** | **najvážnejšia otvorená vec (20. 8.)** — posudok za 490 € vieme dodať (metóda + pack + nástroje na krok 1 a 7); nasadenie za 2 400 € stojí na runtime Copilot Studio + Dataverse, ktorý je **BLOKOVANÝ a nikdy nebežal** (chýba pracovný tenant). Pack je nevydaný (NEVYHOVEL S8, S9) a pokrýva jednu profesiu. | buď ten beh otestovať, alebo sľub na webe zúžiť na overené — **rozhodnutie majiteľa, čo predávame** |
 | Akceptačná sada packu | **doterajšie výsledky sú v otázke** — pack v `localStorage` niesol 1 736 znakov textu rozhrania, takže behy od 17. 8. netestovali postavený artefakt | pack vyčistený 19. 8.; sadu dobehnúť znovu, hodnotí niekto iný než ten, kto ju spustil |
 | Taxonómia Z1–Z9 | **diera zaplnená 2026-08-19** — `Z8` nenavrhol rozhodujúci test, `Z9` chýba dopredu-akcia | konce v packu **existujú** (`ZASTAV`, `ODOVZDAJ ČLOVEKU`); chýba **spúšťač prechodu na ne**. A pri S9 je pod tým ešte diera medzi ČASŤOU I a II — 6 príčin zo 125 je pri reklamácii nedosiahnuteľných |
 | Pack v0.5.0 | **NEVYDANÝ** — `vydane: false` v MANIFESTe | až po 17/17; každý dnešný výsledok je 1 beh, nie 5/5 |
