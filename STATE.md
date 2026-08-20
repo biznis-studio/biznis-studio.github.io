@@ -201,6 +201,21 @@ zvyšok je automatizovaný zber, ktorého výstupom sú tri predajné maily
 majiteľovi. Tento bod teda nie je jedna z možností, ale **jediná otvorená
 cesta k prvému človeku**.
 
+0a. **Zoznam.sk — ROZHODNUTÉ (áno), čaká na jediný úkon majiteľa.**
+   Formulár: <https://www.zoznam.sk/pridaj/> · URL na zápis:
+   `https://biznis-studio.github.io/sk/` · bez účtu, bez osobných údajov,
+   len URL a štyri zaškrtnutia.
+   **Štyri kritériá overené 20. 8.:** 12/12 slovenských stránok vracia 200,
+   crawl audit prechádza, nikde žiadna časť „vo výstavbe" ani zástupný text,
+   obsah je pre slovenského čitateľa (10 článkov + 2 nástroje zadarmo).
+   **Prečo to nespravím sám:** odoslanie formulára a vystúpenie navonok
+   vyžaduje výslovné áno majiteľa pre konkrétny úkon.
+   *Vyvrátiteľné:* ak sa do 14 dní od zápisu nepohnú crawl requests ani
+   Discovery, katalógové odkazy nie sú páka a ďalšie neriešime.
+
+   *(Pôvodná otázka „zapísať sa?" nižšie je zodpovedaná; ponechané kvôli
+   dôkazom, o ktoré sa rozhodnutie opiera.)*
+
 0a. **Zapísať štúdio do Zoznam.sk?** Dnes na nás nevedie ani jeden odkaz,
    ktorý by prenášal váhu: v HTML, ktoré GitHub servíruje Googlebotovi, sú
    oba odkazy na náš web `rel=nofollow` (tretí, bez nofollow, dorobí až
