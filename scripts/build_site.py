@@ -108,6 +108,7 @@ def main(fast: bool = False) -> int:
     conn.close()
 
     # 4. Everything that is not a product page.
+    lpa.build_catalogue_index([dict(p) for p in pages])
     lpa.build_index([dict(p) for p in pages], stats=stats)
     lpa.build_sk_page()
     lpa.build_efa_tool()

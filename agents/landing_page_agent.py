@@ -102,9 +102,9 @@ def footer_html(is_index: bool, lang: str) -> str:
     pre = "" if is_index else "../"
     return (f'<footer><a class="brand" href="{pre}index.html">{BRAND_HTML}</a>'
             f'<span>Built in public from real demand signals.</span>'
-            f'<a href="{pre}index.html">Products</a>'
+            f'<a href="{pre}index.html#cennik">Pricing</a>'
             f'<a href="{pre}tools/index.html">Free tools</a>'
-            f'<a href="{pre}news/index.html">Signals</a>'
+            f'<a href="{pre}products/index.html">Catalogue</a>'
             f'<a href="{pre}blog/index.html">Blog</a>'
             f'<a href="{pre}sk/index.html">Slovensky</a>'
             f'<a href="{pre}credits.html">Photo credits</a>'
@@ -1165,6 +1165,53 @@ spending anyone else's bandwidth either.</p>
         body, is_index=True, canonical_path="credits.html"))
 
 
+def build_catalogue_index(pages: list[dict]) -> None:
+    """Katalóg dostane vlastnú stránku.
+
+    Do 2026-08-20 boli produkty vypísané len na domovskej. Keď majiteľ
+    rozhodol, že anglická strana má niesť tú istú ponuku ako slovenská,
+    katalóg z domovskej odišiel — a bez tejto stránky by sa 19 stránok stalo
+    nedostupnými. Rozhodnutie znelo „stránky zostanú funkčné", nie „zmiznú".
+    """
+    produkty = [x for x in pages if x["format"] != "service"]
+    if not produkty:
+        return
+    platene = [x for x in produkty if x.get("monetization_url")]
+    volne = [x for x in produkty if not x.get("monetization_url")]
+
+    def mriezka(zoznam: list[dict]) -> str:
+        return "\n".join(
+            f'<a class="product-card" href="{Path(x["url"]).name}">'
+            f'{card_art(Path(x["url"]).stem, x["title"], depth=1)}'
+            f'{format_badge_html(x["format"])}'
+            f'<h3>{html.escape(x["title"])}</h3>'
+            f'<p>{html.escape(x["meta_description"])}</p></a>'
+            for x in zoznam)
+
+    body = ('<span class="eyebrow">Catalogue</span>\n'
+            '<h1>Ready-made tools and templates</h1>\n'
+            '<p class="subtitle">Standalone downloads built earlier, kept here because '
+            'people link to them. Our current work is the company AI service on the '
+            '<a href="../index.html">home page</a>.</p>\n')
+    if volne:
+        body += f'<h2 class="section-title">Free</h2>\n<div class="product-grid">{mriezka(volne)}</div>\n'
+    if platene:
+        body += f'<h2 class="section-title">Paid</h2>\n<div class="product-grid">{mriezka(platene)}</div>\n'
+    body += '<p><a href="../index.html">&larr; Back to what we do now</a></p>'
+
+    page = page_shell("Catalogue - ready-made tools and templates | Biznis",
+                      "Standalone downloads and templates. Our current work is the "
+                      "company AI service on the home page.", body)
+    if SITE_BASE_URL:
+        url = f"{SITE_BASE_URL}/products/index.html"
+        i = page.lower().find("</head>")
+        if i != -1:
+            page = page[:i] + f'<link rel="canonical" href="{url}">\n' + page[i:]
+    (SITE_DIR / "products").mkdir(parents=True, exist_ok=True)
+    (SITE_DIR / "products" / "index.html").write_text(page)
+    print(f"[landing_page_agent] catalogue index: {len(produkty)} products")
+
+
 def build_index(pages: list[dict], stats: Optional[dict] = None) -> None:
     # Local import: blog_agent imports page_shell from this module, so a
     # module-level import here would be a circular dependency.
@@ -1232,41 +1279,122 @@ def build_index(pages: list[dict], stats: Optional[dict] = None) -> None:
         )
 
     hero_img = card_art("hero", "Workspace", depth=0, hero=True)
-    body = f"""<div class="hero-banner">
+    # Majiteľ 2026-08-20: anglická strana má niesť tú istú ponuku ako slovenská.
+    # Do vtedy predávala digitálne štúdio a katalóg 19 produktov, kým /sk/
+    # predávala overiteľnú firemnú AI — dva biznisy na jednej doméne, pričom
+    # titulok už sľuboval to druhé a h1 hovorilo prvé. Katalóg sa nezmazal,
+    # presunul sa na products/index.html a do pätičky.
+    # `.hero-banner` je starý anglický komponent: absolútne umiestnený text
+    # v boxe s overflow:hidden, ktorého výšku určuje obrázok. Pri dlhšom
+    # odseku orezal 46 px textu uprostred vety (zmerané 2026-08-20 pri 375 px).
+    # Slovenská verzia používa `.hero` s overflow:visible a nepreteká, takže
+    # obe strany dostávajú ten istý komponent — to bolo aj zadanie majiteľa.
+    body = f"""<div class="hero">
+<span class="eyebrow">Company AI &middot; Microsoft 365 &middot; Copilot</span>
+<h1>You have Copilot. Your team uses it for email</h1>
+<p class="subtitle">Companies pay for Microsoft 365 Copilot and use a fraction of
+what it does. Not because the model is weak &mdash; because it does not know your
+procedures, your history or your rules. We build the structure around it for one
+specific process, so it stops being a personal assistant and starts being a work
+tool.</p>
+</div>
 {hero_img}
-<div class="hero-copy">
-<span class="eyebrow">Design &middot; Build &middot; Automate</span>
-<h1>We design and build the digital side of your business</h1>
-<p>Brand identity and design. Websites and chatbots. Custom digital products built to your
-brief. And automation for the work you should not be doing by hand. Plus a growing
-catalogue of ready-made tools you can use today.</p>
+<div class="stats-strip">
+<div class="stat"><b>Your data stays with you</b><span>we work inside your Microsoft 365, nothing is exported</span></div>
+<div class="stat"><b>No new software</b><span>we use the licences you already have and already approved</span></div>
+<div class="stat"><b>One process, not the whole company</b><span>we start with the one that still hurts</span></div>
+<div class="stat"><b>Handed over to you</b><span>documentation included, you are not tied to us</span></div>
 </div>
-</div>
-{stats_html}
 <section class="band">
 <div class="band-head">
-<h2 class="section-title">Company AI that can be checked</h2>
+<h2 class="section-title">Why Copilot underdelivers in companies</h2>
 </div>
 <div class="band-body">
-<p>Most companies pay for an AI assistant and use it for email. Not because the
-model is weak &mdash; because <strong>nobody can check whether an answer is
-right</strong>, so nothing with consequences gets handed to it.</p>
-<p>We take one decision your experienced people make well and your newer people
-get wrong, and put it into your own Microsoft 365 in a form that can be checked:
-your rules written down, a procedure that asks the cheapest question first, and
-a fixed set of test cases <em>you</em> approve, re-run on every change.</p>
-<p><a href="blog/test-ai-assistant-before-staff-use-it.html">How we test it
-before your staff use it</a> &middot; <a href="#kontakt">Tell us the process
-that keeps costing you</a></p>
+<p>Copilot can only answer from what it can reach and what it understands. In an
+ordinary company it hits three walls:</p>
+<p><strong>The knowledge is not written down.</strong> The important part lives in
+an experienced person&rsquo;s head. It is not in the documents, so the AI cannot
+find it either.</p>
+<p><strong>Connecting the sources is solved. Checking the answer is not.</strong>
+Procedure in SharePoint, case history in Excel, the decision in a Teams chat, data
+in the ERP. When Copilot then asserts something, there is nothing to check it
+against.</p>
+<p><strong>Nobody told it how you do things.</strong> Without a procedure it gives
+a generic answer instead of yours &mdash; so today the result depends on how well
+one employee happens to phrase the question. That is not a system, that is luck.</p>
 </div>
 </section>
-{services_section}
-{paid_section}
-<h2 class="section-title">Free downloads</h2>
-<div class="product-grid">{free_cards}</div>
+<section class="band">
+<div class="band-head">
+<h2 id="services" class="section-title">What we do for you</h2>
+</div>
+<div class="band-body">
+<p>We take <strong>one process</strong> that repeats in your company and costs the
+same work every time &mdash; handling a complaint, preparing a quote, processing an
+order, onboarding a new person &mdash; and build the structure around it:</p>
+<ul>
+<li><strong>We write down the state before deployment</strong> &mdash; how long it
+takes now, how often it has to be corrected, and one sentence about what would mean
+it is not working. Without that, a year later nobody can say whether it changed
+anything. You can do this part yourself with our
+<a href="sk/zapis-pred-nasadenim-ai.html">free pre-deployment record</a>.</li>
+<li><strong>We map where the knowledge actually is</strong> &mdash; and above all
+where it is missing. The output includes a list of what is written down nowhere.</li>
+<li><strong>We set the procedure</strong> &mdash; what the system should do at each
+step, what it must look up, what it must flag, and when it must say
+<em>&ldquo;I cannot confirm this&rdquo;</em> instead of inventing an answer.</li>
+<li><strong>We measure it again after the agreed time</strong> &mdash; against the
+numbers written down at the start. The output is a comparison of two states, not a
+presentation.</li>
+</ul>
+</div>
+</section>
+<section class="band band-full">
+<div class="band-head">
+<h2 class="section-title">How you know the answer is right</h2>
+</div>
+<div class="band-body">
+<p>A fixed set of test cases that <em>you</em> approve. We enter them in front of
+you and compare the answer with what should come out. Part of the set is blocking:
+the system must say &ldquo;I do not know this&rdquo; instead of a plausible
+invention. Whatever fails is not deployed, and the whole set is re-run on every
+later change.</p>
+<p>Judgement &mdash; and responsibility for the decision &mdash; stays with your
+person. That is also what your auditors and your customers expect.</p>
+</div>
+</section>
+<section class="band band-full">
+<div class="band-head">
+<h2 id="cennik" class="section-title">The scope is written down before you sign</h2>
+</div>
+<div class="band-body">
+<p>So you know exactly what is in the price, who does what, and where your person
+takes over. Amounts are <strong>&ldquo;from&rdquo;</strong> &mdash; the final price
+comes in writing once we know the scope, and then it does not change.</p>
+<table class="cennik">
+<tr><th>What</th><th class="cena">From</th><th>What changes the price</th></tr>
+<tr><td><strong>Assessment of one process</strong> + a demo on your real case</td>
+<td class="cena"><strong>&euro;490</strong></td>
+<td>fixed price; if it turns out deployment is not worth it, we say so</td></tr>
+<tr><td><strong>Deployment of one process</strong> into your Microsoft 365</td>
+<td class="cena"><strong>&euro;2 400</strong></td>
+<td>number of data sources, state of documentation, number of steps</td></tr>
+<tr><td>Every further process</td><td class="cena"><strong>&euro;1 400</strong></td>
+<td>cheaper, because the structure already exists</td></tr>
+<tr><td>One-page website (landing page)</td><td class="cena"><strong>&euro;590</strong></td>
+<td>amount of content, forms, language versions</td></tr>
+<tr><td>Company website (up to 8 pages)</td><td class="cena"><strong>&euro;1 190</strong></td>
+<td>number of pages, blog, connections to external systems</td></tr>
+<tr><td>Automating one task</td><td class="cena"><strong>&euro;390</strong></td>
+<td>number of systems, quality of input data</td></tr>
+</table>
+</div>
+</section>
 {blog_section}
 <h2 id="kontakt" class="section-title">Tell us what you need</h2>
-<p>A short description is enough to start. We reply with what we would do, what it costs, and what we would need from you.</p>
+<p>A short description is enough to start. We reply with what we would do, what it
+costs, and what we would need from you. If it turns out the deployment is not worth
+it, we say that too.</p>
 """ + (contact_form_html() if FORMSPREE_ENDPOINT else "") + """"""
     SITE_DIR.mkdir(parents=True, exist_ok=True)
     (SITE_DIR / "index.html").write_text(page_shell(
@@ -1326,6 +1454,7 @@ def run(run_id: Optional[int] = None) -> list[int]:
         "products": cur.execute("SELECT COUNT(*) FROM products WHERE status='ready'").fetchone()[0],
     }
     conn.close()
+    build_catalogue_index([dict(p) for p in all_pages])
     build_index([dict(p) for p in all_pages], stats=stats)
 
     print(f"[landing_page_agent] built {len(new_page_ids)} new pages "

@@ -736,10 +736,9 @@ def site_header_html(active_is_index: bool = False, lang: str = "en") -> str:
 <div class="site-header-inner">
 <a class="brand" href="{home_href}">{BRAND_HTML}</a>
 <nav>
-<a href="{prefix}work.html">Work</a>
-<a href="{home_href}">Products</a>
-<a href="{prefix}tools/index.html">Tools</a>
-<a href="{prefix}news/index.html">Signals</a>
+<a href="{home_href}#services">Services</a>
+<a href="{home_href}#cennik">Pricing</a>
+<a href="{prefix}tools/index.html">Free tools</a>
 <a href="{prefix}blog/index.html">Blog</a>
 <a href="{prefix}sk/index.html" lang="sk" hreflang="sk">Slovensky</a>
 <a class="nav-cta" href="{services_href}">Hire us</a>
@@ -909,7 +908,7 @@ SEO_TITULKY = {
     # 2026-08-19 to bol zoznam sluzieb; teraz vedie rozdiel, ktory mame ako
     # jedini, a sluzby zostavaju za nim.
     "index.html":
-        "AI your team can check - websites, design and automation | Biznis",
+        "Company AI your team can check - Microsoft 365 Copilot | Biznis",
     "sk/preco-zamestnanci-prestanu-pouzivat-ai.html":
         "Pre\u010do zamestnanci prestan\u00fa pou\u017e\u00edva\u0165 AI vo firme",
     "tools/machinery-regulation-digital-instructions.html":
