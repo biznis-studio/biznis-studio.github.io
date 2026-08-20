@@ -193,6 +193,14 @@ ktorých základ je zapísaný pred zásahom a už sa nedá prepísať.
 `application/xml`, platné XML, 45 a 12 URL. So `Last read` prázdnym a `Type: Unknown`
 to znamená, že Google ich ešte nikdy neprečítal. Strana servera je vylúčená.
 
+*Zmerané 20. 8.:* ľudské objavenie je nulové na OBOCH plochách naraz.
+Web má 2 indexované stránky a 0 externých odkazov; repozitár mal za
+14 dní **5 unikátnych návštevníkov** (referrer: github.com 4, Google 1).
+Oproti tomu 524 klonov od 175 zdrojov, pričom náš pipeline mal 72 behov —
+zvyšok je automatizovaný zber, ktorého výstupom sú tri predajné maily
+majiteľovi. Tento bod teda nie je jedna z možností, ale **jediná otvorená
+cesta k prvému človeku**.
+
 0a. **Zapísať štúdio do Zoznam.sk?** Dnes na nás nevedie ani jeden odkaz,
    ktorý by prenášal váhu: v HTML, ktoré GitHub servíruje Googlebotovi, sú
    oba odkazy na náš web `rel=nofollow` (tretí, bez nofollow, dorobí až
