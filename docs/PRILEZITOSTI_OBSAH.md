@@ -120,3 +120,35 @@ komu sa oplatí rozdávať ich zadarmo. Sľubnejšie sú **spotrebiteľské tém
 
 **Ďalší krok:** prehľadať príležitosti podľa veľkosti SUSEDNÉHO TRHU, nie podľa
 užitočnosti témy. Hľadá sa prienik „veľké publikum + žiadny susedný predajca".
+
+
+## Záver po piatich overeniach (2026-08-21)
+
+| # | príležitosť | zabil ju |
+|---|---|---|
+| 1 | e-faktúra | fakturačné systémy (návnada) |
+| 2 | hodnotenie pracovných miest | gradar, 3 000 €/rok + voľná verzia |
+| 3 | mzdy naprieč krajinami | 10+ nástrojov od EOR firiem |
+| 4 | kalendár povinností | 5 voľných, od compliance dodávateľov |
+| 5 | polárna žiara × oblačnosť | auroramap.app to už robí celé |
+
+Prvé štyri zabila **krížová dotácia** — návnada platená z inej faktúry. Piatu
+zabil hotový produkt s rovnakou ekonomikou ako naša.
+
+**Poučenie, ktoré je cennejšie než ktorákoľvek z tých piatich tém:**
+
+> Medzera, ktorá sa dá nájsť hľadaním „čo chýba", nie je medzera. To isté
+> hľadanie robia tisíce ľudí a nástroje na to sú lacné.
+
+Náskok teda nemôže pochádzať z nápadu. Musí pochádzať z toho, čo máme a iní
+nie. Máme tri veci:
+
+1. **Prevádzku** — denný pipeline s bránami, overovaním naživo a takmer nulovým
+   hraničným nákladom na ďalšiu stránku
+2. **Metódu packu** — rozhodovanie, ktoré vie povedať, čo bolo vylúčené a čím
+3. **Prístup majiteľa do reálnej výroby** — jediná z tých troch, ktorú nemožno
+   nájsť vyhľadávačom ani skopírovať
+
+Ak má reklamný model zmysel, musí stáť na (1) — na počte udržiavaných stránok
+tam, kde zabehnutí hráči idú do hĺbky jednej vertikály. Ak má zmysel produkt,
+stojí na (2) a (3).
