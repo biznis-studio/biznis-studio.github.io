@@ -1,10 +1,12 @@
 title: Zamestnanci prestanú AI používať po dvoch týždňoch. Školenie to nespraví
-description: Licencie sú kúpené, nadšenie vydrží prvý týždeň a potom je ticho. Dôvod nie je v ľuďoch ani v modeli — a dá sa opraviť tým, čo sa vo firme zapíše.
+description: Zamestnanci prestali AI používať a licencie bežia naprázdno? Dôvod nie je v ľuďoch ani v modeli. Dá sa opraviť tým, čo sa vo firme zapíše.
 ---
 Firma kúpi licencie. Prvý týždeň si to skúša každý. Tretí týždeň to
 používajú dvaja ľudia na preformulovanie e-mailov. Nikto nič nezakázal,
 nikto sa nepohádal — jednoducho to prestalo mať zmysel otvárať.
 
+Ak vo vašej firme zamestnanci AI **prestali používať** alebo ju
+nepoužíva takmer nikto, nie ste výnimka a nie je to nedostatkom školenia.
 Dva týždne sú rečnícka skratka, nie naše meranie. Podstatný je priebeh,
 lebo ten je zakaždým rovnaký.
 
