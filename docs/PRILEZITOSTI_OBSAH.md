@@ -95,5 +95,28 @@ za mzdami stoja EOR firmy, za clom colní makléri, za vízami vízové agentúr
    nie odpoveď na otázku „rástla rýchlejšie?"
 4. **#8 Príručná batožina** — aerolínie samy návnadu nepotrebujú
 
-**Ďalší krok:** overiť #5 rovnakým spôsobom — hľadať, či existuje udržiavaný
-viacjurisdikčný kalendár povinností. Ak existuje, padá aj to a ide sa nižšie.
+## #5 padlo tiež — a filter sa tým zostril
+
+Overené: voľných udržiavaných viacjurisdikčných kalendárov je najmenej päť —
+RegDossier (overovaný proti EUR-Lexu, aktualizovaný 4/2026), AIFMD Reporter OS
+(„always current and always free", 9 rámcov), Verdaio (do 2029), GPC Gateway
+(globálne), Compliance MCP Server (EÚ, USA, UK, Kanada, Čína, Singapur).
+Prevádzkujú ich dodávatelia compliance softvéru a poradenstva.
+
+Môj predpoklad, že poradcovia nástroj nestavajú, bol nesprávny. Filter preto
+znie inak:
+
+> Nie „existuje vedľa témy predajca?" — ten existuje takmer vždy, informácia je
+> štandardná návnada každého B2B predajcu. Ale: **je ten susedný trh dosť veľký,
+> aby uživil DOBRÝ voľný nástroj?**
+
+Kde je veľký — mzdy, compliance, fakturácia, clo, víza — nástroj existuje a je
+lepší, než by bol náš. Kde je malý alebo žiadny, medzera prežije.
+
+**Dôsledok, ktorý platí pre celý reklamný model:** firemné informačné témy sú
+štrukturálne stratené, nech sú akokoľvek užitočné, lebo za každou stojí niekto,
+komu sa oplatí rozdávať ich zadarmo. Sľubnejšie sú **spotrebiteľské témy, kde
+čitateľovi nikto nič nepredáva** — tam návnadu nikto nefinancuje.
+
+**Ďalší krok:** prehľadať príležitosti podľa veľkosti SUSEDNÉHO TRHU, nie podľa
+užitočnosti témy. Hľadá sa prienik „veľké publikum + žiadny susedný predajca".
