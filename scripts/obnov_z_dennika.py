@@ -69,6 +69,15 @@ def main() -> int:
                 ocakavany_ucinok=z["ocakavany_ucinok"], vratenie=z["vratenie"],
                 datum_revizie=z["datum_revizie"], vrstva=z["vrstva"],
                 zamietnute=z.get("zamietnute"), autorita=z.get("autorita", "stroj"))
+        elif z["typ"] == "vazba":
+            # Väzba poznatku na domnienku, rozhodnutie alebo experiment.
+            # Bez prehratia sa poznatok po obnove vráti „bez dôsledku"
+            # a fronta ho ponúkne znovu (2026-08-21: 20 väzieb takto zmizlo).
+            if z["pole"] in ("domnienka_id", "rozhodnutie_id", "experiment_id"):
+                conn.execute(
+                    f"UPDATE poznatky SET {z['pole']}=? WHERE tvrdenie=?",
+                    (z["ciel_id"], z["tvrdenie"]))
+                conn.commit()
         elif z["typ"] == "dvojica":
             # Posúdená dvojica je výsledok úsudku, nie odvodený údaj —
             # bez prehratia by sa po strate databázy vrátila do fronty.

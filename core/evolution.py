@@ -611,6 +611,25 @@ def poznatky_bez_dosledku(conn: sqlite3.Connection, limit: int = 10) -> list[sql
     ))
 
 
+def _zapis_vazbu(conn: sqlite3.Connection, poznatok_id: int, pole: str,
+                 ciel_id: int) -> None:
+    """Väzbu zapíše aj do denníka, kľúčovanú TVRDENÍM poznatku.
+
+    2026-08-21: dvadsať väzieb na rozhodnutie zmizlo pri prvom rebase, lebo
+    žiadna z piatich funkcií meniacich stav do denníka nezapisovala. Obnova
+    poznatok vytvorí nanovo — a bez väzby, takže fronta ho znovu ponúkne ako
+    „bez dôsledku". Je to tretí výskyt tej istej triedy chyby za jeden deň
+    (po `dosah` a po posúdených dvojiciach), preto sa opravuje naraz pre
+    všetky väzby, nie po jednej.
+
+    Kľúčom je tvrdenie, nie id: pri obnove sa id prideľujú nanovo.
+    """
+    r = conn.execute("SELECT tvrdenie FROM poznatky WHERE id=?", (poznatok_id,)).fetchone()
+    if r is None:
+        return
+    _zapis_do_dennika("vazba", {"tvrdenie": r[0], "pole": pole, "ciel_id": ciel_id})
+
+
 def pripoj_k_domnienke(conn: sqlite3.Connection, poznatok_id: int,
                       domnienka_id: int) -> None:
     """Poznatok podopiera existujúcu domnienku, nezakladá novú.
@@ -625,6 +644,7 @@ def pripoj_k_domnienke(conn: sqlite3.Connection, poznatok_id: int,
     conn.execute("UPDATE poznatky SET domnienka_id=? WHERE id=?",
                  (domnienka_id, poznatok_id))
     conn.commit()
+    _zapis_vazbu(conn, poznatok_id, "domnienka_id", domnienka_id)
 
 
 def pripoj_k_rozhodnutiu(conn: sqlite3.Connection, poznatok_id: int,
@@ -640,6 +660,7 @@ def pripoj_k_rozhodnutiu(conn: sqlite3.Connection, poznatok_id: int,
     conn.execute("UPDATE poznatky SET rozhodnutie_id=? WHERE id=?",
                  (rozhodnutie_id, poznatok_id))
     conn.commit()
+    _zapis_vazbu(conn, poznatok_id, "rozhodnutie_id", rozhodnutie_id)
 
 
 def pripoj_k_experimentu(conn: sqlite3.Connection, poznatok_id: int,
@@ -651,6 +672,7 @@ def pripoj_k_experimentu(conn: sqlite3.Connection, poznatok_id: int,
     conn.execute("UPDATE poznatky SET experiment_id=? WHERE id=?",
                  (experiment_id, poznatok_id))
     conn.commit()
+    _zapis_vazbu(conn, poznatok_id, "experiment_id", experiment_id)
 
 
 def _zabezpec_tabulku_dvojic(conn: sqlite3.Connection) -> None:

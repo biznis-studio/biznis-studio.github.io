@@ -142,3 +142,7 @@ the gate and delete it from here** (`CLAUDE.md` lists what is enforced).
   Money already flowing is public: incumbent products, their prices, tenders,
   job ads. On 2026-08-21 I closed a question as unverifiable, was told I gave up
   too fast, and found decades of proven willingness to pay in one search.
+- **A destructive test runs on a copy — always, even when it looks small.**
+  On 2026-08-21 a "quick" wipe-and-restore test on the live database destroyed
+  35 links from earlier sessions that were never journaled. Git saved them, not
+  the journal. The journal only covers what someone wrote into it.
