@@ -104,6 +104,13 @@ skúšok, ktorú viete pustiť kedykoľvek. Po zmene pravidla, po zmene
 zadania — aj vtedy, keď dodávateľ vymení model pod nástrojom bez
 opýtania. Vtedy sa nediskutuje o dojmoch, pozerá sa na výsledok skúšky.
 
+K tomu patrí ešte jedno: **zapísaný stav pred nasadením**. Sada skúšok
+povie, či odpoveď sedí; stav pred nasadením povie, či sa niečo zmenilo
+k lepšiemu. Bez neho zostane aj vyhraná skúška bez odpovede na otázku,
+či sa to oplatilo.
+[Zápis pred nasadením](https://biznis-studio.github.io/sk/zapis-pred-nasadenim-ai.html)
+je na to formulár na pätnásť minút.
+
 ## Ako to robíme my
 
 Začíname posudkom jedného procesu — prejdeme ho presne týmto testom

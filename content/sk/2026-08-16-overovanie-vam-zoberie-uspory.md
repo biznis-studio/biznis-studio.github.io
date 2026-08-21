@@ -73,6 +73,12 @@ Ak áno, tú prácu sa oplatí do AI pustiť — dá sa skontrolovať, a teda
 aj zveriť. Ak nie, žiadny nástroj to nezachráni a overovanie zostane
 manuálne. Sme radšej, keď to zaznie na začiatku než po troch mesiacoch.
 
+Tú vetu si zapíšte skôr, než čokoľvek nasadíte — spolu s tým, koľko
+z posledných dvadsiatich prípadov sa muselo opravovať. Bez toho čísla sa
+o pol roka nedá povedať, či overovanie ubudlo.
+[Zápis pred nasadením](https://biznis-studio.github.io/sk/zapis-pred-nasadenim-ai.html)
+z toho zostaví hotový text aj s termínom.
+
 ## Čo robíme my
 
 Vyberieme **jeden proces**, ktorý sa vo vašej firme opakuje, a
