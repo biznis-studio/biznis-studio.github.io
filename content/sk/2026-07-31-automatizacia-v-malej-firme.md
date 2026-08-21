@@ -1,9 +1,12 @@
 title: Automatizácia v malej firme: čo sa oplatí a čo je strata času
-description: Ako spoznať úlohu, ktorú sa oplatí automatizovať, koľko to reálne stojí, a prečo väčšina malých firiem začína na nesprávnom mieste.
+description: Ako vybrať prvý proces na automatizáciu podľa čísel, nie podľa pocitu — a prečo väčšina malých firiem začína na nesprávnom mieste.
 ---
 Väčšina článkov o automatizácii začne slovom „digitalizácia“ a skončí
 ponukou systému za tisíce eur. Tento začne aritmetikou, lebo tá rozhodne
 za vás.
+
+Otázka neznie, čo sa dá automatizovať — dá sa skoro všetko. Znie:
+**ktorý proces vybrať ako prvý**, aby sa to vôbec vrátilo.
 
 ## Najprv počty, potom nástroje
 
@@ -12,6 +15,9 @@ skutočne zožerie za rok?**
 
 - Úloha na 10 minút mesačne = 2 hodiny ročne. **Neautomatizujte.**
   Náklad na zadanie, otestovanie a odovzdanie je vyšší než úspora.
+
+Ak si to nechcete rátať na papieri, [kalkulačka](https://biznis-studio.github.io/sk/oplati-sa-nasadit-ai.html)
+to spočíta z troch údajov a ukáže celý výpočet.
 - Úloha na 30 minút týždenne = zhruba 26 hodín ročne. **Hraničné.**
   Oplatí sa, ak zároveň zvykne padnúť alebo sa robí s chybami.
 - Úloha na 2 hodiny týždenne = zhruba 100 hodín ročne. **Jednoznačne
@@ -71,6 +77,15 @@ Opačný postup funguje lepšie: **vezmite jednu konkrétnu úlohu, vyriešte
 ju úplne, nechajte to bežať mesiac.** Ak to prinieslo, čo malo, pridajte
 druhú. Systém si možno nakoniec kúpite — ale budete vedieť, čo od neho
 chcete, čo je rozdiel medzi investíciou a nákupom nádeje.
+
+## Než to zadáte komukoľvek
+
+Zapíšte si stav pred nasadením: koľko to trvá dnes, ako často sa to musí
+opravovať, a jednu vetu o tom, čo bude znamenať, že to nefunguje. Bez toho
+sa o pol roka nedá povedať, či sa to vrátilo — a to je dôvod, prečo väčšina
+firiem o svojich automatizáciách vie povedať len to, že „nejako bežia".
+Na papier alebo do [zápisu pred nasadením](https://biznis-studio.github.io/sk/zapis-pred-nasadenim-ai.html),
+ktorý z tých troch údajov zostaví hotový text aj s termínom.
 
 ## Čo to stojí
 
