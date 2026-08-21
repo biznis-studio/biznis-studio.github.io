@@ -138,3 +138,7 @@ the gate and delete it from here** (`CLAUDE.md` lists what is enforced).
 - Proofread Slovak before it goes out; bad Slovak costs more than no Slovak page.
 - Never invent evidence: no testimonials, logos, ratings or review counts.
 - Don't advertise weakness either — state what is true and demonstrable.
+- **"We cannot verify demand without a customer" is almost always laziness.**
+  Money already flowing is public: incumbent products, their prices, tenders,
+  job ads. On 2026-08-21 I closed a question as unverifiable, was told I gave up
+  too fast, and found decades of proven willingness to pay in one search.
