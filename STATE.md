@@ -10,6 +10,14 @@ Aktualizované: **2026-08-18** (večerný beh)
 
 ## Čo je práve otvorené
 
+> **Rozhodnuté 2026-08-21 (majiteľ delegoval):** biznis je **pack**, web je jeho
+> **kanál**, nie reklamný biznis. Obsah sa píše pre kupujúceho packu. Reklama
+> až ako vedľajší produkt návštevnosti, nikdy ako cieľ. Dôvod: reklamná cesta
+> nepoužíva nič, čo máme a iní nie — preto 5 z 5 preverených tém padlo ako
+> obsadených. Meradlom je **prvý platený posudok**, nie počet zobrazení.
+> *Obráti sa to, ak do 2027-02-21 nebude ani jeden posudok a zároveň obsah
+> prekročí 5 000 relácií mesačne.*
+
 | Vec | Stav | Ďalší krok |
 |---|---|---|
 | **Schopnosť dodať to, čo sľubujeme** | **overené 20. 8.: sľub je splniteľný dnes.** Dodávka sú dva súbory (postup + katalóg 125 príčin), ktoré si zákazník použije vo vlastnom Copilote — bežalo to v teréne 8. 8. Copilot Studio + Dataverse je budúca architektúra (POC-01), nie dnešná dodávka, takže jej blokovanie nič nezastavuje. *(Pôvodne som sem napísal, že nasadenie stojí na netestovanom behu — bolo to zlé, zamenil som architektúru za dodávku.)* | zostávajú dve veci, obe zvládnem sám: **dobehnúť akceptačnú sadu** (pack je nevydaný, NEVYHOVEL S8 a S9) a **overiť pack pre druhú profesiu** |
