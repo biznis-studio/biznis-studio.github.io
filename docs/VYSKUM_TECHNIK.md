@@ -164,15 +164,89 @@ odhadovať — a preto sa nedá spraviť „upratovaním".
 
 ---
 
+---
+
+## 5. Rovnaký výsledok pre všetky verzie nie je „bez zlepšenia", je bez informácie
+
+**Zdroj:** *VeriGate: Verifier-Gated Step-Level Supervision* (arXiv 2605.30451)
+a širší prúd procesných odmien.
+
+**Nález:** keď všetky vzorky dostanú od verifikátora **tú istú** odmenu,
+relatívny rozdiel medzi nimi je nula, gradient nenesie žiadnu informáciu
+a učenie zastane. Volajú to degenerovaná odmena. Riešenie nie je lepší
+verifikátor, ale **prepnutie na krokové hodnotenie** — hodnotiť medzikroky,
+nie len výsledok, lebo krokové hodnotenie dáva signál aj tam, kde výsledok
+je u všetkých rovnaký.
+
+**Presne to sa nám stalo dnes.** Tri scenáre, tri NEVYHOVEL. Chcel som to
+čítať ako „pack sa nezlepšil". Nie je to tak: sada dala všetkému to isté,
+takže o rozdiele medzi verziami nepovedala **nič**. To je iný stav než
+zlyhanie a robí sa s ním niečo iné.
+
+Horšie: **nevedeli sme to ani zistiť.** Per scenár máme prepis z jediného dňa
+a porovnanie so 17. 8. existuje len ako veta, ktorú napísal ten, kto beh
+spravil. Vektor kritérií sa nikde neukladal.
+
+**Postavené dnes:** `quality-packs/tests/rozlisuje.py` ukladá deterministický
+vektor kritérií ku každému behu a povie, či sa medzi verziami zmenil a ktoré
+kritériá sa preklopili. Overené na držaných dátach — umelá verzia s jedným
+preklopeným kritériom bola zachytená menovite.
+
+**Čo NErobí a prečo:** nepočíta skóre. Číslo, ktoré sa dá zvyšovať, by sa
+začalo zvyšovať, a pravidlo č. 1 hovorí, že verifikátor nesmie rozhodovať,
+čo sa postaví. Práve na tomto raz odišlo päť verzií packu bez toho, aby sa
+znalosť zmenila. Preto hlási len ROZLÍŠILA / NEROZLÍŠILA a mená kritérií.
+
+---
+
+## 6. Ablácia sa robí v pároch, a má tri výsledky, nie dva
+
+**Zdroj:** *ACON: Optimizing Context Compression for Long-horizon LLM Agents*
+(arXiv 2510.00615, ICML 2026).
+
+**Nález:** ACON púšťa tú istú úlohu **dvakrát** — raz s plným kontextom, raz
+so skráteným. Zaujímavé sú len dvojice, kde **plný uspel a skrátený zlyhal**.
+Model potom rozoberie, čo v skrátenej verzii chýbalo, a pravidlo sa podľa
+toho **prepíše**. Celé bez trénovania, použiteľné aj na uzavreté modely.
+Výsledok: 26–54 % menej tokenov pri zachovanom výkone.
+
+**Čo to mení u nás.** CLAUDE.md predpisuje abláciu takto: vypni pravidlo,
+prejdi sadu, a ak sa nič nezhorší, zmaž ho. To sú dva výsledky — nechať
+alebo zmazať. ACON pridáva tretí, ktorý je v praxi najčastejší:
+
+| výsledok páru | čo to znamená | čo s tým |
+|---|---|---|
+| bez pravidla to prejde rovnako | pravidlo nie je nosné | **zmazať** |
+| bez pravidla to zlyhá presne na tom, čo pravidlo popisuje | nosné | **nechať** |
+| bez pravidla to zlyhá **inak** | pravidlo mierilo vedľa | **prepísať** podľa toho zlyhania |
+
+Tretí riadok je ten, ktorý nám chýbal. `Z8` a `Z9` v taxonómii vznikli presne
+takto — obe zlyhania boli dovtedy natlačené do najbližšieho existujúceho kódu
+a oprava preto mierila vedľa.
+
+**Podmienka, bez ktorej to nefunguje:** ablácia potrebuje sadu, ktorá vôbec
+**rozlišuje** (bod 5). Na degenerovanej sade vyjde každé pravidlo ako nenosné
+a zmazalo by sa všetko.
+
+*Poznámka k tomu istému prúdu, ktorá ide proti očakávaniu:* pri dnešnom
+prompt cachingu je držať celú históriu často lacnejšie aj presnejšie než ju
+sumarizovať. Skracovanie kontextu má byť odpoveďou na pomenované obmedzenie,
+nie predvolené správanie. Nás sa to týka pri denníku a pri `memory/` —
+neskracovať preventívne.
+
 ## Poradie, v akom to má cenu robiť
 
-1. **Reťazcová kontrola stavu kroku** (bod 3) — najlacnejšie, dá sa kódom,
-   a zasahuje presne to, na čom padli všetky tri scenáre.
-2. **Oddelenie faktov od úsudku v hodnoteniach** (bod 1) — formát, hotové
-   za jeden ťah, a bez neho si budeme zhodu modelov pliesť s dôkazom.
-3. **Ablácia CLAUDE.md** (bod 4) — vyžaduje sadu, na ktorej sa meria; tá je
-   dnes rozbitá (bod S9), takže toto ide až po nej.
-4. **Kontrafaktový rozhovor s expertom** (bod 2) — najväčší dopad na produkt
+1. ~~Reťazcová kontrola stavu kroku~~ — **hotové 22. 8.** Ukázalo sa, že
+   skript existoval od 19. 8., len sa nepúšťal do podkladu. Teraz je v ňom
+   doslovný výstup a taxonómia, takže sa dali prideliť kódy Z9/Z8/Z8.
+2. ~~Oddelenie faktov od úsudku~~ — **hotové 22. 8.**, tým istým krokom.
+3. ~~Zistiť, či sada vôbec rozlišuje~~ — **postavené 22. 8.**
+   (`tests/rozlisuje.py`). Odpoveď zatiaľ znie „z jednej verzie sa to povedať
+   nedá" a to je poctivá odpoveď, nie zlyhanie nástroja.
+4. **Oprava sady, aby S9 bol vôbec splniteľný** — bez toho sa ablácia merať
+   nedá (bod 6) a ani rozlišovanie nemá na čom vzniknúť.
+5. **Ablácia CLAUDE.md v pároch** (body 4 a 6) — až po kroku 4.
+6. **Kontrafaktový rozhovor s expertom** (bod 2) — najväčší dopad na produkt
    a jediné, čo bez majiteľa spraviť neviem.
 
 ## Zdroje
@@ -182,3 +256,5 @@ odhadovať — a preto sa nedá spraviť „upratovaním".
 - https://arxiv.org/pdf/2605.09730 — RubricRefine
 - https://www.digitalapplied.com/blog/context-engineering-agent-reliability-playbook-2026
 - https://finance.biggo.com/news/954a98de-8b79-429f-bd7e-761c27a3b210 — odporúčanie mazať systémový prompt
+- https://arxiv.org/abs/2605.30451 — VeriGate, degenerovaná odmena
+- https://arxiv.org/abs/2510.00615 — ACON, párová optimalizácia pravidiel

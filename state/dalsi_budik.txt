@@ -1,4 +1,4 @@
-2026-08-22 11:43
-Ďalej: pokračovať vo výskume techník (docs/VYSKUM_TECHNIK.md), poradie 1-4.
-Bod 1 (reťazcová kontrola stavu kroku) hotový 22. 8.
-Na majiteľovi: nič naliehavé. IČO a uzavretý prípad odložené na jeho pokyn.
+2026-08-22 12:01
+Ďalej: docs/VYSKUM_TECHNIK.md, poradie — kroky 1-3 hotové, na rade je 4:
+opraviť sadu tak, aby bol S9 vôbec splniteľný (dnes ho nesplní nikto,
+lebo očakávaný záver žiada fakty, ktoré vo vstupe nie sú).
