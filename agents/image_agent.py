@@ -144,6 +144,8 @@ QUERIES = {
         "financial documents spreadsheet desk"],
     "zapis-pred-nasadenim-ai": ["blank notebook pen desk", "handwriting notes paper desk",
         "clipboard checklist pen"],
+    "pre-deployment-record": ["notebook pen wooden desk", "writing checklist clipboard",
+        "blank page pencil close up"],
     "ako-zistite-ci-ai-nieco-priniesla": ["measuring tape ruler close up",
         "stopwatch timer hand", "scales balance weighing"],
     "preco-zamestnanci-prestanu-pouzivat-ai": ["empty office desk laptop closed",

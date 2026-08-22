@@ -453,7 +453,127 @@ ZAPIS_WIDGET = """
 </script>
 """
 
+
+ZAPIS_WIDGET_EN = """
+<div class="widget">
+  <div>
+    <label for="task">Which task is being handed to AI</label>
+    <input id="task" type="text" placeholder="for example: answering warranty claims">
+  </div>
+  <div class="widget-row">
+    <div>
+      <label for="mins">Minutes one case takes <em>today</em></label>
+      <input id="mins" type="number" min="1" step="1" value="25">
+    </div>
+    <div>
+      <label for="rework">How many of the last 20 cases had to be corrected</label>
+      <input id="rework" type="number" min="0" max="20" step="1" value="3">
+    </div>
+  </div>
+  <div class="widget-row">
+    <div>
+      <label for="months">Decide again after how many months</label>
+      <input id="months" type="number" min="1" max="12" step="1" value="2">
+    </div>
+    <div>
+      <label for="who">Who decides</label>
+      <input id="who" type="text" placeholder="name or role">
+    </div>
+  </div>
+  <div id="record" class="widget-out"></div>
+  <p class="widget-note">Nothing is sent anywhere. The record is built in your
+  browser and stays with you.</p>
+</div>
+<script>
+(function () {
+  var ids = ["task", "mins", "rework", "months", "who"];
+  var f = ids.map(function (i) { return document.getElementById(i); });
+  var out = document.getElementById("record");
+
+  function two(n) { return (n < 10 ? "0" : "") + n; }
+  function iso(d) { return d.getFullYear() + "-" + two(d.getMonth() + 1) + "-" + two(d.getDate()); }
+
+  function build() {
+    var task = f[0].value.trim() || "(name the task)";
+    var mins = parseFloat(f[1].value);
+    var rework = parseFloat(f[2].value);
+    var months = parseInt(f[3].value, 10);
+    var who = f[4].value.trim() || "(name the person)";
+
+    if (isNaN(mins) || isNaN(rework) || isNaN(months)) {
+      out.innerHTML = "<p>Fill in the numbers.</p>";
+      return;
+    }
+
+    var share = Math.round(rework / 20 * 100);
+    var limit = Math.floor(share / 2);
+    var due = new Date();
+    due.setMonth(due.getMonth() + months);
+
+    var h = "";
+    h += "<p class=\'widget-big\'>Record before deployment</p>";
+    h += "<p><strong>Task:</strong> " + task + "<br>";
+    h += "<strong>Written on:</strong> " + iso(new Date()) + "<br>";
+    h += "<strong>Decided by:</strong> " + who + " on " + iso(due) + "</p>";
+    h += "<p><strong>1. How long it takes today:</strong> " + mins;
+    h += " minutes per case (measured, not estimated).</p>";
+    h += "<p><strong>2. Rework rate today:</strong> " + rework + " of 20 cases, i.e. ";
+    h += share + " %.</p>";
+    h += "<p><strong>3. What will mean it is not working:</strong> ";
+    if (share > 1) {
+      h += "If by " + iso(due) + " the rework rate has not fallen below " + limit;
+      h += " %, we go back to the previous way of working.</p>";
+    } else {
+      var t = Math.max(1, Math.round(mins / 2));
+      h += "If by " + iso(due) + " one case still takes more than " + t;
+      h += " minutes, we go back to the previous way of working.</p>";
+    }
+    h += "<p><strong>On that day there are three possible answers:</strong> we continue &middot; ";
+    h += "we change one thing and measure again &middot; we stop.</p>";
+    if (share === 0) {
+      h += "<p><em>The rework rate came out as 0 %. Either the task is already ";
+      h += "reliable and AI has nothing to improve, or the errors are not being ";
+      h += "recorded.</em></p>";
+    }
+    out.innerHTML = h;
+  }
+
+  f.forEach(function (el) { el.addEventListener("input", build); });
+  build();
+})();
+</script>
+"""
+
 TOOLS = [
+    {
+        "slug": "pre-deployment-record",
+        "title": "Record before deploying AI",
+        "description": ("Free form: the three numbers and the one sentence to write down "
+                        "BEFORE you deploy AI, so that two months later you can say "
+                        "whether it worked."),
+        "intro": ("Once it is deployed, the state you started from can no longer be "
+                  "measured — memory is generous towards whatever we are doing right now. "
+                  "This record takes fifteen minutes and it is the only thing that will "
+                  "let you end the project instead of postponing the decision forever."),
+        "widget": ZAPIS_WIDGET_EN,
+        "after": ("<h2>Why these three</h2>"
+                  "<p>The first is the time per case, <strong>measured on five cases with "
+                  "a stopwatch</strong>. Not an estimate: estimates are made from memory, "
+                  "and memory overstates whatever currently annoys us.</p>"
+                  "<p>The second is the rework rate out of the last twenty cases. It "
+                  "matters more than time, because errors cost more than minutes — and "
+                  "time can be &ldquo;saved&rdquo; simply by nobody checking the output.</p>"
+                  "<p>The third is not a number but a sentence: <strong>what will mean it "
+                  "is not working</strong>. Nobody writes that one, and it is the only one "
+                  "that lets a failure be admitted. Without it the decision is merely "
+                  "postponed and the project lives on its own momentum.</p>"
+                  "<h2>What this form does NOT do</h2>"
+                  "<p>It will not tell you whether the deployment is worth it. It deals "
+                  "with what comes <em>after</em>: making sure a state exists that you can "
+                  "compare against in two months. The threshold it proposes is half of "
+                  "your current rework rate &mdash; a suggestion, not a standard, and you "
+                  "are meant to overwrite it with whatever you would still accept.</p>"),
+    },
     {
         "slug": "zapis-pred-nasadenim-ai",
         "lang": "sk",
