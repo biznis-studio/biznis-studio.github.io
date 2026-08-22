@@ -146,3 +146,5 @@ the gate and delete it from here** (`CLAUDE.md` lists what is enforced).
   On 2026-08-21 a "quick" wipe-and-restore test on the live database destroyed
   35 links from earlier sessions that were never journaled. Git saved them, not
   the journal. The journal only covers what someone wrote into it.
+
+- **Prenos obsahu medzi / a /sk/ prenesie text, nie ciele odkazov.** Po každom takom prenose prejsť odkazy v prenesenej pasáži a overiť, že cieľ existuje v jazyku čitateľa. Audit ani stavová kontrola to nechytia — cieľ vracia 200, chybný je len jazyk. (2026-08-22: EN domovská sľubovala „our free pre-deployment record" a odkazovala na slovenský formulár.)
