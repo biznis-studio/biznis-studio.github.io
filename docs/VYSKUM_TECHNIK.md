@@ -243,10 +243,23 @@ neskracovať preventívne.
 3. ~~Zistiť, či sada vôbec rozlišuje~~ — **postavené 22. 8.**
    (`tests/rozlisuje.py`). Odpoveď zatiaľ znie „z jednej verzie sa to povedať
    nedá" a to je poctivá odpoveď, nie zlyhanie nástroja.
-4. **Oprava sady, aby S9 bol vôbec splniteľný** — bez toho sa ablácia merať
-   nedá (bod 6) a ani rozlišovanie nemá na čom vzniknúť.
-5. **Ablácia CLAUDE.md v pároch** (body 4 a 6) — až po kroku 4.
-6. **Kontrafaktový rozhovor s expertom** (bod 2) — najväčší dopad na produkt
+4. ~~Oprava sady, aby S9 bol splniteľný~~ — **odpadá.** Overené proti
+   `akceptacne_scenare.md`: S9 splniteľný **je**, každá časť očakávaného
+   záveru sa dá dosiahnuť z jedného vstupu. Tvrdenie o nemerateľnosti
+   napísal ten, kto beh spravil, prešlo cez dvoch hodnotiteľov (obaja
+   s výhradou, že to overiť nevedia — podklad definíciu scenára neobsahuje)
+   a prevzal som ho aj ja. Blokátor bol vymyslený, nie nájdený.
+5. ~~Párová ablácia~~ — **mechanizmus postavený a prvý pokus spravený
+   22. 8.** `build_pack.py --bez <sekcia>` + `tests/rozlisuje.py`. Prvý
+   výsledok: sada NEROZLÍŠILA pack so sekciou od packu bez nej, hoci
+   odpovede sa viditeľne líšili. Dve poučenia v
+   `quality-packs/tests/vysledky/ABLACIA_2026-08-22.md`: (a) „vektor sa
+   nezmenil" znamená, že sada ten rozmer nemeria, nie že sa správanie
+   nezmenilo; (b) ablovať pravidlo treba proti scenáru, ktorý ho cieli —
+   ja som ho pustil na scenári, kde sa nemalo kde prejaviť.
+6. **Scenár, ktorý cieli sekciu o skúsenom kvalitárovi** — bez neho sa
+   tá sekcia ablovať nedá vôbec.
+7. **Kontrafaktový rozhovor s expertom** (bod 2) — najväčší dopad na produkt
    a jediné, čo bez majiteľa spraviť neviem.
 
 ## Zdroje

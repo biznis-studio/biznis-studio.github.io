@@ -1,4 +1,4 @@
-2026-08-22 12:01
-Ďalej: docs/VYSKUM_TECHNIK.md, poradie — kroky 1-3 hotové, na rade je 4:
-opraviť sadu tak, aby bol S9 vôbec splniteľný (dnes ho nesplní nikto,
-lebo očakávaný záver žiada fakty, ktoré vo vstupe nie sú).
+2026-08-22 12:17
+Ďalej: docs/VYSKUM_TECHNIK.md krok 6 — scenár, ktorý cieli sekciu o skúsenom
+kvalitárovi (používateľ tvrdí hotový záver), aby sa tá sekcia dala ablovať.
+Pozor: ChatGPT má do 13:30 vyčerpaný limit četov so súbormi.
