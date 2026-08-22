@@ -1,4 +1,4 @@
-2026-08-22 12:17
-Ďalej: docs/VYSKUM_TECHNIK.md krok 6 — scenár, ktorý cieli sekciu o skúsenom
-kvalitárovi (používateľ tvrdí hotový záver), aby sa tá sekcia dala ablovať.
-Pozor: ChatGPT má do 13:30 vyčerpaný limit četov so súbormi.
+2026-08-22 12:20
+Ďalej: pustiť S18 (pack plný vs bez sekcie SKÚSENÝ KVALITÁR) — teraz už je
+scenár, ktorý tú sekciu cieli, takže ablácia môže niečo ukázať.
+ChatGPT má limit četov so súbormi do 13:30, predtým to nepôjde.
