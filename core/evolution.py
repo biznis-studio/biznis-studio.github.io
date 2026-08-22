@@ -450,6 +450,7 @@ def zapis_poznatok(
     dokaz: Optional[str] = None,
     dosah: Optional[str] = None,
     nahradza: Optional[int] = None,
+    odvodene_z: Optional[int] = None,
     obnova: bool = False,
 ) -> int:
     """Zapíše poznatok. Odmietne tri veci, ktoré nás už stáli čas.
@@ -497,10 +498,10 @@ def zapis_poznatok(
     cur = conn.execute(
         """INSERT INTO poznatky
            (tvrdenie, druh, zdroj, typ_zdroja, zdroj_datum, zapisane, plati_do,
-            dokaz, dosah, stav, nahradza)
-           VALUES (?,?,?,?,?,?,?,?,?,'NOVY',?)""",
+            dokaz, dosah, stav, nahradza, odvodene_z)
+           VALUES (?,?,?,?,?,?,?,?,?,'NOVY',?,?)""",
         (tvrdenie, druh, zdroj, typ_zdroja, zdroj_datum, _dnes(), plati_do,
-         dokaz, dosah, nahradza),
+         dokaz, dosah, nahradza, odvodene_z),
     )
     if nahradza is not None:
         conn.execute("UPDATE poznatky SET stav='PREKONANY' WHERE id=?", (nahradza,))
@@ -517,7 +518,13 @@ def zapis_poznatok(
         "nahradza_tvrdenie": (
             conn.execute("SELECT tvrdenie FROM poznatky WHERE id=?",
                          (nahradza,)).fetchone() or [None])[0]
-        if nahradza is not None else None})
+        if nahradza is not None else None,
+        # to isté platí pre pôvod: číslo po obnove ukazuje inam
+        "odvodene_z": odvodene_z,
+        "odvodene_z_tvrdenie": (
+            conn.execute("SELECT tvrdenie FROM poznatky WHERE id=?",
+                         (odvodene_z,)).fetchone() or [None])[0]
+        if odvodene_z is not None else None})
     return nove_id
 
 
@@ -629,6 +636,57 @@ def _zapis_vazbu(conn: sqlite3.Connection, poznatok_id: int, pole: str,
         return
     _zapis_do_dennika("vazba", {"tvrdenie": r[0], "pole": pole, "ciel_id": ciel_id})
 
+
+
+def odvodene_od(conn: sqlite3.Connection, poznatok_id: int) -> list[tuple[int, str]]:
+    """Všetko, čo bolo z tohto poznatku odvodené — do hĺbky, nie o úroveň.
+
+    Prečo to existuje. Architektúra „druhého mozgu ako kompilátora"
+    (rvaniaaaa, 2026-08-20) pomenúva vlastnú charakteristickú poruchu:
+    *„Zlý zdroj v knižnici sa ľahko odstráni. Zlý zdroj v kompilátore sa
+    dotkol pätnástich stránok skôr, než si to zbadal."*
+
+    Nám sa to stalo 2026-08-22, ešte než sme ten text čítali. Tvrdenie
+    „scenár S9 sa splniť nedá" napísal ten, kto beh spravil. Prešlo do
+    podkladu, odtiaľ cez dvoch nezávislých hodnotiteľov (obaja s výhradou,
+    že to overiť nevedia — podklad definíciu scenára neobsahoval), odtiaľ
+    do môjho zhrnutia a do dvoch dokumentov ako plánovací blokátor. Overenie
+    proti zdroju trvalo dve minúty a tvrdenie neobstálo.
+
+    Retrieval by tú vetu vyniesol raz. Kompilácia ju zabudovala štyrikrát.
+    Preto poznatok nesie `odvodene_z` a preto sa dá spýtať opačne: keď toto
+    padne, čo všetko treba prečítať znova.
+    """
+    von: list[tuple[int, str]] = []
+    front = [poznatok_id]
+    videne = {poznatok_id}
+    while front:
+        r = conn.execute(
+            "SELECT id, tvrdenie FROM poznatky WHERE odvodene_z IN "
+            f"({','.join('?' * len(front))})", front).fetchall()
+        front = []
+        for i, t in r:
+            if i in videne:
+                continue
+            videne.add(i)
+            von.append((i, t))
+            front.append(i)
+    return von
+
+
+def siroty(conn: sqlite3.Connection) -> list[tuple[int, str]]:
+    """Aktívne poznatky, ktoré nie sú napojené na nič.
+
+    Poznatok bez väzby je záznam v kartotéke, nie skompilovaná znalosť.
+    Nie každý väzbu mať musí — samostatné pozorovanie je legitímne — ale
+    podiel sirôt je meradlom toho, či systém kompiluje alebo len ukladá.
+    2026-08-22: 56 zo 124 aktívnych, teda 45 %.
+    """
+    return conn.execute(
+        "SELECT id, tvrdenie FROM poznatky WHERE rozhodnutie_id IS NULL "
+        "AND domnienka_id IS NULL AND experiment_id IS NULL AND nahradza IS NULL "
+        "AND odporuje IS NULL AND odvodene_z IS NULL "
+        "AND stav NOT IN ('PREKONANY','VYVRATENY','ZRUSENY') ORDER BY id").fetchall()
 
 def pripoj_k_domnienke(conn: sqlite3.Connection, poznatok_id: int,
                       domnienka_id: int) -> None:
@@ -1174,6 +1232,27 @@ def dalsi_krok(conn: sqlite3.Connection) -> list[dict]:
                    f"vyplýva pre nás, a čím sa to dá vyvrátiť",
             "vyvratilo_by": "poznatok nemá dôsledok pre nás; potom ho označ ako "
                             "PREKONANY namiesto vymýšľania hypotézy",
+            "autorita": "stroj",
+        })
+
+    # Podiel sirôt je meradlom toho, ci systém kompiluje alebo len ukladá:
+    # poznatok bez väzby je záznam v kartotéke. Nehlási sa po jednom — to by
+    # zaplavilo frontu 56 krokmi — ale ako jeden krok s číslom, keď podiel
+    # prekročí tretinu. Nie každý poznatok väzbu mať musí; preto prah, nie nula.
+    _siroty = siroty(conn)
+    _aktivne = conn.execute(
+        "SELECT COUNT(*) FROM poznatky WHERE stav NOT IN "
+        "('PREKONANY','VYVRATENY','ZRUSENY')").fetchone()[0] or 1
+    if len(_siroty) * 3 > _aktivne:
+        kroky.append({
+            "poradie": 4.6,
+            "co": f"Napojiť siroty: {len(_siroty)} z {_aktivne} aktívnych poznatkov "
+                  f"({100 * len(_siroty) // _aktivne} %) nie je napojených na nič",
+            "ako": "prejsť ich a pri každom rozhodnúť: patrí k rozhodnutiu, "
+                   "k domnienke, k experimentu, je odvodený z iného poznatku — "
+                   "alebo naozaj stojí sám a to je v poriadku",
+            "vyvratilo_by": "siroty sú samostatné pozorovania, ktoré väzbu mať "
+                            "nemajú; potom je prah zle nastavený, nie dáta",
             "autorita": "stroj",
         })
 

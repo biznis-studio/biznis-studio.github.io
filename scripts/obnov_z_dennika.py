@@ -52,6 +52,7 @@ def main() -> int:
                 typ_zdroja=z["typ_zdroja"], zdroj_datum=z.get("zdroj_datum"),
                 dokaz=z.get("dokaz"), dosah=z.get("dosah"),
                 nahradza=_id_podla_tvrdenia(conn, z.get("nahradza_tvrdenie")),
+                odvodene_z=_id_podla_tvrdenia(conn, z.get("odvodene_z_tvrdenie")),
                 obnova=True)
             # Stav nesie len základový snímok. Zmeny stavu robené mimo
             # zapis_poznatok (oznac_rozpor, ručný zásah) sa do denníka nikdy

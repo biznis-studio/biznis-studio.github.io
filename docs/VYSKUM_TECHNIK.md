@@ -234,6 +234,93 @@ sumarizovať. Skracovanie kontextu má byť odpoveďou na pomenované obmedzenie
 nie predvolené správanie. Nás sa to týka pri denníku a pri `memory/` —
 neskracovať preventívne.
 
+---
+
+## 7. „Druhý mozog nie je úložisko, je kompilátor"
+
+**Zdroj:** vlákno na X (rvaniaaaa, 2026-08-20), poslal majiteľ.
+Odvoláva sa na Karpathyho *LLM Wiki*. **Čísla, ktoré uvádza (5 000 hviezd,
+16 miliónov zobrazení), som neoveril** — na posúdenie architektúry ich netreba
+a citovať neoverené číslo je proti našim vlastným pravidlám.
+
+**Myšlienka:** knižnica rastie, kompilátor sa zlepšuje. RAG platí cenu
+porozumenia pri každej otázke; skompilovaná znalosť ju zaplatí raz, pri vstupe.
+Zdroj sa prečíta, rozloží, **prepojí na všetko, čo už je**, protirečenia sa
+označia a syntéza sa uloží natrvalo. Ďalší zdroj stavia na spracovanom
+porozumení, nie na surových vstupoch. Architektúra: `raw/` → `wiki/` →
+`output/`, v strede živý `CLAUDE.md`, a slučka, ktorá po každom behu napíše
+človeku, čo zmenila.
+
+### Toto máme — a preto sa nič neprepisuje
+
+| prvok architektúry | čo u nás už je |
+|---|---|
+| `raw/` vstupný nárazník | frontier snímanie (349 položiek → 11 relevantných) |
+| kompilácia do prepojených stránok | tabuľka `poznatky`, `nahradza`, `pripoj_k_*` |
+| označovanie protirečení | `mozne_rozpory()` + `posudene_dvojice` (12 posúdených) |
+| živý profil v strede | `CLAUDE.md` + `memory/` |
+| slučka so správou pre človeka | `frontier_run` → fronta krokov |
+| `output/` zo skompilovaného | `build_site.py` stavia web z databázy |
+
+Prepisovať to na `raw/ wiki/ output/` by bolo prestavanie toho istého do iných
+priečinkov. Rovnako neberieme závislosť na Claude Desktop a plánovaných
+úlohách — pipeline v GitHube robí to isté a beží aj keď je notebook zavretý.
+
+### Čo architektúra ukázala a čo sme prijali
+
+**Prvé — zmerané, nie odhadnuté.** Ak je kompilátor o prepájaní, dá sa spýtať,
+koľko toho prepájame:
+
+| | |
+|---|---|
+| aktívnych poznatkov | 124 |
+| napojených na rozhodnutie | 56 |
+| napojených na domnienku | 12 |
+| napojených na experiment | 2 |
+| **sirôt — bez väzby kamkoľvek** | **56, teda 45 %** |
+| označených ako odporujúce si | **0** |
+
+Skoro polovica je kartotéka. Článok hovorí *„jeden zdroj sa dotkne desiatich
+až pätnástich stránok"*; u nás sa každý druhý nedotkne ničoho. Preto pribudol
+krok do fronty, ktorý to hlási, kým podiel presahuje tretinu — nie po jednom
+poznatku, to by zaplavilo frontu 56 krokmi. Prah, nie nula: samostatné
+pozorovanie legitímne existuje.
+
+**Druhé — a to je skutočný nález.** Článok pomenúva vlastnú charakteristickú
+poruchu kompilátora:
+
+> Zlý zdroj v knižnici sa ľahko odstráni. Zlý zdroj v kompilátore sa dotkol
+> pätnástich stránok skôr, než si to zbadal.
+
+**Presne to sa nám stalo 2026-08-22, hodiny predtým, než sme ten text čítali.**
+Tvrdenie „scenár S9 sa splniť nedá" napísal ten, kto beh spravil. Prešlo do
+podkladu → cez dvoch nezávislých hodnotiteľov (obaja s výhradou, že to overiť
+nevedia, lebo podklad definíciu scenára neobsahoval) → do môjho zhrnutia pre
+majiteľa → do dvoch dokumentov ako plánovací blokátor. Overenie proti zdroju
+trvalo dve minúty a tvrdenie neobstálo.
+
+Retrieval by tú vetu vyniesol raz. Kompilácia ju zabudovala štyrikrát.
+
+**Prijaté:** poznatok nesie `odvodene_z` — z čoho bol odvodený — a
+`odvodene_od(conn, id)` odpovie na opačnú otázku: *keď toto padne, čo všetko
+treba prečítať znova.* Ide do hĺbky, nie o úroveň. Väzba sa journaluje aj
+tvrdením, nie len číslom, lebo ID po obnove ukazujú inam.
+
+**Čo by to vyvrátilo:** ak by sa ukázalo, že reťaze odvodenia sú v praxi vždy
+dlhé jeden článok, je `odvodene_od` zbytočné a stačí jedno pole. Zmerá sa to
+samo — až budú v databáze prvé skutočné reťaze, nie testovacie.
+
+### Čo z článku neberieme
+
+- **`raw/ wiki/ output/` ako priečinky.** Máme to isté v databáze so schémou
+  a bránami; priečinky by pridali miesto, kde sa dá zabudnúť.
+- **Denná kompilačná úloha v Claude Desktop.** Pipeline to robí a nezávisí od
+  toho, či je notebook zapnutý.
+- **„Nechaj to bežať, zlepšovanie sa nikdy nezastaví."** Toto je presne to,
+  proti čomu stojí naše pravidlo o ablácii: systém, ktorý vie len pridávať,
+  rastie navždy. Kompilátor bez mazania je halda. Naše `CLAUDE.md` rastie
+  14 : 1 (bod 4) — dôkaz, že to nie je teoretická obava.
+
 ## Poradie, v akom to má cenu robiť
 
 1. ~~Reťazcová kontrola stavu kroku~~ — **hotové 22. 8.** Ukázalo sa, že
