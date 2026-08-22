@@ -1,4 +1,6 @@
-2026-08-22 12:20
-Ďalej: pustiť S18 (pack plný vs bez sekcie SKÚSENÝ KVALITÁR) — teraz už je
-scenár, ktorý tú sekciu cieli, takže ablácia môže niečo ukázať.
-ChatGPT má limit četov so súbormi do 13:30, predtým to nepôjde.
+2026-08-22 12:28
+Ďalej dve veci:
+1) Napojiť siroty — 56 zo 124 aktívnych poznatkov (45 %) nie je napojených
+   na nič. Krok je vo fronte na prvom mieste [4.6].
+2) Pustiť S18 (pack plný vs bez sekcie SKÚSENÝ KVALITÁR).
+   ChatGPT má limit četov so súbormi do 13:30.
