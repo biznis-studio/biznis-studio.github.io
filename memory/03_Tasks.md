@@ -57,3 +57,4 @@
 - Iteration 66: 12-candidate opportunity fan-out, all honestly rejected with primary-source evidence — no new build this round.
 - Iteration 67: applied graph/fan-out engineering pattern to market_research_agent (parallel API fetchers), lint pass on operating memory.
 - Iteration 68: found+fixed all 5 SK article CTAs linking to bare index.html instead of #kontakt/#cennik.
+- HOTOVO 2026-08-22: anglický `tools/pre-deployment-record.html` (EN domovská sľubovala nástroj, ktorý bol len po slovensky) + slovenská `sk/praca.html` (SK domovská sľubovala „našu prácu" a odkazovala do angličtiny). Obe chyby našla nová blokujúca brána `kontrola_jazyka_odkazov.py`, ktorá je v CI aj v `build_site.py` a v tabuľke vynútených pravidiel v CLAUDE.md.

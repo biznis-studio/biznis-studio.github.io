@@ -1,8 +1,5 @@
-2026-08-22 — experimenty #3, #4 a #5 UZAVRETÉ (404: 22 % -> 7 %; crawl 9 -> 54; sitemapa bez zmeny)
-2026-08-22 — Search Console: denná kontrola HOTOVÁ
-ČAKÁ NA MAJITEĽA: ohodnotiť HODNOTENIE_S8/S9/S17.md · IČO a adresa pre Zoznam.sk · jeden reálny prípad z cudzej firmy
-2026-08-23 09:00 — Search Console: denná kontrola
-2026-08-25 — domerať kandidáta evolučnej vrstvy
-2026-09-03 — revízia domnienok #17, #18, #25
-2026-11-21 — revízia rozhodnutí #44, #46 a smerovania #45
-2027-02-21 — vratka rozhodnutia #45: je posudok, alebo je návštevnosť?
+2026-08-22 11:22
+Ďalej: najvyššia otvorená vec zo STATE.md.
+Na majiteľovi stále visí: ohodnotiť HODNOTENIE_S8/S9/S17.md, IČO + sídlo pre
+Zoznam.sk, a jeden skutočný uzavretý prípad z cudzej firmy (jediné, čo za neho
+nedokážem spraviť).
