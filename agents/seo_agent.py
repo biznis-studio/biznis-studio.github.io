@@ -215,6 +215,11 @@ def _blog_entries() -> list[dict]:
                     "meta_description": "Everything we have built so far: a live site, an "
                     "unattended pipeline, working tools and open source.",
                     "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%d")})
+    entries.append({"url": "sk/praca.html",
+                    "title": "Na\u0161a pr\u00e1ca: tento web, jeho n\u00e1stroje a ako je postaven\u00fd",
+                    "meta_description": "V\u0161etko na tomto webe sme navrhli a postavili my "
+                    "a v\u0161etko je \u017eiv\u00e9. Vysk\u00fa\u0161ajte si to.",
+                    "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%d")})
     entries.append({"url": "news/index.html",
                     "title": "Signals - AI, quantum, technology & economy news",
                     "meta_description": "A daily digest of AI, quantum computing, technology "

@@ -113,6 +113,7 @@ def main(fast: bool = False) -> int:
     lpa.build_sk_page()
     lpa.build_efa_tool()
     lpa.build_work_page(stats)
+    lpa.build_sk_work_page(stats)
     lpa.build_credits_page()
     blog_agent.run()
     tools_agent.run()
@@ -136,6 +137,13 @@ def main(fast: bool = False) -> int:
     sk = subprocess.run([sys.executable, str(ROOT / "scripts" / "kontrola_slovenciny.py")])
     if sk.returncode != 0:
         print("[build_site] SLOVENCINA FAILED - do not deploy")
+        return 1
+
+    # 5d. Odkaz v proze nesmie preniest citatela do ineho jazyka. Rovnaka
+    #     brana ako v CI. Viď scripts/kontrola_jazyka_odkazov.py.
+    jaz = subprocess.run([sys.executable, str(ROOT / "scripts" / "kontrola_jazyka_odkazov.py")])
+    if jaz.returncode != 0:
+        print("[build_site] JAZYK ODKAZOV FAILED - do not deploy")
         return 1
 
     # 6. The check Claude can read: non-zero exit means do not ship.

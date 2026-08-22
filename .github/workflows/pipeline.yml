@@ -87,6 +87,15 @@ jobs:
       - name: Slovencina na /sk/ (blokujuce)
         run: python3 scripts/kontrola_slovenciny.py
 
+      # Odkaz vo vete nesmie preniest citatela do ineho jazyka. 2026-08-22:
+      # anglicka domovska sluboval "our free pre-deployment record" a odkaz
+      # viedol na slovensky formular. Ziadna existujuca brana to nechytila
+      # a chytit nemohla - ciel vracia 200, je v sitemape, ma kanonicku
+      # adresu. Chybny bol len jazyk. Prepinac jazyka je vynimka: patri do
+      # nav/header/footer alebo nesie hreflang.
+      - name: Jazyk odkazov v proze (blokujuce)
+        run: python3 scripts/kontrola_jazyka_odkazov.py
+
       # Chranena cesta Frontieru: snimanie + zapis cakajucich artefaktov
       # vykladu. Bezi cez zamok, kontrolne body a rozpocet, takze pad v
       # polovici nenecha polovicu stavu. Artefakty vyroba uvazovacia rovina

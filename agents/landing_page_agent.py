@@ -585,11 +585,125 @@ anything at all.</p>
 <p>A short description is enough to start. We reply with what we would do, what it costs, and what we would need from you.</p>"""
     body += contact_form_html() if FORMSPREE_ENDPOINT else ""
 
-    (SITE_DIR / "work.html").write_text(page_shell(
+    page = page_shell(
         "Our work: this site, its tools and how it is built",
         "Everything on this site was designed and built by us, and it is all live. "
         "Try any of it before you talk to us.",
-        body, is_index=True, canonical_path="work.html"))
+        body, is_index=True, canonical_path="work.html")
+    # Protismer k sk/praca.html. Google jednostrannu anotaciu ignoruje, takze
+    # hreflang musi deklarovat OBOJE stranok - audit to zachytil hned.
+    if SITE_BASE_URL:
+        alt = (f'<link rel="alternate" hreflang="en" href="{SITE_BASE_URL}/work.html">\n'
+               f'<link rel="alternate" hreflang="sk" href="{SITE_BASE_URL}/sk/praca.html">\n')
+        idx = page.lower().find("</head>")
+        if idx != -1:
+            page = page[:idx] + alt + page[idx:]
+    (SITE_DIR / "work.html").write_text(page)
+
+
+def build_sk_work_page(stats: dict) -> None:
+    """Slovenská dôkazová stránka — proťajšok work.html.
+
+    Vznikla 2026-08-22 z nálezu brány `kontrola_jazyka_odkazov.py`: slovenská
+    domovská sľubovala „Pozrite si našu prácu" a odkaz viedol na anglickú
+    work.html. Rovnaká chyba ako opačným smerom pri nástroji, len ju nikto
+    tri týždne nevidel.
+
+    Obsah je odvodený z anglickej stránky, nie vymyslený nanovo — tvrdenia
+    sú tie isté, lebo hovoria o tom istom webe. Odkazy v próze vedú na
+    slovenské ciele; jediný, ktorý prekračuje jazyk (Signály), to hovorí
+    v texte a nesie hreflang, takže brána ho právom prehliadne.
+    """
+    body = f"""<span class="eyebrow">Pozrite si to skôr, než sa rozhodnete</span>
+<h1>Naša práca</h1>
+<p class="subtitle">Dizajn, produkty, nástroje aj softvér, ktorý to všetko publikuje —
+postavili sme to my. Je to živé, funguje to a môžete si to hneď vyskúšať. Posúďte prácu
+priamo, nie zoznam log.</p>
+
+<h2>Hotový web, nie návrh v obrázku</h2>
+<p>Stránka, na ktorej ste, je tá ukážka. Produktové stránky, články, interaktívne nástroje,
+funkčný kontaktný formulár, sekcia noviniek, ktorá sa dopĺňa sama, svetlý aj tmavý režim —
+a je stavaná tak, aby bola rýchla najprv na telefóne.</p>
+<p><strong>Čo to znamená pre vás:</strong> ak si u nás objednáte web, toto je úroveň, ktorú
+dostanete — skutočná stránka, ktorá beží, nie súbor s návrhom odovzdaný niekomu inému na
+dostavanie. <a href="index.html">Pozrite sa po nej.</a></p>
+
+<h2>Softvér, ktorý beží bez toho, aby sa ho niekto dotkol</h2>
+<p>Tento web sa z veľkej časti udržiava sám. Každý deň si nazbiera nový materiál, zverejní
+ho, prestaví si vlastnú navigáciu a kanály a ešte pred zverejnením si skontroluje stránky
+na rozbité odkazy. Nikto sa kvôli tomu nikam neprihlasuje. Vidno to na stránke
+<a href="../news/index.html" hreflang="en" lang="en">Signály (v angličtine)</a> — tie titulky
+tam prišli samy.</p>
+<p><strong>Čo to znamená pre vás:</strong> ak niečo vy alebo vaši ľudia robíte každý týždeň
+ručne — prekladáte dáta medzi systémami, staviate tú istú zostavu, kontrolujete zdroj na
+zmeny — takto vyzerá jeho nahradenie v praxi.</p>
+
+<h2>Nástroje, ktoré vaši zákazníci naozaj použijú</h2>
+<p>Dva nástroje, ktoré počítajú priamo v prehliadači:
+<a href="zapis-pred-nasadenim-ai.html">zápis pred nasadením AI</a> a
+<a href="efaktura-2027-test.html">test pripravenosti na e-faktúru 2027</a>. Bez registrácie,
+nič sa neukladá, nič sa nikam neposiela. Otvorte ktorýkoľvek a prerátajte si to sami.</p>
+<p><strong>Čo to znamená pre vás:</strong> interaktívny nástroj je jedna z mála vecí, ktoré
+si ľudia posielajú a odkazujú na ne sami od seba. Ak taký chcete pre svojich zákazníkov —
+odhad ceny, pomôcka na výber veľkosti, výpočet úspory — toto sú funkčné ukážky úrovne.</p>
+
+<h2>Hotové veci, nie vzorky</h2>
+<p>{stats['products']} dokončených digitálnych produktov: sady podkladov, šablóny,
+kontrolné zoznamy, príručka, interaktívna kalkulačka. Každý napísaný ako niečo, čo si človek
+vezme a použije, nie ako ukážka. Väčšina je zadarmo a dá sa prečítať celá bez toho, aby ste
+nám nechali e-mail.</p>
+<p><strong>Čo to znamená pre vás:</strong> text, hĺbku aj mieru starostlivosti si viete
+posúdiť ešte predtým, než nás vôbec oslovíte.</p>
+
+<h2>Vizuálna identita použitá dôsledne</h2>
+<p>Logo, farebný systém, typografia aj pravidlá rozloženia vznikli pre tento projekt a potom
+sa použili na každú jednu stránku — vrátane tých, ktoré vznikajú samé. Všade svetlý aj tmavý
+variant, lebo tmavý vidí zhruba polovica publika.</p>
+<p><strong>Čo to znamená pre vás:</strong> nespravíme logo a nenecháme na vás, aby ste
+prišli na to, ako sa používa. Dostanete pravidlá aj funkčný štýl, takže všetko, čo vznikne
+neskôr, stále vyzerá ako vy.</p>
+
+<div class="card">
+<h2>Riziko nesieme my</h2>
+<p>Pevná cena a písomný rozsah dohodnuté predtým, než sa začne pracovať. Ak sa zákazka ukáže
+byť ťažšia, než sme odhadli, je to náš problém — nie zmenená faktúra.</p>
+<p>Výsledok je celý váš vrátane zdrojových súborov, bez ďalších poplatkov a bez čohokoľvek,
+čo by vás na nás viazalo. A úroveň práce vidíte vyššie ešte predtým, než sa k čomukoľvek
+zaviažete.</p>
+</div>
+
+<div class="stats-strip">
+<div class="stat"><b>Pevná</b><span>cena dohodnutá písomne pred začiatkom</span></div>
+<div class="stat"><b>Vaše</b><span>plné práva aj zdrojové súbory, žiadne ďalšie poplatky</span></div>
+<div class="stat"><b>2</b><span>kolá úprav v cene</span></div>
+<div class="stat"><b>Živé</b><span>odovzdané nasadené a funkčné, nie ako súbor</span></div>
+</div>
+
+<p style="margin-top:2rem"><a class="button" href="index.html#sluzby">Čo staviame</a></p>
+<h2 id="kontakt" class="section-title">Ozvite sa</h2>
+<p>Stačí krátky popis toho, čo potrebujete. Odpíšeme, čo by sme spravili, čo to stojí a čo
+by sme od vás potrebovali.</p>"""
+    body += contact_form_html("sk") if FORMSPREE_ENDPOINT else ""
+
+    if SITE_BASE_URL:
+        alt = (f'<link rel="canonical" href="{SITE_BASE_URL}/sk/praca.html">\n'
+               f'<link rel="alternate" hreflang="sk" href="{SITE_BASE_URL}/sk/praca.html">\n'
+               f'<link rel="alternate" hreflang="en" href="{SITE_BASE_URL}/work.html">\n')
+    else:
+        alt = ""
+    sk_dir = SITE_DIR / "sk"
+    sk_dir.mkdir(parents=True, exist_ok=True)
+    page = page_shell(
+        "Naša práca: tento web, jeho nástroje a ako je postavený | Biznis",
+        "Všetko na tomto webe sme navrhli a postavili my a všetko je živé. "
+        "Vyskúšajte si čokoľvek z toho skôr, než sa nám ozvete.",
+        body, lang="sk", wide=True)
+    if alt:
+        idx = page.lower().find("</head>")
+        if idx != -1:
+            page = page[:idx] + alt + page[idx:]
+    page = page.replace('<html lang="en">', '<html lang="sk">')
+    (sk_dir / "praca.html").write_text(page)
 
 
 def build_sk_page() -> None:
@@ -882,7 +996,7 @@ zdrojov&yacute;ch s&uacute;borov. Žiadne mesačn&eacute; poplatky a žiadna z&a
 <h2>Pozrite si našu pr&aacute;cu</h2>
 <p>Tento web, produkty, n&aacute;stroje aj syst&eacute;m, ktor&yacute; to všetko publikuje -
 postavili sme to my. Je to živ&eacute;, funguje to a d&aacute; sa to overiť za min&uacute;tu.
-<a href="../work.html">Pozrite si to</a>.</p>
+<a href="praca.html">Pozrite si to</a>.</p>
 <p><strong>Riziko nesieme my.</strong> Pevn&aacute; cena a p&iacute;somn&yacute; rozsah dohodnut&yacute;
 predt&yacute;m, než sa začne pracovať. Ak sa pr&aacute;ca uk&aacute;že ťažšia, než sme odhadli, je to
 n&aacute;š probl&eacute;m - nie upraven&aacute; fakt&uacute;ra. V&yacute;sledok je v&aacute;š vr&aacute;tane
@@ -892,7 +1006,7 @@ zdrojov&yacute;ch s&uacute;borov, bez mesačn&yacute;ch poplatkov a bez viazanos
 </section>
 
 <h2 id="kontakt" class="section-title">Ozvite sa</h2>\n""" + contact_form_html("sk") + """
-<p class="form-note">Str&aacute;nka je aj <a href="../index.html">v angličtine</a>.</p>"""
+<p class="form-note">Str&aacute;nka je aj <a href="../index.html" hreflang="en" lang="en">v angličtine</a>.</p>"""
 
     from agents.blog_agent import load_sk_posts
     cards = "\n".join(
