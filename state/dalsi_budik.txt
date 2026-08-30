@@ -1,6 +1,6 @@
-2026-08-30 16:17
-Hotové 30. 8.: účinok rozhodnutia #35 (sitemapa — NENASTALO, príčina u Googla),
-6 sirôt napojených (54 -> 48), a dojournalované posledné tri funkcie meniace
-stav (vyhodnot_rozhodnutie, oznac_rozpor, rozhodni_domnienku).
-Ďalej bez ChatGPT: pokračovať v napájaní sirôt (48).
+2026-08-30 20:13
+Hotové 30. 8. (druhá časť): testovací poznatok 'tvrdenie A' vymazaný zo živej
+databázy aj denníka; 16 sirôt napojených (54 -> 39); prvý skutočný rozpor
+(#93 vyvracia #92, ten je PREKONANY) — pole odporuje bolo dovtedy prázdne.
+Ďalej bez ChatGPT: zvyšné siroty (39), väčšina sú samostatné poučenia.
 Čaká na reset limitu príloh ChatGPT (31. 8. po 14:56): ablovaná vetva S18.
