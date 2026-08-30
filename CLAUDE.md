@@ -62,7 +62,7 @@ Everything above is advisory. These are **enforced** and cannot be talked around
 
 | Mechanism | Blocks |
 |---|---|
-| Stop hook `.claude/hooks/verify_before_stop.sh` | ending a turn while the site audit fails · **ending a turn while the queue still has `(stroj)` work** |
+| Stop hook `.claude/hooks/verify_before_stop.sh` | ending a turn while the site audit fails · **ending a turn while the queue still has `(stroj)` work** · **ending a turn while `test_beh.py` or `test_vyklad.py` fails** — added 2026-08-30 after a column added by hand to the local database (and not to `MIGRACIE`) broke CI for eight consecutive runs; the site audit could not see it, because the site was fine and the schema was not |
 | `tests/test_beh.py` (CI, blocking) | a run that crashes mid-node leaving partial writes, or budgets that don't stop a run |
 | `scripts/kontrola_repozitara.py` (CI, blocking) | **new customer data reaching the repo** — names and case identifiers. Does *not* check git history: a published record stays published. |
 | `scripts/kontrola_jazyka_odkazov.py` (CI, blocking) | **an odkaz in prose that carries the reader into the other language** — the promise is in the reader's language, the page it opens is not. The language switcher is exempt: it lives in `nav`/`header`/`footer` or carries `hreflang`. |

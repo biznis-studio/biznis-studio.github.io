@@ -27,6 +27,26 @@ if [ $? -ne 0 ]; then
   exit 2
 fi
 
+# --- brána: blokujúce testy musia prejsť ------------------------------------
+#
+# 2026-08-22 som pridal stĺpec `odvodene_z` príkazom ALTER TABLE do lokálnej
+# databázy a do zoznamu MIGRACIE nie. Lokálne fungovalo všetko, lebo stĺpec
+# tam bol. Test si ale schému stavia z kódu, takže CI padalo — a padalo osem
+# behov od 22. do 30. augusta, kým si toho všimol majiteľ, nie systém.
+#
+# Audit webu to chytiť nemohol: web bol v poriadku, rozbitá bola schéma.
+# Testy bežia pod sekundu, takže cena je nulová a chyba tejto triedy sa už
+# nedostane ďalej než na koniec ťahu.
+for T in tests/test_beh.py tests/test_vyklad.py; do
+  [ -f "$T" ] || continue
+  VYSTUP=$(python3 "$T" 2>&1)
+  if [ $? -ne 0 ]; then
+    echo "Blokujúci test $T zlyháva, takže sa ťah nesmie ukončiť:" >&2
+    echo "$VYSTUP" | tail -20 >&2
+    exit 2
+  fi
+done
+
 # --- druhá brána: nekončiť ťah, kým je vo fronte práca pre stroj ------------
 #
 # Majiteľ 2026-08-18: "zas si sa zasekol, toto je systemovy problem." Mal
