@@ -1,4 +1,6 @@
-2026-08-30 17:14
-Pipeline je od 30. 8. zase zelený (osem dní padal na chýbajúcej migrácii).
-Ďalej: napojiť siroty (51 zo 138), a pustiť S18 — pack plný vs bez sekcie
-SKÚSENÝ KVALITÁR.
+2026-08-31 14:57
+Čaká na reset limitu príloh v ChatGPT (31. 8. po 14:56):
+  - ablovaná vetva S18 (pack bez sekcie SKÚSENÝ KVALITÁR)
+Medzitým sa dá robiť bez ChatGPT:
+  - napojiť siroty (51 zo 138 poznatkov), krok je vo fronte prvý
+  - sledovať, či Google sitemapy po opätovnom odoslaní 30. 8. stiahol
