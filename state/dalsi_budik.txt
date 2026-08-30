@@ -1,6 +1,6 @@
-2026-08-30 16:21
-Sitemapa: rozhodnutie #35 uzavreté ako NENASTALO (Google ich nikdy nestiahol,
-príčina nie je u nás). sitemap.xml odoslaná znova 30. 8., stav sledovať.
-Ďalej bez ChatGPT: dokončiť napájanie sirôt (48 zostáva) a dojournalovať
-oznac_rozpor + rozhodni_domnienku.
+2026-08-30 16:17
+Hotové 30. 8.: účinok rozhodnutia #35 (sitemapa — NENASTALO, príčina u Googla),
+6 sirôt napojených (54 -> 48), a dojournalované posledné tri funkcie meniace
+stav (vyhodnot_rozhodnutie, oznac_rozpor, rozhodni_domnienku).
+Ďalej bez ChatGPT: pokračovať v napájaní sirôt (48).
 Čaká na reset limitu príloh ChatGPT (31. 8. po 14:56): ablovaná vetva S18.
