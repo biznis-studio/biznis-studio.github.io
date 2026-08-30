@@ -84,6 +84,26 @@ def main() -> int:
             # bez prehratia by sa po strate databázy vrátila do fronty.
             ev.zamietni_dvojicu(conn, a_tvrdenie=z["a_tvrdenie"],
                                 b_tvrdenie=z["b_tvrdenie"], dovod=z.get("dovod", ""))
+        elif z["typ"] == "rozpor":
+            # Posúdený rozpor. Hľadá sa podľa textu, lebo id sú po obnove iné.
+            a = conn.execute("SELECT id FROM poznatky WHERE tvrdenie=?",
+                             (z.get("novy_tvrdenie"),)).fetchone()
+            b = conn.execute("SELECT id FROM poznatky WHERE tvrdenie=?",
+                             (z.get("stary_tvrdenie"),)).fetchone()
+            if a and b:
+                try:
+                    ev.oznac_rozpor(conn, a[0], b[0], rozhodnutie=z["rozhodnutie"])
+                except ev.ChybaEvolucie:
+                    pass
+        elif z["typ"] == "domnienka_rozhodnuta":
+            d = conn.execute("SELECT id FROM domnienky WHERE domnienka=?",
+                             (z.get("domnienka_text"),)).fetchone()
+            if d:
+                try:
+                    ev.rozhodni_domnienku(conn, d[0], stav=z["stav"],
+                                          vysledok=z["vysledok"])
+                except ev.ChybaEvolucie:
+                    pass
         elif z["typ"] == "ucinok":
             # Skutočný účinok rozhodnutia. Bez prehratia by sa po rebase
             # vrátilo medzi nevyhodnotené a systém by sa nikdy nedozvedel,

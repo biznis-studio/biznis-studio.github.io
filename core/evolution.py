@@ -864,6 +864,15 @@ def oznac_rozpor(conn: sqlite3.Connection, novy_id: int, stary_id: int,
         conn.execute("UPDATE poznatky SET stav='PREKONANY', nahradza=NULL WHERE id=?",
                      (stary_id,))
     conn.commit()
+    # Rozpor je výsledok úsudku, nie odvodený údaj — bez zápisu do denníka
+    # by po rebase zmizol a dvojica by sa vrátila do fronty ako neposúdená.
+    # Kľúčom je text oboch poznatkov, nie ich id (po obnove sú iné).
+    def _t(i):
+        r = conn.execute("SELECT tvrdenie FROM poznatky WHERE id=?", (i,)).fetchone()
+        return r[0] if r else None
+    _zapis_do_dennika("rozpor", {
+        "novy_id": novy_id, "stary_id": stary_id, "rozhodnutie": rozhodnutie,
+        "novy_tvrdenie": _t(novy_id), "stary_tvrdenie": _t(stary_id)}, conn=conn)
 
 
 def splatne_domnienky(conn: sqlite3.Connection) -> list[sqlite3.Row]:
@@ -925,6 +934,14 @@ def rozhodni_domnienku(
         (stav, vysledok, domnienka_id),
     )
     conn.commit()
+    # Rozhodnutá domnienka je výsledok, nie medzistav. Bez denníka by sa po
+    # rebase vrátila medzi otvorené a merala by sa znova — s tým rozdielom,
+    # že prvý výsledok by už nikto nevidel.
+    _zapis_do_dennika("domnienka_rozhodnuta", {
+        "domnienka_id": domnienka_id, "stav": stav, "vysledok": vysledok,
+        "domnienka_text": (conn.execute(
+            "SELECT domnienka FROM domnienky WHERE id=?",
+            (domnienka_id,)).fetchone() or [None])[0]}, conn=conn)
 
 
 # --- čo robiť ďalej --------------------------------------------------------
