@@ -312,6 +312,12 @@ MIGRACIE = [
     ("experiments", "naozivo", "INTEGER"),
     ("experiments", "rozhodnutie", "TEXT"),
     ("experiments", "poucenie", "TEXT"),
+    # 2026-08-30: stĺpec bol 22. 8. pridaný ručným ALTER TABLE do lokálnej
+    # databázy a do MIGRACIE nie. Test behu si schému stavia z kódu, takže
+    # CI padalo na „table poznatky has no column named odvodene_z" — a padalo
+    # osem behov po sebe, kým si toho majiteľ nevšimol. Ručná zmena databázy
+    # nie je zmena systému.
+    ("poznatky", "odvodene_z", "INTEGER"),
     ("rozhodnutia", "datum_revizie", "TEXT"),
     ("rozhodnutia", "vrstva", "TEXT"),
 ]
