@@ -31,7 +31,7 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Iterable, Optional
 
-from core.db import get_connection
+from core.db import get_connection, DB_PATH
 
 # --- druh poznatku ---------------------------------------------------------
 # Poradie je záväzné: nič sa nesmie posunúť doprava bez dôkazu uvedeného v
@@ -170,7 +170,8 @@ DENNIK = Path(__file__).resolve().parent.parent / "state" / "evolucia.jsonl"
 _VIDENE: Optional[set] = None
 
 
-def _zapis_do_dennika(druh_zaznamu: str, data: dict) -> None:
+def _zapis_do_dennika(druh_zaznamu: str, data: dict,
+                      conn: Optional[sqlite3.Connection] = None) -> None:
     """Kazdy zapis ide aj do textoveho denníka, riadok po riadku.
 
     Databaza je binarny subor. Ked ju pipeline commitne sucasne so mnou,
@@ -181,6 +182,20 @@ def _zapis_do_dennika(druh_zaznamu: str, data: dict) -> None:
     pride, `nacitaj_dennik()` ich vrati; zapisy su idempotentne, takze
     prehratie nic nezduplikuje.
     """
+    # Zapisuj do denníka LEN pri zápise do ozajstnej databázy projektu.
+    #
+    # 2026-08-30: testovacie poznatky, ktoré som schválne robil na KÓPII
+    # databázy, sa aj tak zapísali do zdieľaného denníka — a obnova ich
+    # potom prehrala do živej databázy ako riadky #145 až #147. Kópia
+    # ochránila databázu a nechránila nič iné, lebo denník je spoločný.
+    if conn is not None:
+        try:
+            cesty = [r[2] for r in conn.execute("PRAGMA database_list")]
+        except Exception:
+            cesty = []
+        if not any(c and Path(c).resolve() == DB_PATH.resolve() for c in cesty):
+            return
+
     DENNIK.parent.mkdir(parents=True, exist_ok=True)
     # Poistka proti sebe samému. Zápis s rovnakým OBSAHOM (bez času) už
     # v denníku byť nemusí druhýkrát — a práve tým, že tam bol, sa denník
@@ -530,7 +545,7 @@ def zapis_poznatok(
         "odvodene_z_tvrdenie": (
             conn.execute("SELECT tvrdenie FROM poznatky WHERE id=?",
                          (odvodene_z,)).fetchone() or [None])[0]
-        if odvodene_z is not None else None})
+        if odvodene_z is not None else None}, conn=conn)
     return nove_id
 
 
