@@ -148,3 +148,10 @@ the gate and delete it from here** (`CLAUDE.md` lists what is enforced).
   the journal. The journal only covers what someone wrote into it.
 
 - **Prenos obsahu medzi / a /sk/ prenesie text, nie ciele odkazov.** Po každom takom prenose prejsť odkazy v prenesenej pasáži a overiť, že cieľ existuje v jazyku čitateľa. Audit ani stavová kontrola to nechytia — cieľ vracia 200, chybný je len jazyk. (2026-08-22: EN domovská sľubovala „our free pre-deployment record" a odkazovala na slovenský formulár.)
+
+- **Schéma databázy sa mení v kóde, nikdy príkazom do databázy.** `ALTER TABLE`
+  do lokálnej db a nie do `MIGRACIE` zhodil CI na osem behov po sebe
+  (22.–30. 8. 2026) a nikto si to nevšimol, lebo lokálne fungovalo všetko.
+- **Test na kópii databázy nechráni denník.** Denník je spoločný a obnova
+  z neho prehrá testovacie záznamy do živej databázy. Zápis do denníka je
+  odteraz viazaný na skutočnú `db/biznis.sqlite3`.
