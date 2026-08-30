@@ -8,15 +8,6 @@ Aktualizované: **2026-08-30**
 
 ---
 
-## Pridané po 2026-08-18
-
-| Vec | Stav | Ďalší krok |
-|---|---|---|
-| **Pipeline** | **osem behov po sebe padalo (22.–30. 8.)** na chýbajúcej migrácii — stĺpec pridaný ručne do lokálnej databázy a nie do `MIGRACIE`. Web sa preto osem dní nenasadzoval. Opravené 30. 8., beh zelený, novinky idú | stop hook teraz púšťa `test_beh.py` a `test_vyklad.py` — audit webu túto triedu chýb vidieť nemohol |
-| **Objavovanie Googlom** | **overené 30. 8.: nie je to na našej strane.** Živý test `/sk/praca.html` hlási „URL is available to Google, page can be indexed". Zároveň „URL is unknown to Google", **žiadna odkazujúca sitemapa, žiadna odkazujúca stránka**. Obe sitemapy majú `Couldn't fetch` a *Last read prázdny* — Google ich nikdy nestiahol, hoci vracajú 200, platné XML, správnu doménu | sitemapy odoslané znova 30. 8.; druhá cesta objavenia (**odkaz zvonku**) je nulová a je to tá, ktorú vieme ovplyvniť |
-| **Výskum techník** | `docs/VYSKUM_TECHNIK.md` — sedem nálezov s dopadom. Najsilnejší: zhoda hodnotiteľov nie je dôkaz správnosti; expertov *písaný* súbor je najhorší zdroj jeho uvažovania (4,80 vs 1,30); nosné sú výstupné kontrakty; ablácia má tri výsledky, nie dva | krok 6: pustiť ablovanú vetvu S18 |
-| **Evolučná vrstva ako kompilátor** | poznatok nesie `odvodene_z`, `odvodene_od()` povie, čo prečítať znova, keď niečo padne. Zmerané: **51 zo 138 poznatkov nie je napojených na nič** | napojiť siroty — krok je vo fronte na prvom mieste |
-
 ## Čo je práve otvorené
 
 > **Rozhodnuté 2026-08-21 (majiteľ delegoval):** biznis je **pack**, web je jeho
@@ -40,6 +31,15 @@ Aktualizované: **2026-08-30**
 | Sľuby aktív | **10 aktív**, žiadne po termíne | týždenná kontrola beží sama |
 | Slovenčina na `/sk/` | **brána v CI od 19. 8., cez `aspell --lang=sk`** — prvá verzia na vlastnej heuristike hlásila OK, kým naživo sedelo 6 preklepov (5 na domovskej); všetky opravené | ~90 schválených slov v `data/sk_zname_slova.txt` (názvy, anglicizmy); nové slovo blokuje build, kým ho niekto neprečíta |
 | Zákaznícke údaje na verejnom repozitári | **13 riadkov na origin/main** (mená + čísla prípadov) | brána `scripts/kontrola_repozitara.py` blokuje nové; **o už zverejnenom rozhoduje majiteľ** |
+
+## Pridané po 2026-08-18
+
+| Vec | Stav | Ďalší krok |
+|---|---|---|
+| **Pipeline** | **osem behov po sebe padalo (22.–30. 8.)** na chýbajúcej migrácii — stĺpec pridaný ručne do lokálnej databázy a nie do `MIGRACIE`. Web sa preto osem dní nenasadzoval. Opravené 30. 8., beh zelený, novinky idú | stop hook teraz púšťa `test_beh.py` a `test_vyklad.py` — audit webu túto triedu chýb vidieť nemohol |
+| **Objavovanie Googlom** | **overené 30. 8.: nie je to na našej strane.** Živý test `/sk/praca.html` hlási „URL is available to Google, page can be indexed". Zároveň „URL is unknown to Google", **žiadna odkazujúca sitemapa, žiadna odkazujúca stránka**. Obe sitemapy majú `Couldn't fetch` a *Last read prázdny* — Google ich nikdy nestiahol, hoci vracajú 200, platné XML, správnu doménu | sitemapy odoslané znova 30. 8.; druhá cesta objavenia (**odkaz zvonku**) je nulová a je to tá, ktorú vieme ovplyvniť |
+| **Výskum techník** | `docs/VYSKUM_TECHNIK.md` — sedem nálezov s dopadom. Najsilnejší: zhoda hodnotiteľov nie je dôkaz správnosti; expertov *písaný* súbor je najhorší zdroj jeho uvažovania (4,80 vs 1,30); nosné sú výstupné kontrakty; ablácia má tri výsledky, nie dva | krok 6: pustiť ablovanú vetvu S18 |
+| **Evolučná vrstva ako kompilátor** | poznatok nesie `odvodene_z`, `odvodene_od()` povie, čo prečítať znova, keď niečo padne. Zmerané: **51 zo 138 poznatkov nie je napojených na nič** | napojiť siroty — krok je vo fronte na prvom mieste |
 
 ## Kotvy — čo hovorí realita
 
