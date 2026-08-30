@@ -96,6 +96,12 @@ jobs:
       - name: Jazyk odkazov v proze (blokujuce)
         run: python3 scripts/kontrola_jazyka_odkazov.py
 
+      # Stranka, na ktoru neodkazuje nic, je pre vyhladavac ostrov. 2026-08-30
+      # ich bolo sest vratane work.html - vypadla z navigacie pri prepise a
+      # nikto si to mesiac nevsimol, lebo vracala 200 a bola v sitemape.
+      - name: Dosiahnutelnost stranok z domovskej (blokujuce)
+        run: python3 scripts/kontrola_dosiahnutelnosti.py
+
       # Chranena cesta Frontieru: snimanie + zapis cakajucich artefaktov
       # vykladu. Bezi cez zamok, kontrolne body a rozpocet, takze pad v
       # polovici nenecha polovicu stavu. Artefakty vyroba uvazovacia rovina

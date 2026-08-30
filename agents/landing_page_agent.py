@@ -1288,7 +1288,12 @@ def build_catalogue_index(pages: list[dict]) -> None:
     nedostupnými. Rozhodnutie znelo „stránky zostanú funkčné", nie „zmiznú".
     """
     produkty = [x for x in pages if x["format"] != "service"]
-    if not produkty:
+    # Sluzby sem patria tiez. Do 2026-08-30 ich tento vypis vynechaval a
+    # piat stranok sluzieb tak nemalo ANI JEDEN vnutorny odkaz - boli
+    # nedosiahnutelne z domovskej, hoci su v sitemape. Presne to, comu mala
+    # tato stranka podla vlastneho docstringu zabranit.
+    sluzby = [x for x in pages if x["format"] == "service"]
+    if not produkty and not sluzby:
         return
     platene = [x for x in produkty if x.get("monetization_url")]
     volne = [x for x in produkty if not x.get("monetization_url")]
@@ -1311,6 +1316,11 @@ def build_catalogue_index(pages: list[dict]) -> None:
         body += f'<h2 class="section-title">Free</h2>\n<div class="product-grid">{mriezka(volne)}</div>\n'
     if platene:
         body += f'<h2 class="section-title">Paid</h2>\n<div class="product-grid">{mriezka(platene)}</div>\n'
+    if sluzby:
+        body += ('<h2 class="section-title">Services</h2>\n'
+                 '<p>What each of these covers, in detail. The offer itself is on the '
+                 '<a href="../index.html">home page</a>.</p>\n'
+                 f'<div class="product-grid">{mriezka(sluzby)}</div>\n')
     body += '<p><a href="../index.html">&larr; Back to what we do now</a></p>'
 
     page = page_shell("Catalogue - ready-made tools and templates | Biznis",

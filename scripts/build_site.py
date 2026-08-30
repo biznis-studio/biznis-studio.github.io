@@ -146,6 +146,14 @@ def main(fast: bool = False) -> int:
         print("[build_site] JAZYK ODKAZOV FAILED - do not deploy")
         return 1
 
+    # 5e. Kazda stranka musi byt dosiahnutelna z domovskej. Vyhladavac
+    #     objavuje po odkazoch; stranka bez odkazu je pre neho ostrov, aj ked
+    #     vracia 200 a je v sitemape. Viď scripts/kontrola_dosiahnutelnosti.py.
+    dos = subprocess.run([sys.executable, str(ROOT / "scripts" / "kontrola_dosiahnutelnosti.py")])
+    if dos.returncode != 0:
+        print("[build_site] DOSIAHNUTELNOST FAILED - do not deploy")
+        return 1
+
     # 6. The check Claude can read: non-zero exit means do not ship.
     audit = subprocess.run([sys.executable, str(ROOT / "scripts" / "audit_site.py")])
     if audit.returncode != 0:

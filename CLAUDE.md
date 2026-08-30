@@ -66,6 +66,7 @@ Everything above is advisory. These are **enforced** and cannot be talked around
 | `tests/test_beh.py` (CI, blocking) | a run that crashes mid-node leaving partial writes, or budgets that don't stop a run |
 | `scripts/kontrola_repozitara.py` (CI, blocking) | **new customer data reaching the repo** — names and case identifiers. Does *not* check git history: a published record stays published. |
 | `scripts/kontrola_jazyka_odkazov.py` (CI, blocking) | **an odkaz in prose that carries the reader into the other language** — the promise is in the reader's language, the page it opens is not. The language switcher is exempt: it lives in `nav`/`header`/`footer` or carries `hreflang`. |
+| `scripts/kontrola_dosiahnutelnosti.py` (CI, blocking) | **a built page no internal link points to** — a search engine discovers by following links, so an unlinked page is an island even though it returns 200 and sits in the sitemap. Six were, on 2026-08-30, including `work.html`. |
 | `scripts/kontrola_slovenciny.py` (CI, blocking · also in `build_site.py`) | **a Slovak typo reaching `/sk/`** — runs `aspell --lang=sk` over the built pages; ~90 words it does not know (names, anglicisms) are in an approved list. A new word is not an error, it is a word someone must read once. Fails loudly if aspell or the Slovak dictionary is missing. |
 
 If a rule matters and is not in that table, either enforce it or accept it will be

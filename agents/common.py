@@ -739,6 +739,7 @@ def site_header_html(active_is_index: bool = False, lang: str = "en") -> str:
 <a href="{home_href}#services">Services</a>
 <a href="{home_href}#cennik">Pricing</a>
 <a href="{prefix}tools/index.html">Free tools</a>
+<a href="{prefix}work.html">Work</a>
 <a href="{prefix}blog/index.html">Blog</a>
 <a href="{prefix}sk/index.html" lang="sk" hreflang="sk">Slovensky</a>
 <a class="nav-cta" href="{services_href}">Hire us</a>
