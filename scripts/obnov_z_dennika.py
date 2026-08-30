@@ -84,6 +84,18 @@ def main() -> int:
             # bez prehratia by sa po strate databázy vrátila do fronty.
             ev.zamietni_dvojicu(conn, a_tvrdenie=z["a_tvrdenie"],
                                 b_tvrdenie=z["b_tvrdenie"], dovod=z.get("dovod", ""))
+        elif z["typ"] == "ucinok":
+            # Skutočný účinok rozhodnutia. Bez prehratia by sa po rebase
+            # vrátilo medzi nevyhodnotené a systém by sa nikdy nedozvedel,
+            # či to, čo od zmeny čakal, naozaj nastalo.
+            r = conn.execute("SELECT id FROM rozhodnutia WHERE co=?",
+                             (z.get("rozhodnutie_co"),)).fetchone()
+            if r:
+                try:
+                    ev.vyhodnot_rozhodnutie(conn, r[0],
+                                            skutocny_ucinok=z["skutocny_ucinok"])
+                except ev.ChybaEvolucie:
+                    pass
         elif z["typ"] == "dosah":
             # Úprava, nie vznik. Musí sa prehrať PO poznatku, ktorý mení —
             # denník je chronologický, takže poradie sedí samo.

@@ -1070,6 +1070,14 @@ def vyhodnot_rozhodnutie(conn: sqlite3.Connection, rozhodnutie_id: int,
     conn.execute("UPDATE rozhodnutia SET skutocny_ucinok=? WHERE id=?",
                  (skutocny_ucinok, rozhodnutie_id))
     conn.commit()
+    # Bez zápisu do denníka by výsledok zmizol pri najbližšom rebase — rovnako
+    # ako 20 väzieb 2026-08-19. Kľúčom je TEXT rozhodnutia, nie id: po obnove
+    # sa prideľujú nové čísla a číslo by ukazovalo inam alebo nikam.
+    _zapis_do_dennika("ucinok", {
+        "rozhodnutie_id": rozhodnutie_id,
+        "rozhodnutie_co": (conn.execute("SELECT co FROM rozhodnutia WHERE id=?",
+                                        (rozhodnutie_id,)).fetchone() or [None])[0],
+        "skutocny_ucinok": skutocny_ucinok}, conn=conn)
 
 
 def nevyhodnotene_rozhodnutia(conn: sqlite3.Connection) -> list[sqlite3.Row]:
