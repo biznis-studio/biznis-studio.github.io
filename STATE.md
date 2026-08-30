@@ -4,9 +4,18 @@ Prečíta sa na začiatku každej relácie, doplní sa na konci. Agent medzi beh
 zabudne, tento súbor nie. **Krátky zámerne** — čo je hotové, patrí do histórie,
 nie sem.
 
-Aktualizované: **2026-08-18** (večerný beh)
+Aktualizované: **2026-08-30**
 
 ---
+
+## Pridané po 2026-08-18
+
+| Vec | Stav | Ďalší krok |
+|---|---|---|
+| **Pipeline** | **osem behov po sebe padalo (22.–30. 8.)** na chýbajúcej migrácii — stĺpec pridaný ručne do lokálnej databázy a nie do `MIGRACIE`. Web sa preto osem dní nenasadzoval. Opravené 30. 8., beh zelený, novinky idú | stop hook teraz púšťa `test_beh.py` a `test_vyklad.py` — audit webu túto triedu chýb vidieť nemohol |
+| **Objavovanie Googlom** | **overené 30. 8.: nie je to na našej strane.** Živý test `/sk/praca.html` hlási „URL is available to Google, page can be indexed". Zároveň „URL is unknown to Google", **žiadna odkazujúca sitemapa, žiadna odkazujúca stránka**. Obe sitemapy majú `Couldn't fetch` a *Last read prázdny* — Google ich nikdy nestiahol, hoci vracajú 200, platné XML, správnu doménu | sitemapy odoslané znova 30. 8.; druhá cesta objavenia (**odkaz zvonku**) je nulová a je to tá, ktorú vieme ovplyvniť |
+| **Výskum techník** | `docs/VYSKUM_TECHNIK.md` — sedem nálezov s dopadom. Najsilnejší: zhoda hodnotiteľov nie je dôkaz správnosti; expertov *písaný* súbor je najhorší zdroj jeho uvažovania (4,80 vs 1,30); nosné sú výstupné kontrakty; ablácia má tri výsledky, nie dva | krok 6: pustiť ablovanú vetvu S18 |
+| **Evolučná vrstva ako kompilátor** | poznatok nesie `odvodene_z`, `odvodene_od()` povie, čo prečítať znova, keď niečo padne. Zmerané: **51 zo 138 poznatkov nie je napojených na nič** | napojiť siroty — krok je vo fronte na prvom mieste |
 
 ## Čo je práve otvorené
 
@@ -21,8 +30,8 @@ Aktualizované: **2026-08-18** (večerný beh)
 | Vec | Stav | Ďalší krok |
 |---|---|---|
 | **Schopnosť dodať to, čo sľubujeme** | **overené 20. 8.: sľub je splniteľný dnes.** Dodávka sú dva súbory (postup + katalóg 125 príčin), ktoré si zákazník použije vo vlastnom Copilote — bežalo to v teréne 8. 8. Copilot Studio + Dataverse je budúca architektúra (POC-01), nie dnešná dodávka, takže jej blokovanie nič nezastavuje. *(Pôvodne som sem napísal, že nasadenie stojí na netestovanom behu — bolo to zlé, zamenil som architektúru za dodávku.)* | zostávajú dve veci, obe zvládnem sám: **dobehnúť akceptačnú sadu** (pack je nevydaný, NEVYHOVEL S8 a S9) a **overiť pack pre druhú profesiu** |
-| Akceptačná sada packu | **doterajšie výsledky sú v otázke** — pack v `localStorage` niesol 1 736 znakov textu rozhrania, takže behy od 17. 8. netestovali postavený artefakt | pack vyčistený 19. 8.; sadu dobehnúť znovu, hodnotí niekto iný než ten, kto ju spustil |
-| Taxonómia Z1–Z9 | **diera zaplnená 2026-08-19** — `Z8` nenavrhol rozhodujúci test, `Z9` chýba dopredu-akcia | konce v packu **existujú** (`ZASTAV`, `ODOVZDAJ ČLOVEKU`); chýba **spúšťač prechodu na ne**. A pri S9 je pod tým ešte diera medzi ČASŤOU I a II — 6 príčin zo 125 je pri reklamácii nedosiahnuteľných |
+| Akceptačná sada packu | **S8, S9, S17 dobehnuté a ohodnotené 22. 8.** dvomi nezávislými hodnotiteľmi (ChatGPT + čistý kontext), zhoda na všetkých troch: NEVYHOVEL, kódy `Z9`, `Z8`, `Z8`. Pack sa od 22. 8. stavia aj ako **text** (`packs/…txt`, 422 riadkov) — dovtedy ho niekto vyťahoval z .docx ručne, takže dva behy neboli porovnateľné | **S18 baseline hotový 30. 8.** (2 z 8 kritérií zlyhalo); ablovaná vetva čaká na reset limitu príloh v ChatGPT (31. 8. po 14:56) |
+| Taxonómia Z1–Z9 | **diera zaplnená 2026-08-19**; 22. 8. sa ukázalo, že rozsah bol na **štyroch miestach iný** (Z1–Z6, Z1–Z7, Z1–Z9) a jedno z nich funkčné — regex v release bráne. Zjednotené, taxonómia je teraz priamo v každom podklade | konce v packu **existujú** (`ZASTAV`, `ODOVZDAJ ČLOVEKU`); chýba **spúšťač prechodu na ne**. A pri S9 je pod tým ešte diera medzi ČASŤOU I a II — 6 príčin zo 125 je pri reklamácii nedosiahnuteľných |
 | Pack v0.5.0 | **NEVYDANÝ** — `vydane: false` v MANIFESTe | až po 17/17; každý dnešný výsledok je 1 beh, nie 5/5 |
 | Nová pozícia na webe | SK **10 článkov + 2 nástroje zadarmo**; kalkulačka má 5 vstupných odkazov namiesto 1, test e-faktúry má obrázok, cenník sa pod 640 px skladá na karty, dotykové ciele v pätičke 40 px namiesto 22 px (19. 8., všetko overené naživo pri 375/768/1280 px) | h1 domovskej je **rozhodnutie majiteľa**; EN strana zaostáva za SK; prelinkovanie katalógu **zamietnuté** — 0 zobrazení, žiadna veličina, ktorá by sa tým pohla |
 | Evolučná vrstva | beží cez `scripts/frontier_run.py`; `experiments` má **2 merania naživo** so základom zmeraným pred zásahom (#3 index, #4 podiel 404) | domerať kandidáta 2026-08-25; **príčina #4 je známa** — obe 404 sú `/favicon.ico`, súbor sa od 19. 8. generuje a vracia 200, podiel klesne až po ďalšom prehľadávaní |
