@@ -1,6 +1,7 @@
-2026-08-31 19:06
-30. 8.: Indexed 2 -> 6, a bez sitemapy. Rozhodnutie #20 vyhodnotené NASTALO,
-#35 NENASTALO. Domovská poslaná na preindexovanie (Google na nej mal text
-z 18. 8., lebo pipeline osem dní nenasadzoval).
-Ďalej bez ChatGPT: zvyšné siroty (39).
+2026-08-31 19:57
+30. 8. večer: pridaný štvrtý druh dôsledku (poznatok -> zapísané pravidlo),
+rozhodnutie #47. Fronta prestala ponúkať poznatky, ktoré svoju úlohu splnili.
+Siroty 39 -> 36, poznatkov bez dôsledku 30 -> 29.
+Sitemapy stále Couldn't fetch — zapísané ako NENASTALO, ďalej sa nekontroluje
+častejšie než raz za pár hodín.
 Čaká na reset limitu príloh ChatGPT (31. 8. po 14:56): ablovaná vetva S18.
