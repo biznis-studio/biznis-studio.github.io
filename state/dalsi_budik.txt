@@ -1,7 +1,7 @@
-2026-08-31 20:18
-31. 8.: mail o zlyhanom behu bol ZOPAKOVANY STARY BEH (commit 9f0a1bd z 22. 8.,
-tretí pokus). Re-run púšťa kód toho commitu, takže padne vždy. Riadny beh na
-main prechádza, web aktuálny. Do CI doplnená hláška, ktorá to povie sama.
-Ďalej bez ChatGPT: zvyšné siroty (36).
-Čaká na reset limitu príloh ChatGPT (31. 8. po 14:56 — už uplynul): ablovaná
-vetva S18, dá sa pustiť pri najbližšom ťahu.
+2026-08-31 20:33
+PRIORITA: produkt, nie technikálie. Pack je jediná vec, ktorá stojí medzi nami
+a predajom — je nevydaný, S17 je blokujúci.
+31. 8.: pridaný predpis tvaru odpovede, S17 z 2 zlyhaní na 1 (ZASTAV zaznel).
+Ďalej: zostáva Z8 na S17 (model navrhol získať vzorku namiesto drahej skúšky)
+a S8 (chýba OBÍDI). Preveriť ich tým istým spôsobom — jedna zmena, jedno meranie.
+Nedopisovať do packu nič, čo pack nesľubuje (S8 „čo začať zapisovať" je taký prípad).
