@@ -155,3 +155,8 @@ the gate and delete it from here** (`CLAUDE.md` lists what is enforced).
 - **Test na kópii databázy nechráni denník.** Denník je spoločný a obnova
   z neho prehrá testovacie záznamy do živej databázy. Zápis do denníka je
   odteraz viazaný na skutočnú `db/biznis.sqlite3`.
+
+- **Správa commitu ide cez `git commit -F -` a heredoc s `'SPRAVA'`, nikdy cez
+  `-m` s `$()` alebo backtickmi.** Zsh ich vyhodnotí ako príkaz a zo správy
+  vypadne text. Stalo sa dvakrát: backticky (19. 8.) a `$(a; b)` (31. 8.).
+  Históriu potom prepísať nemožno — rozhodnutie #41.
