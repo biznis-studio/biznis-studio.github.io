@@ -1,7 +1,7 @@
-2026-08-31 19:57
-30. 8. večer: pridaný štvrtý druh dôsledku (poznatok -> zapísané pravidlo),
-rozhodnutie #47. Fronta prestala ponúkať poznatky, ktoré svoju úlohu splnili.
-Siroty 39 -> 36, poznatkov bez dôsledku 30 -> 29.
-Sitemapy stále Couldn't fetch — zapísané ako NENASTALO, ďalej sa nekontroluje
-častejšie než raz za pár hodín.
-Čaká na reset limitu príloh ChatGPT (31. 8. po 14:56): ablovaná vetva S18.
+2026-08-31 20:18
+31. 8.: mail o zlyhanom behu bol ZOPAKOVANY STARY BEH (commit 9f0a1bd z 22. 8.,
+tretí pokus). Re-run púšťa kód toho commitu, takže padne vždy. Riadny beh na
+main prechádza, web aktuálny. Do CI doplnená hláška, ktorá to povie sama.
+Ďalej bez ChatGPT: zvyšné siroty (36).
+Čaká na reset limitu príloh ChatGPT (31. 8. po 14:56 — už uplynul): ablovaná
+vetva S18, dá sa pustiť pri najbližšom ťahu.
