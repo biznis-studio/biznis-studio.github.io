@@ -1,6 +1,6 @@
-2026-08-30 21:22
-Hotové 30. 8.: 6 stránok bolo nedosiahnuteľných z domovskej (work.html + 5 služieb),
-opravené a zabezpečené bránou kontrola_dosiahnutelnosti.py (CI + build_site).
-Overené naživo, brána v CI prešla.
-Sitemapy stále Couldn't fetch — príčina nie je u nás, čaká sa na Google.
+2026-08-31 19:06
+30. 8.: Indexed 2 -> 6, a bez sitemapy. Rozhodnutie #20 vyhodnotené NASTALO,
+#35 NENASTALO. Domovská poslaná na preindexovanie (Google na nej mal text
+z 18. 8., lebo pipeline osem dní nenasadzoval).
+Ďalej bez ChatGPT: zvyšné siroty (39).
 Čaká na reset limitu príloh ChatGPT (31. 8. po 14:56): ablovaná vetva S18.
