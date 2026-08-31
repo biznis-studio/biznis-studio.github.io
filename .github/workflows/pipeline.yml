@@ -61,9 +61,30 @@ jobs:
       # prestane platit atomicita, bezobsluzny beh zacne duplikovat zapisy -
       # co uz raz nastalo 2026-08-17 a stalo to rucne zmierovanie databaz.
       - name: Regresne testy behu (blokujuce)
+        # Ak zlyhanie hovori 'no column named', skoro vzdy ide o ZOPAKOVANY
+        # STARY BEH: re-run spusta kod toho stareho commitu, takze padne
+        # zakazdym, aj ked je chyba davno opravena. 31. 8. to majitela stalo
+        # tri pokusy a jeden mail navyse, tak nech to hlaska povie sama.
         run: |
-          python3 tests/test_beh.py
-          python3 tests/test_vyklad.py
+          set +e
+          KOD=0
+          VYSTUP=""
+          for T in tests/test_beh.py tests/test_vyklad.py; do
+            V=$(python3 "$T" 2>&1); K=$?
+            VYSTUP="$VYSTUP$V"$'\n'
+            [ $K -ne 0 ] && KOD=1
+          done
+          echo "$VYSTUP"
+          if [ $KOD -ne 0 ] && echo "$VYSTUP" | grep -q "no column named"; then
+            echo ""
+            echo "=============================================================="
+            echo "Chyba schemy databazy. Ak si tento beh spustil ZNOVA zo"
+            echo "starsieho commitu, padne zakazdym - re-run pusta kod toho"
+            echo "commitu, nie dnesny. Pozri, ci najnovsi beh na main presiel;"
+            echo "ak ano, nie je co opravovat."
+            echo "=============================================================="
+          fi
+          exit $KOD
 
       # Blokujuca brana. CLAUDE.md tvrdil, ze zakaznicke udaje v repozitari
       # blokuje `quality-packs/build/build_pack.py --check`. Ten skript
