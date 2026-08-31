@@ -333,6 +333,11 @@ MIGRACIE = [
     # osem behov po sebe, kým si toho majiteľ nevšimol. Ručná zmena databázy
     # nie je zmena systému.
     ("poznatky", "odvodene_z", "INTEGER"),
+    # Stvrty druh dosledku. Poznatok #129: cast nasich poznatkov ma dosledok,
+    # ktory schema nevedela zaznamenat - ZAPISANE PRAVIDLO v CLAUDE.md alebo
+    # memory/07_Constraints.md. Take poznatky zostavali "bez dosledku" navzdy
+    # a fronta ich ponukala donekonecna, hoci svoju ulohu davno splnili.
+    ("poznatky", "pravidlo", "TEXT"),
     ("rozhodnutia", "datum_revizie", "TEXT"),
     ("rozhodnutia", "vrstva", "TEXT"),
 ]
@@ -634,6 +639,8 @@ def poznatky_bez_dosledku(conn: sqlite3.Connection, limit: int = 10) -> list[sql
         # k experimentu, svoju úlohu splnil — ponúkať ho ďalej znamená pýtať
         # si druhú formuláciu toho istého.
         "AND p.rozhodnutie_id IS NULL AND p.experiment_id IS NULL "
+        # Stvrty dosledok: poznatok, z ktoreho vzniklo zapisane pravidlo.
+        "AND (p.pravidlo IS NULL OR TRIM(p.pravidlo) = '') "
         "AND NOT EXISTS (SELECT 1 FROM domnienky d WHERE d.poznatok_id = p.id) "
         "ORDER BY p.id DESC LIMIT ?", (limit,)
     ))
@@ -707,7 +714,32 @@ def siroty(conn: sqlite3.Connection) -> list[tuple[int, str]]:
         "SELECT id, tvrdenie FROM poznatky WHERE rozhodnutie_id IS NULL "
         "AND domnienka_id IS NULL AND experiment_id IS NULL AND nahradza IS NULL "
         "AND odporuje IS NULL AND odvodene_z IS NULL "
+        "AND (pravidlo IS NULL OR TRIM(pravidlo) = '') "
         "AND stav NOT IN ('PREKONANY','VYVRATENY','ZRUSENY') ORDER BY id").fetchall()
+
+
+def pripoj_k_pravidlu(conn: sqlite3.Connection, poznatok_id: int,
+                      pravidlo: str) -> None:
+    """Poznatok viedol k zapísanému pravidlu — to je tiež dôsledok.
+
+    `pravidlo` je cesta a stručne čo tam pribudlo, napríklad
+    ``CLAUDE.md: riadok o bráne kontrola_dosiahnutelnosti.py``.
+
+    Bez tohto poľa pozná fronta len tri dôsledky (domnienka, rozhodnutie,
+    experiment) a poznatok, z ktorého vzniklo pravidlo, ponúka donekonečna
+    ako „bez dôsledku". Poznatok #129 to pomenoval a nechal rozhodnutie
+    otvorené; rozhodnuté 2026-08-30 v prospech štvrtej väzby, lebo tá
+    druhá možnosť — čítať tú časť fronty ako šum — znamená mať vo fronte
+    trvalý šum.
+    """
+    if not pravidlo.strip():
+        raise ChybaEvolucie("väzba na pravidlo musí povedať KDE a ČO, nie len že áno")
+    conn.execute("UPDATE poznatky SET pravidlo=? WHERE id=?", (pravidlo, poznatok_id))
+    conn.commit()
+    _zapis_do_dennika("pravidlo", {
+        "poznatok_id": poznatok_id, "pravidlo": pravidlo,
+        "tvrdenie": (conn.execute("SELECT tvrdenie FROM poznatky WHERE id=?",
+                                  (poznatok_id,)).fetchone() or [None])[0]}, conn=conn)
 
 def pripoj_k_domnienke(conn: sqlite3.Connection, poznatok_id: int,
                       domnienka_id: int) -> None:

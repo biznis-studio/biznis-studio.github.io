@@ -84,6 +84,14 @@ def main() -> int:
             # bez prehratia by sa po strate databázy vrátila do fronty.
             ev.zamietni_dvojicu(conn, a_tvrdenie=z["a_tvrdenie"],
                                 b_tvrdenie=z["b_tvrdenie"], dovod=z.get("dovod", ""))
+        elif z["typ"] == "pravidlo":
+            r = conn.execute("SELECT id FROM poznatky WHERE tvrdenie=?",
+                             (z.get("tvrdenie"),)).fetchone()
+            if r:
+                try:
+                    ev.pripoj_k_pravidlu(conn, r[0], z["pravidlo"])
+                except ev.ChybaEvolucie:
+                    pass
         elif z["typ"] == "rozpor":
             # Posúdený rozpor. Hľadá sa podľa textu, lebo id sú po obnove iné.
             a = conn.execute("SELECT id FROM poznatky WHERE tvrdenie=?",
