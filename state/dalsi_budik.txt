@@ -1,7 +1,9 @@
-2026-08-31 20:33
-PRIORITA: produkt, nie technikálie. Pack je jediná vec, ktorá stojí medzi nami
-a predajom — je nevydaný, S17 je blokujúci.
-31. 8.: pridaný predpis tvaru odpovede, S17 z 2 zlyhaní na 1 (ZASTAV zaznel).
-Ďalej: zostáva Z8 na S17 (model navrhol získať vzorku namiesto drahej skúšky)
-a S8 (chýba OBÍDI). Preveriť ich tým istým spôsobom — jedna zmena, jedno meranie.
-Nedopisovať do packu nič, čo pack nesľubuje (S8 „čo začať zapisovať" je taký prípad).
+2026-09-06 10:34
+PRIORITA: produkt. Pack je jediná vec medzi nami a prvým predajom.
+Merané: S17 2->1 zlyhania, S8 3->2, obe vďaka predpisu tvaru odpovede.
+Sada oba razy ROZLÍŠILA verzie — predtým ani raz.
+Zostáva a pack to SĽUBUJE (teda sa opravuje v packu):
+  - S8: stav má byť OBÍDI, model dal POKRAČUJ a položil novú otázku
+  - S17: pri ZASTAV má navrhnúť drahú skúšku, navrhol získať vzorku
+Zostáva a pack to NESĽUBUJE (nedopisovať, rozhoduje majiteľ/návrh):
+  - S8: "povedz, čo treba začať zapisovať"
