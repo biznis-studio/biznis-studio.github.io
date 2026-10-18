@@ -1,0 +1,190 @@
+{
+  "run_id": 266,
+  "generated_at": "2026-10-18T10:17:18.647604+00:00",
+  "run_status": "success",
+  "signals_by_source": {
+    "github": 30,
+    "hackernews": 30,
+    "npm_downloads": 45,
+    "stackexchange": 60,
+    "wikipedia_pageviews": 47
+  },
+  "top_keywords": [
+    {
+      "term": "@editorjs/checklist",
+      "score": 0.5791550000000001,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@e965/xlsx",
+      "score": 0.55584,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@accounter/green-invoice-graphql",
+      "score": 0.54918,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "mjml-invoice",
+      "score": 0.5352049999999999,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "visionquest",
+      "score": 0.529285,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "sms-segments-calculator",
+      "score": 0.52779,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "ec-sri-invoice-signer",
+      "score": 0.5151950000000001,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "checklist",
+      "score": 0.49084,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "xlsx",
+      "score": 0.48832,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "automation-events",
+      "score": 0.46667,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "react-spreadsheet",
+      "score": 0.45751000000000003,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "limonene",
+      "score": 0.44211500000000004,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": ".xxx",
+      "score": 0.42680851063829794,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "calculator",
+      "score": 0.42168,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "@ai-sdk/gateway",
+      "score": 0.42000000000000004,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "spreadsheet",
+      "score": 0.41499,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "united states",
+      "score": 0.41190199871050936,
+      "breadth_component": 0.4,
+      "growth_component": 0.5,
+      "sources_json": "[\"hackernews\", \"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "@ai-sdk/google",
+      "score": 0.4111111111111111,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "below",
+      "score": 0.40978723404255324,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "open-source clean-room",
+      "score": 0.4071327561327561,
+      "breadth_component": 0.2,
+      "growth_component": 0.5454545454545454,
+      "sources_json": "[\"github\"]"
+    },
+    {
+      "term": "mathematics",
+      "score": 0.40308,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "@ai-sdk/react",
+      "score": 0.40222222222222226,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "automation",
+      "score": 0.40167,
+      "breadth_component": 0.2,
+      "growth_component": 0.5,
+      "sources_json": "[\"npm_downloads\"]"
+    },
+    {
+      "term": "carrie",
+      "score": 0.40063,
+      "breadth_component": 0.2,
+      "growth_component": 0.44999999999999996,
+      "sources_json": "[\"wikipedia_pageviews\"]"
+    },
+    {
+      "term": "elizabeth holmes",
+      "score": 0.39843971631205677,
+      "breadth_component": 0.4,
+      "growth_component": 0.5,
+      "sources_json": "[\"hackernews\", \"wikipedia_pageviews\"]"
+    }
+  ],
+  "product_ideas": []
+}
