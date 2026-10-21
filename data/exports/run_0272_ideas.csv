@@ -1,0 +1,3 @@
+title,format,demand_score,rationale,product_file_path,product_status
+Inference Framework: Developer Quickstart & SOP,sop,0.36010582010582015,Developer-tool keyword; a standard operating procedure / quickstart guide reduces onboarding friction.,data/exports/products/0038-inference-framework-developer-quickstart-sop.md,draft
+Framework For Deepseek: Developer Quickstart & SOP,sop,0.36010582010582015,Developer-tool keyword; a standard operating procedure / quickstart guide reduces onboarding friction.,data/exports/products/0039-framework-for-deepseek-developer-quickstart-sop.md,draft
