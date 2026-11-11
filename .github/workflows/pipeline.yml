@@ -20,7 +20,7 @@ env:
 
 jobs:
   run-pipeline:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # 11.11.2026: ubuntu-latest = 26.04 ma novy aspell-sk, ktory nepozna superlativy naj-
     steps:
       - uses: actions/checkout@v4
 
@@ -183,7 +183,7 @@ jobs:
 
   deploy-pages:
     needs: run-pipeline
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # 11.11.2026: ubuntu-latest = 26.04 ma novy aspell-sk, ktory nepozna superlativy naj-
     permissions:
       pages: write
       id-token: write
